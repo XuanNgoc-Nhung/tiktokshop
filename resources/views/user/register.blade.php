@@ -25,7 +25,7 @@
     </div>
 
     <!-- Register Form -->
-    <form method="POST" action="{{ route('register.store') }}" id="registerForm" novalidate autocomplete="off">
+    <form id="registerForm" novalidate autocomplete="off">
         @csrf
         
         @if($errors->has('register'))
@@ -47,7 +47,6 @@
                 autocapitalize="none"
                 autocorrect="off"
                 spellcheck="false"
-                required
             >
             <label class="form-label" for="full_name">{{ __('auth.full_name') }}</label>
             @error('full_name')
@@ -68,7 +67,6 @@
                 autocapitalize="none"
                 autocorrect="off"
                 spellcheck="false"
-                required
             >
             <label class="form-label" for="phone">{{ __('auth.phone_number') }}</label>
             @error('phone')
@@ -86,7 +84,9 @@
                     class="form-input" 
                     placeholder=" "
                     autocomplete="new-password"
-                    required
+                    autocapitalize="none"
+                    autocorrect="off"
+                    spellcheck="false"
                 >
                 <label class="form-label" for="password">{{ __('auth.password') }}</label>
                 <button type="button" class="password-toggle" onclick="togglePassword('password')">
@@ -108,7 +108,9 @@
                     class="form-input" 
                     placeholder=" "
                     autocomplete="new-password"
-                    required
+                    autocapitalize="none"
+                    autocorrect="off"
+                    spellcheck="false"
                 >
                 <label class="form-label" for="password_confirmation">{{ __('auth.confirm_password') }}</label>
                 <button type="button" class="password-toggle" onclick="togglePassword('password_confirmation')">
@@ -143,7 +145,7 @@
         <!-- Terms and Conditions -->
         <div class="form-group">
             <div class="checkbox-group">
-                <input type="checkbox" id="agree_terms" name="agree_terms" class="checkbox" required>
+                <input type="checkbox" id="agree_terms" name="agree_terms" class="checkbox">
                 <label for="agree_terms" class="checkbox-label">{{ __('auth.agree_terms') }}</label>
             </div>
             @error('agree_terms')
@@ -165,140 +167,6 @@
 </div>
 
 <script>
-    // Global toast control state
-    window.__toastState = {
-        lastKey: '',
-        lastAt: 0,
-        suppressBlurToasts: false
-    };
-    // Ensure toast function exists (fallback if layout script not yet loaded)
-    if (typeof window.showToast !== 'function') {
-        window.showToast = function(type, title, message) {
-            console.log('[Toast:FALLBACK]', { type, title, message });
-            // De-duplicate within 800ms
-            const key = `${type}|${title}|${message}`;
-            const now = Date.now();
-            if (window.__toastState && window.__toastState.lastKey === key && (now - window.__toastState.lastAt) < 800) {
-                return;
-            }
-            if (window.__toastState) { window.__toastState.lastKey = key; window.__toastState.lastAt = now; }
-            // Clear bootstrap container if exists to ensure single toast
-            const bs = document.getElementById('bsToastContainer');
-            if (bs) while (bs.firstChild) bs.removeChild(bs.firstChild);
-            let container = document.getElementById('toastContainer');
-            if (!container) {
-                container = document.createElement('div');
-                container.id = 'toastContainer';
-                container.style.position = 'fixed';
-                container.style.top = '20px';
-                container.style.right = '20px';
-                container.style.zIndex = '9999';
-                document.body.appendChild(container);
-            }
-            // Ensure only one fallback toast
-            while (container.firstChild) container.removeChild(container.firstChild);
-            const toast = document.createElement('div');
-            toast.className = 'toast ' + (type || 'error');
-            toast.style.background = 'white';
-            toast.style.borderRadius = '12px';
-            toast.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
-            toast.style.marginBottom = '10px';
-            toast.style.padding = '16px';
-            toast.style.display = 'flex';
-            toast.style.alignItems = 'center';
-            toast.style.borderLeft = '4px solid';
-            toast.style.minWidth = '300px';
-            if (type === 'success') toast.style.borderLeftColor = '#28a745';
-            else if (type === 'warning') toast.style.borderLeftColor = '#ffc107';
-            else if (type === 'info') toast.style.borderLeftColor = '#17a2b8';
-            else toast.style.borderLeftColor = '#dc3545';
-            toast.innerHTML = `
-                <div style="margin-right:12px;font-weight:700;">${title || ''}</div>
-                <div style="flex:1;color:#666;">${message || ''}</div>
-            `;
-            container.appendChild(toast);
-            setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 4000);
-        }
-    }
-
-    // Override to use Bootstrap Toast after all scripts loaded
-    window.addEventListener('load', function() {
-        try {
-            if (!window.bootstrap || !window.bootstrap.Toast) return;
-
-            window.showToast = function(type, title, message) {
-                // De-duplicate within 800ms
-                const key = `${type}|${title}|${message}`;
-                const now = Date.now();
-                if (window.__toastState && window.__toastState.lastKey === key && (now - window.__toastState.lastAt) < 800) {
-                    return;
-                }
-                if (window.__toastState) { window.__toastState.lastKey = key; window.__toastState.lastAt = now; }
-                const containerId = 'bsToastContainer';
-                let container = document.getElementById(containerId);
-                if (!container) {
-                    container = document.createElement('div');
-                    container.id = containerId;
-                    container.style.position = 'fixed';
-                    container.style.top = '16px';
-                    container.style.left = '50%';
-                    container.style.transform = 'translateX(-50%)';
-                    container.style.zIndex = '1080';
-                    container.style.pointerEvents = 'none';
-                    container.setAttribute('aria-live', 'polite');
-                    container.setAttribute('aria-atomic', 'true');
-                    document.body.appendChild(container);
-                }
-                // Only one toast at a time
-                while (container.firstChild) {
-                    container.removeChild(container.firstChild);
-                }
-                // Also clear fallback container if present
-                const fb = document.getElementById('toastContainer');
-                if (fb) while (fb.firstChild) fb.removeChild(fb.firstChild);
-
-                const typeClasses = {
-                    success: { bg: 'bg-success', icon: '✅' },
-                    error:   { bg: 'bg-danger',  icon: '⚠️' },
-                    warning: { bg: 'bg-warning', icon: '⚠️' },
-                    info:    { bg: 'bg-info',    icon: 'ℹ️' }
-                };
-                const cfg = typeClasses[type] || typeClasses.info;
-
-                const toastEl = document.createElement('div');
-                toastEl.className = `toast align-items-center show text-white border-0 shadow rounded-3 ${cfg.bg}`;
-                toastEl.setAttribute('role', 'alert');
-                toastEl.setAttribute('aria-live', 'assertive');
-                toastEl.setAttribute('aria-atomic', 'true');
-                toastEl.style.minWidth = '320px';
-                toastEl.style.pointerEvents = 'auto';
-                toastEl.style.padding = '8px 12px';
-                toastEl.innerHTML = `
-                    <div class="toast-body d-flex align-items-center gap-2 w-100 justify-content-between" style="font-weight:500;">
-                        <div class="d-flex align-items-center gap-2" style="flex:1 1 auto; min-width:0;">
-                            <span style="font-size:16px; flex:0 0 auto;">${cfg.icon}</span>
-                            <div style="line-height:1.3; overflow:hidden; text-overflow:ellipsis;">
-                                <div style="font-size:14px;">${title || ''}</div>
-                                <div style="font-size:13px;opacity:.95;">${message || ''}</div>
-                            </div>
-                        </div>
-                        <button type="button" class="btn-close btn-close-white" style="margin-left:auto;" data-bs-dismiss="toast" aria-label="Close"></button>
-                    </div>
-                `;
-
-                container.appendChild(toastEl);
-                const toast = new window.bootstrap.Toast(toastEl, { delay: 3000, autohide: true });
-                toast.show();
-
-                toastEl.addEventListener('hidden.bs.toast', function() {
-                    if (toastEl && toastEl.parentNode) toastEl.parentNode.removeChild(toastEl);
-                });
-            }
-        } catch (err) {
-            console.error('[Toast Override] Failed to initialize Bootstrap toast', err);
-        }
-    });
-
     // Haptic feedback simulation
     function hapticFeedback() {
         if ('vibrate' in navigator) {

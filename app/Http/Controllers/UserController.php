@@ -130,16 +130,25 @@ class UserController extends Controller
 
             $credentials = $request->only('phone', 'password');
             
-            // Demo validation (replace with actual authentication logic)
-            if ($credentials['phone'] === '0123456789' && $credentials['password'] === '123456') {
-                // Simulate successful login
-                session(['user_logged_in' => true, 'user_phone' => $credentials['phone']]);
+            // Find user by phone and verify password
+            $user = User::findByPhone($credentials['phone']);
+            
+            if ($user && Hash::check($credentials['password'], $user->password)) {
+                // Use Auth::login() to properly authenticate the user
+                Auth::login($user);
                 
                 if ($request->expectsJson()) {
                     return response()->json([
                         'success' => true,
                         'message' => LanguageHelper::getUserTranslation('login_success'),
-                        'redirect' => route('dashboard')
+                        'redirect' => route('dashboard'),
+                        'user' => [
+                            'id' => $user->id,
+                            'name' => $user->name,
+                            'phone' => $user->phone,
+                            'email' => $user->email,
+                            'role' => $user->role ?? 'user'
+                        ]
                     ]);
                 }
                 
@@ -177,16 +186,26 @@ class UserController extends Controller
 
     public function dashboard()
     {
-        if (!session('user_logged_in')) {
+        if (!Auth::check()) {
             return redirect()->route('login')->with('error', LanguageHelper::getUserTranslation('fill_all_fields'));
         }
         
-        return view('user.dashboard');
+        // Get authenticated user data
+        $user = Auth::user();
+        $userData = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'phone' => $user->phone,
+            'email' => $user->email,
+            'role' => $user->role ?? 'user'
+        ];
+        
+        return view('user.dashboard', compact('userData'));
     }
 
     public function logout()
     {
-        session()->forget(['user_logged_in', 'user_phone']);
+        Auth::logout();
         return redirect()->route('login')->with('success', LanguageHelper::getUserTranslation('logout_success'));
     }
 }

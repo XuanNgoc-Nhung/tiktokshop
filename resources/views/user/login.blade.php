@@ -30,7 +30,7 @@
     </div>
 
     <!-- Login Form -->
-    <form method="POST" action="{{ route('login.authenticate') }}" id="loginForm">
+    <form id="loginForm" novalidate>
         @csrf
         
         @if($errors->has('login'))
@@ -64,7 +64,10 @@
                 class="form-input" 
                 placeholder=" "
                 value="{{ old('phone') }}"
-                required
+                autocomplete="off"
+                autocapitalize="none"
+                autocorrect="off"
+                spellcheck="false"
             >
             <label class="form-label" for="phone">{{ __('auth.phone_number') }}</label>
             @error('phone')
@@ -81,7 +84,10 @@
                     name="password" 
                     class="form-input" 
                     placeholder=" "
-                    required
+                    autocomplete="off"
+                    autocapitalize="none"
+                    autocorrect="off"
+                    spellcheck="false"
                 >
                 <label class="form-label" for="password">{{ __('auth.password') }}</label>
                 <button type="button" class="password-toggle" onclick="togglePassword()">
@@ -182,19 +188,39 @@
     }
 
     // Form validation with native-like feedback and AJAX
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        const phone = document.getElementById('phone').value;
-        const password = document.getElementById('password').value;
-        const remember = document.getElementById('remember').checked;
+        const phoneInput = document.getElementById('phone');
+        const passwordInput = document.getElementById('password');
+        const rememberInput = document.getElementById('remember');
+        
+        const phone = phoneInput.value.trim();
+        const password = passwordInput.value;
+        const remember = rememberInput.checked;
+        
+        console.log('[Login] Submit initiated', {
+            phonePresent: !!phone,
+            passwordLength: password.length,
+            remember
+        });
+        
+        // Reset visual error states
+        [phoneInput, passwordInput].forEach(el => {
+            el.style.borderColor = '#d1d1d6';
+        });
         
         // Clear previous errors
         clearErrors();
         
+        // Check required fields
         if (!phone || !password) {
             hapticFeedback();
-            showToast('error', 'Lỗi đăng nhập', '{{ __("auth.fill_all_fields") }}');
+            const missingField = !phone ? '{{ __("auth.phone_number") }}' : '{{ __("auth.password") }}';
+            showToast('error', '{{ __("auth.login") }}', '{{ __("auth.please_complete") }}: ' + missingField);
+            const targetInput = !phone ? phoneInput : passwordInput;
+            targetInput.style.borderColor = '#ff3b30';
+            targetInput.focus();
             return;
         }
         
@@ -202,7 +228,9 @@
         const phoneRegex = /^(\+84|84|0)[1-9][0-9]{8,9}$/;
         if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
             hapticFeedback();
-            showToast('error', 'Lỗi đăng nhập', '{{ __("auth.invalid_phone") }}');
+            showToast('error', '{{ __("auth.login") }}', '{{ __("auth.invalid_phone") }}');
+            phoneInput.style.borderColor = '#ff3b30';
+            phoneInput.focus();
             return;
         }
         
@@ -212,49 +240,64 @@
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>{{ __("auth.logging_in") }}';
         submitBtn.disabled = true;
         
-        // Prepare form data
-        const formData = new FormData(this);
-        const data = {
-            phone: phone,
-            password: password,
-            remember: remember
-        };
-        
-        // Send AJAX request
-        fetch('{{ route("login.authenticate") }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                showToast('success', 'Đăng nhập thành công', data.message || 'Chào mừng bạn đến với TikTok Shop!');
+        try {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const payload = {
+                phone: phone,
+                password: password,
+                remember: remember ? 1 : 0
+            };
+            console.log('[Login] Payload', { ...payload, password: '***' });
+
+            const response = await window.axios.post('{{ route("login.authenticate") }}', payload, {
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                }
+            });
+            
+            console.log('[Login] Response', response.data);
+            
+            if (response.data.success) {
+                showToast('success', '{{ __("auth.login") }}', response.data.message || '{{ __("auth.login_success") }}');
                 setTimeout(() => {
-                    window.location.href = data.redirect || '{{ route("dashboard") }}';
+                    window.location.href = response.data.redirect || '{{ route("dashboard") }}';
                 }, 1500);
             } else {
-                if (data.errors) {
-                    // Display validation errors
-                    displayErrors(data.errors);
-                } else {
-                    showToast('error', 'Đăng nhập thất bại', data.message || 'Có lỗi xảy ra khi đăng nhập');
-                }
+                showToast('error', '{{ __("auth.login") }}', response.data.message || '{{ __("auth.login_failed") }}');
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showToast('error', 'Lỗi kết nối', 'Không thể kết nối đến server');
-        })
-        .finally(() => {
+            
+        } catch (error) {
+            console.error('[Login] Error', error);
+            if (error.response) {
+                const data = error.response.data || {};
+                // Laravel validation errors format
+                if (data.errors) {
+                    const firstField = Object.keys(data.errors)[0];
+                    const firstMsg = data.errors[firstField][0];
+                    showToast('error', '{{ __("auth.login") }}', firstMsg || '{{ __("auth.error") }}');
+                    
+                    // Highlight the field with error
+                    if (firstField === 'phone') {
+                        phoneInput.style.borderColor = '#ff3b30';
+                        phoneInput.focus();
+                    } else if (firstField === 'password') {
+                        passwordInput.style.borderColor = '#ff3b30';
+                        passwordInput.focus();
+                    }
+                } else if (data.message) {
+                    showToast('error', '{{ __("auth.login") }}', data.message);
+                } else {
+                    showToast('error', '{{ __("auth.login") }}', 'Request failed');
+                }
+            } else {
+                showToast('error', '{{ __("auth.login") }}', 'Network error');
+            }
+        } finally {
             // Reset button state
             submitBtn.innerHTML = originalBtnText;
             submitBtn.disabled = false;
-        });
+        }
     });
     
     // Function to display validation errors
@@ -283,7 +326,7 @@
     function clearErrors() {
         const inputs = document.querySelectorAll('input');
         inputs.forEach(input => {
-            input.style.borderColor = '';
+            input.style.borderColor = '#d1d1d6';
             const errorDiv = input.parentNode.querySelector('.error-message');
             if (errorDiv) {
                 errorDiv.remove();
@@ -329,6 +372,49 @@
         }
         e.target.value = value;
     });
+
+    // Real-time validation for login form
+    (function() {
+        const phoneInput = document.getElementById('phone');
+        const passwordInput = document.getElementById('password');
+        const phoneRegex = /^(\+84|84|0)[1-9][0-9]{8,9}$/;
+
+        phoneInput.addEventListener('blur', function() {
+            const value = phoneInput.value.trim();
+            if (!value) {
+                console.warn('[Login][Blur] Phone missing');
+                phoneInput.style.borderColor = '#ff3b30';
+                return;
+            }
+            if (!phoneRegex.test(value.replace(/\s/g, ''))) {
+                console.warn('[Login][Blur] Phone invalid', { phone: value });
+                phoneInput.style.borderColor = '#ff3b30';
+            } else {
+                console.log('[Login][Blur] Phone OK');
+                phoneInput.style.borderColor = '#d1d1d6';
+            }
+        });
+
+        passwordInput.addEventListener('blur', function() {
+            const value = passwordInput.value;
+            if (!value) {
+                console.warn('[Login][Blur] Password missing');
+                passwordInput.style.borderColor = '#ff3b30';
+            } else {
+                console.log('[Login][Blur] Password OK');
+                passwordInput.style.borderColor = '#d1d1d6';
+            }
+        });
+
+        // Clear error styling on input
+        [phoneInput, passwordInput].forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.style.borderColor === 'rgb(255, 59, 48)') {
+                    this.style.borderColor = '#d1d1d6';
+                }
+            });
+        });
+    })();
 
 </script>
 @endsection

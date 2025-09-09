@@ -48,4 +48,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Find user by phone for authentication
+     */
+    public static function findByPhone($phone)
+    {
+        return static::where('phone', $phone)->first();
+    }
 }
