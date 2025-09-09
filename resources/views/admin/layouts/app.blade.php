@@ -765,7 +765,7 @@
                     <div class="language-selector dropdown">
                         <button class="language-btn" id="languageBtn">
                             <i class="fas fa-globe"></i>
-                            <span id="currentLanguage">{{ app()->getLocale() == 'vi' ? 'VI' : 'EN' }}</span>
+                            <span id="currentLanguage">{{ ['vi'=>'VI','en'=>'EN','zh'=>'ZH','ja'=>'JA','bn'=>'BN'][app()->getLocale()] ?? strtoupper(app()->getLocale()) }}</span>
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <div class="dropdown-menu" id="languageMenu">
@@ -903,7 +903,7 @@
                             'ja': 'JA',
                             'bn': 'BN'
                         };
-                        currentLang.textContent = langMap[lang] || 'VI';
+                        currentLang.textContent = langMap[lang] || (lang ? lang.toUpperCase() : 'EN');
                         
                         console.log('Language changed successfully, reloading page...');
                         
@@ -913,13 +913,13 @@
                         }, 300);
                     } else {
                         console.error('Language change failed:', data.message);
-                        currentLang.textContent = '{{ app()->getLocale() == "vi" ? "VI" : "EN" }}';
+                        currentLang.textContent = '{{ ['vi'=>'VI','en'=>'EN','zh'=>'ZH','ja'=>'JA','bn'=>'BN'][app()->getLocale()] ?? strtoupper(app()->getLocale()) }}';
                         alert('Failed to change language: ' + data.message);
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    currentLang.textContent = '{{ app()->getLocale() == "vi" ? "VI" : "EN" }}';
+                    currentLang.textContent = '{{ ['vi'=>'VI','en'=>'EN','zh'=>'ZH','ja'=>'JA','bn'=>'BN'][app()->getLocale()] ?? strtoupper(app()->getLocale()) }}';
                     alert('Error changing language: ' + error.message);
                 });
             });
