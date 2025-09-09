@@ -8,6 +8,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.8/dist/axios.min.js"></script>
+    <script>
+        if (window.axios) {
+            window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        }
+    </script>
     <style>
         * {
             margin: 0;
@@ -17,6 +23,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14px;
             background: #f8f9fa;
             min-height: 100vh;
             padding: 0;
@@ -674,7 +681,7 @@
             border-top: 1px solid #e5e5e7;
             display: flex;
             justify-content: space-around;
-            padding: 8px 0 env(safe-area-inset-bottom, 8px) 0;
+            padding: 12px 0 env(safe-area-inset-bottom, 12px) 0;
             z-index: 1000;
             box-shadow: 0 -2px 8px rgba(244, 208, 63, 0.2);
         }
@@ -687,7 +694,7 @@
             color: #8b4513;
             text-decoration: none;
             transition: all 0.2s ease;
-            font-size: 10px;
+            font-size: 14px;
             font-weight: 600;
         }
 
@@ -702,7 +709,7 @@
         }
 
         .nav-item i {
-            font-size: 20px;
+            font-size: 22px;
             margin-bottom: 4px;
         }
 

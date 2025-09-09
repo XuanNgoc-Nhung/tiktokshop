@@ -45,4 +45,5 @@ return [
     'logout_success' => '退出成功！',
     'invalid_credentials' => '电话号码或密码错误',
     'error' => '发生错误',
+    'phone_exists' => '电话号码已存在',
 ];

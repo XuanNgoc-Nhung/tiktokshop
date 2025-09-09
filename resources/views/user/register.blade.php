@@ -335,7 +335,7 @@
 
 
     // Form validation with toast feedback
-    document.getElementById('registerForm').addEventListener('submit', function(e) {
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
         // Suppress blur toasts triggered by submit click/blur
         window.__toastState.suppressBlurToasts = true;
         setTimeout(() => { window.__toastState.suppressBlurToasts = false; }, 1000);
@@ -427,6 +427,54 @@
         }
 
         console.log('[Register] Client-side validation passed, submitting to server');
+        e.preventDefault();
+
+        try {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const payload = {
+                full_name: fullName,
+                phone: phone,
+                password: password,
+                password_confirmation: passwordConfirmation,
+                referral_code: document.getElementById('referral_code')?.value || '',
+                agree_terms: agreeTerms ? 1 : 0,
+            };
+            console.log('[Register] Payload', { ...payload, password: '***', password_confirmation: '***' });
+
+            const response = await window.axios.post(`{{ route('register.store') }}`, payload, {
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                }
+            });
+            console.log('[Register] Response', response.data);
+            if (response.data.success) {
+                showToast('success', '{{ __("auth.register") }}', '{{ __("auth.registration_success") }}');
+                setTimeout(() => { window.location.href = `{{ route('login') }}`; }, 3000);
+            } else {
+                showToast('error', '{{ __("auth.register") }}', response.data.message);
+            }
+
+            console.log('[Register] Success', response.data);
+            
+        } catch (error) {
+            console.error('[Register] Error', error);
+            if (error.response) {
+                const data = error.response.data || {};
+                // Laravel validation errors format
+                if (data.errors) {
+                    const firstField = Object.keys(data.errors)[0];
+                    const firstMsg = data.errors[firstField][0];
+                    showToast('error', '{{ __("auth.error") }}', firstMsg || '{{ __("auth.error") }}');
+                } else if (data.message) {
+                    showToast('error', '{{ __("auth.error") }}', data.message);
+                } else {
+                    showToast('error', '{{ __("auth.error") }}', 'Request failed');
+                }
+            } else {
+                showToast('error', '{{ __("auth.error") }}', 'Network error');
+            }
+        }
     });
 
     // Auto-format phone number

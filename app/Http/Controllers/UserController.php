@@ -41,7 +41,7 @@ class UserController extends Controller
             'phone.required' => LanguageHelper::getUserTranslation('fill_all_fields'),
             'phone.min' => LanguageHelper::getUserTranslation('invalid_phone'),
             'phone.max' => LanguageHelper::getUserTranslation('invalid_phone'),
-            'phone.unique' => LanguageHelper::getUserTranslation('invalid_phone'),
+            'phone.unique' => LanguageHelper::getUserTranslation('phone_exists'),
             'password.required' => LanguageHelper::getUserTranslation('fill_all_fields'),
             'password.min' => LanguageHelper::getUserTranslation('fill_all_fields'),
             'password_confirmation.required' => LanguageHelper::getUserTranslation('fill_all_fields'),
@@ -52,6 +52,14 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if ($request->expectsJson()) {
+                $firstMessage = $validator->errors()->first();
+                return response()->json([
+                    'success' => false,
+                    'message' => $firstMessage,
+                    'errors' => $validator->errors()
+                ]);
+            }
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput($request->except(['password', 'password_confirmation']));
@@ -68,10 +76,24 @@ class UserController extends Controller
                 'email' => $request->phone . '@tiktokshop.local', // Demo email
             ]);
 
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => LanguageHelper::getUserTranslation('registration_success'),
+                    'redirect' => route('login')
+                ]);
+            }
             return redirect()->route('login')
                 ->with('success', LanguageHelper::getUserTranslation('registration_success'))
                 ->with('registered_phone', $request->phone);
         } catch (\Exception $e) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => LanguageHelper::getUserTranslation('error'),
+                    'error' => $e->getMessage()
+                ], 500);
+            }
             return redirect()->back()
                 ->withErrors(['register' => LanguageHelper::getUserTranslation('error')])
                 ->withInput($request->except(['password', 'password_confirmation']));
@@ -94,9 +116,10 @@ class UserController extends Controller
 
             if ($validator->fails()) {
                 if ($request->expectsJson()) {
+                    $firstMessage = $validator->errors()->first();
                     return response()->json([
                         'success' => false,
-                        'message' => LanguageHelper::getUserTranslation('error'),
+                        'message' => $firstMessage,
                         'errors' => $validator->errors()
                     ], 422);
                 }

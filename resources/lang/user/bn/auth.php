@@ -45,4 +45,5 @@ return [
     'logout_success' => 'লগআউট সফল!',
     'invalid_credentials' => 'ভুল ফোন নম্বর বা পাসওয়ার্ড',
     'error' => 'একটি ত্রুটি ঘটেছে',
+    'phone_exists' => 'ফোন নম্বরটি ইতিমধ্যেই রয়েছে',
 ];

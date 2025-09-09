@@ -45,4 +45,5 @@ return [
     'logout_success' => 'Logout successful!',
     'invalid_credentials' => 'Invalid phone number or password',
     'error' => 'An error occurred',
+    'phone_exists' => 'Phone number already exists',
 ];

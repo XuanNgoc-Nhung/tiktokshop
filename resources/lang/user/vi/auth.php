@@ -41,9 +41,10 @@ return [
     'login_now' => 'Đăng Nhập Ngay',
     'password_mismatch' => 'Mật khẩu không khớp',
     'terms_required' => 'Vui lòng đồng ý với điều khoản và điều kiện',
-    'registration_success' => 'Đăng ký thành công! Vui lòng đăng nhập.',
+    'registration_success' => 'Đăng ký thành công, bạn có thể đăng nhập',
     'login_success' => 'Đăng nhập thành công!',
     'logout_success' => 'Đăng xuất thành công!',
     'invalid_credentials' => 'Số điện thoại hoặc mật khẩu không đúng',
     'error' => 'Có lỗi xảy ra',
+    'phone_exists' => 'Số điện thoại đã tồn tại',
 ];
