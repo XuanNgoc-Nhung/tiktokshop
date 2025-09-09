@@ -47,4 +47,5 @@ return [
     'invalid_credentials' => 'Số điện thoại hoặc mật khẩu không đúng',
     'error' => 'Có lỗi xảy ra',
     'phone_exists' => 'Số điện thoại đã tồn tại',
+    
 ];

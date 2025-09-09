@@ -46,4 +46,5 @@ return [
     'invalid_credentials' => '電話番号またはパスワードが正しくありません',
     'error' => 'エラーが発生しました',
     'phone_exists' => '電話番号は既に存在します',
+    
 ];

@@ -46,4 +46,5 @@ return [
     'invalid_credentials' => 'Invalid phone number or password',
     'error' => 'An error occurred',
     'phone_exists' => 'Phone number already exists',
+    
 ];

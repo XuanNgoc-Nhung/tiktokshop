@@ -104,6 +104,43 @@ class LanguageHelper
     }
 
     /**
+     * Get translation from specific file (e.g., home, auth, etc.)
+     */
+    public static function getTranslationFromFile($file, $key, $type = 'user', $locale = null, $replace = [])
+    {
+        $locale = $locale ?: app()->getLocale();
+        
+        // Determine the path based on type using namespace
+        if ($type === 'admin') {
+            $translation = __("admin::{$file}.{$key}", $replace);
+            
+            // If translation not found, try user as fallback
+            if ($translation === "admin::{$file}.{$key}") {
+                $translation = __("user::{$file}.{$key}", $replace);
+            }
+            
+            // If still not found, try the old path as final fallback
+            if ($translation === "user::{$file}.{$key}") {
+                $translation = __("{$file}.{$key}", $replace);
+            }
+        } else {
+            $translation = __("user::{$file}.{$key}", $replace);
+            
+            // If translation not found, try admin as fallback
+            if ($translation === "user::{$file}.{$key}") {
+                $translation = __("admin::{$file}.{$key}", $replace);
+            }
+            
+            // If still not found, try the old path as final fallback
+            if ($translation === "admin::{$file}.{$key}") {
+                $translation = __("{$file}.{$key}", $replace);
+            }
+        }
+        
+        return $translation;
+    }
+
+    /**
      * Get admin translation
      */
     public static function getAdminTranslation($key, $locale = null, $replace = [])
@@ -117,6 +154,22 @@ class LanguageHelper
     public static function getUserTranslation($key, $locale = null, $replace = [])
     {
         return self::getTranslation($key, 'user', $locale, $replace);
+    }
+
+    /**
+     * Get home translation for user
+     */
+    public static function getHomeTranslation($key, $locale = null, $replace = [])
+    {
+        return self::getTranslationFromFile('home', $key, 'user', $locale, $replace);
+    }
+
+    /**
+     * Get home translation for admin
+     */
+    public static function getAdminHomeTranslation($key, $locale = null, $replace = [])
+    {
+        return self::getTranslationFromFile('home', $key, 'admin', $locale, $replace);
     }
 
     /**

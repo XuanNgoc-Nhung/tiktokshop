@@ -1,55 +1,711 @@
+@php
+    use App\Helpers\LanguageHelper;
+    $__ = [LanguageHelper::class, 'getUserTranslation'];
+    $__home = [LanguageHelper::class, 'getHomeTranslation'];
+@endphp
+
 @extends('user.layouts.app')
 
-@section('title', 'Dashboard - TikTok Shop')
+@section('title', $__home('dashboard') . ' - ' . $__('tiktok_shop'))
 
 @section('content')
-<div class="container">
-    <div class="header">
-        <div class="logo">
-            <div class="logo-icon">
-                <i class="fas fa-shopping-bag"></i>
+<!-- Navigation Header -->
+<div class="nav-header">
+    <button class="nav-button" onclick="goBack()">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <div class="nav-title">{{ $__home('dashboard') }}</div>
+    <x-user.language-switcher />
+</div>
+
+<div class="container-fluid px-0">
+    <!-- Banner Carousel -->
+    <div class="banner-carousel-container mb-3 px-3 pt-3">
+        <div class="banner-carousel" id="bannerCarousel">
+            <!-- Slide 1 -->
+            <div class="banner-slide active">
+                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                     alt="Shopping Mall" 
+                     class="banner-image">
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <h3 class="banner-title">{{ $__home('discover_tiktok_shop') }}</h3>
+                        <p class="banner-subtitle">{{ $__home('smart_shopping_max_savings') }}</p>
+                    </div>
+                </div>
             </div>
-            TikTok Shop
+            
+            <!-- Slide 2 -->
+            <div class="banner-slide">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                     alt="Fashion Store" 
+                     class="banner-image">
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <h3 class="banner-title">{{ $__home('attractive_offers') }}</h3>
+                        <p class="banner-subtitle">{{ $__home('discount_up_to_50') }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="banner-slide">
+                <img src="https://images.unsplash.com/photo-1556742111-a301076d9d18?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                     alt="Tech Gadgets" 
+                     class="banner-image">
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <h3 class="banner-title">{{ $__home('advanced_technology') }}</h3>
+                        <p class="banner-subtitle">{{ $__home('amazing_shopping_experience') }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 4 -->
+            <div class="banner-slide">
+                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                     alt="Beauty Products" 
+                     class="banner-image">
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <h3 class="banner-title">{{ $__home('modern_fashion') }}</h3>
+                        <p class="banner-subtitle">{{ $__home('latest_trends_2024') }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 5 -->
+            <div class="banner-slide">
+                <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                     alt="Lifestyle Products" 
+                     class="banner-image">
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <h3 class="banner-title">{{ $__home('lifestyle') }}</h3>
+                        <p class="banner-subtitle">{{ $__home('elevate_your_life') }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="user-info">
-            <span>Xin chào, {{ session('user_phone') }}</span>
-            <form method="POST" action="{{ route('logout') }}" style="display: inline;">
-                @csrf
-                <button type="submit" style="background: none; border: none; color: #4ecdc4; cursor: pointer; margin-left: 10px;">
-                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
-                </button>
-            </form>
+        
+        <!-- Navigation Dots -->
+        <div class="banner-dots">
+            <span class="banner-dot active" data-slide="0"></span>
+            <span class="banner-dot" data-slide="1"></span>
+            <span class="banner-dot" data-slide="2"></span>
+            <span class="banner-dot" data-slide="3"></span>
+            <span class="banner-dot" data-slide="4"></span>
+        </div>
+        
+    </div>
+
+    <!-- Navigation Icons -->
+    <div class="d-flex justify-content-around py-3">
+        <div class="nav-icon text-center">
+            <i class="fas fa-credit-card fs-4 d-block mb-2"></i>
+            <span class="small">{{ $__home('recharge') }}</span>
+        </div>
+        <div class="nav-icon text-center">
+            <i class="fas fa-wallet fs-4 d-block mb-2"></i>
+            <span class="small">{{ $__home('withdraw') }}</span>
+        </div>
+        <div class="nav-icon text-center">
+            <i class="fas fa-hand-holding-usd fs-4 d-block mb-2"></i>
+            <span class="small">{{ $__home('invest') }}</span>
+        </div>
+        <div class="nav-icon text-center">
+            <i class="fas fa-headset fs-4 d-block mb-2"></i>
+            <span class="small">{{ $__home('service') }}</span>
+        </div>
+        <div class="nav-icon text-center">
+            <i class="fas fa-bell fs-4 d-block mb-2"></i>
+            <span class="small">{{ $__home('notification') }}</span>
         </div>
     </div>
 
-    <div style="text-align: center; padding: 40px 0;">
-        <div style="font-size: 48px; color: #4ecdc4; margin-bottom: 20px;">
-            <i class="fas fa-check-circle"></i>
+    <!-- Search Bar -->
+    <div class="px-3 mb-3">
+        <div class="input-group rounded-3" style="background: #fce7f3;">
+            <input type="text" class="form-control border-0 bg-transparent" placeholder="{{ $__home('search_placeholder') }}">
+            <span class="input-group-text border-0 bg-transparent">
+                <i class="fas fa-search text-muted"></i>
+            </span>
         </div>
-        <h1 style="color: #2c3e50; margin-bottom: 10px;">Đăng nhập thành công!</h1>
-        <p style="color: #7f8c8d; margin-bottom: 30px;">Chào mừng bạn đến với TikTok Shop</p>
-        
-        <div style="background: rgba(78, 205, 196, 0.1); padding: 20px; border-radius: 12px; margin: 20px 0;">
-            <h3 style="color: #2c3e50; margin-bottom: 15px;">Thông tin tài khoản demo:</h3>
-            <p style="color: #7f8c8d; margin: 5px 0;"><strong>Số điện thoại:</strong> 0123456789</p>
-            <p style="color: #7f8c8d; margin: 5px 0;"><strong>Mật khẩu:</strong> 123456</p>
+    </div>
+
+    <!-- Feature Highlights -->
+    <div class="row g-2 px-3 mb-3">
+        <div class="col-6">
+            <div class="feature-item d-flex align-items-center p-1 bg-white rounded-3 shadow-sm">
+                <div class="feature-icon me-3">
+                    <i class="fas fa-tag"></i>
+                </div>
+                <div class="feature-text flex-grow-1">
+                    <div class="feature-title">{{ $__home('attractive_discounts') }}</div>
+                    <div class="feature-desc">{{ $__home('profit_up_to_35') }}</div>
+                </div>
+            </div>
         </div>
-        
-        <div style="margin-top: 30px;">
-            <a href="{{ route('login') }}" style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #ff6b6b, #ff8e53); color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
-                Quay lại đăng nhập
-            </a>
+        <div class="col-6">
+            <div class="feature-item d-flex align-items-center p-1 bg-white rounded-3 shadow-sm">
+                <div class="feature-icon me-3">
+                    <i class="fas fa-hand-holding-dollar"></i>
+                </div>
+                <div class="feature-text flex-grow-1">
+                    <div class="feature-title">{{ $__home('secure_payment') }}</div>
+                    <div class="feature-desc">{{ $__home('secure_payment_desc') }}</div>
+                </div>
+            </div>
         </div>
+        <div class="col-6">
+            <div class="feature-item d-flex align-items-center p-1 bg-white rounded-3 shadow-sm">
+                <div class="feature-icon me-3">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="feature-text flex-grow-1">
+                    <div class="feature-title">{{ $__home('quick_refund') }}</div>
+                    <div class="feature-desc">{{ $__home('instant_refund') }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="feature-item d-flex align-items-center p-1 bg-white rounded-3 shadow-sm">
+                <div class="feature-icon me-3">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div class="feature-text flex-grow-1">
+                    <div class="feature-title">{{ $__home('support_24_7') }}</div>
+                    <div class="feature-desc">{{ $__home('support_24_7_desc') }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Cards -->
+    <div class="row g-3 px-3 pb-3">
+        @for ($i = 0; $i < 6; $i++)
+        <div class="col-6">
+            <div class="product-card bg-white rounded-3 shadow-sm">
+                <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                     alt="The Mong Village Resort" 
+                     class="w-100 rounded-top-3" 
+                     style="height: 100px; object-fit: cover; border: 1px solid #e9ecef;">
+                <div class="p-2">
+                    <h6 class="product-title mb-1">{{ $__home('product_name') }}</h6>
+                    <div class="d-flex align-items-center justify-content-between mb-1">
+                        <div class="product-price fw-bold">{{ $__home('price') }}</div>
+                        <div class="product-discount text-muted small">{{ $__home('discount') }}</div>
+                    </div>
+                    <div class="product-rating d-flex align-items-center">
+                        <i class="fas fa-star text-warning me-1" style="font-size: 10px;"></i>
+                        <span class="text-muted" style="font-size: 10px;">{{ $__home('rating') }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endfor
     </div>
 </div>
 
 <style>
-    .user-info {
+    /* Banner Carousel Styles */
+    .banner-carousel-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .banner-carousel {
+        position: relative;
+        height: 150px;
+        overflow: hidden;
+    }
+
+    .banner-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
         display: flex;
         align-items: center;
-        gap: 10px;
+        justify-content: center;
+        transform: translateX(0);
+    }
+
+    .banner-slide.active {
+        opacity: 1;
+    }
+
+    .banner-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 5px;
+        transition: transform 0.3s ease;
+    }
+
+    .banner-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .banner-content {
+        text-align: center;
+        color: white;
+        padding: 20px;
+    }
+
+    .banner-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .banner-subtitle {
+        font-size: 16px;
+        font-weight: 400;
+        margin: 0;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Navigation Dots */
+    .banner-dots {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 10;
+    }
+
+    .banner-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .banner-dot.active {
+        background: #ffffff;
+        border: 2px solid #ffffff;
+        transform: scale(1.2);
+    }
+
+    .banner-dot:hover {
+        background: rgba(255, 255, 255, 0.8);
+        transform: scale(1.1);
+    }
+
+    /* Swipe animation classes */
+    .banner-slide.swiping {
+        transition: transform 0.1s ease-out;
+    }
+
+    .banner-slide.swipe-left {
+        transform: translateX(-100%);
+    }
+
+    .banner-slide.swipe-right {
+        transform: translateX(100%);
+    }
+
+    /* Touch feedback */
+    .banner-carousel.touching {
+        cursor: grabbing;
+    }
+
+    .banner-carousel.touching .banner-image {
+        transform: scale(0.98);
+    }
+
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .banner-title {
+            font-size: 20px;
+        }
+        
+        .banner-subtitle {
+            font-size: 14px;
+        }
+    }
+
+    /* Navigation Icons */
+    .nav-icon {
+        color: #0d6efd;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .nav-icon i {
+        font-size: 1.5rem !important;
+    }
+
+    .nav-icon:hover {
+        color: #ff6b6b;
+    }
+
+    /* Feature Items */
+    .feature-item {
+        border: 2px solid #e5e7eb !important;
+        transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+        border-color: #ff8c42 !important;
+        transform: translateY(-1px);
+    }
+
+    /* Feature Icons */
+    .feature-icon {
+        width: 40px;
+        height: 40px;
+        background: #ff8c42;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+
+    .feature-title {
         font-size: 14px;
-        color: #2c3e50;
+        font-weight: 600;
+        color: #ff8c42;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 85%;
+        display: block;
+    }
+
+    .feature-desc {
+        font-size: 12px;
+        color: #000000;
+        max-width: 85%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Product Cards */
+    .product-card {
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+    .product-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+    }
+
+    .product-title {
+        font-size: 13px;
+        font-weight: 500;
+        color: #000000;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-height: 1em;
+    }
+
+    .product-price {
+        font-size: 14px;
+        color: #ff6b6b;
+        font-weight: 600;
+    }
+    
+    .product-discount {
+        font-size: 10px;
+        color: #6b7280;
+    }
+
+    .product-rating {
+        color: #374151;
+    }
+
+    .product-rating .text-muted {
+        color: #6b7280 !important;
+    }
+
+    /* Hide scrollbar for product cards */
+    .overflow-auto::-webkit-scrollbar {
+        display: none;
+    }
+    .overflow-auto {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    /* Remove default focus outline from search input */
+    .form-control:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: transparent !important;
+    }
+
+    /* Search icon cursor pointer */
+    .input-group-text {
+        cursor: pointer;
     }
 </style>
+
+<script>
+    // Haptic feedback simulation
+    function hapticFeedback() {
+        if ('vibrate' in navigator) {
+            navigator.vibrate(10);
+        }
+    }
+
+    // Navigation functions
+    function goBack() {
+        hapticFeedback();
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = '/';
+        }
+    }
+
+    // Banner Carousel functionality
+    class BannerCarousel {
+        constructor() {
+            this.currentSlide = 0;
+            this.slides = document.querySelectorAll('.banner-slide');
+            this.dots = document.querySelectorAll('.banner-dot');
+            this.autoPlayInterval = null;
+            this.autoPlayDelay = 4000; // 4 seconds
+            
+            this.init();
+        }
+
+        init() {
+            this.bindEvents();
+            this.startAutoPlay();
+        }
+
+        bindEvents() {
+            // Dots navigation
+            this.dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    hapticFeedback();
+                    this.stopAutoPlay();
+                    this.goToSlide(index);
+                    this.startAutoPlay();
+                });
+            });
+
+            // Touch/swipe support
+            this.addTouchSupport();
+            
+            // Mouse drag support for desktop
+            this.addMouseSupport();
+
+            // Pause on hover
+            const carousel = document.querySelector('.banner-carousel-container');
+            carousel.addEventListener('mouseenter', () => this.stopAutoPlay());
+            carousel.addEventListener('mouseleave', () => this.startAutoPlay());
+        }
+
+        addTouchSupport() {
+            let startX = 0;
+            let endX = 0;
+            let isDragging = false;
+            let currentX = 0;
+            const carousel = document.querySelector('.banner-carousel');
+
+            carousel.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                currentX = startX;
+                isDragging = true;
+                carousel.classList.add('touching');
+                this.stopAutoPlay();
+            });
+
+            carousel.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                currentX = e.touches[0].clientX;
+                const diff = startX - currentX;
+                const threshold = 30;
+                
+                if (Math.abs(diff) > threshold) {
+                    const activeSlide = this.slides[this.currentSlide];
+                    if (diff > 0) {
+                        activeSlide.classList.add('swipe-left');
+                    } else {
+                        activeSlide.classList.add('swipe-right');
+                    }
+                }
+            });
+
+            carousel.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                endX = e.changedTouches[0].clientX;
+                isDragging = false;
+                carousel.classList.remove('touching');
+                
+                // Remove swipe classes
+                this.slides.forEach(slide => {
+                    slide.classList.remove('swipe-left', 'swipe-right', 'swiping');
+                });
+                
+                this.handleSwipe(startX, endX);
+                this.startAutoPlay();
+            });
+        }
+
+        addMouseSupport() {
+            let startX = 0;
+            let endX = 0;
+            let isDragging = false;
+            let currentX = 0;
+            const carousel = document.querySelector('.banner-carousel');
+
+            carousel.addEventListener('mousedown', (e) => {
+                startX = e.clientX;
+                currentX = startX;
+                isDragging = true;
+                carousel.classList.add('touching');
+                this.stopAutoPlay();
+                e.preventDefault();
+            });
+
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                currentX = e.clientX;
+                const diff = startX - currentX;
+                const threshold = 30;
+                
+                if (Math.abs(diff) > threshold) {
+                    const activeSlide = this.slides[this.currentSlide];
+                    if (diff > 0) {
+                        activeSlide.classList.add('swipe-left');
+                    } else {
+                        activeSlide.classList.add('swipe-right');
+                    }
+                }
+            });
+
+            carousel.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                endX = e.clientX;
+                isDragging = false;
+                carousel.classList.remove('touching');
+                
+                // Remove swipe classes
+                this.slides.forEach(slide => {
+                    slide.classList.remove('swipe-left', 'swipe-right', 'swiping');
+                });
+                
+                this.handleSwipe(startX, endX);
+                this.startAutoPlay();
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    carousel.classList.remove('touching');
+                    this.slides.forEach(slide => {
+                        slide.classList.remove('swipe-left', 'swipe-right', 'swiping');
+                    });
+                    this.startAutoPlay();
+                }
+            });
+        }
+
+        handleSwipe(startX, endX) {
+            const threshold = 50;
+            const diff = startX - endX;
+
+            if (Math.abs(diff) > threshold) {
+                hapticFeedback();
+                
+                // Add swiping class for smooth transition
+                this.slides[this.currentSlide].classList.add('swiping');
+                
+                if (diff > 0) {
+                    this.nextSlide();
+                } else {
+                    this.previousSlide();
+                }
+                
+                // Remove swiping class after transition
+                setTimeout(() => {
+                    this.slides.forEach(slide => {
+                        slide.classList.remove('swiping');
+                    });
+                }, 500);
+            }
+        }
+
+        goToSlide(index) {
+            // Remove active class from current slide and dot
+            this.slides[this.currentSlide].classList.remove('active');
+            this.dots[this.currentSlide].classList.remove('active');
+
+            // Set new current slide
+            this.currentSlide = index;
+
+            // Add active class to new slide and dot
+            this.slides[this.currentSlide].classList.add('active');
+            this.dots[this.currentSlide].classList.add('active');
+        }
+
+        nextSlide() {
+            const nextIndex = (this.currentSlide + 1) % this.slides.length;
+            this.goToSlide(nextIndex);
+        }
+
+        previousSlide() {
+            const prevIndex = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+            this.goToSlide(prevIndex);
+        }
+
+        startAutoPlay() {
+            this.stopAutoPlay();
+            this.autoPlayInterval = setInterval(() => {
+                this.nextSlide();
+            }, this.autoPlayDelay);
+        }
+
+        stopAutoPlay() {
+            if (this.autoPlayInterval) {
+                clearInterval(this.autoPlayInterval);
+                this.autoPlayInterval = null;
+            }
+        }
+    }
+
+    // Initialize carousel when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        new BannerCarousel();
+    });
+</script>
 @endsection
+

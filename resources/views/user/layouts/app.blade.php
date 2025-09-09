@@ -76,7 +76,7 @@
         /* Navigation Header */
         .nav-header {
             background: linear-gradient(135deg, #f4d03f, #f7dc6f);
-            padding: 16px 20px;
+            padding: 5px 20px;
             border-bottom: 1px solid #e5e5e7;
             display: flex;
             align-items: center;
@@ -93,7 +93,7 @@
 
         /* Reserve space for fixed header */
         .content-area {
-            padding-top: calc(70px + env(safe-area-inset-top, 0px));
+            padding-top: calc(40px + env(safe-area-inset-top, 0px));
         }
 
         .nav-title {
