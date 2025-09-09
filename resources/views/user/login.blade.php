@@ -1,6 +1,11 @@
+@php
+    use App\Helpers\LanguageHelper;
+    $__ = [LanguageHelper::class, 'getUserTranslation'];
+@endphp
+
 @extends('user.layouts.app')
 
-@section('title', __('auth.login') . ' - ' . __('auth.tiktok_shop'))
+@section('title', $__('login') . ' - ' . $__('tiktok_shop'))
 
 @section('content')
 <!-- Navigation Header -->
@@ -8,8 +13,8 @@
     <button class="nav-button" onclick="goBack()">
         <i class="fas fa-chevron-left"></i>
     </button>
-    <div class="nav-title">{{ __('auth.login') }}</div>
-    <x-language-selector />
+    <div class="nav-title">{{ $__('login') }}</div>
+    <x-user.language-switcher />
 </div>
 
 <div class="container">
@@ -19,19 +24,35 @@
             <div class="logo-icon">
                 <i class="fas fa-shopping-bag"></i>
             </div>
-            {{ __('auth.tiktok_shop') }}
+            {{ $__('tiktok_shop') }}
         </div>
-        <div class="logo-subtitle">{{ __('auth.smart_shopping') }}</div>
+        <div class="logo-subtitle">{{ $__('smart_shopping') }}</div>
     </div>
 
     <!-- Login Form -->
-    <form method="POST" action="{{ route('login.authenticate') }}">
+    <form method="POST" action="{{ route('login.authenticate') }}" id="loginForm">
         @csrf
         
         @if($errors->has('login'))
             <div style="background: #ffebee; color: #c62828; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px;">
                 {{ $errors->first('login') }}
             </div>
+        @endif
+        
+        @if(session('success'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showToast('success', 'Thành công', '{{ session('success') }}');
+                });
+            </script>
+        @endif
+        
+        @if(session('error'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showToast('error', 'Lỗi', '{{ session('error') }}');
+                });
+            </script>
         @endif
         
         <!-- Phone Number Field -->
@@ -160,27 +181,115 @@
         alert('{{ __("auth.facebook") }} login feature will be implemented');
     }
 
-    // Form validation with native-like feedback
-    document.querySelector('form').addEventListener('submit', function(e) {
+    // Form validation with native-like feedback and AJAX
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
         const phone = document.getElementById('phone').value;
         const password = document.getElementById('password').value;
+        const remember = document.getElementById('remember').checked;
+        
+        // Clear previous errors
+        clearErrors();
         
         if (!phone || !password) {
-            e.preventDefault();
             hapticFeedback();
-            showNativeAlert('{{ __("auth.fill_all_fields") }}');
+            showToast('error', 'Lỗi đăng nhập', '{{ __("auth.fill_all_fields") }}');
             return;
         }
         
         // Basic phone validation for Vietnamese numbers
         const phoneRegex = /^(\+84|84|0)[1-9][0-9]{8,9}$/;
         if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
-            e.preventDefault();
             hapticFeedback();
-            showNativeAlert('{{ __("auth.invalid_phone") }}');
+            showToast('error', 'Lỗi đăng nhập', '{{ __("auth.invalid_phone") }}');
             return;
         }
+        
+        // Show loading state
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>{{ __("auth.logging_in") }}';
+        submitBtn.disabled = true;
+        
+        // Prepare form data
+        const formData = new FormData(this);
+        const data = {
+            phone: phone,
+            password: password,
+            remember: remember
+        };
+        
+        // Send AJAX request
+        fetch('{{ route("login.authenticate") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showToast('success', 'Đăng nhập thành công', data.message || 'Chào mừng bạn đến với TikTok Shop!');
+                setTimeout(() => {
+                    window.location.href = data.redirect || '{{ route("dashboard") }}';
+                }, 1500);
+            } else {
+                if (data.errors) {
+                    // Display validation errors
+                    displayErrors(data.errors);
+                } else {
+                    showToast('error', 'Đăng nhập thất bại', data.message || 'Có lỗi xảy ra khi đăng nhập');
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showToast('error', 'Lỗi kết nối', 'Không thể kết nối đến server');
+        })
+        .finally(() => {
+            // Reset button state
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+        });
     });
+    
+    // Function to display validation errors
+    function displayErrors(errors) {
+        Object.keys(errors).forEach(function(field) {
+            if (field === 'login') {
+                showToast('error', 'Đăng nhập thất bại', errors[field][0]);
+            } else {
+                const input = document.querySelector(`[name="${field}"]`);
+                if (input) {
+                    input.style.borderColor = '#ff3b30';
+                    const errorDiv = input.parentNode.querySelector('.error-message') || 
+                                   document.createElement('div');
+                    if (!errorDiv.classList.contains('error-message')) {
+                        errorDiv.className = 'error-message';
+                        errorDiv.style.cssText = 'color: #ff3b30; font-size: 12px; margin-top: 5px;';
+                        input.parentNode.appendChild(errorDiv);
+                    }
+                    errorDiv.textContent = errors[field][0];
+                }
+            }
+        });
+    }
+    
+    // Function to clear all errors
+    function clearErrors() {
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.style.borderColor = '';
+            const errorDiv = input.parentNode.querySelector('.error-message');
+            if (errorDiv) {
+                errorDiv.remove();
+            }
+        });
+    }
 
     // Native-like alert function
     function showNativeAlert(message) {

@@ -1,43 +1,4 @@
 <?php
 
-return [
-    'login' => 'লগইন',
-    'phone_number' => 'ফোন নম্বর',
-    'password' => 'পাসওয়ার্ড',
-    'remember_me' => 'পাসওয়ার্ড মনে রাখুন',
-    'forgot_password' => 'পাসওয়ার্ড ভুলে গেছেন?',
-    'login_button' => 'লগইন',
-    'or_login_with' => 'অথবা নিচের মাধ্যমে লগইন করুন',
-    'no_account' => 'আপনার অ্যাকাউন্ট নেই?',
-    'register_now' => 'এখনই নিবন্ধন করুন',
-    'google' => 'Google',
-    'facebook' => 'Facebook',
-    'invalid_phone' => 'অবৈধ ফোন নম্বর',
-    'fill_all_fields' => 'সব ক্ষেত্র পূরণ করুন',
-    'language_changed' => 'ভাষা :language এ পরিবর্তন করা হয়েছে',
-    'vietnamese' => 'Tiếng Việt',
-    'english' => 'English',
-    'chinese' => '中文',
-    'japanese' => '日本語',
-    'tiktok_shop' => 'TikTok Shop',
-    'smart_shopping' => 'স্মার্ট শপিং, আরও সাশ্রয়',
-    
-    // Bottom Navigation
-    'home' => 'হোম',
-    'search' => 'অনুসন্ধান',
-    'orders' => 'অর্ডার',
-    'account' => 'অ্যাকাউন্ট',
-    
-    // Register Form
-    'register' => 'নিবন্ধন',
-    'full_name' => 'পূর্ণ নাম',
-    'confirm_password' => 'পাসওয়ার্ড নিশ্চিত করুন',
-    'referral_code' => 'রেফারেল কোড (ঐচ্ছিক)',
-    'agree_terms' => 'আমি শর্তাবলী এবং নিয়মাবলীতে সম্মত',
-    'register_button' => 'নিবন্ধন',
-    'already_have_account' => 'ইতিমধ্যে অ্যাকাউন্ট আছে?',
-    'login_now' => 'এখনই লগইন করুন',
-    'password_mismatch' => 'পাসওয়ার্ড মিলছে না',
-    'terms_required' => 'দয়া করে শর্তাবলী এবং নিয়মাবলীতে সম্মত হন',
-    'registration_success' => 'নিবন্ধন সফল! দয়া করে লগইন করুন।',
-];
+// Redirect to user translations by default
+return require __DIR__ . '/../user/bn/auth.php';

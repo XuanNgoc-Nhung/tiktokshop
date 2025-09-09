@@ -14,6 +14,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\SetLocale::class,
         ]);
+        
+        // Register language middleware
+        $middleware->alias([
+            'language.user' => \App\Http\Middleware\LanguageMiddleware::class,
+            'language.admin' => \App\Http\Middleware\LanguageMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

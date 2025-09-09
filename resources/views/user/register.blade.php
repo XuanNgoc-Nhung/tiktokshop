@@ -9,7 +9,7 @@
         <i class="fas fa-chevron-left"></i>
     </button>
     <div class="nav-title">{{ __('auth.register') }}</div>
-    <x-language-selector />
+    <x-user.language-switcher />
 </div>
 
 <div class="container">

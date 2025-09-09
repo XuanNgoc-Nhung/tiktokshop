@@ -16,7 +16,7 @@ class SetLocale
     public function handle(Request $request, Closure $next): Response
     {
         // Get locale from session, default to 'vi'
-        $locale = session('locale', 'vi');
+        $locale = session('language', 'vi');
         
         // Validate locale is supported
         $supportedLocales = ['vi', 'en', 'ja', 'zh', 'bn'];
