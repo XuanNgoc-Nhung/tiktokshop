@@ -604,19 +604,19 @@
         <div class="bottom-nav">
             <a href="#" class="nav-item active">
                 <i class="fas fa-home"></i>
-                <span>Trang chủ</span>
+                <span>{{ __('auth.home') }}</span>
             </a>
             <a href="#" class="nav-item">
                 <i class="fas fa-search"></i>
-                <span>Tìm kiếm</span>
+                <span>{{ __('auth.search') }}</span>
             </a>
             <a href="#" class="nav-item">
                 <i class="fas fa-shopping-bag"></i>
-                <span>Đơn hàng</span>
+                <span>{{ __('auth.orders') }}</span>
             </a>
             <a href="#" class="nav-item">
                 <i class="fas fa-user"></i>
-                <span>Tài khoản</span>
+                <span>{{ __('auth.account') }}</span>
             </a>
         </div>
     </div>

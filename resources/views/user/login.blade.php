@@ -1,6 +1,6 @@
 @extends('user.layouts.app')
 
-@section('title', 'Đăng nhập - TikTok Shop')
+@section('title', __('auth.login') . ' - ' . __('auth.tiktok_shop'))
 
 @section('content')
 <!-- Navigation Header -->
@@ -8,31 +8,8 @@
     <button class="nav-button" onclick="goBack()">
         <i class="fas fa-chevron-left"></i>
     </button>
-    <div class="nav-title">Đăng nhập</div>
-    <div class="language-selector">
-        <button class="language-dropdown" onclick="toggleLanguageDropdown()">
-            <span id="current-language">VI</span>
-            <i class="fas fa-chevron-down"></i>
-        </button>
-        <div class="language-options" id="language-options">
-            <div class="language-option active" onclick="selectLanguage('vi', 'VI')">
-                <div class="flag-icon" style="background: linear-gradient(45deg, #da251d, #ffcd00);"></div>
-                <span>Tiếng Việt</span>
-            </div>
-            <div class="language-option" onclick="selectLanguage('en', 'EN')">
-                <div class="flag-icon" style="background: linear-gradient(45deg, #012169, #ffffff, #c8102e);"></div>
-                <span>English</span>
-            </div>
-            <div class="language-option" onclick="selectLanguage('zh', '中文')">
-                <div class="flag-icon" style="background: linear-gradient(45deg, #de2910, #ffde00);"></div>
-                <span>中文</span>
-            </div>
-            <div class="language-option" onclick="selectLanguage('ja', '日本語')">
-                <div class="flag-icon" style="background: linear-gradient(45deg, #bc002d, #ffffff);"></div>
-                <span>日本語</span>
-            </div>
-        </div>
-    </div>
+    <div class="nav-title">{{ __('auth.login') }}</div>
+    <x-language-selector />
 </div>
 
 <div class="container">
@@ -42,9 +19,9 @@
             <div class="logo-icon">
                 <i class="fas fa-shopping-bag"></i>
             </div>
-            TikTok Shop
+            {{ __('auth.tiktok_shop') }}
         </div>
-        <div class="logo-subtitle">Mua sắm thông minh, tiết kiệm hơn</div>
+        <div class="logo-subtitle">{{ __('auth.smart_shopping') }}</div>
     </div>
 
     <!-- Login Form -->
@@ -68,7 +45,7 @@
                 value="{{ old('phone') }}"
                 required
             >
-            <label class="form-label" for="phone">Số điện thoại</label>
+            <label class="form-label" for="phone">{{ __('auth.phone_number') }}</label>
             @error('phone')
                 <div style="color: #ff3b30; font-size: 12px; margin-top: 5px;">{{ $message }}</div>
             @enderror
@@ -85,7 +62,7 @@
                     placeholder=" "
                     required
                 >
-                <label class="form-label" for="password">Mật khẩu</label>
+                <label class="form-label" for="password">{{ __('auth.password') }}</label>
                 <button type="button" class="password-toggle" onclick="togglePassword()">
                     <i class="fas fa-eye" id="password-icon"></i>
                 </button>
@@ -99,37 +76,37 @@
         <div class="form-options">
             <div class="checkbox-group">
                 <input type="checkbox" id="remember" name="remember" class="checkbox">
-                <label for="remember" class="checkbox-label">Nhớ mật khẩu</label>
+                <label for="remember" class="checkbox-label">{{ __('auth.remember_me') }}</label>
             </div>
-            <a href="#" class="forgot-password">Quên mật khẩu?</a>
+            <a href="#" class="forgot-password">{{ __('auth.forgot_password') }}</a>
         </div>
 
         <!-- Login Button -->
         <button type="submit" class="btn-primary">
-            Đăng Nhập
+            {{ __('auth.login_button') }}
         </button>
     </form>
 
     <!-- Divider -->
     <div class="divider">
-        <span>Hoặc đăng nhập bằng</span>
+        <span>{{ __('auth.or_login_with') }}</span>
     </div>
 
     <!-- Social Login -->
     <div class="social-login">
         <button type="button" class="btn-secondary" onclick="loginWithGoogle()">
             <i class="fab fa-google" style="margin-right: 8px;"></i>
-            Google
+            {{ __('auth.google') }}
         </button>
         <button type="button" class="btn-secondary" onclick="loginWithFacebook()">
             <i class="fab fa-facebook-f" style="margin-right: 8px;"></i>
-            Facebook
+            {{ __('auth.facebook') }}
         </button>
     </div>
 
     <!-- Register Link -->
     <div class="register-link">
-        Bạn chưa có tài khoản? <a href="#">Đăng Ký Ngay</a>
+        {{ __('auth.no_account') }} <a href="#">{{ __('auth.register_now') }}</a>
     </div>
 </div>
 
@@ -168,68 +145,19 @@
         }
     }
 
-    // Language dropdown functions
-    function toggleLanguageDropdown() {
-        hapticFeedback();
-        const dropdown = document.getElementById('language-options');
-        const button = document.querySelector('.language-dropdown');
-        
-        if (dropdown.classList.contains('show')) {
-            dropdown.classList.remove('show');
-            button.classList.remove('open');
-        } else {
-            dropdown.classList.add('show');
-            button.classList.add('open');
-        }
-    }
-
-    function selectLanguage(langCode, langDisplay) {
-        hapticFeedback();
-        
-        // Update current language display
-        document.getElementById('current-language').textContent = langDisplay;
-        
-        // Update active state
-        document.querySelectorAll('.language-option').forEach(option => {
-            option.classList.remove('active');
-        });
-        event.target.closest('.language-option').classList.add('active');
-        
-        // Close dropdown
-        document.getElementById('language-options').classList.remove('show');
-        document.querySelector('.language-dropdown').classList.remove('open');
-        
-        // Store language preference
-        localStorage.setItem('selectedLanguage', langCode);
-        
-        // Show feedback
-        showNativeAlert(`Đã chuyển sang ${langDisplay}`);
-        
-        // Here you would typically reload the page with new language
-        // window.location.reload();
-    }
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(event) {
-        const languageSelector = document.querySelector('.language-selector');
-        if (!languageSelector.contains(event.target)) {
-            document.getElementById('language-options').classList.remove('show');
-            document.querySelector('.language-dropdown').classList.remove('open');
-        }
-    });
 
     // Google Login
     function loginWithGoogle() {
         hapticFeedback();
         // Implement Google OAuth here
-        alert('Tính năng đăng nhập Google sẽ được triển khai');
+        alert('{{ __("auth.google") }} login feature will be implemented');
     }
 
     // Facebook Login
     function loginWithFacebook() {
         hapticFeedback();
         // Implement Facebook OAuth here
-        alert('Tính năng đăng nhập Facebook sẽ được triển khai');
+        alert('{{ __("auth.facebook") }} login feature will be implemented');
     }
 
     // Form validation with native-like feedback
@@ -240,7 +168,7 @@
         if (!phone || !password) {
             e.preventDefault();
             hapticFeedback();
-            showNativeAlert('Vui lòng điền đầy đủ thông tin');
+            showNativeAlert('{{ __("auth.fill_all_fields") }}');
             return;
         }
         
@@ -249,7 +177,7 @@
         if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
             e.preventDefault();
             hapticFeedback();
-            showNativeAlert('Số điện thoại không hợp lệ');
+            showNativeAlert('{{ __("auth.invalid_phone") }}');
             return;
         }
     });
@@ -293,29 +221,5 @@
         e.target.value = value;
     });
 
-    // Load saved language preference on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        const savedLanguage = localStorage.getItem('selectedLanguage');
-        if (savedLanguage) {
-            const languageMap = {
-                'vi': 'VI',
-                'en': 'EN', 
-                'zh': '中文',
-                'ja': '日本語'
-            };
-            
-            if (languageMap[savedLanguage]) {
-                document.getElementById('current-language').textContent = languageMap[savedLanguage];
-                
-                // Update active state
-                document.querySelectorAll('.language-option').forEach(option => {
-                    option.classList.remove('active');
-                    if (option.onclick.toString().includes(savedLanguage)) {
-                        option.classList.add('active');
-                    }
-                });
-            }
-        }
-    });
 </script>
 @endsection

@@ -9,3 +9,11 @@ Route::post('/login', [UserController::class, 'authenticate'])->name('login.auth
 Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
+// Language switching route
+Route::get('/language/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'vi'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('language.switch');
+
