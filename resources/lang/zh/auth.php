@@ -1,0 +1,43 @@
+<?php
+
+return [
+    'login' => '登录',
+    'phone_number' => '电话号码',
+    'password' => '密码',
+    'remember_me' => '记住密码',
+    'forgot_password' => '忘记密码？',
+    'login_button' => '登录',
+    'or_login_with' => '或使用以下方式登录',
+    'no_account' => '还没有账户？',
+    'register_now' => '立即注册',
+    'google' => 'Google',
+    'facebook' => 'Facebook',
+    'invalid_phone' => '无效的电话号码',
+    'fill_all_fields' => '请填写所有字段',
+    'language_changed' => '语言已切换为 :language',
+    'vietnamese' => 'Tiếng Việt',
+    'english' => 'English',
+    'chinese' => '中文',
+    'japanese' => '日本語',
+    'tiktok_shop' => 'TikTok Shop',
+    'smart_shopping' => '智能购物，更多节省',
+    
+    // Bottom Navigation
+    'home' => '首页',
+    'search' => '搜索',
+    'orders' => '订单',
+    'account' => '账户',
+    
+    // Register Form
+    'register' => '注册',
+    'full_name' => '姓名',
+    'confirm_password' => '确认密码',
+    'referral_code' => '推荐码（可选）',
+    'agree_terms' => '我同意条款和条件',
+    'register_button' => '注册',
+    'already_have_account' => '已有账户？',
+    'login_now' => '立即登录',
+    'password_mismatch' => '密码不匹配',
+    'terms_required' => '请同意条款和条件',
+    'registration_success' => '注册成功！请登录。',
+];

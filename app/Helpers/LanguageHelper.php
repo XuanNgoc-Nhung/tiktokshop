@@ -11,7 +11,7 @@ class LanguageHelper
     {
         return [
             'vi' => [
-                'name' => 'Tiếng Việt',
+                'name' => 'Việt Nam',
                 'flag' => '🇻🇳',
                 'code' => 'VI'
             ],
@@ -19,6 +19,21 @@ class LanguageHelper
                 'name' => 'English',
                 'flag' => '🇺🇸',
                 'code' => 'EN'
+            ],
+            'ja' => [
+                'name' => '日本語',
+                'flag' => '🇯🇵',
+                'code' => 'JA'
+            ],
+            'zh' => [
+                'name' => '中文',
+                'flag' => '🇨🇳',
+                'code' => 'ZH'
+            ],
+            'bn' => [
+                'name' => 'বাংলা',
+                'flag' => '🇧🇩',
+                'code' => 'BN'
             ]
         ];
     }

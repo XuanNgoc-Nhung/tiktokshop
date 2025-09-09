@@ -1,0 +1,43 @@
+<?php
+
+return [
+    'login' => 'ログイン',
+    'phone_number' => '電話番号',
+    'password' => 'パスワード',
+    'remember_me' => 'パスワードを記憶',
+    'forgot_password' => 'パスワードを忘れましたか？',
+    'login_button' => 'ログイン',
+    'or_login_with' => 'または以下でログイン',
+    'no_account' => 'アカウントをお持ちでない方は',
+    'register_now' => '今すぐ登録',
+    'google' => 'Google',
+    'facebook' => 'Facebook',
+    'invalid_phone' => '無効な電話番号',
+    'fill_all_fields' => 'すべての項目を入力してください',
+    'language_changed' => '言語を :language に変更しました',
+    'vietnamese' => 'Tiếng Việt',
+    'english' => 'English',
+    'chinese' => '中文',
+    'japanese' => '日本語',
+    'tiktok_shop' => 'TikTok Shop',
+    'smart_shopping' => 'スマートショッピング、より多くの節約',
+    
+    // Bottom Navigation
+    'home' => 'ホーム',
+    'search' => '検索',
+    'orders' => '注文',
+    'account' => 'アカウント',
+    
+    // Register Form
+    'register' => '登録',
+    'full_name' => '氏名',
+    'confirm_password' => 'パスワード確認',
+    'referral_code' => '紹介コード（任意）',
+    'agree_terms' => '利用規約に同意します',
+    'register_button' => '登録',
+    'already_have_account' => 'すでにアカウントをお持ちの方は',
+    'login_now' => '今すぐログイン',
+    'password_mismatch' => 'パスワードが一致しません',
+    'terms_required' => '利用規約に同意してください',
+    'registration_success' => '登録が完了しました！ログインしてください。',
+];

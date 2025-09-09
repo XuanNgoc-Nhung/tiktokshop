@@ -13,7 +13,7 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 // Language switching route
 Route::get('/language/{locale}', function ($locale) {
-    if (in_array($locale, ['en', 'vi'])) {
+    if (in_array($locale, ['en', 'vi', 'ja', 'zh', 'bn'])) {
         session(['locale' => $locale]);
     }
     return redirect()->back();

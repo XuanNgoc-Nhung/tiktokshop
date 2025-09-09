@@ -6,7 +6,7 @@
     <div class="language-options" id="language-options">
         @foreach($availableLanguages as $locale => $language)
             <div class="language-option {{ $currentLocale == $locale ? 'active' : '' }}" onclick="selectLanguage('{{ $locale }}', '{{ $language['code'] }}')">
-                <div class="flag-icon" style="background: {{ $locale == 'vi' ? 'linear-gradient(45deg, #da251d, #ffcd00)' : 'linear-gradient(45deg, #012169, #ffffff, #c8102e)' }};"></div>
+                <div class="flag-icon">{{ $language['flag'] }}</div>
                 <span>{{ $language['name'] }}</span>
             </div>
         @endforeach

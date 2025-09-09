@@ -18,6 +18,12 @@ class SetLocale
         // Get locale from session, default to 'vi'
         $locale = session('locale', 'vi');
         
+        // Validate locale is supported
+        $supportedLocales = ['vi', 'en', 'ja', 'zh', 'bn'];
+        if (!in_array($locale, $supportedLocales)) {
+            $locale = 'vi'; // fallback to Vietnamese
+        }
+        
         // Set the application locale
         app()->setLocale($locale);
         
