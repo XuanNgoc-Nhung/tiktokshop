@@ -27,4 +27,17 @@ return [
     'search' => 'Tìm kiếm',
     'orders' => 'Đơn hàng',
     'account' => 'Tài khoản',
+    
+    // Register Form
+    'register' => 'Đăng ký',
+    'full_name' => 'Họ và tên',
+    'confirm_password' => 'Xác nhận mật khẩu',
+    'referral_code' => 'Mã giới thiệu (Tùy chọn)',
+    'agree_terms' => 'Tôi đồng ý với Điều khoản và Điều kiện',
+    'register_button' => 'Đăng Ký',
+    'already_have_account' => 'Bạn đã có tài khoản?',
+    'login_now' => 'Đăng Nhập Ngay',
+    'password_mismatch' => 'Mật khẩu không khớp',
+    'terms_required' => 'Vui lòng đồng ý với điều khoản và điều kiện',
+    'registration_success' => 'Đăng ký thành công! Vui lòng đăng nhập.',
 ];

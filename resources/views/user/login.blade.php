@@ -106,7 +106,7 @@
 
     <!-- Register Link -->
     <div class="register-link">
-        {{ __('auth.no_account') }} <a href="#">{{ __('auth.register_now') }}</a>
+        {{ __('auth.no_account') }} <a href="{{ route('register') }}">{{ __('auth.register_now') }}</a>
     </div>
 </div>
 

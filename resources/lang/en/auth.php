@@ -27,4 +27,17 @@ return [
     'search' => 'Search',
     'orders' => 'Orders',
     'account' => 'Account',
+    
+    // Register Form
+    'register' => 'Register',
+    'full_name' => 'Full Name',
+    'confirm_password' => 'Confirm Password',
+    'referral_code' => 'Referral Code (Optional)',
+    'agree_terms' => 'I agree to the Terms and Conditions',
+    'register_button' => 'Register',
+    'already_have_account' => 'Already have an account?',
+    'login_now' => 'Login Now',
+    'password_mismatch' => 'Passwords do not match',
+    'terms_required' => 'Please agree to the terms and conditions',
+    'registration_success' => 'Registration successful! Please login.',
 ];

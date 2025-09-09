@@ -242,7 +242,7 @@
 
         /* Form Styles */
         .form-group {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             position: relative;
         }
 
@@ -256,7 +256,7 @@
 
         .form-input {
             width: 100%;
-            padding: 16px 20px;
+            padding: 12px 16px;
             border: 1px solid #d1d1d6;
             border-radius: 10px;
             font-size: 16px;
@@ -285,8 +285,8 @@
 
         .floating-label .form-label {
             position: absolute;
-            left: 20px;
-            top: 16px;
+            left: 16px;
+            top: 12px;
             color: #8e8e93;
             font-size: 16px;
             transition: all 0.2s ease;
@@ -371,7 +371,7 @@
         /* Button Styles */
         .btn-primary {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: linear-gradient(135deg, #f4d03f, #f7dc6f);
             color: #8b4513;
             border: none;
@@ -380,7 +380,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             -webkit-tap-highlight-color: transparent;
             box-shadow: 0 4px 12px rgba(244, 208, 63, 0.3);
         }
@@ -398,7 +398,7 @@
 
         .btn-secondary {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: #f2f2f7;
             color: #007aff;
             border: none;
@@ -407,7 +407,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             -webkit-tap-highlight-color: transparent;
         }
 
