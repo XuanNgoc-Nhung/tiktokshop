@@ -15,6 +15,7 @@ return [
     'facebook' => 'Facebook',
     'invalid_phone' => 'Số điện thoại không hợp lệ',
     'fill_all_fields' => 'Vui lòng điền đầy đủ thông tin',
+    'please_complete' => 'Vui lòng bổ sung',
     'language_changed' => 'Đã chuyển sang :language',
     'vietnamese' => 'Tiếng Việt',
     'english' => 'English',

@@ -34,6 +34,8 @@
             min-height: 100vh;
             position: relative;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
         }
 
         /* Safe Area for iPhone X+ */
@@ -54,6 +56,15 @@
             position: relative;
         }
 
+        /* Scrollable content area above fixed bottom nav */
+        .content-area {
+            flex: 1 1 auto;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            /* Reserve space so last elements aren't hidden behind bottom nav */
+            padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+        }
+
         /* Navigation Header */
         .nav-header {
             background: linear-gradient(135deg, #f4d03f, #f7dc6f);
@@ -62,10 +73,19 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 414px;
+            z-index: 1001;
             box-shadow: 0 2px 8px rgba(244, 208, 63, 0.2);
+        }
+
+        /* Reserve space for fixed header */
+        .content-area {
+            padding-top: calc(70px + env(safe-area-inset-top, 0px));
         }
 
         .nav-title {
@@ -719,7 +739,9 @@
         <div class="safe-area-top"></div>
         
         <!-- Main Content -->
-        @yield('content')
+        <div class="content-area">
+            @yield('content')
+        </div>
         
         <!-- Safe Area Bottom -->
         <div class="safe-area-bottom"></div>

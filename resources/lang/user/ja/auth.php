@@ -14,6 +14,7 @@ return [
     'facebook' => 'Facebook',
     'invalid_phone' => '無効な電話番号',
     'fill_all_fields' => 'すべての項目を入力してください',
+    'please_complete' => '以下を入力してください',
     'language_changed' => '言語を :language に変更しました',
     'vietnamese' => 'Tiếng Việt',
     'english' => 'English',

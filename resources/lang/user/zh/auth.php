@@ -14,6 +14,7 @@ return [
     'facebook' => 'Facebook',
     'invalid_phone' => '无效的电话号码',
     'fill_all_fields' => '请填写所有字段',
+    'please_complete' => '请补充',
     'language_changed' => '语言已切换为 :language',
     'vietnamese' => 'Tiếng Việt',
     'english' => 'English',

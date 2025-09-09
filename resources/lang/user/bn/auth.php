@@ -14,6 +14,7 @@ return [
     'facebook' => 'Facebook',
     'invalid_phone' => 'অবৈধ ফোন নম্বর',
     'fill_all_fields' => 'সব ক্ষেত্র পূরণ করুন',
+    'please_complete' => 'দয়া করে সম্পূর্ণ করুন',
     'language_changed' => 'ভাষা :language এ পরিবর্তন করা হয়েছে',
     'vietnamese' => 'Tiếng Việt',
     'english' => 'English',

@@ -25,7 +25,7 @@
     </div>
 
     <!-- Register Form -->
-    <form method="POST" action="{{ route('register.store') }}" id="registerForm">
+    <form method="POST" action="{{ route('register.store') }}" id="registerForm" novalidate autocomplete="off">
         @csrf
         
         @if($errors->has('register'))
@@ -43,6 +43,10 @@
                 class="form-input" 
                 placeholder=" "
                 value="{{ old('full_name') }}"
+                autocomplete="off"
+                autocapitalize="none"
+                autocorrect="off"
+                spellcheck="false"
                 required
             >
             <label class="form-label" for="full_name">{{ __('auth.full_name') }}</label>
@@ -60,6 +64,10 @@
                 class="form-input" 
                 placeholder=" "
                 value="{{ old('phone') }}"
+                autocomplete="off"
+                autocapitalize="none"
+                autocorrect="off"
+                spellcheck="false"
                 required
             >
             <label class="form-label" for="phone">{{ __('auth.phone_number') }}</label>
@@ -77,6 +85,7 @@
                     name="password" 
                     class="form-input" 
                     placeholder=" "
+                    autocomplete="new-password"
                     required
                 >
                 <label class="form-label" for="password">{{ __('auth.password') }}</label>
@@ -98,6 +107,7 @@
                     name="password_confirmation" 
                     class="form-input" 
                     placeholder=" "
+                    autocomplete="new-password"
                     required
                 >
                 <label class="form-label" for="password_confirmation">{{ __('auth.confirm_password') }}</label>
@@ -119,6 +129,10 @@
                 class="form-input" 
                 placeholder=" "
                 value="{{ old('referral_code') }}"
+                autocomplete="off"
+                autocapitalize="none"
+                autocorrect="off"
+                spellcheck="false"
             >
             <label class="form-label" for="referral_code">{{ __('auth.referral_code') }}</label>
             @error('referral_code')
@@ -151,6 +165,140 @@
 </div>
 
 <script>
+    // Global toast control state
+    window.__toastState = {
+        lastKey: '',
+        lastAt: 0,
+        suppressBlurToasts: false
+    };
+    // Ensure toast function exists (fallback if layout script not yet loaded)
+    if (typeof window.showToast !== 'function') {
+        window.showToast = function(type, title, message) {
+            console.log('[Toast:FALLBACK]', { type, title, message });
+            // De-duplicate within 800ms
+            const key = `${type}|${title}|${message}`;
+            const now = Date.now();
+            if (window.__toastState && window.__toastState.lastKey === key && (now - window.__toastState.lastAt) < 800) {
+                return;
+            }
+            if (window.__toastState) { window.__toastState.lastKey = key; window.__toastState.lastAt = now; }
+            // Clear bootstrap container if exists to ensure single toast
+            const bs = document.getElementById('bsToastContainer');
+            if (bs) while (bs.firstChild) bs.removeChild(bs.firstChild);
+            let container = document.getElementById('toastContainer');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'toastContainer';
+                container.style.position = 'fixed';
+                container.style.top = '20px';
+                container.style.right = '20px';
+                container.style.zIndex = '9999';
+                document.body.appendChild(container);
+            }
+            // Ensure only one fallback toast
+            while (container.firstChild) container.removeChild(container.firstChild);
+            const toast = document.createElement('div');
+            toast.className = 'toast ' + (type || 'error');
+            toast.style.background = 'white';
+            toast.style.borderRadius = '12px';
+            toast.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+            toast.style.marginBottom = '10px';
+            toast.style.padding = '16px';
+            toast.style.display = 'flex';
+            toast.style.alignItems = 'center';
+            toast.style.borderLeft = '4px solid';
+            toast.style.minWidth = '300px';
+            if (type === 'success') toast.style.borderLeftColor = '#28a745';
+            else if (type === 'warning') toast.style.borderLeftColor = '#ffc107';
+            else if (type === 'info') toast.style.borderLeftColor = '#17a2b8';
+            else toast.style.borderLeftColor = '#dc3545';
+            toast.innerHTML = `
+                <div style="margin-right:12px;font-weight:700;">${title || ''}</div>
+                <div style="flex:1;color:#666;">${message || ''}</div>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 4000);
+        }
+    }
+
+    // Override to use Bootstrap Toast after all scripts loaded
+    window.addEventListener('load', function() {
+        try {
+            if (!window.bootstrap || !window.bootstrap.Toast) return;
+
+            window.showToast = function(type, title, message) {
+                // De-duplicate within 800ms
+                const key = `${type}|${title}|${message}`;
+                const now = Date.now();
+                if (window.__toastState && window.__toastState.lastKey === key && (now - window.__toastState.lastAt) < 800) {
+                    return;
+                }
+                if (window.__toastState) { window.__toastState.lastKey = key; window.__toastState.lastAt = now; }
+                const containerId = 'bsToastContainer';
+                let container = document.getElementById(containerId);
+                if (!container) {
+                    container = document.createElement('div');
+                    container.id = containerId;
+                    container.style.position = 'fixed';
+                    container.style.top = '16px';
+                    container.style.left = '50%';
+                    container.style.transform = 'translateX(-50%)';
+                    container.style.zIndex = '1080';
+                    container.style.pointerEvents = 'none';
+                    container.setAttribute('aria-live', 'polite');
+                    container.setAttribute('aria-atomic', 'true');
+                    document.body.appendChild(container);
+                }
+                // Only one toast at a time
+                while (container.firstChild) {
+                    container.removeChild(container.firstChild);
+                }
+                // Also clear fallback container if present
+                const fb = document.getElementById('toastContainer');
+                if (fb) while (fb.firstChild) fb.removeChild(fb.firstChild);
+
+                const typeClasses = {
+                    success: { bg: 'bg-success', icon: '✅' },
+                    error:   { bg: 'bg-danger',  icon: '⚠️' },
+                    warning: { bg: 'bg-warning', icon: '⚠️' },
+                    info:    { bg: 'bg-info',    icon: 'ℹ️' }
+                };
+                const cfg = typeClasses[type] || typeClasses.info;
+
+                const toastEl = document.createElement('div');
+                toastEl.className = `toast align-items-center show text-white border-0 shadow rounded-3 ${cfg.bg}`;
+                toastEl.setAttribute('role', 'alert');
+                toastEl.setAttribute('aria-live', 'assertive');
+                toastEl.setAttribute('aria-atomic', 'true');
+                toastEl.style.minWidth = '320px';
+                toastEl.style.pointerEvents = 'auto';
+                toastEl.style.padding = '8px 12px';
+                toastEl.innerHTML = `
+                    <div class="toast-body d-flex align-items-center gap-2 w-100 justify-content-between" style="font-weight:500;">
+                        <div class="d-flex align-items-center gap-2" style="flex:1 1 auto; min-width:0;">
+                            <span style="font-size:16px; flex:0 0 auto;">${cfg.icon}</span>
+                            <div style="line-height:1.3; overflow:hidden; text-overflow:ellipsis;">
+                                <div style="font-size:14px;">${title || ''}</div>
+                                <div style="font-size:13px;opacity:.95;">${message || ''}</div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white" style="margin-left:auto;" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                `;
+
+                container.appendChild(toastEl);
+                const toast = new window.bootstrap.Toast(toastEl, { delay: 3000, autohide: true });
+                toast.show();
+
+                toastEl.addEventListener('hidden.bs.toast', function() {
+                    if (toastEl && toastEl.parentNode) toastEl.parentNode.removeChild(toastEl);
+                });
+            }
+        } catch (err) {
+            console.error('[Toast Override] Failed to initialize Bootstrap toast', err);
+        }
+    });
+
     // Haptic feedback simulation
     function hapticFeedback() {
         if ('vibrate' in navigator) {
@@ -186,19 +334,51 @@
     }
 
 
-    // Form validation with native-like feedback
+    // Form validation with toast feedback
     document.getElementById('registerForm').addEventListener('submit', function(e) {
-        const fullName = document.getElementById('full_name').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const password = document.getElementById('password').value;
-        const passwordConfirmation = document.getElementById('password_confirmation').value;
-        const agreeTerms = document.getElementById('agree_terms').checked;
+        // Suppress blur toasts triggered by submit click/blur
+        window.__toastState.suppressBlurToasts = true;
+        setTimeout(() => { window.__toastState.suppressBlurToasts = false; }, 1000);
+        const fullNameInput = document.getElementById('full_name');
+        const phoneInput = document.getElementById('phone');
+        const passwordInput = document.getElementById('password');
+        const passwordConfirmationInput = document.getElementById('password_confirmation');
+        const agreeTermsInput = document.getElementById('agree_terms');
+
+        const fullName = fullNameInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const password = passwordInput.value;
+        const passwordConfirmation = passwordConfirmationInput.value;
+        const agreeTerms = agreeTermsInput.checked;
+
+        console.log('[Register] Submit initiated', {
+            fullNamePresent: !!fullName,
+            phonePresent: !!phone,
+            passwordLength: password.length,
+            passwordConfirmationLength: passwordConfirmation.length,
+            agreeTerms
+        });
         
-        // Check required fields
-        if (!fullName || !phone || !password || !passwordConfirmation) {
+        // Reset visual error states
+        [fullNameInput, phoneInput, passwordInput, passwordConfirmationInput].forEach(el => {
+            el.style.borderColor = '#d1d1d6';
+        });
+
+        // Collect first missing field only (for concise toast)
+        const firstMissing = [
+            { el: fullNameInput, cond: !fullName, label: '{{ __("auth.full_name") }}' },
+            { el: phoneInput, cond: !phone, label: '{{ __("auth.phone_number") }}' },
+            { el: passwordInput, cond: !password, label: '{{ __("auth.password") }}' },
+            { el: passwordConfirmationInput, cond: !passwordConfirmation, label: '{{ __("auth.confirm_password") }}' }
+        ].find(item => item.cond);
+
+        if (firstMissing) {
             e.preventDefault();
             hapticFeedback();
-            showNativeAlert('{{ __("auth.fill_all_fields") }}');
+            showToast('error', '{{ __("auth.register") }}', '{{ __("auth.please_complete") }}: ' + firstMissing.label);
+            console.warn('[Register] Missing field', firstMissing.label);
+            firstMissing.el.style.borderColor = '#ff3b30';
+            firstMissing.el.focus();
             return;
         }
         
@@ -206,7 +386,9 @@
         if (!agreeTerms) {
             e.preventDefault();
             hapticFeedback();
-            showNativeAlert('{{ __("auth.terms_required") }}');
+            showToast('error', '{{ __("auth.register") }}', '{{ __("auth.terms_required") }}');
+            console.warn('[Register] Terms not agreed');
+            agreeTermsInput.focus();
             return;
         }
         
@@ -214,7 +396,10 @@
         if (password !== passwordConfirmation) {
             e.preventDefault();
             hapticFeedback();
-            showNativeAlert('{{ __("auth.password_mismatch") }}');
+            showToast('error', '{{ __("auth.register") }}', '{{ __("auth.password_mismatch") }}');
+            console.warn('[Register] Password mismatch');
+            passwordConfirmationInput.style.borderColor = '#ff3b30';
+            passwordConfirmationInput.focus();
             return;
         }
         
@@ -223,7 +408,10 @@
         if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
             e.preventDefault();
             hapticFeedback();
-            showNativeAlert('{{ __("auth.invalid_phone") }}');
+            showToast('error', '{{ __("auth.register") }}', '{{ __("auth.invalid_phone") }}');
+            console.warn('[Register] Invalid phone format', { phone });
+            phoneInput.style.borderColor = '#ff3b30';
+            phoneInput.focus();
             return;
         }
         
@@ -231,37 +419,15 @@
         if (password.length < 6) {
             e.preventDefault();
             hapticFeedback();
-            showNativeAlert('{{ __("auth.password") }} must be at least 6 characters');
+            showToast('error', '{{ __("auth.register") }}', '{{ __("auth.password") }} must be at least 6 characters');
+            console.warn('[Register] Weak password length', { length: password.length });
+            passwordInput.style.borderColor = '#ff3b30';
+            passwordInput.focus();
             return;
         }
-    });
 
-    // Native-like alert function
-    function showNativeAlert(message) {
-        // Create native-like alert
-        const alertDiv = document.createElement('div');
-        alertDiv.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 16px 24px;
-            border-radius: 12px;
-            font-size: 16px;
-            z-index: 10000;
-            max-width: 300px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        `;
-        alertDiv.textContent = message;
-        document.body.appendChild(alertDiv);
-        
-        setTimeout(() => {
-            alertDiv.remove();
-        }, 3000);
-    }
+        console.log('[Register] Client-side validation passed, submitting to server');
+    });
 
     // Auto-format phone number
     document.getElementById('phone').addEventListener('input', function(e) {
@@ -298,6 +464,70 @@
             document.getElementById('password_confirmation').style.borderColor = '#d1d1d6';
         }
     });
+
+    // Per-field blur validations with toast notifications
+    (function() {
+        const fullNameInput = document.getElementById('full_name');
+        const phoneInput = document.getElementById('phone');
+        const passwordInput = document.getElementById('password');
+        const passwordConfirmationInput = document.getElementById('password_confirmation');
+
+        const phoneRegex = /^(\+84|84|0)[1-9][0-9]{8,9}$/;
+
+        fullNameInput.addEventListener('blur', function() {
+            if (!fullNameInput.value.trim()) {
+                console.warn('[Register][Blur] Full name missing');
+                fullNameInput.style.borderColor = '#ff3b30';
+            } else {
+                console.log('[Register][Blur] Full name OK');
+            }
+        });
+
+        phoneInput.addEventListener('blur', function() {
+            const value = phoneInput.value.trim();
+            if (!value) {
+                console.warn('[Register][Blur] Phone missing');
+                phoneInput.style.borderColor = '#ff3b30';
+                return;
+            }
+            if (!phoneRegex.test(value.replace(/\s/g, ''))) {
+                console.warn('[Register][Blur] Phone invalid', { phone: value });
+                phoneInput.style.borderColor = '#ff3b30';
+            } else {
+                console.log('[Register][Blur] Phone OK');
+            }
+        });
+
+        passwordInput.addEventListener('blur', function() {
+            const value = passwordInput.value;
+            if (!value) {
+                console.warn('[Register][Blur] Password missing');
+                passwordInput.style.borderColor = '#ff3b30';
+                return;
+            }
+            if (value.length < 6) {
+                console.warn('[Register][Blur] Password weak', { length: value.length });
+                passwordInput.style.borderColor = '#ff3b30';
+            } else {
+                console.log('[Register][Blur] Password OK (length only)');
+            }
+        });
+
+        passwordConfirmationInput.addEventListener('blur', function() {
+            const value = passwordConfirmationInput.value;
+            if (!value) {
+                console.warn('[Register][Blur] Confirm password missing');
+                passwordConfirmationInput.style.borderColor = '#ff3b30';
+                return;
+            }
+            if (value !== passwordInput.value) {
+                console.warn('[Register][Blur] Confirm password mismatch');
+                passwordConfirmationInput.style.borderColor = '#ff3b30';
+            } else {
+                console.log('[Register][Blur] Confirm password OK');
+            }
+        });
+    })();
 
 </script>
 @endsection

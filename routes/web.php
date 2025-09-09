@@ -33,7 +33,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin']], fu
 Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin', 'checkAdmin']], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
     // Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+    Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout');
     Route::post('/change-language', [AdminController::class, 'changeLanguage'])->name('admin.change-language');
 });
 

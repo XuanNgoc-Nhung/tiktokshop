@@ -14,6 +14,7 @@ return [
     'facebook' => 'Facebook',
     'invalid_phone' => 'Invalid phone number',
     'fill_all_fields' => 'Please fill in all fields',
+    'please_complete' => 'Please complete',
     'language_changed' => 'Language changed to :language',
     'vietnamese' => 'Tiếng Việt',
     'english' => 'English',
