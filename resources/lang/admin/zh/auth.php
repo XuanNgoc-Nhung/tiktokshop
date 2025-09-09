@@ -92,4 +92,7 @@ return [
     'filter' => '筛选',
     'export' => '导出',
     'import' => '导入',
+    
+    // Navigation
+    'back_to_user_page' => '返回用户页面',
 ];

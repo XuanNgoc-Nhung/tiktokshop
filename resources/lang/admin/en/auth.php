@@ -92,4 +92,7 @@ return [
     'filter' => 'Filter',
     'export' => 'Export',
     'import' => 'Import',
+    
+    // Navigation
+    'back_to_user_page' => 'Back to User Page',
 ];

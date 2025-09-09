@@ -92,4 +92,7 @@ return [
     'filter' => 'Lọc',
     'export' => 'Xuất',
     'import' => 'Nhập',
+    
+    // Navigation
+    'back_to_user_page' => 'Quay lại trang người dùng',
 ];

@@ -272,7 +272,7 @@
 
         <div class="back-link">
             <a href="{{ route('login') }}">
-                <i class="fas fa-arrow-left me-2"></i>Quay lại trang người dùng
+                <i class="fas fa-arrow-left me-2"></i>{{ $__('back_to_user_page') }}
             </a>
         </div>
     </div>

@@ -92,4 +92,7 @@ return [
     'filter' => 'ফিল্টার',
     'export' => 'রপ্তানি',
     'import' => 'আমদানি',
+    
+    // Navigation
+    'back_to_user_page' => 'ব্যবহারকারীর পৃষ্ঠায় ফিরে যান',
 ];
