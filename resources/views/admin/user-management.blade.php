@@ -23,19 +23,19 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th style="width:48px;">#</th>
-                            <th>{{ __('admin::cms.name') }}</th>
+                            <th class="text-center" style="width:48px;">#</th>
+                            <th class="text-left">{{ __('admin::cms.name') }}</th>
                             <th>{{ __('admin::cms.email') }}</th>
-                            <th>{{ __('admin::cms.phone') }}</th>
-                            <th>{{ __('admin::cms.role') }}</th>
-                            <th>{{ __('admin::cms.joined') }}</th>
-                            <th style="width:140px;">{{ __('admin::cms.actions') }}</th>
+                            <th class="text-left">{{ __('admin::cms.phone') }}</th>
+                            <th class="text-left">{{ __('admin::cms.role') }}</th>
+                            <th class="text-left">{{ __('admin::cms.joined') }}</th>
+                            <th class="text-left" style="width:140px;">{{ __('admin::cms.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse(($users ?? []) as $index => $user)
                             <tr>
-                                <td>{{ $index + 1 }}</td>
+                                <td class="text-center">{{ $index + 1 }}</td>
                                 <td>{{ $user['name'] }}</td>
                                 <td>{{ $user['email'] }}</td>
                                 <td>{{ $user['phone'] }}</td>
@@ -47,7 +47,7 @@
                                     <span style="padding: 0.15rem 0.4rem; border-radius: 0.25rem; background: var(--gray-300); color: {{ $color }}; text-transform: capitalize; font-weight: 600; font-size: 0.8125rem;">{{ $role === 'seller' ? __('admin::cms.seller') : ($role === 'admin' ? __('admin::cms.admin') : __('admin::cms.user')) }}</span>
                                 </td>
                                 <td>{{ $user['created_at_formatted'] ?? '' }}</td>
-                                <td style="display: flex; gap: 0.4rem;">
+                                <td class="text-center" style="display: flex; gap: 0.4rem;">
                                     <a href="{{ route('admin.user-management.edit', ['id' => $index + 1]) }}" class="btn btn-secondary" style="height: 30px; padding: 0.25rem 0.5rem; font-size: 0.8125rem;" title="{{ __('admin::cms.edit') }}"><i class="fas fa-edit"></i></a>
                                     <form method="POST" action="{{ route('admin.user-management.destroy', ['id' => $index + 1]) }}" onsubmit="return confirm('{{ __('admin::cms.confirm_delete_user') }}');">
                                         @csrf

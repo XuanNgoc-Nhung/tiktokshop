@@ -89,6 +89,18 @@
             transition: var(--transition);
         }
 
+        /* Mobile-only close button inside sidebar header */
+        #sidebarClose {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.1rem;
+            padding: 0.35rem 0.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+        #sidebarClose:hover { background: rgba(255,255,255,0.12); }
+
         .sidebar.collapsed {
             width: 70px;
         }
@@ -540,7 +552,6 @@
         .table th,
         .table td {
             padding: 0.75rem;
-            text-align: left;
             border: 1px solid var(--gray-300);
         }
 
@@ -571,8 +582,13 @@
                 transform: translateX(0);
             }
 
+            /* Show the close button only on mobile */
+            #sidebarClose { display: inline-flex !important; align-items: center; justify-content: center; }
+            .sidebar-header { display: flex; align-items: center; justify-content: space-between; }
+
             .main-content {
                 margin-left: 0;
+                width: 100%;
             }
 
             .main-content.expanded {
@@ -581,6 +597,7 @@
 
             .content {
                 padding: 1rem;
+                width: 100%;
             }
 
             .stats-grid {
@@ -590,6 +607,47 @@
             .top-nav {
                 padding: 0.5rem 1rem;
                 min-height: 35px;
+            }
+
+            /* Backdrop overlay when sidebar is open */
+            .sidebar-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 900;
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+            .sidebar.show ~ .sidebar-overlay {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            /* Ensure cards and inner blocks span full width */
+            .card,
+            .card-body,
+            .card-header,
+            .admin-container {
+                width: 100%;
+            }
+
+            /* Horizontal scroll for wide tables on small screens */
+            .table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .table thead,
+            .table tbody {
+                width: 100%;
+            }
+
+            .table th,
+            .table td {
+                white-space: nowrap;
             }
         }
 
@@ -684,6 +742,13 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        .text-center {
+            text-align: center;
+        }
+        .text-left {
+            text-align: left;
+        }
         .toast-success { border-left: 4px solid var(--success-color); }
         .toast-error { border-left: 4px solid var(--danger-color); }
         .toast-info { border-left: 4px solid var(--info-color); }
@@ -699,6 +764,9 @@
             <div class="sidebar-header">
                 <h2><i class="fas fa-crown"></i> <span class="menu-text">TikTok Shop</span></h2>
                 {{-- <p class="menu-text">{{ __('admin::cms.admin_panel') }}</p> --}}
+                <button id="sidebarClose" aria-label="Close sidebar" style="display:none;">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             
             <nav class="sidebar-menu">
@@ -745,6 +813,9 @@
                 </div>
             </nav>
         </aside>
+
+        <!-- Mobile overlay for sidebar -->
+        <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
 
         <!-- Main Content -->
         <main class="main-content" id="mainContent">
@@ -828,24 +899,48 @@
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
             const sidebarToggle = document.getElementById('sidebarToggle');
-            
-            // Lấy trạng thái sidebar từ localStorage khi tải trang
-            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
-            
-            // Áp dụng trạng thái đã lưu
-            if (isCollapsed) {
-                sidebar.classList.add('collapsed');
-                mainContent.classList.add('expanded');
+            const sidebarClose = document.getElementById('sidebarClose');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+            // Áp dụng trạng thái đã lưu (chỉ desktop)
+            if (!isMobile()) {
+                const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+                if (isCollapsed) {
+                    sidebar.classList.add('collapsed');
+                    mainContent.classList.add('expanded');
+                }
+            } else {
+                // Đảm bảo trạng thái đúng cho mobile
+                sidebar.classList.remove('collapsed');
+                mainContent.classList.remove('expanded');
             }
-            
-            // Xử lý sự kiện click toggle
+
+            // Xử lý click toggle cho cả desktop và mobile
             sidebarToggle.addEventListener('click', function() {
+                if (isMobile()) {
+                    sidebar.classList.toggle('show');
+                    return;
+                }
+
                 sidebar.classList.toggle('collapsed');
                 mainContent.classList.toggle('expanded');
-                
-                // Lưu trạng thái vào localStorage
                 const isCurrentlyCollapsed = sidebar.classList.contains('collapsed');
                 localStorage.setItem('sidebarCollapsed', isCurrentlyCollapsed.toString());
+            });
+
+            // Close from inside button (mobile)
+            sidebarClose.addEventListener('click', function() {
+                if (isMobile()) {
+                    sidebar.classList.remove('show');
+                }
+            });
+
+            // Close when tapping overlay (mobile)
+            sidebarOverlay.addEventListener('click', function() {
+                if (isMobile()) {
+                    sidebar.classList.remove('show');
+                }
             });
         });
 
@@ -925,22 +1020,21 @@
             });
         });
 
-        // Mobile sidebar toggle
-        if (window.innerWidth <= 768) {
-            document.getElementById('sidebarToggle').addEventListener('click', function() {
-                const sidebar = document.getElementById('sidebar');
-                sidebar.classList.toggle('show');
-            });
-        }
+        // Mobile sidebar toggle handled in the unified click handler above
         
         // Handle window resize to maintain sidebar state
         window.addEventListener('resize', function() {
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
             const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
-            
-            if (window.innerWidth > 768) {
-                // Desktop view - apply saved state
+
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                // Mobile view - remove desktop collapsed state
+                sidebar.classList.remove('collapsed');
+                mainContent.classList.remove('expanded');
+            } else {
+                // Desktop view - apply saved state and hide mobile overlay
+                sidebar.classList.remove('show');
                 if (isCollapsed) {
                     sidebar.classList.add('collapsed');
                     mainContent.classList.add('expanded');
@@ -948,11 +1042,6 @@
                     sidebar.classList.remove('collapsed');
                     mainContent.classList.remove('expanded');
                 }
-                sidebar.classList.remove('show');
-            } else {
-                // Mobile view - remove collapsed state
-                sidebar.classList.remove('collapsed');
-                mainContent.classList.remove('expanded');
             }
         });
 
