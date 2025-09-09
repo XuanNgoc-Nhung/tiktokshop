@@ -119,4 +119,38 @@ return [
     'oct' => 'Tháng 10',
     'nov' => 'Tháng 11',
     'dec' => 'Tháng 12',
+    
+    // User Management Page
+    'user_list' => 'Danh sách người dùng',
+    'phone' => 'Số điện thoại',
+    'actions' => 'Hành động',
+    'reset' => 'Đặt lại',
+    'add_new' => 'Thêm mới',
+    'total' => 'Tổng',
+    'no_data' => 'Không có dữ liệu',
+    'confirm_delete_user' => 'Xoá người dùng này?',
+    'search_placeholder_users' => 'Tìm theo tên, email, số điện thoại',
+    'seller' => 'Người bán',
+    
+    // Create User Modal
+    'add_user_title' => 'Thêm mới người dùng',
+    'password' => 'Mật khẩu',
+    'password_confirmation' => 'Xác nhận mật khẩu',
+    'referral_code' => 'Mã giới thiệu',
+    'placeholder_name' => 'Nhập tên',
+    'placeholder_phone' => 'Nhập số điện thoại',
+    'placeholder_password' => 'Nhập mật khẩu',
+    'placeholder_password_confirmation' => 'Nhập lại mật khẩu',
+    'placeholder_referral_code' => 'Nhập mã giới thiệu',
+    'created_success' => 'Tạo người dùng thành công',
+    
+    // Validation / messages (client-side)
+    'validation_enter_name' => 'Vui lòng nhập tên người dùng',
+    'validation_enter_phone' => 'Vui lòng nhập số điện thoại',
+    'validation_enter_password' => 'Vui lòng nhập mật khẩu',
+    'validation_enter_password_confirmation' => 'Vui lòng xác nhận mật khẩu',
+    'validation_password_mismatch' => 'Mật khẩu xác nhận không khớp',
+    'validation_enter_referral_code' => 'Vui lòng nhập mã giới thiệu',
+    'error_generic' => 'Đã xảy ra lỗi.',
+    'error_network' => 'Không thể kết nối máy chủ.',
 ];

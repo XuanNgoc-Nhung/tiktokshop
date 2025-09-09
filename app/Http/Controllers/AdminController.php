@@ -141,6 +141,42 @@ class AdminController extends Controller
     {
         return view('admin.dashboard');
     }
+    public function userManagement(Request $request)
+    {
+        $keyword = trim((string) $request->get('q', ''));
+
+        // Demo users data
+        $demoUsers = [
+            ['name' => 'Nguyễn Văn A', 'email' => 'nguyenvana@example.com', 'phone' => '0901000001', 'role' => 'user', 'created_at' => now()->subDays(1)],
+            ['name' => 'Trần Thị B', 'email' => 'tranthib@example.com', 'phone' => '0901000002', 'role' => 'user', 'created_at' => now()->subDays(2)],
+            ['name' => 'Lê Văn C', 'email' => 'levanc@example.com', 'phone' => '0901000003', 'role' => 'seller', 'created_at' => now()->subDays(3)],
+            ['name' => 'Phạm Thị D', 'email' => 'phamthid@example.com', 'phone' => '0901000004', 'role' => 'user', 'created_at' => now()->subDays(4)],
+            ['name' => 'Hoàng Văn E', 'email' => 'hoangvane@example.com', 'phone' => '0901000005', 'role' => 'admin', 'created_at' => now()->subDays(5)],
+            ['name' => 'Võ Thị F', 'email' => 'vothif@example.com', 'phone' => '0901000006', 'role' => 'user', 'created_at' => now()->subDays(6)],
+            ['name' => 'Bùi Văn G', 'email' => 'buivang@example.com', 'phone' => '0901000007', 'role' => 'user', 'created_at' => now()->subDays(7)],
+            ['name' => 'Đặng Thị H', 'email' => 'dangthih@example.com', 'phone' => '0901000008', 'role' => 'seller', 'created_at' => now()->subDays(8)],
+            ['name' => 'Ngô Văn I', 'email' => 'ngovani@example.com', 'phone' => '0901000009', 'role' => 'user', 'created_at' => now()->subDays(9)],
+            ['name' => 'Đỗ Thị K', 'email' => 'dothik@example.com', 'phone' => '0901000010', 'role' => 'user', 'created_at' => now()->subDays(10)],
+        ];
+
+        // Filter by keyword over name, email, phone
+        $filtered = collect($demoUsers)->filter(function ($user) use ($keyword) {
+            if ($keyword === '') {
+                return true;
+            }
+            $haystack = strtolower(($user['name'] ?? '') . ' ' . ($user['email'] ?? '') . ' ' . ($user['phone'] ?? ''));
+            return strpos($haystack, strtolower($keyword)) !== false;
+        })->map(function ($user) {
+            $user['created_at_formatted'] = optional($user['created_at'])->format('d/m/Y');
+            return $user;
+        })->values();
+
+        return view('admin.user-management', [
+            'users' => $filtered,
+            'keyword' => $keyword,
+            'total' => count($filtered),
+        ]);
+    }
 
     public function logout(Request $request)
     {
@@ -207,6 +243,68 @@ class AdminController extends Controller
                 'success' => false,
                 'message' => 'Error changing language: ' . $e->getMessage()
             ]);
+        }
+    }
+
+    public function storeUser(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'phone' => 'required|string|max:30|unique:users,phone',
+                'password' => 'required|string|min:6|confirmed',
+                'referral_code' => 'required|string|max:255',
+            ], [
+                'name.required' => 'Vui lòng nhập tên người dùng',
+                'phone.required' => 'Vui lòng nhập số điện thoại',
+                'phone.unique' => 'Số điện thoại đã tồn tại',
+                'password.required' => 'Vui lòng nhập mật khẩu',
+                'password.min' => 'Mật khẩu tối thiểu 6 ký tự',
+                'password.confirmed' => 'Mật khẩu xác nhận không khớp',
+                'referral_code.required' => 'Vui lòng nhập mã giới thiệu',
+            ]);
+
+            // Generate placeholder email from phone to satisfy NOT NULL + UNIQUE email column
+            $baseEmail = preg_replace('/[^0-9A-Za-z]/', '', $validated['phone']) . '@tiktokshop.local';
+            $email = $baseEmail;
+            $suffix = 1;
+            while (User::where('email', $email)->exists()) {
+                $suffix++;
+                $email = preg_replace('/@.*/', '', $baseEmail) . "+{$suffix}@tiktokshop.local";
+            }
+
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $email,
+                'phone' => $validated['phone'],
+                'password' => $validated['password'],
+                'referral_code' => $validated['referral_code'],
+                'role' => 'user',
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Tạo người dùng thành công',
+                'data' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'phone' => $user->phone,
+                    'role' => $user->role,
+                ]
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Dữ liệu không hợp lệ',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            \Log::error('Store user error', [ 'error' => $e->getMessage() ]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Đã xảy ra lỗi',
+                'error' => $e->getMessage(),
+            ], 500);
         }
     }
 }

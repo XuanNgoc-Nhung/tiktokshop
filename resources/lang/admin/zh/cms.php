@@ -119,4 +119,38 @@ return [
     'oct' => '十月',
     'nov' => '十一月',
     'dec' => '十二月',
+    
+    // User Management Page
+    'user_list' => '用户列表',
+    'phone' => '电话',
+    'actions' => '操作',
+    'reset' => '重置',
+    'add_new' => '新增',
+    'total' => '总计',
+    'no_data' => '没有数据',
+    'confirm_delete_user' => '要删除该用户吗？',
+    'search_placeholder_users' => '按姓名、邮箱、电话搜索',
+    'seller' => '卖家',
+    
+    // Create User Modal
+    'add_user_title' => '新增用户',
+    'password' => '密码',
+    'password_confirmation' => '确认密码',
+    'referral_code' => '推荐码',
+    'placeholder_name' => '请输入姓名',
+    'placeholder_phone' => '请输入电话号码',
+    'placeholder_password' => '请输入密码',
+    'placeholder_password_confirmation' => '请再次输入密码',
+    'placeholder_referral_code' => '请输入推荐码',
+    'created_success' => '用户创建成功',
+    
+    // Validation / messages (client-side)
+    'validation_enter_name' => '请输入用户姓名',
+    'validation_enter_phone' => '请输入电话号码',
+    'validation_enter_password' => '请输入密码',
+    'validation_enter_password_confirmation' => '请确认密码',
+    'validation_password_mismatch' => '两次输入的密码不一致',
+    'validation_enter_referral_code' => '请输入推荐码',
+    'error_generic' => '发生错误。',
+    'error_network' => '无法连接到服务器。',
 ];

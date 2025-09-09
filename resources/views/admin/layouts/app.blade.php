@@ -10,6 +10,9 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -19,6 +22,9 @@
     
     <!-- Styles -->
     <style>
+        *{
+            font-family: 'system-ui', sans-serif;
+        }
         :root {
             --primary-color: #4A5568;
             --primary-dark: #2D3748;
@@ -535,7 +541,7 @@
         .table td {
             padding: 0.75rem;
             text-align: left;
-            border-bottom: 1px solid var(--gray-200);
+            border: 1px solid var(--gray-300);
         }
 
         .table th {
@@ -545,6 +551,10 @@
             font-size: 0.875rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+
+        .table tbody td {
+            font-weight: 400;
         }
 
         .table tbody tr:hover {
@@ -643,6 +653,41 @@
             background-color: var(--gray-400);
             margin: 0.5rem 0;
         }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .toast {
+            min-width: 260px;
+            max-width: 360px;
+            background: var(--dark-color);
+            color: var(--white);
+            border: 1px solid var(--gray-400);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: var(--transition);
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .toast-success { border-left: 4px solid var(--success-color); }
+        .toast-error { border-left: 4px solid var(--danger-color); }
+        .toast-info { border-left: 4px solid var(--info-color); }
+        .toast-warning { border-left: 4px solid var(--warning-color); }
     </style>
     
     @stack('styles')
@@ -665,7 +710,7 @@
                 </div>
                 
                 <div class="menu-item">
-                    <a href="#" class="menu-link" data-tooltip="{{ __('admin::cms.user_management') }}">
+                    <a href="{{ route('admin.user-management') }}" class="menu-link {{ request()->routeIs('admin.user-management') ? 'active' : '' }}" data-tooltip="{{ __('admin::cms.user_management') }}">
                         <i class="fas fa-users"></i>
                         <span class="menu-text">{{ __('admin::cms.user_management') }}</span>
                     </a>
@@ -773,6 +818,8 @@
             </div>
         </main>
     </div>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
 
     <!-- Scripts -->
     <script>
@@ -908,6 +955,34 @@
                 mainContent.classList.remove('expanded');
             }
         });
+
+        // Toast helper
+        (function() {
+            const container = document.getElementById('toastContainer');
+            function createToast(message, type) {
+                const toast = document.createElement('div');
+                toast.className = 'toast toast-' + (type || 'info');
+                toast.innerHTML = '<div style="line-height:1.3;">' + message + '</div>';
+                container.appendChild(toast);
+                // Force reflow to enable transition
+                void toast.offsetWidth;
+                toast.classList.add('show');
+                const timeout = setTimeout(() => removeToast(), 3500);
+                function removeToast() {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        if (toast.parentNode) toast.parentNode.removeChild(toast);
+                    }, 200);
+                    clearTimeout(timeout);
+                }
+                toast.addEventListener('click', removeToast);
+                return removeToast;
+            }
+            window.showToast = function(message, options) {
+                const type = (options && options.type) || 'info';
+                return createToast(String(message), type);
+            };
+        })();
     </script>
     
     @stack('scripts')

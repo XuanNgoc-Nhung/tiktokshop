@@ -119,4 +119,38 @@ return [
     'oct' => '10月',
     'nov' => '11月',
     'dec' => '12月',
+    
+    // User Management Page
+    'user_list' => 'ユーザー一覧',
+    'phone' => '電話番号',
+    'actions' => '操作',
+    'reset' => 'リセット',
+    'add_new' => '新規追加',
+    'total' => '合計',
+    'no_data' => 'データがありません',
+    'confirm_delete_user' => 'このユーザーを削除しますか？',
+    'search_placeholder_users' => '名前、メール、電話で検索',
+    'seller' => 'セラー',
+    
+    // Create User Modal
+    'add_user_title' => '新規ユーザー追加',
+    'password' => 'パスワード',
+    'password_confirmation' => 'パスワード（確認）',
+    'referral_code' => '紹介コード',
+    'placeholder_name' => '名前を入力',
+    'placeholder_phone' => '電話番号を入力',
+    'placeholder_password' => 'パスワードを入力',
+    'placeholder_password_confirmation' => 'もう一度パスワードを入力',
+    'placeholder_referral_code' => '紹介コードを入力',
+    'created_success' => 'ユーザーが正常に作成されました',
+    
+    // Validation / messages (client-side)
+    'validation_enter_name' => 'ユーザー名を入力してください',
+    'validation_enter_phone' => '電話番号を入力してください',
+    'validation_enter_password' => 'パスワードを入力してください',
+    'validation_enter_password_confirmation' => 'パスワードを確認してください',
+    'validation_password_mismatch' => '確認用パスワードが一致しません',
+    'validation_enter_referral_code' => '紹介コードを入力してください',
+    'error_generic' => 'エラーが発生しました。',
+    'error_network' => 'サーバーに接続できません。',
 ];

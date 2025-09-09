@@ -119,4 +119,38 @@ return [
     'oct' => 'October',
     'nov' => 'November',
     'dec' => 'December',
+    
+    // User Management Page
+    'user_list' => 'User List',
+    'phone' => 'Phone',
+    'actions' => 'Actions',
+    'reset' => 'Reset',
+    'add_new' => 'Add New',
+    'total' => 'Total',
+    'no_data' => 'No data',
+    'confirm_delete_user' => 'Delete this user?',
+    'search_placeholder_users' => 'Search by name, email, phone',
+    'seller' => 'Seller',
+    
+    // Create User Modal
+    'add_user_title' => 'Add New User',
+    'password' => 'Password',
+    'password_confirmation' => 'Confirm Password',
+    'referral_code' => 'Referral Code',
+    'placeholder_name' => 'Enter name',
+    'placeholder_phone' => 'Enter phone number',
+    'placeholder_password' => 'Enter password',
+    'placeholder_password_confirmation' => 'Re-enter password',
+    'placeholder_referral_code' => 'Enter referral code',
+    'created_success' => 'User created successfully',
+    
+    // Validation / messages (client-side)
+    'validation_enter_name' => 'Please enter user name',
+    'validation_enter_phone' => 'Please enter phone number',
+    'validation_enter_password' => 'Please enter password',
+    'validation_enter_password_confirmation' => 'Please confirm password',
+    'validation_password_mismatch' => 'Password confirmation does not match',
+    'validation_enter_referral_code' => 'Please enter referral code',
+    'error_generic' => 'An error occurred.',
+    'error_network' => 'Cannot connect to server.',
 ];

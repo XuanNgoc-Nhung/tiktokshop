@@ -119,4 +119,38 @@ return [
     'oct' => 'অক্টোবর',
     'nov' => 'নভেম্বর',
     'dec' => 'ডিসেম্বর',
+    
+    // User Management Page
+    'user_list' => 'ব্যবহারকারী তালিকা',
+    'phone' => 'ফোন',
+    'actions' => 'ক্রিয়াকলাপ',
+    'reset' => 'রিসেট',
+    'add_new' => 'নতুন যোগ করুন',
+    'total' => 'মোট',
+    'no_data' => 'কোন তথ্য নেই',
+    'confirm_delete_user' => 'এই ব্যবহারকারীকে মুছে ফেলবেন?',
+    'search_placeholder_users' => 'নাম, ইমেইল, ফোন দ্বারা অনুসন্ধান',
+    'seller' => 'বিক্রেতা',
+    
+    // Create User Modal
+    'add_user_title' => 'নতুন ব্যবহারকারী যোগ করুন',
+    'password' => 'পাসওয়ার্ড',
+    'password_confirmation' => 'পাসওয়ার্ড নিশ্চিত করুন',
+    'referral_code' => 'রেফারেল কোড',
+    'placeholder_name' => 'নাম লিখুন',
+    'placeholder_phone' => 'ফোন নম্বর লিখুন',
+    'placeholder_password' => 'পাসওয়ার্ড লিখুন',
+    'placeholder_password_confirmation' => 'পাসওয়ার্ড আবার লিখুন',
+    'placeholder_referral_code' => 'রেফারেল কোড লিখুন',
+    'created_success' => 'ব্যবহারকারী সফলভাবে তৈরি হয়েছে',
+    
+    // Validation / messages (client-side)
+    'validation_enter_name' => 'দয়া করে ব্যবহারকারীর নাম লিখুন',
+    'validation_enter_phone' => 'দয়া করে ফোন নম্বর লিখুন',
+    'validation_enter_password' => 'দয়া করে পাসওয়ার্ড লিখুন',
+    'validation_enter_password_confirmation' => 'দয়া করে পাসওয়ার্ড নিশ্চিত করুন',
+    'validation_password_mismatch' => 'পাসওয়ার্ড মিলছে না',
+    'validation_enter_referral_code' => 'দয়া করে রেফারেল কোড লিখুন',
+    'error_generic' => 'একটি ত্রুটি ঘটেছে।',
+    'error_network' => 'সার্ভারে সংযোগ করা যাচ্ছে না।',
 ];
