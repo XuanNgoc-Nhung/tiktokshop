@@ -14,12 +14,17 @@ Route::middleware(['language.user'])->group(function () {
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });
 
+// Admin routes without authentication check (login, register)
 Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin']], function () {
-    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/login', [AdminController::class, 'login'])->name('admin.login');
     Route::get('/register', [AdminController::class, 'register'])->name('admin.register');
     Route::post('/register', [AdminController::class, 'registerStore'])->name('admin.register.store');
     Route::post('/login', [AdminController::class, 'authenticate'])->name('admin.login.authenticate');
+});
+
+// Admin routes with authentication check
+Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin', 'checkAdmin']], function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
     Route::post('/change-language', [AdminController::class, 'changeLanguage'])->name('admin.change-language');
