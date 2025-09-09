@@ -1,84 +1,46 @@
 <?php
 
 return [
-    // Admin Login
-    'admin_login' => 'Admin Login',
+    // Admin Panel
     'admin_panel' => 'Admin Panel',
-    'admin_access' => 'Admin Access',
-    'login' => 'Login',
-    'email' => 'Email',
-    'password' => 'Password',
-    'remember_me' => 'Remember Me',
-    'forgot_password' => 'Forgot Password?',
-    'login_button' => 'Login',
-    'logging_in' => 'Logging in...',
-    'invalid_credentials' => 'Invalid email or password',
-    'fill_all_fields' => 'Please fill in all fields',
-    'access_denied' => 'Access denied. Admin privileges required.',
-    'login_success' => 'Login successful! Welcome back.',
-    'logout_success' => 'Logout successful!',
-    
-    // Admin Dashboard
     'dashboard' => 'Dashboard',
-    'users' => 'Users',
-    'orders' => 'Orders',
-    'products' => 'Products',
-    'settings' => 'Settings',
-    'reports' => 'Reports',
-    'analytics' => 'Analytics',
-    'profile' => 'Profile',
-    'logout' => 'Logout',
     
-    // Admin Navigation
-    'admin_home' => 'Admin Home',
+    // Navigation Menu
     'user_management' => 'User Management',
     'order_management' => 'Order Management',
     'product_management' => 'Product Management',
+    'analytics' => 'Analytics',
     'system_settings' => 'System Settings',
-    'language_settings' => 'Language Settings',
     
     // Language Options
-    'language_changed' => 'Language changed to :language',
     'vietnamese' => 'Vietnamese',
     'english' => 'English',
     'chinese' => 'Chinese',
     'japanese' => 'Japanese',
     'bengali' => 'Bengali',
     
-    // Common Admin Terms
-    'admin' => 'Admin',
-    'administrator' => 'Administrator',
-    'management' => 'Management',
-    'control_panel' => 'Control Panel',
-    'system' => 'System',
-    'configuration' => 'Configuration',
-    'permissions' => 'Permissions',
-    'roles' => 'Roles',
-    'security' => 'Security',
-    'backup' => 'Backup',
-    'maintenance' => 'Maintenance',
+    // User Menu
+    'profile' => 'Profile',
+    'settings' => 'Settings',
+    'logout' => 'Logout',
     
-    // Status Messages
-    'success' => 'Success',
-    'error' => 'Error',
-    'warning' => 'Warning',
-    'info' => 'Info',
+    // Common Terms
+    'admin' => 'Admin',
+    'management' => 'Management',
+    'system' => 'System',
+    'analytics' => 'Analytics',
+    'settings' => 'Settings',
+    
+    // Status
+    'active' => 'Active',
+    'inactive' => 'Inactive',
     'loading' => 'Loading...',
     'saving' => 'Saving...',
     'deleting' => 'Deleting...',
     'updating' => 'Updating...',
     'creating' => 'Creating...',
     
-    // Form Labels
-    'name' => 'Name',
-    'email_address' => 'Email Address',
-    'phone_number' => 'Phone Number',
-    'status' => 'Status',
-    'active' => 'Active',
-    'inactive' => 'Inactive',
-    'created_at' => 'Created At',
-    'updated_at' => 'Updated At',
-    'actions' => 'Actions',
+    // Actions
     'edit' => 'Edit',
     'delete' => 'Delete',
     'view' => 'View',
@@ -92,9 +54,6 @@ return [
     'filter' => 'Filter',
     'export' => 'Export',
     'import' => 'Import',
-    
-    // Navigation
-    'back_to_user_page' => 'Back to User Page',
     
     // Dashboard Stats
     'total_users' => 'Total Users',
@@ -124,20 +83,6 @@ return [
     'add_user' => 'Add User',
     'view_analytics' => 'View Analytics',
     
-    // Months
-    'jan' => 'January',
-    'feb' => 'February',
-    'mar' => 'March',
-    'apr' => 'April',
-    'may' => 'May',
-    'jun' => 'June',
-    'jul' => 'July',
-    'aug' => 'August',
-    'sep' => 'September',
-    'oct' => 'October',
-    'nov' => 'November',
-    'dec' => 'December',
-    
     // Messages
     'no_recent_orders' => 'No recent orders',
     'no_recent_users' => 'No recent users',
@@ -154,4 +99,24 @@ return [
     
     // Revenue
     'revenue' => 'Revenue',
+    
+    // Additional fields
+    'name' => 'Name',
+    'email' => 'Email',
+    'role' => 'Role',
+    'status' => 'Status',
+    
+    // Months
+    'jan' => 'January',
+    'feb' => 'February',
+    'mar' => 'March',
+    'apr' => 'April',
+    'may' => 'May',
+    'jun' => 'June',
+    'jul' => 'July',
+    'aug' => 'August',
+    'sep' => 'September',
+    'oct' => 'October',
+    'nov' => 'November',
+    'dec' => 'December',
 ];

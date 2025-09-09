@@ -1,84 +1,46 @@
 <?php
 
 return [
-    // Admin Login
-    'admin_login' => 'Đăng nhập Admin',
+    // Admin Panel
     'admin_panel' => 'Bảng điều khiển Admin',
-    'admin_access' => 'Truy cập Admin',
-    'login' => 'Đăng nhập',
-    'email' => 'Email',
-    'password' => 'Mật khẩu',
-    'remember_me' => 'Nhớ mật khẩu',
-    'forgot_password' => 'Quên mật khẩu?',
-    'login_button' => 'Đăng Nhập',
-    'logging_in' => 'Đang đăng nhập...',
-    'invalid_credentials' => 'Email hoặc mật khẩu không đúng',
-    'fill_all_fields' => 'Vui lòng điền đầy đủ thông tin',
-    'access_denied' => 'Truy cập bị từ chối. Cần quyền admin.',
-    'login_success' => 'Đăng nhập thành công! Chào mừng trở lại.',
-    'logout_success' => 'Đăng xuất thành công!',
-    
-    // Admin Dashboard
     'dashboard' => 'Bảng điều khiển',
-    'users' => 'Người dùng',
-    'orders' => 'Đơn hàng',
-    'products' => 'Sản phẩm',
-    'settings' => 'Cài đặt',
-    'reports' => 'Báo cáo',
-    'analytics' => 'Phân tích',
-    'profile' => 'Hồ sơ',
-    'logout' => 'Đăng xuất',
     
-    // Admin Navigation
-    'admin_home' => 'Trang chủ Admin',
+    // Navigation Menu
     'user_management' => 'Quản lý người dùng',
     'order_management' => 'Quản lý đơn hàng',
     'product_management' => 'Quản lý sản phẩm',
+    'analytics' => 'Phân tích',
     'system_settings' => 'Cài đặt hệ thống',
-    'language_settings' => 'Cài đặt ngôn ngữ',
     
     // Language Options
-    'language_changed' => 'Đã chuyển sang :language',
     'vietnamese' => 'Tiếng Việt',
     'english' => 'English',
     'chinese' => '中文',
     'japanese' => '日本語',
     'bengali' => 'বাংলা',
     
-    // Common Admin Terms
-    'admin' => 'Admin',
-    'administrator' => 'Quản trị viên',
-    'management' => 'Quản lý',
-    'control_panel' => 'Bảng điều khiển',
-    'system' => 'Hệ thống',
-    'configuration' => 'Cấu hình',
-    'permissions' => 'Quyền hạn',
-    'roles' => 'Vai trò',
-    'security' => 'Bảo mật',
-    'backup' => 'Sao lưu',
-    'maintenance' => 'Bảo trì',
+    // User Menu
+    'profile' => 'Hồ sơ',
+    'settings' => 'Cài đặt',
+    'logout' => 'Đăng xuất',
     
-    // Status Messages
-    'success' => 'Thành công',
-    'error' => 'Lỗi',
-    'warning' => 'Cảnh báo',
-    'info' => 'Thông tin',
+    // Common Terms
+    'admin' => 'Admin',
+    'management' => 'Quản lý',
+    'system' => 'Hệ thống',
+    'analytics' => 'Phân tích',
+    'settings' => 'Cài đặt',
+    
+    // Status
+    'active' => 'Hoạt động',
+    'inactive' => 'Không hoạt động',
     'loading' => 'Đang tải...',
     'saving' => 'Đang lưu...',
     'deleting' => 'Đang xóa...',
     'updating' => 'Đang cập nhật...',
     'creating' => 'Đang tạo...',
     
-    // Form Labels
-    'name' => 'Tên',
-    'email_address' => 'Địa chỉ Email',
-    'phone_number' => 'Số điện thoại',
-    'status' => 'Trạng thái',
-    'active' => 'Hoạt động',
-    'inactive' => 'Không hoạt động',
-    'created_at' => 'Ngày tạo',
-    'updated_at' => 'Ngày cập nhật',
-    'actions' => 'Hành động',
+    // Actions
     'edit' => 'Chỉnh sửa',
     'delete' => 'Xóa',
     'view' => 'Xem',
@@ -92,9 +54,6 @@ return [
     'filter' => 'Lọc',
     'export' => 'Xuất',
     'import' => 'Nhập',
-    
-    // Navigation
-    'back_to_user_page' => 'Quay lại trang người dùng',
     
     // Dashboard Stats
     'total_users' => 'Tổng người dùng',
@@ -124,20 +83,6 @@ return [
     'add_user' => 'Thêm người dùng',
     'view_analytics' => 'Xem phân tích',
     
-    // Months
-    'jan' => 'Tháng 1',
-    'feb' => 'Tháng 2',
-    'mar' => 'Tháng 3',
-    'apr' => 'Tháng 4',
-    'may' => 'Tháng 5',
-    'jun' => 'Tháng 6',
-    'jul' => 'Tháng 7',
-    'aug' => 'Tháng 8',
-    'sep' => 'Tháng 9',
-    'oct' => 'Tháng 10',
-    'nov' => 'Tháng 11',
-    'dec' => 'Tháng 12',
-    
     // Messages
     'no_recent_orders' => 'Không có đơn hàng gần đây',
     'no_recent_users' => 'Không có người dùng gần đây',
@@ -154,4 +99,24 @@ return [
     
     // Revenue
     'revenue' => 'Doanh thu',
+    
+    // Additional fields
+    'name' => 'Tên',
+    'email' => 'Email',
+    'role' => 'Vai trò',
+    'status' => 'Trạng thái',
+    
+    // Months
+    'jan' => 'Tháng 1',
+    'feb' => 'Tháng 2',
+    'mar' => 'Tháng 3',
+    'apr' => 'Tháng 4',
+    'may' => 'Tháng 5',
+    'jun' => 'Tháng 6',
+    'jul' => 'Tháng 7',
+    'aug' => 'Tháng 8',
+    'sep' => 'Tháng 9',
+    'oct' => 'Tháng 10',
+    'nov' => 'Tháng 11',
+    'dec' => 'Tháng 12',
 ];

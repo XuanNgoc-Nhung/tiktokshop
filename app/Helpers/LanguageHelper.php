@@ -125,8 +125,8 @@ class LanguageHelper
     public static function hasAdminTranslation($key, $locale = null)
     {
         $locale = $locale ?: app()->getLocale();
-        $translation = __("admin.{$locale}.auth.{$key}");
-        return $translation !== "admin.{$locale}.auth.{$key}";
+        $translation = __("admin.{$key}");
+        return $translation !== "admin.{$key}";
     }
 
     /**
@@ -135,7 +135,7 @@ class LanguageHelper
     public static function hasUserTranslation($key, $locale = null)
     {
         $locale = $locale ?: app()->getLocale();
-        $translation = __("user.{$locale}.auth.{$key}");
-        return $translation !== "user.{$locale}.auth.{$key}";
+        $translation = __("user.{$key}");
+        return $translation !== "user.{$key}";
     }
 }

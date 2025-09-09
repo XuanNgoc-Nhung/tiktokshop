@@ -1,113 +1,915 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin Panel') - TikTok Shop</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    <title>@yield('title', __('admin::cms.dashboard')) - {{ config('app.name', 'TikTok Shop Admin') }}</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Styles -->
     <style>
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --primary-color: #4A5568;
+            --primary-dark: #2D3748;
+            --primary-light: #718096;
+            --secondary-color: #1A202C;
+            --accent-color: #805AD5;
+            --success-color: #38A169;
+            --warning-color: #D69E2E;
+            --danger-color: #E53E3E;
+            --info-color: #3182CE;
+            --light-color: #2D3748;
+            --dark-color: #1A202C;
+            --white: #FFFFFF;
+            --gray-100: #1A202C;
+            --gray-200: #2D3748;
+            --gray-300: #4A5568;
+            --gray-400: #718096;
+            --gray-500: #A0AEC0;
+            --gray-600: #CBD5E0;
+            --gray-700: #E2E8F0;
+            --gray-800: #F7FAFC;
+            --gray-900: #FFFFFF;
+            --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.4);
+            --border-radius: 0.375rem;
+            --border-radius-lg: 0.5rem;
+            --transition: all 0.15s ease-in-out;
         }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            background-color: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
         .admin-container {
+            display: flex;
             min-height: 100vh;
+        }
+        .text-white {
+            color: var(--white);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar-header {
+            padding: 0.85rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .sidebar.collapsed .sidebar-header {
+            padding: 0.85rem 0.5rem;
+        }
+
+        .sidebar.collapsed .sidebar-header .menu-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+            visibility: hidden;
+            display: none;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .sidebar-header p {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+        }
+
+        .sidebar.collapsed .sidebar-menu {
+            padding: 0.5rem 0;
+        }
+        .sidebar.collapsed .menu-item {
+            margin: 0.5rem 0;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            padding: 0.85rem 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .menu-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .menu-link.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-right: 3px solid var(--white);
+        }
+
+        .menu-link i {
+            width: 20px;
+            margin-right: 0.75rem;
+            text-align: center;
+        }
+
+        .menu-text {
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+            visibility: hidden;
+            display: none;
+        }
+
+        .sidebar.collapsed .menu-link {
+            justify-content: center;
+            padding: 0.5rem 0.2rem;
+            margin: 0.25rem 0.4rem;
+            border-radius: var(--border-radius);
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .sidebar.collapsed .menu-link i {
+            margin-right: 0;
+            font-size: 0.95rem;
+            width: 16px;
+        }
+
+        .sidebar.collapsed .menu-link:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .sidebar.collapsed .menu-link::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--dark-color);
+            color: var(--white);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--border-radius);
+            font-size: 0.875rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 1000;
+            margin-left: 0.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sidebar.collapsed .menu-link::before {
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-right-color: var(--dark-color);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 1000;
+            margin-left: -0.25rem;
+        }
+
+        .sidebar.collapsed .menu-link:hover::after,
+        .sidebar.collapsed .menu-link:hover::before {
+            opacity: 1;
+            visibility: visible;
+        }
+
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            transition: var(--transition);
+        }
+
+        .main-content.expanded {
+            margin-left: 70px;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            background: var(--gray-200);
+            padding: 0.5rem 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            min-height: 40px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .sidebar-toggle:hover {
+            background-color: var(--gray-300);
+            color: var(--primary-color);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .language-selector {
+            position: relative;
+        }
+
+        .language-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .language-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-btn {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .user-btn:hover {
+            background-color: var(--gray-300);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary-color);
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.875rem;
         }
-        .admin-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .admin-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+
+        /* Content Area */
+        .content {
             padding: 2rem;
-            border-radius: 20px 20px 0 0;
-            text-align: center;
         }
-        .admin-header h1 {
+
+        /* Cards */
+        .card {
+            background: var(--gray-200);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-300);
+            background: var(--gray-300);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-800);
             margin: 0;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--gray-200);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-color);
+        }
+
+        .stat-card.success::before {
+            background: var(--success-color);
+        }
+
+        .stat-card.warning::before {
+            background: var(--warning-color);
+        }
+
+        .stat-card.danger::before {
+            background: var(--danger-color);
+        }
+
+        .stat-card.info::before {
+            background: var(--info-color);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-title {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--white);
+        }
+
+        .stat-icon.primary {
+            background: var(--primary-color);
+        }
+
+        .stat-icon.success {
+            background: var(--success-color);
+        }
+
+        .stat-icon.warning {
+            background: var(--warning-color);
+        }
+
+        .stat-icon.danger {
+            background: var(--danger-color);
+        }
+
+        .stat-icon.info {
+            background: var(--info-color);
+        }
+
+        .stat-value {
             font-size: 2rem;
             font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
         }
-        .admin-header p {
-            margin: 0.5rem 0 0 0;
-            opacity: 0.9;
+
+        .stat-change {
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
         }
-        .form-control {
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 12px 16px;
-            font-size: 16px;
-            transition: all 0.3s ease;
+
+        .stat-change.positive {
+            color: var(--success-color);
         }
-        .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+
+        .stat-change.negative {
+            color: var(--danger-color);
         }
-        .btn-admin {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 10px;
-            padding: 12px 24px;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-        .btn-admin:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-        .form-label {
-            font-weight: 600;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .input-group-text {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-right: none;
-            border-radius: 10px 0 0 10px;
-        }
-        .input-group .form-control {
-            border-left: none;
-            border-radius: 0 10px 10px 0;
-        }
-        .alert {
-            border-radius: 10px;
-            border: none;
-        }
-        .back-link {
-            color: #667eea;
-            text-decoration: none;
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
             font-weight: 500;
-            transition: color 0.3s ease;
+            line-height: 1.5;
+            border-radius: var(--border-radius);
+            border: 1px solid transparent;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            gap: 0.5rem;
         }
-        .back-link:hover {
-            color: #764ba2;
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--gray-600);
+            color: var(--white);
+            border-color: var(--gray-600);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-700);
+            border-color: var(--gray-700);
+        }
+
+        /* Tables */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0;
+        }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .table th {
+            background: var(--gray-300);
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table tbody tr:hover {
+            background-color: var(--gray-300);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .main-content.expanded {
+                margin-left: 0;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .top-nav {
+                padding: 0.5rem 1rem;
+                min-height: 35px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--gray-300);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Dropdown */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--dark-color);
+            border: 1px solid var(--gray-400);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            min-width: 200px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+        }
+
+        .dropdown.show .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--gray-300);
+            color: var(--white);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background-color: var(--gray-400);
+            margin: 0.5rem 0;
         }
     </style>
+    
+    @stack('styles')
 </head>
 <body>
     <div class="admin-container">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-5">
-                    <div class="admin-card">
-                        @yield('content')
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-crown"></i> <span class="menu-text">TikTok Shop</span></h2>
+                {{-- <p class="menu-text">{{ __('admin::cms.admin_panel') }}</p> --}}
+            </div>
+            
+            <nav class="sidebar-menu">
+                <div class="menu-item">
+                    <a href="{{ route('admin.dashboard') }}" class="menu-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" data-tooltip="{{ __('admin::cms.dashboard') }}">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span class="menu-text">{{ __('admin::cms.dashboard') }}</span>
+                    </a>
+                </div>
+                
+                <div class="menu-item">
+                    <a href="#" class="menu-link" data-tooltip="{{ __('admin::cms.user_management') }}">
+                        <i class="fas fa-users"></i>
+                        <span class="menu-text">{{ __('admin::cms.user_management') }}</span>
+                    </a>
+                </div>
+                
+                <div class="menu-item">
+                    <a href="#" class="menu-link" data-tooltip="{{ __('admin::cms.order_management') }}">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="menu-text">{{ __('admin::cms.order_management') }}</span>
+                    </a>
+                </div>
+                
+                <div class="menu-item">
+                    <a href="#" class="menu-link" data-tooltip="{{ __('admin::cms.product_management') }}">
+                        <i class="fas fa-box"></i>
+                        <span class="menu-text">{{ __('admin::cms.product_management') }}</span>
+                    </a>
+                </div>
+                
+                <div class="menu-item">
+                    <a href="#" class="menu-link" data-tooltip="{{ __('admin::cms.analytics') }}">
+                        <i class="fas fa-chart-bar"></i>
+                        <span class="menu-text">{{ __('admin::cms.analytics') }}</span>
+                    </a>
+                </div>
+                
+                <div class="menu-item">
+                    <a href="#" class="menu-link" data-tooltip="{{ __('admin::cms.system_settings') }}">
+                        <i class="fas fa-cog"></i>
+                        <span class="menu-text">{{ __('admin::cms.system_settings') }}</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- Top Navigation -->
+            <nav class="top-nav">
+                <div class="nav-left">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="breadcrumb">
+                        <i class="fas fa-home"></i>
+                        <span>@yield('breadcrumb', __('admin::cms.dashboard'))</span>
                     </div>
                 </div>
+                
+                <div class="nav-right">
+                    <!-- Language Selector -->
+                    <div class="language-selector dropdown">
+                        <button class="language-btn" id="languageBtn">
+                            <i class="fas fa-globe"></i>
+                            <span id="currentLanguage">{{ app()->getLocale() == 'vi' ? 'VI' : 'EN' }}</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="languageMenu">
+                            <a href="#" class="dropdown-item" data-lang="vi">
+                                <i class="fas fa-flag"></i> {{ __('admin::cms.vietnamese') }}
+                            </a>
+                            <a href="#" class="dropdown-item" data-lang="en">
+                                <i class="fas fa-flag"></i> {{ __('admin::cms.english') }}
+                            </a>
+                            <a href="#" class="dropdown-item" data-lang="zh">
+                                <i class="fas fa-flag"></i> {{ __('admin::cms.chinese') }}
+                            </a>
+                            <a href="#" class="dropdown-item" data-lang="ja">
+                                <i class="fas fa-flag"></i> {{ __('admin::cms.japanese') }}
+                            </a>
+                            <a href="#" class="dropdown-item" data-lang="bn">
+                                <i class="fas fa-flag"></i> {{ __('admin::cms.bengali') }}
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- User Menu -->
+                    <div class="user-menu dropdown">
+                        <button class="user-btn" id="userBtn">
+                            <div class="user-avatar">
+                                {{ substr(Auth::user()->name ?? 'A', 0, 1) }}
+                            </div>
+                            <span class="text-white">{{ Auth::user()->name ?? 'Admin' }}</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="userMenu">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user"></i> {{ __('admin::cms.profile') }}
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog"></i> {{ __('admin::cms.settings') }}
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ route('admin.logout') }}" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i> {{ __('admin::cms.logout') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Content -->
+            <div class="content">
+                @yield('content')
             </div>
-        </div>
+        </main>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts -->
+    <script>
+        // Sidebar Toggle with localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            
+            // Lấy trạng thái sidebar từ localStorage khi tải trang
+            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            
+            // Áp dụng trạng thái đã lưu
+            if (isCollapsed) {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.add('expanded');
+            }
+            
+            // Xử lý sự kiện click toggle
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('expanded');
+                
+                // Lưu trạng thái vào localStorage
+                const isCurrentlyCollapsed = sidebar.classList.contains('collapsed');
+                localStorage.setItem('sidebarCollapsed', isCurrentlyCollapsed.toString());
+            });
+        });
+
+        // Dropdown Toggle
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            const btn = dropdown.querySelector('button');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('show');
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function() {
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+        });
+
+        // Language Switcher
+        document.querySelectorAll('[data-lang]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lang = this.getAttribute('data-lang');
+                
+                console.log('Language change requested:', lang);
+                
+                // Show loading
+                const currentLang = document.getElementById('currentLanguage');
+                currentLang.innerHTML = '<div class="loading"></div>';
+                
+                // Change language
+                fetch('{{ route("admin.set-language") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ language: lang })
+                })
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Response data:', data);
+                    if (data.success) {
+                        // Update the current language display
+                        const langMap = {
+                            'vi': 'VI',
+                            'en': 'EN', 
+                            'zh': 'ZH',
+                            'ja': 'JA',
+                            'bn': 'BN'
+                        };
+                        currentLang.textContent = langMap[lang] || 'VI';
+                        
+                        console.log('Language changed successfully, reloading page...');
+                        
+                        // Reload the page to apply language changes
+                        setTimeout(() => {
+                            location.reload();
+                        }, 300);
+                    } else {
+                        console.error('Language change failed:', data.message);
+                        currentLang.textContent = '{{ app()->getLocale() == "vi" ? "VI" : "EN" }}';
+                        alert('Failed to change language: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    currentLang.textContent = '{{ app()->getLocale() == "vi" ? "VI" : "EN" }}';
+                    alert('Error changing language: ' + error.message);
+                });
+            });
+        });
+
+        // Mobile sidebar toggle
+        if (window.innerWidth <= 768) {
+            document.getElementById('sidebarToggle').addEventListener('click', function() {
+                const sidebar = document.getElementById('sidebar');
+                sidebar.classList.toggle('show');
+            });
+        }
+        
+        // Handle window resize to maintain sidebar state
+        window.addEventListener('resize', function() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            
+            if (window.innerWidth > 768) {
+                // Desktop view - apply saved state
+                if (isCollapsed) {
+                    sidebar.classList.add('collapsed');
+                    mainContent.classList.add('expanded');
+                } else {
+                    sidebar.classList.remove('collapsed');
+                    mainContent.classList.remove('expanded');
+                }
+                sidebar.classList.remove('show');
+            } else {
+                // Mobile view - remove collapsed state
+                sidebar.classList.remove('collapsed');
+                mainContent.classList.remove('expanded');
+            }
+        });
+    </script>
+    
+    @stack('scripts')
 </body>
 </html>

@@ -10,6 +10,64 @@ use App\Helpers\LanguageHelper;
 
 class AdminController extends Controller
 {
+    public function index()
+    {
+        // Ensure admin locale is set
+        $adminLocale = session('admin_locale', 'vi');
+        if (LanguageHelper::isSupported($adminLocale)) {
+            app()->setLocale($adminLocale);
+        }
+        
+        // Debug log
+        \Log::info('AdminController index', [
+            'current_locale' => app()->getLocale(),
+            'session_admin_locale' => session('admin_locale'),
+            'request_url' => request()->url()
+        ]);
+        
+        // Lấy thống kê tổng quan
+        $stats = [
+            'total_users' => User::count(),
+            'total_orders' => 0, // Sẽ cập nhật khi có model Order
+            'total_products' => 0, // Sẽ cập nhật khi có model Product
+            'total_revenue' => 0, // Sẽ cập nhật khi có model Order
+        ];
+
+        // Lấy danh sách đơn hàng gần đây (mock data)
+        $recent_orders = [
+            [
+                'id' => '001',
+                'customer' => 'Nguyễn Văn A',
+                'amount' => 150.00,
+                'status' => 'completed'
+            ],
+            [
+                'id' => '002',
+                'customer' => 'Trần Thị B',
+                'amount' => 89.50,
+                'status' => 'pending'
+            ],
+            [
+                'id' => '003',
+                'customer' => 'Lê Văn C',
+                'amount' => 200.00,
+                'status' => 'completed'
+            ],
+        ];
+
+        // Lấy danh sách người dùng gần đây
+        $recent_users = User::latest()->take(5)->get()->map(function($user) {
+            return [
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role ?? 'user',
+                'created_at' => $user->created_at->format('d/m/Y')
+            ];
+        })->toArray();
+
+        return view('admin.index', compact('stats', 'recent_orders', 'recent_users'));
+    }
+
     public function login()
     {
         return view('admin.login');
@@ -97,5 +155,58 @@ class AdminController extends Controller
     public function register()
     {
         return view('admin.register');
+    }
+
+    public function registerStore(Request $request)
+    {
+        return view('admin.register');
+    }
+
+    public function changeLanguage(Request $request)
+    {
+        try {
+            $request->validate([
+                'language' => 'required|string|in:vi,en,zh,ja,bn'
+            ]);
+
+            $language = $request->input('language');
+            
+            // Debug: Log the request
+            \Log::info('Admin Language Change Request', [
+                'language' => $language,
+                'current_locale' => app()->getLocale(),
+                'session_admin_locale' => session('admin_locale')
+            ]);
+            
+            // Lưu ngôn ngữ vào session
+            session(['admin_locale' => $language]);
+            
+            // Set locale immediately for this request
+            app()->setLocale($language);
+            
+            // Debug: Log after setting
+            \Log::info('After setting language', [
+                'new_locale' => app()->getLocale(),
+                'session_admin_locale' => session('admin_locale')
+            ]);
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Language changed successfully',
+                'language' => $language,
+                'current_locale' => app()->getLocale()
+            ]);
+
+        } catch (\Exception $e) {
+            \Log::error('Language change error', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Error changing language: ' . $e->getMessage()
+            ]);
+        }
     }
 }
