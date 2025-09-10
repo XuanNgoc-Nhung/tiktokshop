@@ -370,4 +370,48 @@ class AdminController extends Controller
             ], 500);
         }
     }
+
+    public function deleteUser(Request $request, $id)
+    {
+        try {
+            // Ensure admin locale is set for validation messages
+            $adminLocale = session('admin_locale', 'vi');
+            if (LanguageHelper::isSupported($adminLocale)) {
+                app()->setLocale($adminLocale);
+            }
+
+            // Tìm user cần xóa
+            $user = User::findOrFail($id);
+            
+            // Kiểm tra không cho phép xóa admin
+            if ($user->role === 'admin') {
+                return response()->json([
+                    'success' => false,
+                    'message' => LanguageHelper::getAdminTranslation('cannot_delete_admin'),
+                ], 403);
+            }
+
+            // Xóa profile trước (nếu có)
+            $profile = Profile::where('user_id', $id)->first();
+            if ($profile) {
+                $profile->delete();
+            }
+
+            // Xóa user
+            $user->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => LanguageHelper::getAdminTranslation('user_deleted_success'),
+            ]);
+
+        } catch (\Exception $e) {
+            \Log::error('Delete user error', ['error' => $e->getMessage()]);
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getAdminTranslation('error_occurred'),
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

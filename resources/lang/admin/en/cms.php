@@ -48,6 +48,14 @@ return [
     'cancel' => 'Cancel',
     'confirm' => 'Confirm',
     'back' => 'Back',
+    
+    // Delete User
+    'delete_user' => 'Delete User',
+    'confirm_delete_user' => 'Confirm Delete User',
+    'delete_user_message' => 'Are you sure you want to delete this user? This action cannot be undone.',
+    'user_deleted_success' => 'User has been deleted successfully',
+    'cannot_delete_admin' => 'Cannot delete admin account',
+    'delete_user_warning' => 'Warning: Deleting a user will permanently remove all related information including personal profile.',
     'fill_sample_data' => 'Fill Sample Data',
     'next' => 'Next',
     'previous' => 'Previous',

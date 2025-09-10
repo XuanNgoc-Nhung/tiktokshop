@@ -70,10 +70,10 @@
                                         title="{{ __('admin::cms.edit') }}">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <form method="POST" action="{{ route('admin.user-management.destroy', ['id' => $user->id]) }}" onsubmit="return confirm('{{ __('admin::cms.confirm_delete_user') }}');">
+                                    {{-- <form method="POST" action="{{ route('admin.user-management.destroy', ['id' => $user->id]) }}" onsubmit="return confirm('{{ __('admin::cms.confirm_delete_user') }}');">
                                         @csrf
                                         <button type="submit" class="btn btn-secondary" title="{{ __('admin::cms.delete') }}" style="background: var(--danger-color); border-color: var(--danger-color); height: 30px; padding: 0.25rem 0.5rem; font-size: 0.8125rem;"><i class="fas fa-trash"></i></button>
-                                    </form>
+                                    </form> --}}
                                 </td>
                             </tr>
                         @empty

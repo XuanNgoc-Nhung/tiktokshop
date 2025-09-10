@@ -48,6 +48,14 @@ return [
     'cancel' => 'Hủy',
     'confirm' => 'Xác nhận',
     'back' => 'Quay lại',
+    
+    // Delete User
+    'delete_user' => 'Xóa người dùng',
+    'confirm_delete_user' => 'Xác nhận xóa người dùng',
+    'delete_user_message' => 'Bạn có chắc chắn muốn xóa người dùng này không? Hành động này không thể hoàn tác.',
+    'user_deleted_success' => 'Người dùng đã được xóa thành công',
+    'cannot_delete_admin' => 'Không thể xóa tài khoản admin',
+    'delete_user_warning' => 'Cảnh báo: Việc xóa người dùng sẽ xóa vĩnh viễn tất cả thông tin liên quan bao gồm hồ sơ cá nhân.',
     'fill_sample_data' => 'Điền dữ liệu mẫu',
     'next' => 'Tiếp theo',
     'previous' => 'Trước đó',
