@@ -15,6 +15,7 @@
                 <button type="submit" class="btn btn-primary" style="height: 32px; padding: 0.35rem 0.6rem; font-size: 0.8125rem;"><i class="fas fa-search"></i> {{ __('admin::cms.search') }}</button>
                 <a href="{{ route('admin.user-management') }}" class="btn btn-secondary" style="height: 32px; padding: 0.35rem 0.6rem; font-size: 0.8125rem;"><i class="fas fa-rotate"></i> {{ __('admin::cms.reset') }}</a>
                 <a href="{{ route('admin.user-management.create') }}" id="openCreateUserModal" class="btn btn-primary" style="height: 32px; padding: 0.35rem 0.6rem; font-size: 0.8125rem;"><i class="fas fa-plus"></i> {{ __('admin::cms.add_new') }}</a>
+                <button type="button" id="testDeleteModal" class="btn btn-warning" style="height: 32px; padding: 0.35rem 0.6rem; font-size: 0.8125rem;"><i class="fas fa-bug"></i> Test Delete</button>
             </form>
 
             <div style="margin-bottom: 0.5rem; color: var(--gray-600); font-size: 0.875rem;">{{ __('admin::cms.total') }}: {{ $users->total() }}</div>
@@ -70,10 +71,13 @@
                                         title="{{ __('admin::cms.edit') }}">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    {{-- <form method="POST" action="{{ route('admin.user-management.destroy', ['id' => $user->id]) }}" onsubmit="return confirm('{{ __('admin::cms.confirm_delete_user') }}');">
-                                        @csrf
-                                        <button type="submit" class="btn btn-secondary" title="{{ __('admin::cms.delete') }}" style="background: var(--danger-color); border-color: var(--danger-color); height: 30px; padding: 0.25rem 0.5rem; font-size: 0.8125rem;"><i class="fas fa-trash"></i></button>
-                                    </form> --}}
+                                    <button type="button" class="btn btn-danger delete-user-btn" 
+                                        data-user-id="{{ $user->id }}"
+                                        data-name="{{ $user->name }}"
+                                        style="height: 30px; padding: 0.25rem 0.5rem; font-size: 0.8125rem;" 
+                                        title="{{ __('admin::cms.delete') }}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </td>
                             </tr>
                         @empty
@@ -137,6 +141,24 @@
         </div>
     </div>
 
+    <!-- Bootstrap Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="deleteConfirmModalLabel">{{ __('admin::cms.confirm_delete') }}</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-dark mb-0" id="deleteConfirmMessage">{{ __('admin::cms.confirm_delete_user') }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">{{ __('admin::cms.cancel') }}</button>
+                    <button type="button" class="btn btn-danger btn-sm" id="confirmDeleteBtn">{{ __('admin::cms.delete') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Edit User Modal -->
     <div id="editUserModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
@@ -169,7 +191,7 @@
                                         <img id="preview_anh_chan_dung" src="" alt="Ảnh chân dung" class="img-fluid d-none" style="width: 100%; height: 100%; object-fit: cover;">
                                     </div>
                                     <div class="mt-2">
-                                        <label for="edit_anh_chan_dung" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.portrait_image') }}</label>
+                                        <label for="edit_anh_chan_dung" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.portrait_image') }}</label>
                                         <input id="edit_anh_chan_dung" name="anh_chan_dung" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_image_url') }}">
                                         <div class="field-error" id="error_edit_anh_chan_dung" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
@@ -184,28 +206,28 @@
                                 <div class="row g-2">
                                     <!-- Name -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_name" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.name') }}</label>
+                                        <label for="edit_name" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.name') }}</label>
                                         <input id="edit_name" name="name" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_name') }}">
                                         <div class="field-error" id="error_edit_name" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Phone -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_phone" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.phone') }}</label>
+                                        <label for="edit_phone" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.phone') }}</label>
                                         <input id="edit_phone" name="phone" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_phone') }}" disabled readonly>
                                         <div class="field-error" id="error_edit_phone" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Email -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_email" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.email') }}</label>
+                                        <label for="edit_email" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.email') }}</label>
                                         <input id="edit_email" name="email" type="email" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_email') }}" disabled readonly>
                                         <div class="field-error" id="error_edit_email" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Gender -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_gioi_tinh" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.gender') }}</label>
+                                        <label for="edit_gioi_tinh" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.gender') }}</label>
                                         <select id="edit_gioi_tinh" name="gioi_tinh" class="form-select form-select-sm">
                                             <option value="">{{ __('admin::cms.select_gender') }}</option>
                                             <option value="Nam">Nam</option>
@@ -217,63 +239,63 @@
                                     
                                     <!-- Birth Date -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_ngay_sinh" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.birth_date') }}</label>
+                                        <label for="edit_ngay_sinh" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.birth_date') }}</label>
                                         <input id="edit_ngay_sinh" name="ngay_sinh" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_birth_date') }}">
                                         <div class="field-error" id="error_edit_ngay_sinh" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Address -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_dia_chi" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.address') }}</label>
+                                        <label for="edit_dia_chi" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.address') }}</label>
                                         <input id="edit_dia_chi" name="dia_chi" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_address') }}">
                                         <div class="field-error" id="error_edit_dia_chi" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Balance -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_so_du" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.balance') }}</label>
+                                        <label for="edit_so_du" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.balance') }}</label>
                                         <input id="edit_so_du" name="so_du" type="number" step="0.01" min="0" placeholder="0" class="form-control form-control-sm">
                                         <div class="field-error" id="error_edit_so_du" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Win Count -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_luot_trung" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.win_count') }}</label>
+                                        <label for="edit_luot_trung" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.win_count') }}</label>
                                         <input id="edit_luot_trung" name="luot_trung" type="number" min="0" placeholder="0" class="form-control form-control-sm">
                                         <div class="field-error" id="error_edit_luot_trung" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Bank -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_ngan_hang" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.bank') }}</label>
+                                        <label for="edit_ngan_hang" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.bank') }}</label>
                                         <input id="edit_ngan_hang" name="ngan_hang" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_bank') }}">
                                         <div class="field-error" id="error_edit_ngan_hang" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Account Number -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_so_tai_khoan" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.account_number') }}</label>
+                                        <label for="edit_so_tai_khoan" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.account_number') }}</label>
                                         <input id="edit_so_tai_khoan" name="so_tai_khoan" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_account_number') }}">
                                         <div class="field-error" id="error_edit_so_tai_khoan" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Account Holder -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_chu_tai_khoan" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.account_holder') }}</label>
+                                        <label for="edit_chu_tai_khoan" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.account_holder') }}</label>
                                         <input id="edit_chu_tai_khoan" name="chu_tai_khoan" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_account_holder') }}">
                                         <div class="field-error" id="error_edit_chu_tai_khoan" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Level -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_cap_do" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.level') }}</label>
+                                        <label for="edit_cap_do" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.level') }}</label>
                                         <input id="edit_cap_do" name="cap_do" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_level') }}">
                                         <div class="field-error" id="error_edit_cap_do" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Prize ID -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_giai_thuong_id" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.prize_id') }}</label>
+                                        <label for="edit_giai_thuong_id" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.prize_id') }}</label>
                                         <input id="edit_giai_thuong_id" name="giai_thuong_id" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_prize_id') }}">
                                         <div class="field-error" id="error_edit_giai_thuong_id" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
@@ -282,11 +304,11 @@
                             
                             <!-- Additional Images Section -->
                             <div class="mt-4 pt-3 border-top">
-                                <h5 class="mb-3" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.additional_images') }}</h5>
+                                <h5 class="mb-3" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.additional_images') }}</h5>
                                 <div class="row g-2">
                                     <!-- Front Image -->
                                     <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <label for="edit_anh_mat_truoc" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.front_image') }}</label>
+                                        <label for="edit_anh_mat_truoc" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.front_image') }}</label>
                                         <div class="mb-2">
                                             <div id="preview_anh_mat_truoc_placeholder" class="d-flex flex-column align-items-center justify-content-center text-muted rounded border" style="width: 100%; height: 160px; background: #f9fafb; border: 2px dashed #cbd5e0 !important;">
                                                 <i class="fas fa-image fa-lg mb-1"></i>
@@ -300,7 +322,7 @@
                                     
                                     <!-- Back Image -->
                                     <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <label for="edit_anh_mat_sau" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.back_image') }}</label>
+                                        <label for="edit_anh_mat_sau" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.back_image') }}</label>
                                         <div class="mb-2">
                                             <div id="preview_anh_mat_sau_placeholder" class="d-flex flex-column align-items-center justify-content-center text-muted rounded border" style="width: 100%; height: 160px; background: #f9fafb; border: 2px dashed #cbd5e0 !important;">
                                                 <i class="fas fa-image fa-lg mb-1"></i>
@@ -360,6 +382,8 @@
             </div>
         </div>
     </div>
+
+
 @endsection
 
 @push('styles')
@@ -521,6 +545,7 @@
     #confirmUpdateModal .text-warning {
         color: #ffc107;
     }
+    
     
     /* Disabled input styling */
     #editUserForm input[disabled],
@@ -1236,6 +1261,187 @@
             document.addEventListener('DOMContentLoaded', initEditModal);
         } else {
             initEditModal();
+        }
+    })();
+
+    // Delete User with Bootstrap Modal Confirmation Script
+    (function() {
+        // Global variables for delete functionality
+        let currentUserId = null;
+        let currentUserName = '';
+        let deleteModal = null;
+
+        const deleteI18n = {
+            deleting: "{{ __('admin::cms.deleting') }}",
+            errorGeneric: "{{ __('admin::cms.error_generic') }}",
+            networkError: "{{ __('admin::cms.error_network') }}",
+            deletedSuccess: "{{ __('admin::cms.deleted_success') }}",
+            confirmDeleteUser: "{{ __('admin::cms.confirm_delete_user') }}",
+            confirmDeleteMessage: "{{ __('admin::cms.confirm_delete_message') }}",
+            confirmDeleteTitle: "{{ __('admin::cms.confirm_delete') }}",
+            confirmDeleteDescription: "{{ __('admin::cms.confirm_delete_description') }}"
+        };
+
+        function initDeleteUser() {
+            console.log('🔧 [DELETE] Khởi tạo chức năng xóa người dùng với Bootstrap modal');
+            
+            deleteModal = document.getElementById('deleteConfirmModal');
+            const deleteUserBtns = document.querySelectorAll('.delete-user-btn');
+            const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+            
+            console.log('📋 [DELETE] Tìm thấy:', {
+                modal: deleteModal ? 'Có' : 'Không',
+                deleteButtons: deleteUserBtns.length,
+                confirmButton: confirmDeleteBtn ? 'Có' : 'Không'
+            });
+
+            if (!deleteModal || !confirmDeleteBtn) {
+                console.error('❌ [DELETE] Không tìm thấy modal hoặc nút xác nhận!');
+                return;
+            }
+
+            // Event listeners for delete buttons
+            deleteUserBtns.forEach((btn, index) => {
+                console.log(`🔗 [DELETE] Thêm event listener cho nút xóa ${index + 1}`);
+                btn.addEventListener('click', function() {
+                    const userId = this.getAttribute('data-user-id');
+                    const userName = this.getAttribute('data-name');
+                    console.log(`🖱️ [DELETE] Click nút xóa ${index + 1}:`, { userId, userName });
+                    showDeleteConfirmation(userId, userName);
+                });
+            });
+
+            // Event listener for confirm delete button
+            confirmDeleteBtn.addEventListener('click', function() {
+                console.log('✅ [DELETE] Người dùng xác nhận xóa từ modal');
+                performDelete();
+            });
+            
+            console.log('✅ [DELETE] Khởi tạo hoàn tất');
+            
+            // Test button for debugging
+            const testBtn = document.getElementById('testDeleteModal');
+            if (testBtn) {
+                testBtn.addEventListener('click', function() {
+                    console.log('🧪 [TEST] Test delete button clicked');
+                    showDeleteConfirmation('999', 'Test User');
+                });
+            }
+        }
+
+        function showDeleteConfirmation(userId, userName) {
+            console.log('🔍 [DELETE] Bước 1: Hiển thị Bootstrap modal xác nhận xóa');
+            console.log('📋 [DELETE] Dữ liệu:', { userId, userName });
+            
+            currentUserId = userId;
+            currentUserName = userName;
+            
+            // Cập nhật message trong modal
+            const confirmMessage = deleteI18n.confirmDeleteMessage.replace(':name', userName);
+            const messageElement = document.getElementById('deleteConfirmMessage');
+            if (messageElement) {
+                messageElement.textContent = confirmMessage;
+            }
+            
+            console.log('💬 [DELETE] Hiển thị modal với message:', confirmMessage);
+            
+            // Hiển thị Bootstrap modal
+            const modal = new bootstrap.Modal(deleteModal, {
+                backdrop: 'static',
+                keyboard: false,
+                focus: true
+            });
+            modal.show();
+            console.log('✅ [DELETE] Modal đã hiển thị');
+        }
+
+        function performDelete() {
+            console.log('🚀 [DELETE] Bước 2: Bắt đầu thực hiện xóa người dùng');
+            console.log('📋 [DELETE] Dữ liệu hiện tại:', { currentUserId, currentUserName });
+            
+            if (!currentUserId) {
+                console.error('❌ [DELETE] Lỗi: Không có User ID để xóa');
+                return;
+            }
+
+            // Hiển thị toast loading
+            if (window.showToast) {
+                window.showToast(deleteI18n.deleting, { 
+                    type: 'info',
+                    title: 'Đang xử lý...'
+                });
+            }
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const deleteUrl = `/admin/user-management/${currentUserId}`;
+            
+            console.log('🌐 [DELETE] Bước 3: Gửi request DELETE');
+            console.log('📡 [DELETE] URL:', deleteUrl);
+            console.log('🔑 [DELETE] CSRF Token:', csrfToken ? 'Có' : 'Không');
+
+            axios.delete(deleteUrl, {
+                headers: { 
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json'
+                }
+            }).then(function(res) {
+                console.log('✅ [DELETE] Bước 4: Nhận response thành công');
+                console.log('📊 [DELETE] Response data:', res.data);
+                
+                if (res.data && res.data.success) {
+                    console.log('🎉 [DELETE] Xóa thành công!');
+                    
+                    // Đóng modal
+                    const modal = bootstrap.Modal.getInstance(deleteModal);
+                    if (modal) {
+                        modal.hide();
+                        console.log('✅ [DELETE] Modal đã đóng');
+                    }
+                    
+                    if (window.showToast) { 
+                        console.log('💬 [DELETE] Hiển thị thông báo thành công');
+                        window.showToast(deleteI18n.deletedSuccess, { type: 'success' }); 
+                    }
+                    
+                    console.log('⏰ [DELETE] Lên lịch reload trang sau 2 giây');
+                    setTimeout(function() {
+                        console.log('🔄 [DELETE] Reload trang');
+                        location.reload();
+                    }, 2000);
+                } else {
+                    const msg = res.data && (res.data.message || res.data.errors) || deleteI18n.errorGeneric;
+                    console.log('⚠️ [DELETE] Response không thành công:', msg);
+                    if (window.showToast) { 
+                        window.showToast(Array.isArray(msg) ? msg[0] : String(msg), { type: 'error' }); 
+                    }
+                }
+            }).catch(function(err) {
+                console.log('❌ [DELETE] Bước 5: Xảy ra lỗi');
+                console.log('🚨 [DELETE] Error object:', err);
+                console.log('📊 [DELETE] Error response:', err.response);
+                
+                if (err.response && err.response.data) {
+                    const data = err.response.data;
+                    console.log('📋 [DELETE] Error data:', data);
+                    if (window.showToast) { 
+                        window.showToast(data.message || deleteI18n.errorGeneric, { type: 'error' }); 
+                    }
+                } else {
+                    console.log('🌐 [DELETE] Network error hoặc lỗi không xác định');
+                    if (window.showToast) { 
+                        window.showToast(deleteI18n.networkError, { type: 'error' }); 
+                    }
+                }
+            }).finally(function() {
+                console.log('✨ [DELETE] Quá trình xóa hoàn tất');
+            });
+        }
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initDeleteUser);
+        } else {
+            initDeleteUser();
         }
     })();
 </script>

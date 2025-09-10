@@ -51,9 +51,13 @@ return [
     
     // Delete User
     'delete_user' => 'Xóa người dùng',
-    'confirm_delete_user' => 'Xác nhận xóa người dùng',
+    'confirm_delete' => 'Xác nhận xóa',
+    'confirm_delete_user' => 'Bạn có chắc chắn muốn xóa người dùng này không?',
+    'confirm_delete_message' => 'Bạn có chắc chắn muốn xóa người dùng :name không? Hành động này không thể hoàn tác.',
+    'confirm_delete_description' => 'Tất cả dữ liệu liên quan đến người dùng này sẽ bị xóa vĩnh viễn.',
     'delete_user_message' => 'Bạn có chắc chắn muốn xóa người dùng này không? Hành động này không thể hoàn tác.',
     'user_deleted_success' => 'Người dùng đã được xóa thành công',
+    'deleted_success' => 'Đã xóa thành công',
     'cannot_delete_admin' => 'Không thể xóa tài khoản admin',
     'delete_user_warning' => 'Cảnh báo: Việc xóa người dùng sẽ xóa vĩnh viễn tất cả thông tin liên quan bao gồm hồ sơ cá nhân.',
     'fill_sample_data' => 'Điền dữ liệu mẫu',
@@ -137,7 +141,6 @@ return [
     'add_new' => 'Thêm mới',
     'total' => 'Tổng',
     'no_data' => 'Không có dữ liệu',
-    'confirm_delete_user' => 'Xoá người dùng này?',
     'confirm_update_user' => 'Bạn có chắc chắn muốn cập nhật thông tin người dùng này?',
     'confirm_update' => 'Xác nhận cập nhật',
     'confirm_update_description' => 'Hành động này sẽ thay đổi thông tin người dùng. Bạn có chắc chắn muốn tiếp tục?',

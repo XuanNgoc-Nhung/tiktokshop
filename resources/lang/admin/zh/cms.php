@@ -48,6 +48,19 @@ return [
     'cancel' => '取消',
     'confirm' => '确认',
     'back' => '返回',
+    
+    // Delete User
+    'delete_user' => '删除用户',
+    'confirm_delete' => '确认删除',
+    'confirm_delete_user' => '您确定要删除此用户吗？',
+    'confirm_delete_message' => '您确定要删除用户 :name 吗？此操作无法撤销。',
+    'confirm_delete_description' => '与此用户相关的所有数据将被永久删除。',
+    'delete_user_message' => '您确定要删除此用户吗？此操作无法撤销。',
+    'user_deleted_success' => '用户已成功删除',
+    'deleted_success' => '删除成功',
+    'cannot_delete_admin' => '无法删除管理员账户',
+    'delete_user_warning' => '警告：删除用户将永久删除所有相关信息，包括个人资料。',
+    
     'fill_sample_data' => '填充示例数据',
     'next' => '下一步',
     'previous' => '上一步',

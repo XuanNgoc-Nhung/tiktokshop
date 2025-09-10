@@ -51,9 +51,13 @@ return [
     
     // Delete User
     'delete_user' => 'Delete User',
-    'confirm_delete_user' => 'Confirm Delete User',
+    'confirm_delete' => 'Confirm Delete',
+    'confirm_delete_user' => 'Are you sure you want to delete this user?',
+    'confirm_delete_message' => 'Are you sure you want to delete user :name? This action cannot be undone.',
+    'confirm_delete_description' => 'All data related to this user will be permanently deleted.',
     'delete_user_message' => 'Are you sure you want to delete this user? This action cannot be undone.',
     'user_deleted_success' => 'User has been deleted successfully',
+    'deleted_success' => 'Deleted successfully',
     'cannot_delete_admin' => 'Cannot delete admin account',
     'delete_user_warning' => 'Warning: Deleting a user will permanently remove all related information including personal profile.',
     'fill_sample_data' => 'Fill Sample Data',

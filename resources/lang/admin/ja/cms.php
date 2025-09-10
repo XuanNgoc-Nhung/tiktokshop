@@ -48,6 +48,19 @@ return [
     'cancel' => 'キャンセル',
     'confirm' => '確認',
     'back' => '戻る',
+    
+    // Delete User
+    'delete_user' => 'ユーザーを削除',
+    'confirm_delete' => '削除の確認',
+    'confirm_delete_user' => 'このユーザーを削除してもよろしいですか？',
+    'confirm_delete_message' => 'ユーザー :name を削除してもよろしいですか？この操作は元に戻せません。',
+    'confirm_delete_description' => 'このユーザーに関連するすべてのデータが永久に削除されます。',
+    'delete_user_message' => 'このユーザーを削除してもよろしいですか？この操作は元に戻せません。',
+    'user_deleted_success' => 'ユーザーが正常に削除されました',
+    'deleted_success' => '削除が完了しました',
+    'cannot_delete_admin' => '管理者アカウントは削除できません',
+    'delete_user_warning' => '警告：ユーザーを削除すると、個人プロファイルを含むすべての関連情報が永久に削除されます。',
+    
     'fill_sample_data' => 'サンプルデータを入力',
     'next' => '次へ',
     'previous' => '前へ',
