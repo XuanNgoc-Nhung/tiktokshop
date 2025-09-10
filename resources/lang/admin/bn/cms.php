@@ -9,6 +9,7 @@ return [
     'user_management' => 'ব্যবহারকারী ব্যবস্থাপনা',
     'order_management' => 'অর্ডার ব্যবস্থাপনা',
     'product_management' => 'পণ্য ব্যবস্থাপনা',
+    'thong_bao_management' => 'বিজ্ঞপ্তি ব্যবস্থাপনা',
     'analytics' => 'বিশ্লেষণ',
     'system_settings' => 'সিস্টেম সেটিংস',
     

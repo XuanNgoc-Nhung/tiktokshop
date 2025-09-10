@@ -9,6 +9,7 @@ return [
     'user_management' => 'Quản lý người dùng',
     'order_management' => 'Quản lý đơn hàng',
     'product_management' => 'Quản lý sản phẩm',
+    'thong_bao_management' => 'Quản lý thông báo',
     'analytics' => 'Phân tích',
     'system_settings' => 'Cài đặt hệ thống',
     

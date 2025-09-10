@@ -868,6 +868,13 @@
                 </div>
                 
                 <div class="menu-item">
+                    <a href="{{ route('admin.thong-bao-management') }}" class="menu-link {{ request()->routeIs('admin.thong-bao-management') ? 'active' : '' }}" data-tooltip="{{ __('admin::cms.thong_bao_management') }}">
+                        <i class="fas fa-bell"></i>
+                        <span class="menu-text">{{ __('admin::cms.thong_bao_management') }}</span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
                     <a href="#" class="menu-link" data-tooltip="{{ __('admin::cms.analytics') }}">
                         <i class="fas fa-chart-bar"></i>
                         <span class="menu-text">{{ __('admin::cms.analytics') }}</span>
@@ -1047,48 +1054,30 @@
                 const currentLang = document.getElementById('currentLanguage');
                 currentLang.innerHTML = '<div class="loading"></div>';
                 
-                // Change language
-                fetch('{{ route("admin.set-language") }}', {
-                    method: 'POST',
+                // Change language with axios
+                axios.post('{{ route("admin.set-language") }}', { language: lang }, {
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({ language: lang })
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json'
+                    }
                 })
-                .then(response => {
-                    console.log('Response status:', response.status);
-                    return response.json();
-                })
-                .then(data => {
+                .then(function(res){
+                    const data = res && res.data ? res.data : {};
                     console.log('Response data:', data);
                     if (data.success) {
-                        // Update the current language display
-                        const langMap = {
-                            'vi': 'VI',
-                            'en': 'EN', 
-                            'zh': 'ZH',
-                            'ja': 'JA',
-                            'bn': 'BN'
-                        };
+                        const langMap = { 'vi': 'VI', 'en': 'EN', 'zh': 'ZH', 'ja': 'JA', 'bn': 'BN' };
                         currentLang.textContent = langMap[lang] || (lang ? lang.toUpperCase() : 'EN');
-                        
-                        console.log('Language changed successfully, reloading page...');
-                        
-                        // Reload the page to apply language changes
-                        setTimeout(() => {
-                            location.reload();
-                        }, 300);
+                        setTimeout(() => { location.reload(); }, 300);
                     } else {
                         console.error('Language change failed:', data.message);
                         currentLang.textContent = '{{ ['vi'=>'VI','en'=>'EN','zh'=>'ZH','ja'=>'JA','bn'=>'BN'][app()->getLocale()] ?? strtoupper(app()->getLocale()) }}';
-                        alert('Failed to change language: ' + data.message);
+                        alert('Failed to change language: ' + (data && data.message ? data.message : 'Unknown error'));
                     }
                 })
-                .catch(error => {
+                .catch(function(error){
                     console.error('Error:', error);
                     currentLang.textContent = '{{ ['vi'=>'VI','en'=>'EN','zh'=>'ZH','ja'=>'JA','bn'=>'BN'][app()->getLocale()] ?? strtoupper(app()->getLocale()) }}';
-                    alert('Error changing language: ' + error.message);
+                    alert('Error changing language: ' + (error && error.message ? error.message : 'Network error'));
                 });
             });
         });
@@ -1147,6 +1136,9 @@
         })();
     </script>
     
+    <!-- Axios (global) -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     

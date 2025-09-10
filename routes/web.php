@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RewardController;
+use App\Http\Controllers\ThongBaoController;
 
 Route::middleware(['language.user'])->group(function () {
     Route::get('/', [UserController::class, 'index']);
@@ -36,6 +37,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin']], fu
     Route::delete('/product-management/{id}', [ProductController::class, 'deleteProduct'])->name('admin.product-management.delete');
     //reward management
     Route::get('/reward-management', [RewardController::class, 'rewardManagement'])->name('admin.reward-management');
+    // thong bao management
+    Route::get('/thong-bao-management', [ThongBaoController::class, 'thongBaoManagement'])->name('admin.thong-bao-management');
+    Route::get('/thong-bao', [ThongBaoController::class, 'index'])->name('admin.thong-bao.index');
+    Route::post('/thong-bao', [ThongBaoController::class, 'store'])->name('admin.thong-bao.store');
+    Route::put('/thong-bao/{id}', [ThongBaoController::class, 'update'])->name('admin.thong-bao.update');
+    Route::delete('/thong-bao/{id}', [ThongBaoController::class, 'destroy'])->name('admin.thong-bao.destroy');
+    Route::patch('/thong-bao/{id}/toggle', [ThongBaoController::class, 'toggleStatus'])->name('admin.thong-bao.toggle');
 });
 
 // Admin routes with authentication check
