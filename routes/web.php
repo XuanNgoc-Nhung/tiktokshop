@@ -78,7 +78,7 @@ Route::get('/language/{locale}', function ($locale) {
 
 Route::get('/admin/language/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'vi', 'ja', 'zh', 'bn'])) {
-        session(['language' => $locale]);
+        session(['admin_locale' => $locale]);
     }
     return redirect()->back();
 })->name('admin.language.switch');

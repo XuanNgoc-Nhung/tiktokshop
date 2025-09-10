@@ -32,18 +32,6 @@ class LanguageMiddleware
         // Set the application locale
         app()->setLocale($locale);
         
-        // Debug for admin
-        if ($type === 'admin') {
-            \Log::info('LanguageMiddleware Admin', [
-                'type' => $type,
-                'locale' => $locale,
-                'session_admin_locale' => $request->session()->get('admin_locale'),
-                'app_locale' => app()->getLocale(),
-                'url' => $request->url(),
-                'request_method' => $request->method()
-            ]);
-        }
-        
         // Store the language type (admin or user) in the request
         $request->merge(['language_type' => $type]);
         

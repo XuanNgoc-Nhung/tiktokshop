@@ -1,6 +1,5 @@
 @php
     use App\Helpers\LanguageHelper;
-    $__ = [LanguageHelper::class, 'getAdminTranslation'];
 @endphp
 
 <!DOCTYPE html>
@@ -181,7 +180,7 @@
                 <i class="fas fa-leaf text-success me-2" style="font-size: 24px;"></i>
                 <span class="text-success fw-bold" style="font-size: 20px;">TikTok Shop</span>
             </div>
-            <p>{{ $__('admin_access') }}</p>
+            <p>{{ LanguageHelper::getAdminTranslation('admin_access') }}</p>
             
             <!-- Language Switcher -->
             <div class="d-flex justify-content-center mb-3">
@@ -192,15 +191,15 @@
         <!-- Language translations for JavaScript -->
         <script>
             window.adminTranslations = {
-                'fill_all_fields': '{{ $__('fill_all_fields') }}',
-                'invalid_credentials': '{{ $__('invalid_credentials') }}',
-                'login_success': '{{ $__('login_success') }}',
-                'error': '{{ $__('error') }}',
-                'success': '{{ $__('success') }}',
-                'logging_in': '{{ $__('logging_in') }}',
-                'login_failed': '{{ $__('error') }}',
-                'system_error': '{{ $__('error') }}',
-                'connection_error': '{{ $__('error') }}'
+                'fill_all_fields': '{{ LanguageHelper::getAdminTranslation('fill_all_fields') }}',
+                'invalid_credentials': '{{ LanguageHelper::getAdminTranslation('invalid_credentials') }}',
+                'login_success': '{{ LanguageHelper::getAdminTranslation('login_success') }}',
+                'error': '{{ LanguageHelper::getAdminTranslation('error') }}',
+                'success': '{{ LanguageHelper::getAdminTranslation('success') }}',
+                'logging_in': '{{ LanguageHelper::getAdminTranslation('logging_in') }}',
+                'login_failed': '{{ LanguageHelper::getAdminTranslation('error') }}',
+                'system_error': '{{ LanguageHelper::getAdminTranslation('error') }}',
+                'connection_error': '{{ LanguageHelper::getAdminTranslation('error') }}'
             };
         </script>
 
@@ -224,13 +223,13 @@
             @csrf
             
             <div class="mb-3">
-                <label for="email" class="form-label">{{ $__('email') }}</label>
+                <label for="email" class="form-label">{{ LanguageHelper::getAdminTranslation('email') }}</label>
                 <input type="email" 
                        class="form-control @error('email') is-invalid @enderror" 
                        id="email" 
                        name="email" 
                        value="{{ old('email') }}" 
-                       placeholder="{{ $__('email') }}"
+                       placeholder="{{ LanguageHelper::getAdminTranslation('email') }}"
                        required 
                        autofocus>
                 @error('email')
@@ -241,12 +240,12 @@
             </div>
 
             <div class="mb-3">
-                <label for="password" class="form-label">{{ $__('password') }}</label>
+                <label for="password" class="form-label">{{ LanguageHelper::getAdminTranslation('password') }}</label>
                 <input type="password" 
                        class="form-control @error('password') is-invalid @enderror" 
                        id="password" 
                        name="password" 
-                       placeholder="{{ $__('password') }}"
+                       placeholder="{{ LanguageHelper::getAdminTranslation('password') }}"
                        required>
                 @error('password')
                     <div class="invalid-feedback d-block">
@@ -258,21 +257,19 @@
             <div class="form-check mb-3">
                 <input type="checkbox" class="form-check-input" id="remember" name="remember">
                 <label class="form-check-label" for="remember">
-                    {{ $__('remember_me') }}
+                    {{ LanguageHelper::getAdminTranslation('remember_me') }}
                 </label>
             </div>
 
             <div class="d-grid">
                 <button type="submit" class="btn btn-login">
-                    {{ $__('login_button') }} »
+                    {{ LanguageHelper::getAdminTranslation('login_button') }} »
                 </button>
             </div>
         </form>
-
-
         <div class="back-link">
             <a href="{{ route('login') }}">
-                <i class="fas fa-arrow-left me-2"></i>{{ $__('back_to_user_page') }}
+                <i class="fas fa-arrow-left me-2"></i>{{ LanguageHelper::getAdminTranslation('back_to_user_page') }}
             </a>
         </div>
     </div>
@@ -565,6 +562,26 @@
                 setTimeout(() => showToast('error', 'Test Lỗi', 'Đây là thông báo test lỗi!'), 1000);
                 setTimeout(() => showToast('warning', 'Test Cảnh báo', 'Đây là thông báo test cảnh báo!'), 2000);
                 setTimeout(() => showToast('info', 'Test Thông tin', 'Đây là thông báo test thông tin!'), 3000);
+            };
+            
+            // Hàm tự động điền dữ liệu đăng nhập admin
+            window.fillAdminCredentials = function() {
+                const emailInput = document.getElementById('email');
+                const passwordInput = document.getElementById('password');
+                
+                if (emailInput && passwordInput) {
+                    emailInput.value = 'admin@tiktokshop.com';
+                    passwordInput.value = '123456789';
+                    
+                    // Trigger validation events
+                    emailInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    passwordInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    
+                    // Show success message
+                    showToast('success', 'Thành công', 'Đã điền thông tin đăng nhập admin!');
+                } else {
+                    showToast('error', 'Lỗi', 'Không thể tìm thấy các trường email hoặc password!');
+                }
             };
         });
     </script>

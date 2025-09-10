@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Profile;
 use App\Models\User;
 use App\Helpers\LanguageHelper;
 
@@ -77,6 +78,10 @@ class UserController extends Controller
             ]);
 
             if ($request->expectsJson()) {
+                //tạo profile cho user
+                Profile::create([
+                    'user_id' => $user->id,
+                ]);
                 return response()->json([
                     'success' => true,
                     'message' => LanguageHelper::getUserTranslation('registration_success'),
