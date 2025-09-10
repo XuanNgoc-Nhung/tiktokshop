@@ -48,6 +48,7 @@ return [
     'cancel' => '取消',
     'confirm' => '确认',
     'back' => '返回',
+    'fill_sample_data' => '填充示例数据',
     'next' => '下一步',
     'previous' => '上一步',
     'search' => '搜索',
@@ -129,6 +130,9 @@ return [
     'total' => '总计',
     'no_data' => '没有数据',
     'confirm_delete_user' => '要删除该用户吗？',
+    'confirm_update_user' => '您确定要更新此用户信息吗？',
+    'confirm_update' => '确认更新',
+    'confirm_update_description' => '此操作将修改用户信息。您确定要继续吗？',
     'search_placeholder_users' => '按姓名、邮箱、电话搜索',
     'seller' => '卖家',
     
@@ -151,6 +155,30 @@ return [
     'validation_enter_password_confirmation' => '请确认密码',
     'validation_password_mismatch' => '两次输入的密码不一致',
     'validation_enter_referral_code' => '请输入推荐码',
+    
+    // Edit User Form Validation
+    'validation_name_required' => '姓名不能为空',
+    'validation_phone_required' => '电话号码不能为空',
+    'validation_email_required' => '邮箱不能为空',
+    'validation_gioi_tinh_required' => '性别不能为空',
+    'validation_ngay_sinh_required' => '出生日期不能为空',
+    'validation_dia_chi_required' => '地址不能为空',
+    'validation_so_du_required' => '余额不能为空',
+    'validation_luot_trung_required' => '中奖次数不能为空',
+    'validation_ngan_hang_required' => '银行不能为空',
+    'validation_so_tai_khoan_required' => '账号不能为空',
+    'validation_chu_tai_khoan_required' => '账户持有人不能为空',
+    'validation_cap_do_required' => '等级不能为空',
+    'validation_giai_thuong_id_required' => '奖品ID不能为空',
+    
+    // Format Validation
+    'validation_email_invalid' => '邮箱格式不正确',
+    'validation_phone_invalid' => '电话号码格式不正确',
+    'validation_so_du_invalid' => '余额必须是非负数',
+    'validation_luot_trung_invalid' => '中奖次数必须是非负整数',
+    'validation_ngay_sinh_format' => '出生日期格式必须是YYYY-MM-DD',
+    'validation_ngay_sinh_future' => '出生日期不能是未来日期',
+    
     'error_generic' => '发生错误。',
     'error_network' => '无法连接到服务器。',
     
@@ -158,6 +186,7 @@ return [
     'edit_user_title' => '编辑用户信息',
     'update' => '更新',
     'updated_success' => '用户信息更新成功',
+    'fill_sample_data' => '填充示例数据',
     'profile_settings' => '个人资料设置',
     'financial_info' => '财务信息',
     'financial' => '财务',

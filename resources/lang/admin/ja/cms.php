@@ -48,6 +48,7 @@ return [
     'cancel' => 'キャンセル',
     'confirm' => '確認',
     'back' => '戻る',
+    'fill_sample_data' => 'サンプルデータを入力',
     'next' => '次へ',
     'previous' => '前へ',
     'search' => '検索',
@@ -129,6 +130,9 @@ return [
     'total' => '合計',
     'no_data' => 'データがありません',
     'confirm_delete_user' => 'このユーザーを削除しますか？',
+    'confirm_update_user' => 'このユーザー情報を更新してもよろしいですか？',
+    'confirm_update' => '更新の確認',
+    'confirm_update_description' => 'この操作はユーザー情報を変更します。続行してもよろしいですか？',
     'search_placeholder_users' => '名前、メール、電話で検索',
     'seller' => 'セラー',
     
@@ -151,6 +155,30 @@ return [
     'validation_enter_password_confirmation' => 'パスワードを確認してください',
     'validation_password_mismatch' => '確認用パスワードが一致しません',
     'validation_enter_referral_code' => '紹介コードを入力してください',
+    
+    // Edit User Form Validation
+    'validation_name_required' => '名前は必須です',
+    'validation_phone_required' => '電話番号は必須です',
+    'validation_email_required' => 'メールアドレスは必須です',
+    'validation_gioi_tinh_required' => '性別は必須です',
+    'validation_ngay_sinh_required' => '生年月日は必須です',
+    'validation_dia_chi_required' => '住所は必須です',
+    'validation_so_du_required' => '残高は必須です',
+    'validation_luot_trung_required' => '当選回数は必須です',
+    'validation_ngan_hang_required' => '銀行は必須です',
+    'validation_so_tai_khoan_required' => '口座番号は必須です',
+    'validation_chu_tai_khoan_required' => '口座名義人は必須です',
+    'validation_cap_do_required' => 'レベルは必須です',
+    'validation_giai_thuong_id_required' => '賞品IDは必須です',
+    
+    // Format Validation
+    'validation_email_invalid' => 'メールアドレスの形式が正しくありません',
+    'validation_phone_invalid' => '電話番号の形式が正しくありません',
+    'validation_so_du_invalid' => '残高は0以上の数値である必要があります',
+    'validation_luot_trung_invalid' => '当選回数は0以上の整数である必要があります',
+    'validation_ngay_sinh_format' => '生年月日はYYYY-MM-DD形式である必要があります',
+    'validation_ngay_sinh_future' => '生年月日は未来の日付にできません',
+    
     'error_generic' => 'エラーが発生しました。',
     'error_network' => 'サーバーに接続できません。',
     
@@ -158,6 +186,7 @@ return [
     'edit_user_title' => 'ユーザー情報の編集',
     'update' => '更新',
     'updated_success' => 'ユーザー情報が正常に更新されました',
+    'fill_sample_data' => 'サンプルデータを入力',
     'profile_settings' => 'プロフィール設定',
     'financial_info' => '財務情報',
     'financial' => '財務',

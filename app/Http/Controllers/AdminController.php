@@ -285,8 +285,6 @@ class AdminController extends Controller
         try {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
-                'phone' => 'required|string|max:30',
-                'email' => 'required|email|max:255',
                 'gioi_tinh' => 'nullable|string|max:10',
                 'ngay_sinh' => 'nullable|date',
                 'dia_chi' => 'nullable|string|max:255',
@@ -303,11 +301,6 @@ class AdminController extends Controller
             ], [
                 'name.required' => 'Tên người dùng không được để trống',
                 'name.max' => 'Tên người dùng không được quá 255 ký tự',
-                'phone.required' => 'Số điện thoại không được để trống',
-                'phone.max' => 'Số điện thoại không được quá 30 ký tự',
-                'email.required' => 'Email không được để trống',
-                'email.email' => 'Email không đúng định dạng',
-                'email.max' => 'Email không được quá 255 ký tự',
                 'gioi_tinh.max' => 'Giới tính không được quá 10 ký tự',
                 'ngay_sinh.date' => 'Ngày sinh không đúng định dạng',
                 'dia_chi.max' => 'Địa chỉ không được quá 255 ký tự',
@@ -327,11 +320,9 @@ class AdminController extends Controller
 
             $user = User::findOrFail($id);
             
-            // Cập nhật thông tin user
+            // Chỉ cập nhật tên người dùng, không cập nhật email và phone
             $user->update([
                 'name' => $validated['name'],
-                'phone' => $validated['phone'],
-                'email' => $validated['email'],
             ]);
             
             // Tìm hoặc tạo profile cho user
@@ -341,8 +332,8 @@ class AdminController extends Controller
                 $profile->user_id = $id;
             }
 
-            // Cập nhật thông tin profile (loại bỏ các trường user)
-            $profileData = collect($validated)->except(['name', 'phone', 'email'])->toArray();
+            // Cập nhật thông tin profile (loại bỏ trường name)
+            $profileData = collect($validated)->except(['name'])->toArray();
             $profile->fill($profileData);
             $profile->save();
 

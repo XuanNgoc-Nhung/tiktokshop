@@ -94,7 +94,10 @@
         <div style="background: var(--gray-200); color: var(--gray-800); width: 520px; max-width: 92vw; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-lg);">
             <div style="padding: 1rem 1.25rem; border-bottom: 1px solid var(--gray-300); background: var(--gray-300); display:flex; align-items:center; justify-content: space-between;">
                 <div style="font-weight:600;">{{ __('admin::cms.add_user_title') }}</div>
-                <button type="button" id="closeCreateUserModal" class="btn btn-secondary" style="height: 30px; padding: 0.25rem 0.6rem; font-size: 0.8125rem;">{{ __('admin::cms.cancel') }}</button>
+                <div style="display:flex; gap: 0.5rem; align-items:center;">
+                    <button type="button" id="fillSampleData" class="btn btn-info" style="height: 30px; padding: 0.25rem 0.6rem; font-size: 0.8125rem;"><i class="fas fa-magic"></i> {{ __('admin::cms.fill_sample_data') }}</button>
+                    <button type="button" id="closeCreateUserModal" class="btn btn-secondary" style="height: 30px; padding: 0.25rem 0.6rem; font-size: 0.8125rem;">{{ __('admin::cms.cancel') }}</button>
+                </div>
             </div>
             <div style="padding: 1rem 1.25rem;">
                 <div id="createUserError" style="display:none; margin-bottom: 0.75rem; padding: 0.5rem 0.75rem; background: var(--danger-color); color: #fff; border-radius: var(--border-radius);"></div>
@@ -317,9 +320,43 @@
             
             <!-- Footer -->
             <div class="modal-footer">
+                <button type="button" id="fillSampleDataBtn" class="btn btn-outline-secondary me-2">
+                    <i class="fas fa-magic me-2"></i>{{ __('admin::cms.fill_sample_data') }}
+                </button>
                 <button type="button" id="submitEditUser" class="btn btn-primary">
                     <i class="fas fa-save me-2"></i>{{ __('admin::cms.update') }}
                 </button>
+            </div>
+            
+            <!-- Confirmation Modal (nested inside edit modal) -->
+            <div class="modal fade" id="confirmUpdateModal" tabindex="-1" role="dialog" aria-labelledby="confirmUpdateModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmUpdateModalLabel">{{ __('admin::cms.confirm_update') }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    <i class="fas fa-exclamation-triangle text-warning" style="font-size: 2rem;"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0">{{ __('admin::cms.confirm_update_user') }}</p>
+                                    <small class="text-muted">{{ __('admin::cms.confirm_update_description') }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="fas fa-times me-1"></i>{{ __('admin::cms.cancel') }}
+                            </button>
+                            <button type="button" class="btn btn-primary" id="confirmUpdateBtn">
+                                <i class="fas fa-check me-1"></i>{{ __('admin::cms.confirm') }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -380,6 +417,151 @@
     .modal-title {
         color: #000000 !important;
     }
+    
+    /* Edit Modal Styles */
+    #editUserModal .modal-content {
+        position: relative;
+        z-index: 1050;
+    }
+    
+    /* Confirmation Modal Styles (nested) */
+    #confirmUpdateModal {
+        z-index: 1060;
+    }
+    
+    #confirmUpdateModal .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1059;
+    }
+    
+    #confirmUpdateModal .modal-content {
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+        box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.7), 0 1rem 3rem rgba(0, 0, 0, 0.5), 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+        z-index: 1060;
+        background: #fff;
+    }
+    
+    #confirmUpdateModal .modal-dialog {
+        z-index: 1061;
+        position: relative;
+        transition: transform 0.2s ease-in-out;
+        filter: drop-shadow(0 0 2rem rgba(0, 0, 0, 0.3));
+    }
+    
+    #confirmUpdateModal .modal-content {
+        transition: box-shadow 0.2s ease-in-out;
+    }
+    
+    #confirmUpdateModal .modal-content:hover {
+        box-shadow: 0 3rem 8rem rgba(0, 0, 0, 0.8), 0 2rem 5rem rgba(0, 0, 0, 0.6), 0 1rem 2.5rem rgba(0, 0, 0, 0.4);
+    }
+    
+    /* Enhanced shadow when modal is shown */
+    #confirmUpdateModal.modal.show .modal-content {
+        box-shadow: 0 4rem 10rem rgba(0, 0, 0, 0.8), 0 2rem 6rem rgba(0, 0, 0, 0.6), 0 1rem 3rem rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(0, 123, 255, 0.2);
+    }
+    
+    #confirmUpdateModal .modal-header {
+        background: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+    
+    #confirmUpdateModal .modal-body {
+        padding: 1.5rem;
+        background: #fff;
+    }
+    
+    #confirmUpdateModal .modal-footer {
+        background: #f8f9fa;
+        border-top: 1px solid #dee2e6;
+        border-radius: 0 0 0.5rem 0.5rem;
+        padding: 1rem 1.5rem;
+    }
+    
+    #confirmUpdateModal .modal-title {
+        color: #000;
+        font-weight: 600;
+    }
+    
+    #confirmUpdateModal p,
+    #confirmUpdateModal small {
+        color: #333;
+    }
+    
+    #confirmUpdateModal .btn {
+        border-radius: 0.375rem;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+    }
+    
+    #confirmUpdateModal .btn-primary {
+        background: #0d6efd;
+        border: 1px solid #0d6efd;
+        color: #fff;
+    }
+    
+    #confirmUpdateModal .btn-primary:hover {
+        background: #0b5ed7;
+        border-color: #0a58ca;
+    }
+    
+    #confirmUpdateModal .btn-secondary {
+        background: #6c757d;
+        border: 1px solid #6c757d;
+        color: #fff;
+    }
+    
+    #confirmUpdateModal .btn-secondary:hover {
+        background: #5c636a;
+        border-color: #565e64;
+    }
+    
+    #confirmUpdateModal .text-warning {
+        color: #ffc107;
+    }
+    
+    /* Removed blur effects - keeping it simple */
+    
+    /* Confirmation modal styles */
+    
+    /* Ensure confirmation modal appears above everything */
+    #confirmUpdateModal.modal.show {
+        z-index: 1060;
+    }
+    
+    #confirmUpdateModal.modal.show .modal-dialog {
+        z-index: 1061;
+    }
+    
+    /* Force modal to be visible */
+    #confirmUpdateModal.modal {
+        display: none !important;
+    }
+    
+    #confirmUpdateModal.modal.show {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    #confirmUpdateModal.modal.show .modal-dialog {
+        transform: scale(1) !important;
+        opacity: 1 !important;
+    }
+    
+    /* Override Bootstrap modal styles */
+    #confirmUpdateModal.modal.fade .modal-dialog {
+        transition: transform 0.3s ease-out;
+        transform: scale(1);
+    }
+    
+    #confirmUpdateModal.modal.show .modal-dialog {
+        transform: scale(1) !important;
+    }
 </style>
 @endpush
 
@@ -396,6 +578,7 @@
         const submitBtn = document.getElementById('submitCreateUser');
         const form = document.getElementById('createUserForm');
         const errorBox = document.getElementById('createUserError');
+        const fillSampleDataBtn = document.getElementById('fillSampleData');
 
         const i18n = {
             enterName: "{{ __('admin::cms.validation_enter_name') }}",
@@ -423,6 +606,37 @@
         openBtn && openBtn.addEventListener('click', openModal);
         closeBtn && closeBtn.addEventListener('click', closeModal);
         modal && modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
+
+        // Fill sample data function
+        function fillSampleData() {
+            const sampleData = {
+                name: 'Nguyễn Văn A',
+                phone: '0123456789',
+                password: '123456',
+                password_confirmation: '123456',
+                referral_code: 'REF001'
+            };
+            
+            // Fill form fields
+            Object.keys(sampleData).forEach(key => {
+                const fieldId = 'cu_' + key;
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.value = sampleData[key];
+                }
+            });
+            
+            // Clear any existing errors
+            clearFieldErrors();
+            
+            // Show success message
+            if (window.showToast) {
+                window.showToast('Đã điền dữ liệu mẫu thành công!', { type: 'success' });
+            }
+        }
+
+        // Event listener for fill sample data button
+        fillSampleDataBtn && fillSampleDataBtn.addEventListener('click', fillSampleData);
 
         function showErrors(messages) {
             // Deprecated: use toast instead; keep for compatibility but do nothing visible
@@ -553,6 +767,28 @@
                 errorGeneric: "{{ __('admin::cms.error_generic') }}",
                 networkError: "{{ __('admin::cms.error_network') }}",
                 updatedSuccess: "{{ __('admin::cms.updated_success') }}",
+                
+                // Validation messages
+                validationNameRequired: "{{ __('admin::cms.validation_name_required') }}",
+                validationPhoneRequired: "{{ __('admin::cms.validation_phone_required') }}",
+                validationEmailRequired: "{{ __('admin::cms.validation_email_required') }}",
+                validationGioiTinhRequired: "{{ __('admin::cms.validation_gioi_tinh_required') }}",
+                validationNgaySinhRequired: "{{ __('admin::cms.validation_ngay_sinh_required') }}",
+                validationDiaChiRequired: "{{ __('admin::cms.validation_dia_chi_required') }}",
+                validationSoDuRequired: "{{ __('admin::cms.validation_so_du_required') }}",
+                validationLuotTrungRequired: "{{ __('admin::cms.validation_luot_trung_required') }}",
+                validationNganHangRequired: "{{ __('admin::cms.validation_ngan_hang_required') }}",
+                validationSoTaiKhoanRequired: "{{ __('admin::cms.validation_so_tai_khoan_required') }}",
+                validationChuTaiKhoanRequired: "{{ __('admin::cms.validation_chu_tai_khoan_required') }}",
+                validationCapDoRequired: "{{ __('admin::cms.validation_cap_do_required') }}",
+                validationGiaiThuongIdRequired: "{{ __('admin::cms.validation_giai_thuong_id_required') }}",
+                
+                validationEmailInvalid: "{{ __('admin::cms.validation_email_invalid') }}",
+                validationPhoneInvalid: "{{ __('admin::cms.validation_phone_invalid') }}",
+                validationSoDuInvalid: "{{ __('admin::cms.validation_so_du_invalid') }}",
+                validationLuotTrungInvalid: "{{ __('admin::cms.validation_luot_trung_invalid') }}",
+                validationNgaySinhFormat: "{{ __('admin::cms.validation_ngay_sinh_format') }}",
+                validationNgaySinhFuture: "{{ __('admin::cms.validation_ngay_sinh_future') }}",
             };
 
             function openEditModal(e) {
@@ -573,20 +809,126 @@
             }
 
             function clearEditFieldErrors() {
+                // Clear error messages
                 document.querySelectorAll('#editUserForm .field-error').forEach(el => { 
                     el.style.display = 'none'; 
                     el.textContent = ''; 
                 });
-                const editFields = ['edit_name','edit_phone','edit_email','edit_gioi_tinh','edit_ngay_sinh','edit_dia_chi','edit_so_du','edit_luot_trung','edit_ngan_hang','edit_so_tai_khoan','edit_chu_tai_khoan','edit_cap_do','edit_giai_thuong_id','edit_anh_mat_truoc','edit_anh_mat_sau','edit_anh_chan_dung','edit_anh_chan_dung_small'];
+                
+                // Reset border colors (bỏ edit_phone và edit_email)
+                const editFields = ['edit_name','edit_gioi_tinh','edit_ngay_sinh','edit_dia_chi','edit_so_du','edit_luot_trung','edit_ngan_hang','edit_so_tai_khoan','edit_chu_tai_khoan','edit_cap_do','edit_giai_thuong_id','edit_anh_mat_truoc','edit_anh_mat_sau','edit_anh_chan_dung','edit_anh_chan_dung_small'];
                 editFields.forEach(id => {
                     const input = document.getElementById(id);
-                    if (input) input.style.borderColor = '#d1d5db';
+                    if (input) {
+                        input.style.borderColor = '#d1d5db';
+                        // Remove any existing error div
+                        const errorDiv = input.parentNode.querySelector('.field-error');
+                        if (errorDiv) {
+                            errorDiv.remove();
+                        }
+                    }
                 });
             }
 
             function setEditFieldError(field, message) {
                 const input = document.getElementById('edit_' + field);
-                if (input) input.style.borderColor = '#dc2626';
+                if (input) {
+                    input.style.borderColor = '#dc2626';
+                    // Show error message via toast
+                    if (window.showToast) { 
+                        window.showToast(message, { type: 'error' }); 
+                    }
+                }
+            }
+
+            function validateEditForm() {
+                // Clear previous errors
+                clearEditFieldErrors();
+                
+                // Required fields validation (chỉ validate name, bỏ email và phone)
+                const requiredFields = [
+                    { id: 'edit_name', name: 'Tên', message: editI18n.validationNameRequired },
+                    { id: 'edit_gioi_tinh', name: 'Giới tính', message: editI18n.validationGioiTinhRequired },
+                    { id: 'edit_ngay_sinh', name: 'Ngày sinh', message: editI18n.validationNgaySinhRequired },
+                    { id: 'edit_dia_chi', name: 'Địa chỉ', message: editI18n.validationDiaChiRequired },
+                    { id: 'edit_so_du', name: 'Số dư', message: editI18n.validationSoDuRequired },
+                    { id: 'edit_luot_trung', name: 'Lượt trúng', message: editI18n.validationLuotTrungRequired },
+                    { id: 'edit_ngan_hang', name: 'Ngân hàng', message: editI18n.validationNganHangRequired },
+                    { id: 'edit_so_tai_khoan', name: 'Số tài khoản', message: editI18n.validationSoTaiKhoanRequired },
+                    { id: 'edit_chu_tai_khoan', name: 'Chủ tài khoản', message: editI18n.validationChuTaiKhoanRequired },
+                    { id: 'edit_cap_do', name: 'Cấp độ', message: editI18n.validationCapDoRequired },
+                    { id: 'edit_giai_thuong_id', name: 'Giải thưởng ID', message: editI18n.validationGiaiThuongIdRequired }
+                ];
+                
+                // Check required fields - return first error
+                for (const field of requiredFields) {
+                    const input = document.getElementById(field.id);
+                    if (!input || !input.value.trim()) {
+                        if (input) {
+                            input.style.borderColor = '#dc2626';
+                            input.focus();
+                        }
+                        if (window.showToast) { 
+                            window.showToast(field.message, { type: 'error' }); 
+                        }
+                        return false;
+                    }
+                }
+                
+                // Bỏ validation cho email và phone vì không cập nhật
+                
+                // Number validation for so_du
+                const soDuInput = document.getElementById('edit_so_du');
+                if (soDuInput && soDuInput.value.trim()) {
+                    if (isNaN(soDuInput.value.trim()) || parseFloat(soDuInput.value.trim()) < 0) {
+                        soDuInput.style.borderColor = '#dc2626';
+                        soDuInput.focus();
+                        if (window.showToast) { 
+                            window.showToast(editI18n.validationSoDuInvalid, { type: 'error' }); 
+                        }
+                        return false;
+                    }
+                }
+                
+                // Number validation for luot_trung
+                const luotTrungInput = document.getElementById('edit_luot_trung');
+                if (luotTrungInput && luotTrungInput.value.trim()) {
+                    if (isNaN(luotTrungInput.value.trim()) || parseInt(luotTrungInput.value.trim()) < 0) {
+                        luotTrungInput.style.borderColor = '#dc2626';
+                        luotTrungInput.focus();
+                        if (window.showToast) { 
+                            window.showToast(editI18n.validationLuotTrungInvalid, { type: 'error' }); 
+                        }
+                        return false;
+                    }
+                }
+                
+                // Date validation
+                const ngaySinhInput = document.getElementById('edit_ngay_sinh');
+                if (ngaySinhInput && ngaySinhInput.value.trim()) {
+                    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+                    if (!dateRegex.test(ngaySinhInput.value.trim())) {
+                        ngaySinhInput.style.borderColor = '#dc2626';
+                        ngaySinhInput.focus();
+                        if (window.showToast) { 
+                            window.showToast(editI18n.validationNgaySinhFormat, { type: 'error' }); 
+                        }
+                        return false;
+                    } else {
+                        const inputDate = new Date(ngaySinhInput.value.trim());
+                        const today = new Date();
+                        if (inputDate > today) {
+                            ngaySinhInput.style.borderColor = '#dc2626';
+                            ngaySinhInput.focus();
+                            if (window.showToast) { 
+                                window.showToast(editI18n.validationNgaySinhFuture, { type: 'error' }); 
+                            }
+                            return false;
+                        }
+                    }
+                }
+                
+                return true;
             }
 
             function updateImagePreview(inputId, previewId) {
@@ -727,13 +1069,97 @@
                 updateImagePreview('edit_anh_chan_dung', 'preview_anh_chan_dung');
             });
 
+            // Fill sample data function
+            function fillSampleData() {
+                // Sample data for all form fields
+                const sampleData = {
+                    name: 'Nguyễn Văn A',
+                    phone: '0123456789',
+                    email: 'nguyenvana@example.com',
+                    gioi_tinh: 'Nam',
+                    ngay_sinh: '1990-01-15',
+                    dia_chi: '123 Đường ABC, Quận 1, TP.HCM',
+                    so_du: '1000000',
+                    luot_trung: '5',
+                    ngan_hang: 'Vietcombank',
+                    so_tai_khoan: '1234567890',
+                    chu_tai_khoan: 'Nguyễn Văn A',
+                    cap_do: 'VIP',
+                    giai_thuong_id: '1',
+                    anh_chan_dung: 'https://via.placeholder.com/200x250/4F46E5/FFFFFF?text=Portrait',
+                    anh_mat_truoc: 'https://via.placeholder.com/300x200/10B981/FFFFFF?text=Front+ID',
+                    anh_mat_sau: 'https://via.placeholder.com/300x200/EF4444/FFFFFF?text=Back+ID'
+                };
+                
+                // Fill all form fields with sample data
+                Object.keys(sampleData).forEach(fieldName => {
+                    const field = document.getElementById(`edit_${fieldName}`);
+                    if (field) {
+                        field.value = sampleData[fieldName];
+                        
+                        // Trigger change event for select fields
+                        if (field.tagName === 'SELECT') {
+                            field.dispatchEvent(new Event('change'));
+                        }
+                        
+                        // Update image previews
+                        if (fieldName === 'anh_chan_dung') {
+                            updateImagePreview('edit_anh_chan_dung', 'preview_anh_chan_dung');
+                        } else if (fieldName === 'anh_mat_truoc') {
+                            updateImagePreview('edit_anh_mat_truoc', 'preview_anh_mat_truoc');
+                        } else if (fieldName === 'anh_mat_sau') {
+                            updateImagePreview('edit_anh_mat_sau', 'preview_anh_mat_sau');
+                        }
+                    }
+                });
+                
+                // Show success message
+                if (window.showToast) {
+                    window.showToast('Đã điền dữ liệu mẫu thành công!', { type: 'success' });
+                }
+            }
+            
+            // Fill sample data button event listener
+            document.getElementById('fillSampleDataBtn').addEventListener('click', function() {
+                fillSampleData();
+            });
+
             // Submit edit form
             submitEditBtn.addEventListener('click', function() {
                 editErrorBox.style.display = 'none';
                 clearEditFieldErrors();
                 
+                // Validate form before submitting
+                if (!validateEditForm()) {
+                    return; // Stop if validation fails
+                }
+                
+                // Show Bootstrap confirmation modal
+                const confirmModal = new bootstrap.Modal(document.getElementById('confirmUpdateModal'), {
+                    backdrop: 'static',
+                    keyboard: false,
+                    focus: true
+                });
+                confirmModal.show();
+            });
+
+            // Handle confirmation modal
+            document.getElementById('confirmUpdateBtn').addEventListener('click', function() {
+                // Close confirmation modal
+                const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmUpdateModal'));
+                confirmModal.hide();
+                
+                // Proceed with update
+                performUpdate();
+            });
+
+            function performUpdate() {
                 const formData = new FormData(editForm);
                 const data = Object.fromEntries(formData.entries());
+                
+                // Loại bỏ email và phone khỏi dữ liệu gửi đi
+                delete data.email;
+                delete data.phone;
                 
                 submitEditBtn.disabled = true;
                 const originalHtml = submitEditBtn.innerHTML;
@@ -747,30 +1173,47 @@
                 }).then(function(res) {
                     if (res.data && res.data.success) {
                         closeEditModal();
-                        if (window.showToast) { window.showToast(editI18n.updatedSuccess, { type: 'success' }); }
-                        location.reload();
+                        if (window.showToast) { 
+                            window.showToast(editI18n.updatedSuccess, { type: 'success' }); 
+                        }
+                        // Auto reload after 3 seconds
+                        setTimeout(function() {
+                            location.reload();
+                        }, 3000);
                     } else {
                         const msg = res.data && (res.data.message || res.data.errors) || editI18n.errorGeneric;
-                        if (window.showToast) { window.showToast(Array.isArray(msg) ? msg[0] : String(msg), { type: 'error' }); }
+                        if (window.showToast) { 
+                            window.showToast(Array.isArray(msg) ? msg[0] : String(msg), { type: 'error' }); 
+                        }
                     }
                 }).catch(function(err) {
                     if (err.response && err.response.data) {
                         const data = err.response.data;
                         if (data && data.errors && typeof data.errors === 'object') {
-                            Object.keys(data.errors).forEach(k => setEditFieldError(k));
+                            // Highlight fields with errors
+                            Object.keys(data.errors).forEach(k => {
+                                const input = document.getElementById('edit_' + k);
+                                if (input) input.style.borderColor = '#dc2626';
+                            });
                             const firstError = Object.values(data.errors)[0];
-                            if (window.showToast) { window.showToast(Array.isArray(firstError) ? firstError[0] : String(firstError), { type: 'error' }); }
+                            if (window.showToast) { 
+                                window.showToast(Array.isArray(firstError) ? firstError[0] : String(firstError), { type: 'error' }); 
+                            }
                         } else {
-                            if (window.showToast) { window.showToast(data.message || editI18n.errorGeneric, { type: 'error' }); }
+                            if (window.showToast) { 
+                                window.showToast(data.message || editI18n.errorGeneric, { type: 'error' }); 
+                            }
                         }
                     } else {
-                        if (window.showToast) { window.showToast(editI18n.networkError, { type: 'error' }); }
+                        if (window.showToast) { 
+                            window.showToast(editI18n.networkError, { type: 'error' }); 
+                        }
                     }
                 }).finally(function() {
                     submitEditBtn.disabled = false;
                     submitEditBtn.innerHTML = originalHtml;
                 });
-            });
+            }
         }
         
         // Initialize when DOM is ready

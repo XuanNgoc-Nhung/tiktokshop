@@ -48,6 +48,7 @@ return [
     'cancel' => 'Cancel',
     'confirm' => 'Confirm',
     'back' => 'Back',
+    'fill_sample_data' => 'Fill Sample Data',
     'next' => 'Next',
     'previous' => 'Previous',
     'search' => 'Search',
@@ -129,6 +130,9 @@ return [
     'total' => 'Total',
     'no_data' => 'No data',
     'confirm_delete_user' => 'Delete this user?',
+    'confirm_update_user' => 'Are you sure you want to update this user information?',
+    'confirm_update' => 'Confirm Update',
+    'confirm_update_description' => 'This action will modify user information. Are you sure you want to continue?',
     'search_placeholder_users' => 'Search by name, email, phone',
     'seller' => 'Seller',
     
@@ -151,6 +155,30 @@ return [
     'validation_enter_password_confirmation' => 'Please confirm password',
     'validation_password_mismatch' => 'Password confirmation does not match',
     'validation_enter_referral_code' => 'Please enter referral code',
+    
+    // Edit User Form Validation
+    'validation_name_required' => 'Name is required',
+    'validation_phone_required' => 'Phone number is required',
+    'validation_email_required' => 'Email is required',
+    'validation_gioi_tinh_required' => 'Gender is required',
+    'validation_ngay_sinh_required' => 'Birth date is required',
+    'validation_dia_chi_required' => 'Address is required',
+    'validation_so_du_required' => 'Balance is required',
+    'validation_luot_trung_required' => 'Win count is required',
+    'validation_ngan_hang_required' => 'Bank is required',
+    'validation_so_tai_khoan_required' => 'Account number is required',
+    'validation_chu_tai_khoan_required' => 'Account holder is required',
+    'validation_cap_do_required' => 'Level is required',
+    'validation_giai_thuong_id_required' => 'Prize ID is required',
+    
+    // Format Validation
+    'validation_email_invalid' => 'Invalid email format',
+    'validation_phone_invalid' => 'Invalid phone number format',
+    'validation_so_du_invalid' => 'Balance must be a non-negative number',
+    'validation_luot_trung_invalid' => 'Win count must be a non-negative integer',
+    'validation_ngay_sinh_format' => 'Birth date must be in YYYY-MM-DD format',
+    'validation_ngay_sinh_future' => 'Birth date cannot be in the future',
+    
     'error_generic' => 'An error occurred.',
     'error_network' => 'Cannot connect to server.',
     
@@ -158,6 +186,7 @@ return [
     'edit_user_title' => 'Edit User Information',
     'update' => 'Update',
     'updated_success' => 'User information updated successfully',
+    'fill_sample_data' => 'Fill Sample Data',
     'profile_settings' => 'Profile Settings',
     'financial_info' => 'Financial Information',
     'financial' => 'Financial',

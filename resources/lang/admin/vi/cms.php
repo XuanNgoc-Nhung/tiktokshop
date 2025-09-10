@@ -48,6 +48,7 @@ return [
     'cancel' => 'Hủy',
     'confirm' => 'Xác nhận',
     'back' => 'Quay lại',
+    'fill_sample_data' => 'Điền dữ liệu mẫu',
     'next' => 'Tiếp theo',
     'previous' => 'Trước đó',
     'search' => 'Tìm kiếm',
@@ -129,6 +130,9 @@ return [
     'total' => 'Tổng',
     'no_data' => 'Không có dữ liệu',
     'confirm_delete_user' => 'Xoá người dùng này?',
+    'confirm_update_user' => 'Bạn có chắc chắn muốn cập nhật thông tin người dùng này?',
+    'confirm_update' => 'Xác nhận cập nhật',
+    'confirm_update_description' => 'Hành động này sẽ thay đổi thông tin người dùng. Bạn có chắc chắn muốn tiếp tục?',
     'search_placeholder_users' => 'Tìm theo tên, email, số điện thoại',
     'seller' => 'Người bán',
     
@@ -151,6 +155,30 @@ return [
     'validation_enter_password_confirmation' => 'Vui lòng xác nhận mật khẩu',
     'validation_password_mismatch' => 'Mật khẩu xác nhận không khớp',
     'validation_enter_referral_code' => 'Vui lòng nhập mã giới thiệu',
+    
+    // Edit User Form Validation
+    'validation_name_required' => 'Tên không được để trống',
+    'validation_phone_required' => 'Số điện thoại không được để trống',
+    'validation_email_required' => 'Email không được để trống',
+    'validation_gioi_tinh_required' => 'Giới tính không được để trống',
+    'validation_ngay_sinh_required' => 'Ngày sinh không được để trống',
+    'validation_dia_chi_required' => 'Địa chỉ không được để trống',
+    'validation_so_du_required' => 'Số dư không được để trống',
+    'validation_luot_trung_required' => 'Lượt trúng không được để trống',
+    'validation_ngan_hang_required' => 'Ngân hàng không được để trống',
+    'validation_so_tai_khoan_required' => 'Số tài khoản không được để trống',
+    'validation_chu_tai_khoan_required' => 'Chủ tài khoản không được để trống',
+    'validation_cap_do_required' => 'Cấp độ không được để trống',
+    'validation_giai_thuong_id_required' => 'Giải thưởng ID không được để trống',
+    
+    // Format Validation
+    'validation_email_invalid' => 'Email không đúng định dạng',
+    'validation_phone_invalid' => 'Số điện thoại không đúng định dạng',
+    'validation_so_du_invalid' => 'Số dư phải là số không âm',
+    'validation_luot_trung_invalid' => 'Lượt trúng phải là số nguyên không âm',
+    'validation_ngay_sinh_format' => 'Ngày sinh phải có định dạng YYYY-MM-DD',
+    'validation_ngay_sinh_future' => 'Ngày sinh không thể là ngày trong tương lai',
+    
     'error_generic' => 'Đã xảy ra lỗi.',
     'error_network' => 'Không thể kết nối máy chủ.',
     
@@ -158,6 +186,7 @@ return [
     'edit_user_title' => 'Chỉnh sửa thông tin người dùng',
     'update' => 'Cập nhật',
     'updated_success' => 'Cập nhật thông tin thành công',
+    'fill_sample_data' => 'Điền dữ liệu mẫu',
     'profile_settings' => 'Cài đặt hồ sơ',
     'financial_info' => 'Thông tin tài chính',
     'financial' => 'Tài chính',
