@@ -147,6 +147,7 @@ return [
     'placeholder_password_confirmation' => 'পাসওয়ার্ড আবার লিখুন',
     'placeholder_referral_code' => 'রেফারেল কোড লিখুন',
     'created_success' => 'ব্যবহারকারী সফলভাবে তৈরি হয়েছে',
+    'sample_data_filled' => 'নমুনা ডেটা সফলভাবে পূরণ করা হয়েছে',
     
     // Validation / messages (client-side)
     'validation_enter_name' => 'দয়া করে ব্যবহারকারীর নাম লিখুন',
@@ -226,4 +227,17 @@ return [
     'to' => 'থেকে',
     'of' => 'মোট',
     'results' => 'টি ফলাফল',
+    
+    // User Creation Messages
+    'user_created_success' => 'ব্যবহারকারী সফলভাবে তৈরি হয়েছে',
+    'user_creation_failed' => 'ব্যবহারকারী তৈরি করতে ব্যর্থ',
+    'invalid_data' => 'অবৈধ ডেটা',
+    'error_occurred' => 'একটি ত্রুটি ঘটেছে',
+    'phone_already_exists' => 'ফোন নম্বর ইতিমধ্যে বিদ্যমান',
+    'password_min_length' => 'পাসওয়ার্ড কমপক্ষে ৬ অক্ষর হতে হবে',
+    'password_confirmation_mismatch' => 'পাসওয়ার্ড নিশ্চিতকরণ মিলছে না',
+    'referral_code_required' => 'দয়া করে রেফারেল কোড লিখুন',
+    'name_required' => 'দয়া করে ব্যবহারকারীর নাম লিখুন',
+    'phone_required' => 'দয়া করে ফোন নম্বর লিখুন',
+    'password_required' => 'দয়া করে পাসওয়ার্ড লিখুন',
 ];

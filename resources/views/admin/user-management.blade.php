@@ -104,27 +104,27 @@
                 <form id="createUserForm">
                     <div style="display:flex; flex-direction:column; gap: 0.6rem;">
                         <div>
-                            <label for="cu_name" style="display:block; margin-bottom: 0.25rem;">{{ __('admin::cms.name') }}</label>
+                            <label for="cu_name" style="display:block; margin-bottom: 0.25rem; color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.name') }}</label>
                             <input id="cu_name" name="name" type="text" placeholder="{{ __('admin::cms.placeholder_name') }}" style="width:100%; padding: 0.5rem 0.6rem; border: 1px solid var(--gray-400); border-radius: var(--border-radius); background: var(--gray-100); color: var(--gray-800);">
                             <div class="field-error" id="error_cu_name" style="display:none; margin-top: 0.25rem; font-size: 0.8125rem; color: var(--danger-color);"></div>
                         </div>
                         <div>
-                            <label for="cu_phone" style="display:block; margin-bottom: 0.25rem;">{{ __('admin::cms.phone') }}</label>
+                            <label for="cu_phone" style="display:block; margin-bottom: 0.25rem; color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.phone') }}</label>
                             <input id="cu_phone" name="phone" type="text" placeholder="{{ __('admin::cms.placeholder_phone') }}" style="width:100%; padding: 0.5rem 0.6rem; border: 1px solid var(--gray-400); border-radius: var(--border-radius); background: var(--gray-100); color: var(--gray-800);">
                             <div class="field-error" id="error_cu_phone" style="display:none; margin-top: 0.25rem; font-size: 0.8125rem; color: var(--danger-color);"></div>
                         </div>
                         <div>
-                            <label for="cu_password" style="display:block; margin-bottom: 0.25rem;">{{ __('admin::cms.password') }}</label>
+                            <label for="cu_password" style="display:block; margin-bottom: 0.25rem; color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.password') }}</label>
                             <input id="cu_password" name="password" type="password" placeholder="{{ __('admin::cms.placeholder_password') }}" style="width:100%; padding: 0.5rem 0.6rem; border: 1px solid var(--gray-400); border-radius: var(--border-radius); background: var(--gray-100); color: var(--gray-800);">
                             <div class="field-error" id="error_cu_password" style="display:none; margin-top: 0.25rem; font-size: 0.8125rem; color: var(--danger-color);"></div>
                         </div>
                         <div>
-                            <label for="cu_password_confirmation" style="display:block; margin-bottom: 0.25rem;">{{ __('admin::cms.password_confirmation') }}</label>
+                            <label for="cu_password_confirmation" style="display:block; margin-bottom: 0.25rem; color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.password_confirmation') }}</label>
                             <input id="cu_password_confirmation" name="password_confirmation" type="password" placeholder="{{ __('admin::cms.placeholder_password_confirmation') }}" style="width:100%; padding: 0.5rem 0.6rem; border: 1px solid var(--gray-400); border-radius: var(--border-radius); background: var(--gray-100); color: var(--gray-800);">
                             <div class="field-error" id="error_cu_password_confirmation" style="display:none; margin-top: 0.25rem; font-size: 0.8125rem; color: var(--danger-color);"></div>
                         </div>
                         <div>
-                            <label for="cu_referral_code" style="display:block; margin-bottom: 0.25rem;">{{ __('admin::cms.referral_code') }}</label>
+                            <label for="cu_referral_code" style="display:block; margin-bottom: 0.25rem; color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.referral_code') }}</label>
                             <input id="cu_referral_code" name="referral_code" type="text" placeholder="{{ __('admin::cms.placeholder_referral_code') }}" style="width:100%; padding: 0.5rem 0.6rem; border: 1px solid var(--gray-400); border-radius: var(--border-radius); background: var(--gray-100); color: var(--gray-800);">
                             <div class="field-error" id="error_cu_referral_code" style="display:none; margin-top: 0.25rem; font-size: 0.8125rem; color: var(--danger-color);"></div>
                         </div>
@@ -169,7 +169,7 @@
                                         <img id="preview_anh_chan_dung" src="" alt="Ảnh chân dung" class="img-fluid d-none" style="width: 100%; height: 100%; object-fit: cover;">
                                     </div>
                                     <div class="mt-2">
-                                        <label for="edit_anh_chan_dung" class="form-label">{{ __('admin::cms.portrait_image') }}</label>
+                                        <label for="edit_anh_chan_dung" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.portrait_image') }}</label>
                                         <input id="edit_anh_chan_dung" name="anh_chan_dung" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_image_url') }}">
                                         <div class="field-error" id="error_edit_anh_chan_dung" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
@@ -184,28 +184,28 @@
                                 <div class="row g-2">
                                     <!-- Name -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_name" class="form-label">{{ __('admin::cms.name') }}</label>
+                                        <label for="edit_name" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.name') }}</label>
                                         <input id="edit_name" name="name" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_name') }}">
                                         <div class="field-error" id="error_edit_name" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Phone -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_phone" class="form-label">{{ __('admin::cms.phone') }}</label>
-                                        <input id="edit_phone" name="phone" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_phone') }}">
+                                        <label for="edit_phone" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.phone') }}</label>
+                                        <input id="edit_phone" name="phone" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_phone') }}" disabled readonly>
                                         <div class="field-error" id="error_edit_phone" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Email -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_email" class="form-label">{{ __('admin::cms.email') }}</label>
-                                        <input id="edit_email" name="email" type="email" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_email') }}">
+                                        <label for="edit_email" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.email') }}</label>
+                                        <input id="edit_email" name="email" type="email" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_email') }}" disabled readonly>
                                         <div class="field-error" id="error_edit_email" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Gender -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_gioi_tinh" class="form-label">{{ __('admin::cms.gender') }}</label>
+                                        <label for="edit_gioi_tinh" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.gender') }}</label>
                                         <select id="edit_gioi_tinh" name="gioi_tinh" class="form-select form-select-sm">
                                             <option value="">{{ __('admin::cms.select_gender') }}</option>
                                             <option value="Nam">Nam</option>
@@ -217,63 +217,63 @@
                                     
                                     <!-- Birth Date -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_ngay_sinh" class="form-label">{{ __('admin::cms.birth_date') }}</label>
+                                        <label for="edit_ngay_sinh" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.birth_date') }}</label>
                                         <input id="edit_ngay_sinh" name="ngay_sinh" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_birth_date') }}">
                                         <div class="field-error" id="error_edit_ngay_sinh" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Address -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_dia_chi" class="form-label">{{ __('admin::cms.address') }}</label>
+                                        <label for="edit_dia_chi" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.address') }}</label>
                                         <input id="edit_dia_chi" name="dia_chi" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_address') }}">
                                         <div class="field-error" id="error_edit_dia_chi" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Balance -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_so_du" class="form-label">{{ __('admin::cms.balance') }}</label>
+                                        <label for="edit_so_du" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.balance') }}</label>
                                         <input id="edit_so_du" name="so_du" type="number" step="0.01" min="0" placeholder="0" class="form-control form-control-sm">
                                         <div class="field-error" id="error_edit_so_du" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Win Count -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_luot_trung" class="form-label">{{ __('admin::cms.win_count') }}</label>
+                                        <label for="edit_luot_trung" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.win_count') }}</label>
                                         <input id="edit_luot_trung" name="luot_trung" type="number" min="0" placeholder="0" class="form-control form-control-sm">
                                         <div class="field-error" id="error_edit_luot_trung" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Bank -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_ngan_hang" class="form-label">{{ __('admin::cms.bank') }}</label>
+                                        <label for="edit_ngan_hang" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.bank') }}</label>
                                         <input id="edit_ngan_hang" name="ngan_hang" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_bank') }}">
                                         <div class="field-error" id="error_edit_ngan_hang" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Account Number -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_so_tai_khoan" class="form-label">{{ __('admin::cms.account_number') }}</label>
+                                        <label for="edit_so_tai_khoan" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.account_number') }}</label>
                                         <input id="edit_so_tai_khoan" name="so_tai_khoan" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_account_number') }}">
                                         <div class="field-error" id="error_edit_so_tai_khoan" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Account Holder -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_chu_tai_khoan" class="form-label">{{ __('admin::cms.account_holder') }}</label>
+                                        <label for="edit_chu_tai_khoan" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.account_holder') }}</label>
                                         <input id="edit_chu_tai_khoan" name="chu_tai_khoan" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_account_holder') }}">
                                         <div class="field-error" id="error_edit_chu_tai_khoan" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Level -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_cap_do" class="form-label">{{ __('admin::cms.level') }}</label>
+                                        <label for="edit_cap_do" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.level') }}</label>
                                         <input id="edit_cap_do" name="cap_do" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_level') }}">
                                         <div class="field-error" id="error_edit_cap_do" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Prize ID -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                        <label for="edit_giai_thuong_id" class="form-label">{{ __('admin::cms.prize_id') }}</label>
+                                        <label for="edit_giai_thuong_id" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.prize_id') }}</label>
                                         <input id="edit_giai_thuong_id" name="giai_thuong_id" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_prize_id') }}">
                                         <div class="field-error" id="error_edit_giai_thuong_id" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
@@ -282,11 +282,11 @@
                             
                             <!-- Additional Images Section -->
                             <div class="mt-4 pt-3 border-top">
-                                <h5 class="mb-3 text-dark">{{ __('admin::cms.additional_images') }}</h5>
+                                <h5 class="mb-3" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.additional_images') }}</h5>
                                 <div class="row g-2">
                                     <!-- Front Image -->
                                     <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <label for="edit_anh_mat_truoc" class="form-label">{{ __('admin::cms.front_image') }}</label>
+                                        <label for="edit_anh_mat_truoc" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.front_image') }}</label>
                                         <div class="mb-2">
                                             <div id="preview_anh_mat_truoc_placeholder" class="d-flex flex-column align-items-center justify-content-center text-muted rounded border" style="width: 100%; height: 160px; background: #f9fafb; border: 2px dashed #cbd5e0 !important;">
                                                 <i class="fas fa-image fa-lg mb-1"></i>
@@ -300,7 +300,7 @@
                                     
                                     <!-- Back Image -->
                                     <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <label for="edit_anh_mat_sau" class="form-label">{{ __('admin::cms.back_image') }}</label>
+                                        <label for="edit_anh_mat_sau" class="form-label" style="color: #ffffff; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.back_image') }}</label>
                                         <div class="mb-2">
                                             <div id="preview_anh_mat_sau_placeholder" class="d-flex flex-column align-items-center justify-content-center text-muted rounded border" style="width: 100%; height: 160px; background: #f9fafb; border: 2px dashed #cbd5e0 !important;">
                                                 <i class="fas fa-image fa-lg mb-1"></i>
@@ -510,7 +510,7 @@
     #confirmUpdateModal .btn-secondary {
         background: #6c757d;
         border: 1px solid #6c757d;
-        color: #fff;
+        color: #000000;
     }
     
     #confirmUpdateModal .btn-secondary:hover {
@@ -520,6 +520,21 @@
     
     #confirmUpdateModal .text-warning {
         color: #ffc107;
+    }
+    
+    /* Disabled input styling */
+    #editUserForm input[disabled],
+    #editUserForm input[readonly] {
+        background-color: #f8f9fa !important;
+        color: #6c757d !important;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+    
+    #editUserForm input[disabled]:focus,
+    #editUserForm input[readonly]:focus {
+        box-shadow: none;
+        border-color: #ced4da;
     }
     
     /* Removed blur effects - keeping it simple */
@@ -631,7 +646,7 @@
             
             // Show success message
             if (window.showToast) {
-                window.showToast('Đã điền dữ liệu mẫu thành công!', { type: 'success' });
+                window.showToast("{{ __('admin::cms.sample_data_filled') }}", { type: 'success' });
             }
         }
 
@@ -1115,7 +1130,7 @@
                 
                 // Show success message
                 if (window.showToast) {
-                    window.showToast('Đã điền dữ liệu mẫu thành công!', { type: 'success' });
+                    window.showToast("{{ __('admin::cms.sample_data_filled') }}", { type: 'success' });
                 }
             }
             

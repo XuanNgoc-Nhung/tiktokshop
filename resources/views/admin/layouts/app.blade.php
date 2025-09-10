@@ -80,7 +80,7 @@
 
         /* Form Labels */
         .form-label, label {
-            color: #000000 !important;
+            color: #000000;
             font-weight: 500;
             margin-bottom: 0.5rem;
             font-size: 0.875rem;
@@ -555,7 +555,7 @@
 
         .btn-secondary {
             background: var(--gray-600);
-            color: var(--white);
+            color: var(--gray-800);
             border-color: var(--gray-600);
         }
 

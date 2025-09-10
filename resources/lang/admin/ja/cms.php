@@ -147,6 +147,7 @@ return [
     'placeholder_password_confirmation' => 'もう一度パスワードを入力',
     'placeholder_referral_code' => '紹介コードを入力',
     'created_success' => 'ユーザーが正常に作成されました',
+    'sample_data_filled' => 'サンプルデータが正常に入力されました',
     
     // Validation / messages (client-side)
     'validation_enter_name' => 'ユーザー名を入力してください',
@@ -226,4 +227,17 @@ return [
     'to' => 'から',
     'of' => 'の',
     'results' => '件の結果',
+    
+    // User Creation Messages
+    'user_created_success' => 'ユーザーが正常に作成されました',
+    'user_creation_failed' => 'ユーザーの作成に失敗しました',
+    'invalid_data' => '無効なデータ',
+    'error_occurred' => 'エラーが発生しました',
+    'phone_already_exists' => '電話番号は既に存在します',
+    'password_min_length' => 'パスワードは最低6文字必要です',
+    'password_confirmation_mismatch' => 'パスワードの確認が一致しません',
+    'referral_code_required' => '紹介コードを入力してください',
+    'name_required' => 'ユーザー名を入力してください',
+    'phone_required' => '電話番号を入力してください',
+    'password_required' => 'パスワードを入力してください',
 ];

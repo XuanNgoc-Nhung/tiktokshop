@@ -145,7 +145,7 @@ class LanguageHelper
      */
     public static function getAdminTranslation($key, $locale = null, $replace = [])
     {
-        return self::getTranslation($key, 'admin', $locale, $replace);
+        return self::getTranslationFromFile('cms', $key, 'admin', $locale, $replace);
     }
 
     /**

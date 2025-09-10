@@ -147,6 +147,7 @@ return [
     'placeholder_password_confirmation' => 'Re-enter password',
     'placeholder_referral_code' => 'Enter referral code',
     'created_success' => 'User created successfully',
+    'sample_data_filled' => 'Sample data filled successfully',
     
     // Validation / messages (client-side)
     'validation_enter_name' => 'Please enter user name',
@@ -226,4 +227,17 @@ return [
     'to' => 'to',
     'of' => 'of',
     'results' => 'results',
+    
+    // User Creation Messages
+    'user_created_success' => 'User created successfully',
+    'user_creation_failed' => 'Failed to create user',
+    'invalid_data' => 'Invalid data',
+    'error_occurred' => 'An error occurred',
+    'phone_already_exists' => 'Phone number already exists',
+    'password_min_length' => 'Password must be at least 6 characters',
+    'password_confirmation_mismatch' => 'Password confirmation does not match',
+    'referral_code_required' => 'Please enter referral code',
+    'name_required' => 'Please enter user name',
+    'phone_required' => 'Please enter phone number',
+    'password_required' => 'Please enter password',
 ];

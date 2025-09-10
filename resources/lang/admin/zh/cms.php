@@ -147,6 +147,7 @@ return [
     'placeholder_password_confirmation' => '请再次输入密码',
     'placeholder_referral_code' => '请输入推荐码',
     'created_success' => '用户创建成功',
+    'sample_data_filled' => '示例数据填充成功',
     
     // Validation / messages (client-side)
     'validation_enter_name' => '请输入用户姓名',
@@ -226,4 +227,17 @@ return [
     'to' => '到',
     'of' => '共',
     'results' => '条结果',
+    
+    // User Creation Messages
+    'user_created_success' => '用户创建成功',
+    'user_creation_failed' => '用户创建失败',
+    'invalid_data' => '数据无效',
+    'error_occurred' => '发生错误',
+    'phone_already_exists' => '电话号码已存在',
+    'password_min_length' => '密码至少需要6个字符',
+    'password_confirmation_mismatch' => '密码确认不匹配',
+    'referral_code_required' => '请输入推荐码',
+    'name_required' => '请输入用户姓名',
+    'phone_required' => '请输入电话号码',
+    'password_required' => '请输入密码',
 ];

@@ -220,19 +220,25 @@ class AdminController extends Controller
     public function storeUser(Request $request)
     {
         try {
+            // Ensure admin locale is set for validation messages
+            $adminLocale = session('admin_locale', 'vi');
+            if (LanguageHelper::isSupported($adminLocale)) {
+                app()->setLocale($adminLocale);
+            }
+
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'phone' => 'required|string|max:30|unique:users,phone',
                 'password' => 'required|string|min:6|confirmed',
                 'referral_code' => 'required|string|max:255',
             ], [
-                'name.required' => 'Vui lòng nhập tên người dùng',
-                'phone.required' => 'Vui lòng nhập số điện thoại',
-                'phone.unique' => 'Số điện thoại đã tồn tại',
-                'password.required' => 'Vui lòng nhập mật khẩu',
-                'password.min' => 'Mật khẩu tối thiểu 6 ký tự',
-                'password.confirmed' => 'Mật khẩu xác nhận không khớp',
-                'referral_code.required' => 'Vui lòng nhập mã giới thiệu',
+                'name.required' => LanguageHelper::getAdminTranslation('name_required'),
+                'phone.required' => LanguageHelper::getAdminTranslation('phone_required'),
+                'phone.unique' => LanguageHelper::getAdminTranslation('phone_already_exists'),
+                'password.required' => LanguageHelper::getAdminTranslation('password_required'),
+                'password.min' => LanguageHelper::getAdminTranslation('password_min_length'),
+                'password.confirmed' => LanguageHelper::getAdminTranslation('password_confirmation_mismatch'),
+                'referral_code.required' => LanguageHelper::getAdminTranslation('referral_code_required'),
             ]);
 
             // Generate placeholder email from phone to satisfy NOT NULL + UNIQUE email column
@@ -255,7 +261,7 @@ class AdminController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Tạo người dùng thành công',
+                'message' => LanguageHelper::getAdminTranslation('user_created_success'),
                 'data' => [
                     'id' => $user->id,
                     'name' => $user->name,
@@ -266,14 +272,14 @@ class AdminController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Dữ liệu không hợp lệ',
+                'message' => LanguageHelper::getAdminTranslation('invalid_data'),
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
             \Log::error('Store user error', [ 'error' => $e->getMessage() ]);
             return response()->json([
                 'success' => false,
-                'message' => 'Đã xảy ra lỗi',
+                'message' => LanguageHelper::getAdminTranslation('error_occurred'),
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -283,6 +289,12 @@ class AdminController extends Controller
     public function updateUser(Request $request, $id)
     {
         try {
+            // Ensure admin locale is set for validation messages
+            $adminLocale = session('admin_locale', 'vi');
+            if (LanguageHelper::isSupported($adminLocale)) {
+                app()->setLocale($adminLocale);
+            }
+
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'gioi_tinh' => 'nullable|string|max:10',
@@ -299,23 +311,23 @@ class AdminController extends Controller
                 'giai_thuong_id' => 'nullable|string|max:50',
                 'luot_trung' => 'nullable|integer|min:0',
             ], [
-                'name.required' => 'Tên người dùng không được để trống',
-                'name.max' => 'Tên người dùng không được quá 255 ký tự',
-                'gioi_tinh.max' => 'Giới tính không được quá 10 ký tự',
-                'ngay_sinh.date' => 'Ngày sinh không đúng định dạng',
-                'dia_chi.max' => 'Địa chỉ không được quá 255 ký tự',
-                'so_du.numeric' => 'Số dư phải là số',
-                'so_du.min' => 'Số dư không được âm',
-                'anh_mat_truoc.max' => 'Ảnh mặt trước không được quá 255 ký tự',
-                'anh_mat_sau.max' => 'Ảnh mặt sau không được quá 255 ký tự',
-                'anh_chan_dung.max' => 'Ảnh chân dung không được quá 255 ký tự',
-                'ngan_hang.max' => 'Ngân hàng không được quá 100 ký tự',
-                'so_tai_khoan.max' => 'Số tài khoản không được quá 50 ký tự',
-                'chu_tai_khoan.max' => 'Chủ tài khoản không được quá 100 ký tự',
-                'cap_do.max' => 'Cấp độ không được quá 50 ký tự',
-                'giai_thuong_id.max' => 'Giải thưởng ID không được quá 50 ký tự',
-                'luot_trung.integer' => 'Lượt trúng phải là số nguyên',
-                'luot_trung.min' => 'Lượt trúng không được âm',
+                'name.required' => LanguageHelper::getAdminTranslation('validation_name_required'),
+                'name.max' => LanguageHelper::getAdminTranslation('validation_name_required'),
+                'gioi_tinh.max' => LanguageHelper::getAdminTranslation('validation_gioi_tinh_required'),
+                'ngay_sinh.date' => LanguageHelper::getAdminTranslation('validation_ngay_sinh_format'),
+                'dia_chi.max' => LanguageHelper::getAdminTranslation('validation_dia_chi_required'),
+                'so_du.numeric' => LanguageHelper::getAdminTranslation('validation_so_du_invalid'),
+                'so_du.min' => LanguageHelper::getAdminTranslation('validation_so_du_invalid'),
+                'anh_mat_truoc.max' => LanguageHelper::getAdminTranslation('validation_so_du_required'),
+                'anh_mat_sau.max' => LanguageHelper::getAdminTranslation('validation_so_du_required'),
+                'anh_chan_dung.max' => LanguageHelper::getAdminTranslation('validation_so_du_required'),
+                'ngan_hang.max' => LanguageHelper::getAdminTranslation('validation_ngan_hang_required'),
+                'so_tai_khoan.max' => LanguageHelper::getAdminTranslation('validation_so_tai_khoan_required'),
+                'chu_tai_khoan.max' => LanguageHelper::getAdminTranslation('validation_chu_tai_khoan_required'),
+                'cap_do.max' => LanguageHelper::getAdminTranslation('validation_cap_do_required'),
+                'giai_thuong_id.max' => LanguageHelper::getAdminTranslation('validation_giai_thuong_id_required'),
+                'luot_trung.integer' => LanguageHelper::getAdminTranslation('validation_luot_trung_invalid'),
+                'luot_trung.min' => LanguageHelper::getAdminTranslation('validation_luot_trung_invalid'),
             ]);
 
             $user = User::findOrFail($id);
@@ -339,21 +351,21 @@ class AdminController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Cập nhật thông tin người dùng thành công',
+                'message' => LanguageHelper::getAdminTranslation('updated_success'),
                 'data' => $profile
             ]);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Dữ liệu không hợp lệ',
+                'message' => LanguageHelper::getAdminTranslation('invalid_data'),
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
             \Log::error('Update user error', ['error' => $e->getMessage()]);
             return response()->json([
                 'success' => false,
-                'message' => 'Đã xảy ra lỗi',
+                'message' => LanguageHelper::getAdminTranslation('error_occurred'),
                 'error' => $e->getMessage(),
             ], 500);
         }

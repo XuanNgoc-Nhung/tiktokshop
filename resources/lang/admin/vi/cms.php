@@ -147,6 +147,7 @@ return [
     'placeholder_password_confirmation' => 'Nhập lại mật khẩu',
     'placeholder_referral_code' => 'Nhập mã giới thiệu',
     'created_success' => 'Tạo người dùng thành công',
+    'sample_data_filled' => 'Đã điền dữ liệu mẫu thành công',
     
     // Validation / messages (client-side)
     'validation_enter_name' => 'Vui lòng nhập tên người dùng',
@@ -226,4 +227,17 @@ return [
     'to' => 'đến',
     'of' => 'trong tổng số',
     'results' => 'kết quả',
+    
+    // User Creation Messages
+    'user_created_success' => 'Tạo người dùng thành công',
+    'user_creation_failed' => 'Tạo người dùng thất bại',
+    'invalid_data' => 'Dữ liệu không hợp lệ',
+    'error_occurred' => 'Đã xảy ra lỗi',
+    'phone_already_exists' => 'Số điện thoại đã tồn tại',
+    'password_min_length' => 'Mật khẩu tối thiểu 6 ký tự',
+    'password_confirmation_mismatch' => 'Mật khẩu xác nhận không khớp',
+    'referral_code_required' => 'Vui lòng nhập mã giới thiệu',
+    'name_required' => 'Vui lòng nhập tên người dùng',
+    'phone_required' => 'Vui lòng nhập số điện thoại',
+    'password_required' => 'Vui lòng nhập mật khẩu',
 ];
