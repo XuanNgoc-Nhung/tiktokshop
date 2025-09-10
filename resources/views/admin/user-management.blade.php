@@ -214,14 +214,14 @@
                                     <!-- Phone -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
                                         <label for="edit_phone" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.phone') }}</label>
-                                        <input id="edit_phone" name="phone" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_phone') }}" disabled readonly>
+                                        <input id="edit_phone" name="phone" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_phone') }}" readonly>
                                         <div class="field-error" id="error_edit_phone" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
                                     <!-- Email -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
                                         <label for="edit_email" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.email') }}</label>
-                                        <input id="edit_email" name="email" type="email" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_email') }}" disabled readonly>
+                                        <input id="edit_email" name="email" type="email" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_email') }}" readonly>
                                         <div class="field-error" id="error_edit_email" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
@@ -551,9 +551,9 @@
     #editUserForm input[disabled],
     #editUserForm input[readonly] {
         background-color: #f8f9fa !important;
-        color: #6c757d !important;
-        cursor: not-allowed;
-        opacity: 0.7;
+        color: #000000 !important;
+        cursor: default;
+        opacity: 1;
     }
     
     #editUserForm input[disabled]:focus,
@@ -1114,8 +1114,8 @@
                 // Sample data for all form fields
                 const sampleData = {
                     name: 'Nguyễn Văn A',
-                    phone: '0123456789',
-                    email: 'nguyenvana@example.com',
+                    // phone: '0123456789',
+                    // email: 'nguyenvana@example.com',
                     gioi_tinh: 'Nam',
                     ngay_sinh: '1990-01-15',
                     dia_chi: '123 Đường ABC, Quận 1, TP.HCM',

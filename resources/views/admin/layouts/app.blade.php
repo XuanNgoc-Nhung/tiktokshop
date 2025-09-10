@@ -814,6 +814,10 @@
         .text-left {
             text-align: left;
         }
+        input[readonly] {
+            background-color: #000000;
+            cursor: default;
+        }
         .toast-success { border-left: 4px solid var(--success-color); }
         .toast-error { border-left: 4px solid var(--danger-color); }
         .toast-info { border-left: 4px solid var(--info-color); }
