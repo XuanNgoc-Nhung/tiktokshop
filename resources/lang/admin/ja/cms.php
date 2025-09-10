@@ -153,4 +153,48 @@ return [
     'validation_enter_referral_code' => '紹介コードを入力してください',
     'error_generic' => 'エラーが発生しました。',
     'error_network' => 'サーバーに接続できません。',
+    
+    // Edit User Modal
+    'edit_user_title' => 'ユーザー情報の編集',
+    'update' => '更新',
+    'updated_success' => 'ユーザー情報が正常に更新されました',
+    'profile_settings' => 'プロフィール設定',
+    'financial_info' => '財務情報',
+    'financial' => '財務',
+    'placeholder_email' => 'メールアドレスを入力',
+    'user_information' => 'ユーザー情報',
+    'additional_images' => '追加画像',
+    
+    // Profile Fields
+    'gender' => '性別',
+    'select_gender' => '性別を選択',
+    'birth_date' => '生年月日',
+    'address' => '住所',
+    'balance' => '残高',
+    'win_count' => '当選回数',
+    'bank' => '銀行',
+    'account_number' => '口座番号',
+    'account_holder' => '口座名義人',
+    'level' => 'レベル',
+    'prize_id' => '賞品ID',
+    'images' => '画像',
+    'front_image' => '正面画像',
+    'back_image' => '背面画像',
+    'portrait_image' => '肖像画像',
+    
+    // Placeholders
+    'placeholder_address' => '住所を入力',
+    'placeholder_birth_date' => '生年月日を入力 (dd/mm/yyyy)',
+    'placeholder_bank' => '銀行名を入力',
+    'placeholder_account_number' => '口座番号を入力',
+    'placeholder_account_holder' => '口座名義人を入力',
+    'placeholder_level' => 'レベルを入力',
+    'placeholder_prize_id' => '賞品IDを入力',
+    'placeholder_image_url' => '画像URLを入力',
+    
+    // Pagination
+    'showing' => '表示中',
+    'to' => 'から',
+    'of' => 'の',
+    'results' => '件の結果',
 ];

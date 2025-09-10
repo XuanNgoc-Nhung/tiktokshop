@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Profile;
 use App\Helpers\LanguageHelper;
 
 class AdminController extends Controller
@@ -34,36 +35,8 @@ class AdminController extends Controller
         ];
 
         // Lấy danh sách đơn hàng gần đây (mock data)
-        $recent_orders = [
-            [
-                'id' => '001',
-                'customer' => 'Nguyễn Văn A',
-                'amount' => 150.00,
-                'status' => 'completed'
-            ],
-            [
-                'id' => '002',
-                'customer' => 'Trần Thị B',
-                'amount' => 89.50,
-                'status' => 'pending'
-            ],
-            [
-                'id' => '003',
-                'customer' => 'Lê Văn C',
-                'amount' => 200.00,
-                'status' => 'completed'
-            ],
-        ];
-
-        // Lấy danh sách người dùng gần đây
-        $recent_users = User::latest()->take(5)->get()->map(function($user) {
-            return [
-                'name' => $user->name,
-                'email' => $user->email,
-                'role' => $user->role ?? 'user',
-                'created_at' => $user->created_at->format('d/m/Y')
-            ];
-        })->toArray();
+        $recent_orders = [];
+        $recent_users = User::orderBy('created_at', 'desc')->limit(5)->get()->toArray();
 
         return view('admin.index', compact('stats', 'recent_orders', 'recent_users'));
     }
@@ -145,36 +118,34 @@ class AdminController extends Controller
     {
         $keyword = trim((string) $request->get('q', ''));
 
-        // Demo users data
-        $demoUsers = [
-            ['name' => 'Nguyễn Văn A', 'email' => 'nguyenvana@example.com', 'phone' => '0901000001', 'role' => 'user', 'created_at' => now()->subDays(1)],
-            ['name' => 'Trần Thị B', 'email' => 'tranthib@example.com', 'phone' => '0901000002', 'role' => 'user', 'created_at' => now()->subDays(2)],
-            ['name' => 'Lê Văn C', 'email' => 'levanc@example.com', 'phone' => '0901000003', 'role' => 'seller', 'created_at' => now()->subDays(3)],
-            ['name' => 'Phạm Thị D', 'email' => 'phamthid@example.com', 'phone' => '0901000004', 'role' => 'user', 'created_at' => now()->subDays(4)],
-            ['name' => 'Hoàng Văn E', 'email' => 'hoangvane@example.com', 'phone' => '0901000005', 'role' => 'admin', 'created_at' => now()->subDays(5)],
-            ['name' => 'Võ Thị F', 'email' => 'vothif@example.com', 'phone' => '0901000006', 'role' => 'user', 'created_at' => now()->subDays(6)],
-            ['name' => 'Bùi Văn G', 'email' => 'buivang@example.com', 'phone' => '0901000007', 'role' => 'user', 'created_at' => now()->subDays(7)],
-            ['name' => 'Đặng Thị H', 'email' => 'dangthih@example.com', 'phone' => '0901000008', 'role' => 'seller', 'created_at' => now()->subDays(8)],
-            ['name' => 'Ngô Văn I', 'email' => 'ngovani@example.com', 'phone' => '0901000009', 'role' => 'user', 'created_at' => now()->subDays(9)],
-            ['name' => 'Đỗ Thị K', 'email' => 'dothik@example.com', 'phone' => '0901000010', 'role' => 'user', 'created_at' => now()->subDays(10)],
-        ];
-
-        // Filter by keyword over name, email, phone
-        $filtered = collect($demoUsers)->filter(function ($user) use ($keyword) {
-            if ($keyword === '') {
-                return true;
+        // Lấy ra danh sách người dùng từ database
+        $query = User::with('profile');
+        
+        // Nếu có từ khóa tìm kiếm, thêm điều kiện where
+        if ($keyword !== '') {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('name', 'like', '%' . $keyword . '%')
+                  ->orWhere('email', 'like', '%' . $keyword . '%')
+                  ->orWhere('phone', 'like', '%' . $keyword . '%');
+            });
+        }
+        
+        // Sử dụng paginate với 10 items per page
+        $users = $query->paginate(10)->withQueryString();
+        
+        // Format dữ liệu cho mỗi user
+        $users->getCollection()->transform(function ($user) {
+            $user->created_at_formatted = optional($user->created_at)->format('d/m/Y');
+            // Load profile relationship if not already loaded
+            if (!$user->relationLoaded('profile')) {
+                $user->load('profile');
             }
-            $haystack = strtolower(($user['name'] ?? '') . ' ' . ($user['email'] ?? '') . ' ' . ($user['phone'] ?? ''));
-            return strpos($haystack, strtolower($keyword)) !== false;
-        })->map(function ($user) {
-            $user['created_at_formatted'] = optional($user['created_at'])->format('d/m/Y');
             return $user;
-        })->values();
+        });
 
         return view('admin.user-management', [
-            'users' => $filtered,
+            'users' => $users,
             'keyword' => $keyword,
-            'total' => count($filtered),
         ]);
     }
 
@@ -300,6 +271,95 @@ class AdminController extends Controller
             ], 422);
         } catch (\Exception $e) {
             \Log::error('Store user error', [ 'error' => $e->getMessage() ]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Đã xảy ra lỗi',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+
+    public function updateUser(Request $request, $id)
+    {
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'phone' => 'required|string|max:30',
+                'email' => 'required|email|max:255',
+                'gioi_tinh' => 'nullable|string|max:10',
+                'ngay_sinh' => 'nullable|date',
+                'dia_chi' => 'nullable|string|max:255',
+                'so_du' => 'nullable|numeric|min:0',
+                'anh_mat_truoc' => 'nullable|string|max:255',
+                'anh_mat_sau' => 'nullable|string|max:255',
+                'anh_chan_dung' => 'nullable|string|max:255',
+                'ngan_hang' => 'nullable|string|max:100',
+                'so_tai_khoan' => 'nullable|string|max:50',
+                'chu_tai_khoan' => 'nullable|string|max:100',
+                'cap_do' => 'nullable|string|max:50',
+                'giai_thuong_id' => 'nullable|string|max:50',
+                'luot_trung' => 'nullable|integer|min:0',
+            ], [
+                'name.required' => 'Tên người dùng không được để trống',
+                'name.max' => 'Tên người dùng không được quá 255 ký tự',
+                'phone.required' => 'Số điện thoại không được để trống',
+                'phone.max' => 'Số điện thoại không được quá 30 ký tự',
+                'email.required' => 'Email không được để trống',
+                'email.email' => 'Email không đúng định dạng',
+                'email.max' => 'Email không được quá 255 ký tự',
+                'gioi_tinh.max' => 'Giới tính không được quá 10 ký tự',
+                'ngay_sinh.date' => 'Ngày sinh không đúng định dạng',
+                'dia_chi.max' => 'Địa chỉ không được quá 255 ký tự',
+                'so_du.numeric' => 'Số dư phải là số',
+                'so_du.min' => 'Số dư không được âm',
+                'anh_mat_truoc.max' => 'Ảnh mặt trước không được quá 255 ký tự',
+                'anh_mat_sau.max' => 'Ảnh mặt sau không được quá 255 ký tự',
+                'anh_chan_dung.max' => 'Ảnh chân dung không được quá 255 ký tự',
+                'ngan_hang.max' => 'Ngân hàng không được quá 100 ký tự',
+                'so_tai_khoan.max' => 'Số tài khoản không được quá 50 ký tự',
+                'chu_tai_khoan.max' => 'Chủ tài khoản không được quá 100 ký tự',
+                'cap_do.max' => 'Cấp độ không được quá 50 ký tự',
+                'giai_thuong_id.max' => 'Giải thưởng ID không được quá 50 ký tự',
+                'luot_trung.integer' => 'Lượt trúng phải là số nguyên',
+                'luot_trung.min' => 'Lượt trúng không được âm',
+            ]);
+
+            $user = User::findOrFail($id);
+            
+            // Cập nhật thông tin user
+            $user->update([
+                'name' => $validated['name'],
+                'phone' => $validated['phone'],
+                'email' => $validated['email'],
+            ]);
+            
+            // Tìm hoặc tạo profile cho user
+            $profile = Profile::where('user_id', $id)->first();
+            if (!$profile) {
+                $profile = new Profile();
+                $profile->user_id = $id;
+            }
+
+            // Cập nhật thông tin profile (loại bỏ các trường user)
+            $profileData = collect($validated)->except(['name', 'phone', 'email'])->toArray();
+            $profile->fill($profileData);
+            $profile->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Cập nhật thông tin người dùng thành công',
+                'data' => $profile
+            ]);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Dữ liệu không hợp lệ',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            \Log::error('Update user error', ['error' => $e->getMessage()]);
             return response()->json([
                 'success' => false,
                 'message' => 'Đã xảy ra lỗi',

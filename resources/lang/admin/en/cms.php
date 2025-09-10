@@ -153,4 +153,48 @@ return [
     'validation_enter_referral_code' => 'Please enter referral code',
     'error_generic' => 'An error occurred.',
     'error_network' => 'Cannot connect to server.',
+    
+    // Edit User Modal
+    'edit_user_title' => 'Edit User Information',
+    'update' => 'Update',
+    'updated_success' => 'User information updated successfully',
+    'profile_settings' => 'Profile Settings',
+    'financial_info' => 'Financial Information',
+    'financial' => 'Financial',
+    'placeholder_email' => 'Enter email',
+    'user_information' => 'User Information',
+    'additional_images' => 'Additional Images',
+    
+    // Profile Fields
+    'gender' => 'Gender',
+    'select_gender' => 'Select Gender',
+    'birth_date' => 'Birth Date',
+    'address' => 'Address',
+    'balance' => 'Balance',
+    'win_count' => 'Win Count',
+    'bank' => 'Bank',
+    'account_number' => 'Account Number',
+    'account_holder' => 'Account Holder',
+    'level' => 'Level',
+    'prize_id' => 'Prize ID',
+    'images' => 'Images',
+    'front_image' => 'Front Image',
+    'back_image' => 'Back Image',
+    'portrait_image' => 'Portrait Image',
+    
+    // Placeholders
+    'placeholder_address' => 'Enter address',
+    'placeholder_birth_date' => 'Enter birth date (dd/mm/yyyy)',
+    'placeholder_bank' => 'Enter bank name',
+    'placeholder_account_number' => 'Enter account number',
+    'placeholder_account_holder' => 'Enter account holder name',
+    'placeholder_level' => 'Enter level',
+    'placeholder_prize_id' => 'Enter prize ID',
+    'placeholder_image_url' => 'Enter image URL',
+    
+    // Pagination
+    'showing' => 'Showing',
+    'to' => 'to',
+    'of' => 'of',
+    'results' => 'results',
 ];

@@ -17,6 +17,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
@@ -73,6 +76,14 @@
         }
         .text-white {
             color: var(--white);
+        }
+
+        /* Form Labels */
+        .form-label, label {
+            color: #000000 !important;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
         }
 
         /* Sidebar */
@@ -269,7 +280,8 @@
             position: sticky;
             top: 0;
             z-index: 999;
-            min-height: 40px;
+            min-height: 60px;
+            height: 60px;
         }
 
         .nav-left {
@@ -287,6 +299,11 @@
             padding: 0.5rem;
             border-radius: var(--border-radius);
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            width: 40px;
         }
 
         .sidebar-toggle:hover {
@@ -300,6 +317,7 @@
             gap: 0.5rem;
             color: var(--gray-600);
             font-size: 0.875rem;
+            margin-bottom: 0;
         }
 
         .nav-right {
@@ -321,8 +339,10 @@
             cursor: pointer;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
             transition: var(--transition);
+            height: 40px;
         }
 
         .language-btn:hover {
@@ -338,11 +358,13 @@
             border: none;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
             padding: 0.5rem;
             border-radius: var(--border-radius);
             cursor: pointer;
             transition: var(--transition);
+            height: 40px;
         }
 
         .user-btn:hover {
@@ -542,23 +564,52 @@
             border-color: var(--gray-700);
         }
 
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border-radius: 0.25rem;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: var(--white);
+            border-color: var(--danger-color);
+        }
+
+        .btn-danger:hover {
+            background: #c53030;
+            border-color: #c53030;
+        }
+
+        .btn-warning {
+            background: var(--warning-color);
+            color: var(--white);
+            border-color: var(--warning-color);
+        }
+
+        .btn-warning:hover {
+            background: #b7791f;
+            border-color: #b7791f;
+        }
+
         /* Tables */
         .table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 0;
+            background: var(--gray-200);
         }
 
         .table th,
         .table td {
             padding: 0.75rem;
-            border: 1px solid var(--gray-300);
+            border: 1px solid var(--gray-400);
         }
 
         .table th {
-            background: var(--gray-300);
+            background: var(--primary-color);
             font-weight: 600;
-            color: var(--gray-700);
+            color: var(--white);
             font-size: 0.875rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -566,10 +617,20 @@
 
         .table tbody td {
             font-weight: 400;
+            background: var(--gray-200);
+            color: var(--gray-800);
         }
 
         .table tbody tr:hover {
             background-color: var(--gray-300);
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: var(--gray-300);
+        }
+
+        .table tbody tr:nth-child(even):hover {
+            background-color: var(--gray-400);
         }
 
         /* Responsive */
@@ -606,7 +667,8 @@
 
             .top-nav {
                 padding: 0.5rem 1rem;
-                min-height: 35px;
+                min-height: 50px;
+                height: 50px;
             }
 
             /* Backdrop overlay when sidebar is open */
@@ -680,17 +742,20 @@
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-lg);
             min-width: 200px;
-            z-index: 1000;
+            z-index: 9999;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
             transition: var(--transition);
+            margin-top: 0.5rem;
+            display: none;
         }
 
         .dropdown.show .dropdown-menu {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
+            display: block;
         }
 
         .dropdown-item {
@@ -956,16 +1021,20 @@
         });
 
         // Close dropdowns when clicking outside
-        document.addEventListener('click', function() {
-            document.querySelectorAll('.dropdown').forEach(dropdown => {
-                dropdown.classList.remove('show');
-            });
+        document.addEventListener('click', function(e) {
+            // Check if click is outside any dropdown
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('show');
+                });
+            }
         });
 
         // Language Switcher
         document.querySelectorAll('[data-lang]').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
+                e.stopPropagation();
                 const lang = this.getAttribute('data-lang');
                 
                 console.log('Language change requested:', lang);
@@ -1073,6 +1142,9 @@
             };
         })();
     </script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     @stack('scripts')
 </body>

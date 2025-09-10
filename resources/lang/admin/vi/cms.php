@@ -153,4 +153,48 @@ return [
     'validation_enter_referral_code' => 'Vui lòng nhập mã giới thiệu',
     'error_generic' => 'Đã xảy ra lỗi.',
     'error_network' => 'Không thể kết nối máy chủ.',
+    
+    // Edit User Modal
+    'edit_user_title' => 'Chỉnh sửa thông tin người dùng',
+    'update' => 'Cập nhật',
+    'updated_success' => 'Cập nhật thông tin thành công',
+    'profile_settings' => 'Cài đặt hồ sơ',
+    'financial_info' => 'Thông tin tài chính',
+    'financial' => 'Tài chính',
+    'placeholder_email' => 'Nhập email',
+    'user_information' => 'Thông tin người dùng',
+    'additional_images' => 'Hình ảnh bổ sung',
+    
+    // Profile Fields
+    'gender' => 'Giới tính',
+    'select_gender' => 'Chọn giới tính',
+    'birth_date' => 'Ngày sinh',
+    'address' => 'Địa chỉ',
+    'balance' => 'Số dư',
+    'win_count' => 'Lượt trúng',
+    'bank' => 'Ngân hàng',
+    'account_number' => 'Số tài khoản',
+    'account_holder' => 'Chủ tài khoản',
+    'level' => 'Cấp độ',
+    'prize_id' => 'ID Giải thưởng',
+    'images' => 'Hình ảnh',
+    'front_image' => 'Ảnh mặt trước',
+    'back_image' => 'Ảnh mặt sau',
+    'portrait_image' => 'Ảnh chân dung',
+    
+    // Placeholders
+    'placeholder_address' => 'Nhập địa chỉ',
+    'placeholder_birth_date' => 'Nhập ngày sinh (dd/mm/yyyy)',
+    'placeholder_bank' => 'Nhập tên ngân hàng',
+    'placeholder_account_number' => 'Nhập số tài khoản',
+    'placeholder_account_holder' => 'Nhập tên chủ tài khoản',
+    'placeholder_level' => 'Nhập cấp độ',
+    'placeholder_prize_id' => 'Nhập ID giải thưởng',
+    'placeholder_image_url' => 'Nhập URL hình ảnh',
+    
+    // Pagination
+    'showing' => 'Hiển thị',
+    'to' => 'đến',
+    'of' => 'trong tổng số',
+    'results' => 'kết quả',
 ];

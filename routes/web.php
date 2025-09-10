@@ -24,8 +24,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin']], fu
     Route::get('/user-management', [AdminController::class, 'userManagement'])->name('admin.user-management');
     Route::get('/user-management/create', [AdminController::class, 'createUser'])->name('admin.user-management.create');
     Route::post('/user-management/store', [AdminController::class, 'storeUser'])->name('admin.user-management.store');
-    Route::get('/user-management/edit/{id}', [AdminController::class, 'editUser'])->name('admin.user-management.edit');
-    Route::post('/user-management/update/{id}', [AdminController::class, 'updateUser'])->name('admin.user-management.update');
+    Route::put('/user-management/{id}', [AdminController::class, 'updateUser'])->name('admin.user-management.update');
     Route::post('/user-management/destroy/{id}', [AdminController::class, 'destroyUser'])->name('admin.user-management.destroy');
 });
 

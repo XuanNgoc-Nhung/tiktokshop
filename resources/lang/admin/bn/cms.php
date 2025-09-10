@@ -153,4 +153,48 @@ return [
     'validation_enter_referral_code' => 'দয়া করে রেফারেল কোড লিখুন',
     'error_generic' => 'একটি ত্রুটি ঘটেছে।',
     'error_network' => 'সার্ভারে সংযোগ করা যাচ্ছে না।',
+    
+    // Edit User Modal
+    'edit_user_title' => 'ব্যবহারকারীর তথ্য সম্পাদনা',
+    'update' => 'আপডেট',
+    'updated_success' => 'ব্যবহারকারীর তথ্য সফলভাবে আপডেট হয়েছে',
+    'profile_settings' => 'প্রোফাইল সেটিংস',
+    'financial_info' => 'আর্থিক তথ্য',
+    'financial' => 'আর্থিক',
+    'placeholder_email' => 'ইমেইল লিখুন',
+    'user_information' => 'ব্যবহারকারীর তথ্য',
+    'additional_images' => 'অতিরিক্ত ছবি',
+    
+    // Profile Fields
+    'gender' => 'লিঙ্গ',
+    'select_gender' => 'লিঙ্গ নির্বাচন করুন',
+    'birth_date' => 'জন্ম তারিখ',
+    'address' => 'ঠিকানা',
+    'balance' => 'ব্যালেন্স',
+    'win_count' => 'জয়ের সংখ্যা',
+    'bank' => 'ব্যাংক',
+    'account_number' => 'অ্যাকাউন্ট নম্বর',
+    'account_holder' => 'অ্যাকাউন্ট হোল্ডার',
+    'level' => 'লেভেল',
+    'prize_id' => 'পুরস্কার আইডি',
+    'images' => 'ছবি',
+    'front_image' => 'সামনের ছবি',
+    'back_image' => 'পিছনের ছবি',
+    'portrait_image' => 'প্রতিকৃতি ছবি',
+    
+    // Placeholders
+    'placeholder_address' => 'ঠিকানা লিখুন',
+    'placeholder_birth_date' => 'জন্ম তারিখ লিখুন (dd/mm/yyyy)',
+    'placeholder_bank' => 'ব্যাংকের নাম লিখুন',
+    'placeholder_account_number' => 'অ্যাকাউন্ট নম্বর লিখুন',
+    'placeholder_account_holder' => 'অ্যাকাউন্ট হোল্ডারের নাম লিখুন',
+    'placeholder_level' => 'লেভেল লিখুন',
+    'placeholder_prize_id' => 'পুরস্কার আইডি লিখুন',
+    'placeholder_image_url' => 'ছবির URL লিখুন',
+    
+    // Pagination
+    'showing' => 'দেখানো হচ্ছে',
+    'to' => 'থেকে',
+    'of' => 'মোট',
+    'results' => 'টি ফলাফল',
 ];

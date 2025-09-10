@@ -153,4 +153,48 @@ return [
     'validation_enter_referral_code' => '请输入推荐码',
     'error_generic' => '发生错误。',
     'error_network' => '无法连接到服务器。',
+    
+    // Edit User Modal
+    'edit_user_title' => '编辑用户信息',
+    'update' => '更新',
+    'updated_success' => '用户信息更新成功',
+    'profile_settings' => '个人资料设置',
+    'financial_info' => '财务信息',
+    'financial' => '财务',
+    'placeholder_email' => '输入邮箱',
+    'user_information' => '用户信息',
+    'additional_images' => '附加图片',
+    
+    // Profile Fields
+    'gender' => '性别',
+    'select_gender' => '选择性别',
+    'birth_date' => '出生日期',
+    'address' => '地址',
+    'balance' => '余额',
+    'win_count' => '中奖次数',
+    'bank' => '银行',
+    'account_number' => '账号',
+    'account_holder' => '账户持有人',
+    'level' => '等级',
+    'prize_id' => '奖品ID',
+    'images' => '图片',
+    'front_image' => '正面照片',
+    'back_image' => '背面照片',
+    'portrait_image' => '肖像照片',
+    
+    // Placeholders
+    'placeholder_address' => '输入地址',
+    'placeholder_birth_date' => '输入出生日期 (dd/mm/yyyy)',
+    'placeholder_bank' => '输入银行名称',
+    'placeholder_account_number' => '输入账号',
+    'placeholder_account_holder' => '输入账户持有人姓名',
+    'placeholder_level' => '输入等级',
+    'placeholder_prize_id' => '输入奖品ID',
+    'placeholder_image_url' => '输入图片URL',
+    
+    // Pagination
+    'showing' => '显示',
+    'to' => '到',
+    'of' => '共',
+    'results' => '条结果',
 ];

@@ -19,5 +19,10 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        // Gọi UserSeeder để tạo 50 user mẫu
+        $this->call([
+            UserSeeder::class,
+        ]);
     }
 }

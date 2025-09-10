@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return static::where('phone', $phone)->first();
     }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

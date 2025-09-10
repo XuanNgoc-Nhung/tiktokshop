@@ -59,7 +59,7 @@
             font-size: 14px;
             font-weight: 500;
             margin-bottom: 5px;
-            color: #333;
+            color: #000000;
         }
         .btn-login {
             background: #f8f9fa;
