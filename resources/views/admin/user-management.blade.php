@@ -15,7 +15,6 @@
                 <button type="submit" class="btn btn-primary" style="height: 32px; padding: 0.35rem 0.6rem; font-size: 0.8125rem;"><i class="fas fa-search"></i> {{ __('admin::cms.search') }}</button>
                 <a href="{{ route('admin.user-management') }}" class="btn btn-secondary" style="height: 32px; padding: 0.35rem 0.6rem; font-size: 0.8125rem;"><i class="fas fa-rotate"></i> {{ __('admin::cms.reset') }}</a>
                 <a href="{{ route('admin.user-management.create') }}" id="openCreateUserModal" class="btn btn-primary" style="height: 32px; padding: 0.35rem 0.6rem; font-size: 0.8125rem;"><i class="fas fa-plus"></i> {{ __('admin::cms.add_new') }}</a>
-                <button type="button" id="testDeleteModal" class="btn btn-warning" style="height: 32px; padding: 0.35rem 0.6rem; font-size: 0.8125rem;"><i class="fas fa-bug"></i> Test Delete</button>
             </form>
 
             <div style="margin-bottom: 0.5rem; color: var(--gray-600); font-size: 0.875rem;">{{ __('admin::cms.total') }}: {{ $users->total() }}</div>
@@ -1319,14 +1318,7 @@
             
             console.log('✅ [DELETE] Khởi tạo hoàn tất');
             
-            // Test button for debugging
-            const testBtn = document.getElementById('testDeleteModal');
-            if (testBtn) {
-                testBtn.addEventListener('click', function() {
-                    console.log('🧪 [TEST] Test delete button clicked');
-                    showDeleteConfirmation('999', 'Test User');
-                });
-            }
+            // Removed test delete trigger button and listener
         }
 
         function showDeleteConfirmation(userId, userName) {

@@ -160,6 +160,30 @@ return [
     'placeholder_referral_code' => 'Enter referral code',
     'created_success' => 'User created successfully',
     'sample_data_filled' => 'Sample data filled successfully',
+
+    // Product Management
+    'product_created_success' => 'Product created successfully',
+    'product_list' => 'Product List',
+    'product_name' => 'Product Name',
+    'price' => 'Price',
+    'commission' => 'Commission',
+    'description' => 'Description',
+    'image' => 'Image',
+    'vip_level' => 'VIP Level',
+    'created_at' => 'Created At',
+    'create_product' => 'Create Product',
+    'edit_product' => 'Edit Product',
+    'update_product' => 'Update Product',
+    'delete_product' => 'Delete Product',
+    'confirm_delete_product' => 'Are you sure you want to delete this product?',
+    'drag_drop_or_click' => 'Drag & drop or click to select',
+
+    // Placeholders - Product
+    'placeholder_product_name' => 'Enter product name',
+    'placeholder_price' => 'Enter price',
+    'placeholder_commission' => 'Enter commission',
+    'placeholder_description_product' => 'Product description',
+    'placeholder_vip_level' => 'e.g., VIP, Regular',
     
     // Validation / messages (client-side)
     'validation_enter_name' => 'Please enter user name',
@@ -168,6 +192,9 @@ return [
     'validation_enter_password_confirmation' => 'Please confirm password',
     'validation_password_mismatch' => 'Password confirmation does not match',
     'validation_enter_referral_code' => 'Please enter referral code',
+    'validation_enter_price' => 'Please enter a valid price',
+    'validation_enter_commission' => 'Please enter a valid commission',
+    'validation_enter_image' => 'Please select an image',
     
     // Edit User Form Validation
     'validation_name_required' => 'Name is required',

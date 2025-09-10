@@ -161,6 +161,23 @@ return [
     'placeholder_referral_code' => '紹介コードを入力',
     'created_success' => 'ユーザーが正常に作成されました',
     'sample_data_filled' => 'サンプルデータが正常に入力されました',
+
+    // Product Management
+    'product_created_success' => '商品が正常に作成されました',
+    'product_list' => '商品一覧',
+    'product_name' => '商品名',
+    'price' => '価格',
+    'commission' => 'コミッション',
+    'description' => '説明',
+    'image' => '画像',
+    'vip_level' => 'VIPレベル',
+    'created_at' => '作成日時',
+    'create_product' => '商品を追加',
+    'edit_product' => '商品を編集',
+    'update_product' => '商品を更新',
+    'delete_product' => '商品を削除',
+    'confirm_delete_product' => 'この商品を削除してもよろしいですか？',
+    'drag_drop_or_click' => 'ドラッグ＆ドロップ、またはクリックして選択',
     
     // Validation / messages (client-side)
     'validation_enter_name' => 'ユーザー名を入力してください',
@@ -169,6 +186,9 @@ return [
     'validation_enter_password_confirmation' => 'パスワードを確認してください',
     'validation_password_mismatch' => '確認用パスワードが一致しません',
     'validation_enter_referral_code' => '紹介コードを入力してください',
+    'validation_enter_image' => '画像を選択してください',
+    'validation_enter_price' => '有効な価格を入力してください',
+    'validation_enter_commission' => '有効なコミッションを入力してください',
     
     // Edit User Form Validation
     'validation_name_required' => '名前は必須です',
@@ -234,6 +254,13 @@ return [
     'placeholder_level' => 'レベルを入力',
     'placeholder_prize_id' => '賞品IDを入力',
     'placeholder_image_url' => '画像URLを入力',
+
+    // Placeholders - Product
+    'placeholder_product_name' => '商品名を入力',
+    'placeholder_price' => '価格を入力',
+    'placeholder_commission' => 'コミッションを入力',
+    'placeholder_description_product' => '商品説明',
+    'placeholder_vip_level' => '例：VIP、レギュラー',
     
     // Pagination
     'showing' => '表示中',

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RewardController;
 
 Route::middleware(['language.user'])->group(function () {
     Route::get('/', [UserController::class, 'index']);
@@ -26,6 +28,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin']], fu
     Route::post('/user-management/store', [AdminController::class, 'storeUser'])->name('admin.user-management.store');
     Route::put('/user-management/{id}', [AdminController::class, 'updateUser'])->name('admin.user-management.update');
     Route::delete('/user-management/{id}', [AdminController::class, 'deleteUser'])->name('admin.user-management.delete');
+    //product management
+    Route::get('/product-management', [ProductController::class, 'productManagement'])->name('admin.product-management');
+    Route::get('/product-management/create', [ProductController::class, 'createProduct'])->name('admin.product-management.create');
+    Route::post('/product-management/store', [ProductController::class, 'storeProduct'])->name('admin.product-management.store');
+    Route::put('/product-management/{id}', [ProductController::class, 'updateProduct'])->name('admin.product-management.update');
+    Route::delete('/product-management/{id}', [ProductController::class, 'deleteProduct'])->name('admin.product-management.delete');
+    //reward management
+    Route::get('/reward-management', [RewardController::class, 'rewardManagement'])->name('admin.reward-management');
 });
 
 // Admin routes with authentication check

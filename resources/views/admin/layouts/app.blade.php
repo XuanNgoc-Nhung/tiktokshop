@@ -861,7 +861,7 @@
                 </div>
                 
                 <div class="menu-item">
-                    <a href="#" class="menu-link" data-tooltip="{{ __('admin::cms.product_management') }}">
+                    <a href="{{ route('admin.product-management') }}" class="menu-link {{ request()->routeIs('admin.product-management') ? 'active' : '' }}" data-tooltip="{{ __('admin::cms.product_management') }}">
                         <i class="fas fa-box"></i>
                         <span class="menu-text">{{ __('admin::cms.product_management') }}</span>
                     </a>

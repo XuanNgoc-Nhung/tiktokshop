@@ -159,6 +159,30 @@ return [
     'placeholder_referral_code' => 'Nhập mã giới thiệu',
     'created_success' => 'Tạo người dùng thành công',
     'sample_data_filled' => 'Đã điền dữ liệu mẫu thành công',
+
+    // Product Management
+    'product_created_success' => 'Tạo sản phẩm thành công',
+    'product_list' => 'Danh sách sản phẩm',
+    'product_name' => 'Tên sản phẩm',
+    'price' => 'Giá',
+    'commission' => 'Hoa hồng',
+    'description' => 'Mô tả',
+    'image' => 'Hình ảnh',
+    'vip_level' => 'Cấp độ VIP',
+    'created_at' => 'Tạo lúc',
+    'create_product' => 'Thêm sản phẩm',
+    'edit_product' => 'Chỉnh sửa sản phẩm',
+    'update_product' => 'Cập nhật sản phẩm',
+    'delete_product' => 'Xóa sản phẩm',
+    'confirm_delete_product' => 'Bạn có chắc chắn muốn xóa sản phẩm này không?',
+    'drag_drop_or_click' => 'Kéo & thả hoặc bấm để chọn',
+
+    // Placeholders - Product
+    'placeholder_product_name' => 'Nhập tên sản phẩm',
+    'placeholder_price' => 'Nhập giá',
+    'placeholder_commission' => 'Nhập hoa hồng',
+    'placeholder_description_product' => 'Mô tả sản phẩm',
+    'placeholder_vip_level' => 'VD: VIP, Thường...',
     
     // Validation / messages (client-side)
     'validation_enter_name' => 'Vui lòng nhập tên người dùng',
@@ -167,6 +191,9 @@ return [
     'validation_enter_password_confirmation' => 'Vui lòng xác nhận mật khẩu',
     'validation_password_mismatch' => 'Mật khẩu xác nhận không khớp',
     'validation_enter_referral_code' => 'Vui lòng nhập mã giới thiệu',
+    'validation_enter_price' => 'Vui lòng nhập giá hợp lệ',
+    'validation_enter_commission' => 'Vui lòng nhập hoa hồng hợp lệ',
+    'validation_enter_image' => 'Vui lòng chọn hình ảnh',
     
     // Edit User Form Validation
     'validation_name_required' => 'Tên không được để trống',

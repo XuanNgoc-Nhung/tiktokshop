@@ -161,6 +161,23 @@ return [
     'placeholder_referral_code' => 'রেফারেল কোড লিখুন',
     'created_success' => 'ব্যবহারকারী সফলভাবে তৈরি হয়েছে',
     'sample_data_filled' => 'নমুনা ডেটা সফলভাবে পূরণ করা হয়েছে',
+
+    // Product Management
+    'product_created_success' => 'পণ্য সফলভাবে তৈরি হয়েছে',
+    'product_list' => 'পণ্য তালিকা',
+    'product_name' => 'পণ্যের নাম',
+    'price' => 'দাম',
+    'commission' => 'কমিশন',
+    'description' => 'বিবরণ',
+    'image' => 'ছবি',
+    'vip_level' => 'ভিআইপি লেভেল',
+    'created_at' => 'তৈরির সময়',
+    'create_product' => 'পণ্য যোগ করুন',
+    'edit_product' => 'পণ্য সম্পাদনা',
+    'update_product' => 'পণ্য আপডেট করুন',
+    'delete_product' => 'পণ্য মুছুন',
+    'confirm_delete_product' => 'আপনি কি নিশ্চিত যে আপনি এই পণ্যটি মুছে ফেলতে চান?',
+    'drag_drop_or_click' => 'ড্র্যাগ & ড্রপ বা ক্লিক করে নির্বাচন করুন',
     
     // Validation / messages (client-side)
     'validation_enter_name' => 'দয়া করে ব্যবহারকারীর নাম লিখুন',
@@ -169,6 +186,9 @@ return [
     'validation_enter_password_confirmation' => 'দয়া করে পাসওয়ার্ড নিশ্চিত করুন',
     'validation_password_mismatch' => 'পাসওয়ার্ড মিলছে না',
     'validation_enter_referral_code' => 'দয়া করে রেফারেল কোড লিখুন',
+    'validation_enter_image' => 'দয়া করে একটি ছবি নির্বাচন করুন',
+    'validation_enter_price' => 'দয়া করে একটি সঠিক দাম লিখুন',
+    'validation_enter_commission' => 'দয়া করে একটি সঠিক কমিশন লিখুন',
     
     // Edit User Form Validation
     'validation_name_required' => 'নাম আবশ্যক',
@@ -234,6 +254,13 @@ return [
     'placeholder_level' => 'লেভেল লিখুন',
     'placeholder_prize_id' => 'পুরস্কার আইডি লিখুন',
     'placeholder_image_url' => 'ছবির URL লিখুন',
+
+    // Placeholders - Product
+    'placeholder_product_name' => 'পণ্যের নাম লিখুন',
+    'placeholder_price' => 'দাম লিখুন',
+    'placeholder_commission' => 'কমিশন লিখুন',
+    'placeholder_description_product' => 'পণ্যের বিবরণ',
+    'placeholder_vip_level' => 'যেমন: VIP, সাধারণ',
     
     // Pagination
     'showing' => 'দেখানো হচ্ছে',

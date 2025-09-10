@@ -161,6 +161,23 @@ return [
     'placeholder_referral_code' => '请输入推荐码',
     'created_success' => '用户创建成功',
     'sample_data_filled' => '示例数据填充成功',
+
+    // Product Management
+    'product_created_success' => '产品创建成功',
+    'product_list' => '产品列表',
+    'product_name' => '产品名称',
+    'price' => '价格',
+    'commission' => '佣金',
+    'description' => '描述',
+    'image' => '图片',
+    'vip_level' => 'VIP 等级',
+    'created_at' => '创建时间',
+    'create_product' => '添加产品',
+    'edit_product' => '编辑产品',
+    'update_product' => '更新产品',
+    'delete_product' => '删除产品',
+    'confirm_delete_product' => '确定要删除此产品吗？',
+    'drag_drop_or_click' => '拖拽或点击选择',
     
     // Validation / messages (client-side)
     'validation_enter_name' => '请输入用户姓名',
@@ -169,6 +186,9 @@ return [
     'validation_enter_password_confirmation' => '请确认密码',
     'validation_password_mismatch' => '两次输入的密码不一致',
     'validation_enter_referral_code' => '请输入推荐码',
+    'validation_enter_image' => '请选择图片',
+    'validation_enter_price' => '请输入有效的价格',
+    'validation_enter_commission' => '请输入有效的佣金',
     
     // Edit User Form Validation
     'validation_name_required' => '姓名不能为空',
@@ -234,6 +254,13 @@ return [
     'placeholder_level' => '输入等级',
     'placeholder_prize_id' => '输入奖品ID',
     'placeholder_image_url' => '输入图片URL',
+
+    // Placeholders - Product
+    'placeholder_product_name' => '输入产品名称',
+    'placeholder_price' => '输入价格',
+    'placeholder_commission' => '输入佣金',
+    'placeholder_description_product' => '产品描述',
+    'placeholder_vip_level' => '例如：VIP，普通',
     
     // Pagination
     'showing' => '显示',
