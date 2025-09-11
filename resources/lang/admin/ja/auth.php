@@ -17,6 +17,38 @@ return [
     'access_denied' => 'アクセスが拒否されました。管理者権限が必要です。',
     'login_success' => 'ログインに成功しました！おかえりなさい。',
     'logout_success' => 'ログアウトに成功しました！',
+    'connection_error' => '接続エラー',
+    'system_error' => 'システムエラー',
+    'login_failed' => 'ログイン失敗',
+    
+    // User Management
+    'name_required' => 'ユーザー名を入力してください',
+    'phone_required' => '電話番号を入力してください',
+    'phone_already_exists' => '電話番号は既に存在します',
+    'password_required' => 'パスワードを入力してください',
+    'password_min_length' => 'パスワードは最低6文字必要です',
+    'password_confirmation_mismatch' => 'パスワード確認が一致しません',
+    'referral_code_required' => '紹介コードを入力してください',
+    'user_created_success' => 'ユーザーが正常に作成されました',
+    'invalid_data' => '無効なデータ',
+    'error_occurred' => 'エラーが発生しました',
+    'updated_success' => 'ユーザー情報が正常に更新されました',
+    'cannot_delete_admin' => '管理者アカウントは削除できません',
+    'user_deleted_success' => 'ユーザーが正常に削除されました',
+    
+    // Validation
+    'validation_name_required' => '名前は必須です',
+    'validation_gioi_tinh_required' => '性別は必須です',
+    'validation_ngay_sinh_format' => '生年月日はYYYY-MM-DD形式である必要があります',
+    'validation_dia_chi_required' => '住所は必須です',
+    'validation_so_du_invalid' => '残高は非負の数値である必要があります',
+    'validation_so_du_required' => '残高は必須です',
+    'validation_ngan_hang_required' => '銀行は必須です',
+    'validation_so_tai_khoan_required' => '口座番号は必須です',
+    'validation_chu_tai_khoan_required' => '口座名義人は必須です',
+    'validation_cap_do_required' => 'レベルは必須です',
+    'validation_giai_thuong_id_required' => '賞品IDは必須です',
+    'validation_luot_trung_invalid' => '当選回数は非負の整数である必要があります',
     
     // Admin Dashboard
     'dashboard' => 'ダッシュボード',

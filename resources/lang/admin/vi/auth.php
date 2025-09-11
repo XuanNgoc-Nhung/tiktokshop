@@ -17,6 +17,38 @@ return [
     'access_denied' => 'Truy cập bị từ chối. Cần quyền admin.',
     'login_success' => 'Đăng nhập thành công! Chào mừng trở lại.',
     'logout_success' => 'Đăng xuất thành công!',
+    'connection_error' => 'Lỗi kết nối',
+    'system_error' => 'Lỗi hệ thống',
+    'login_failed' => 'Đăng nhập thất bại',
+    
+    // User Management
+    'name_required' => 'Vui lòng nhập tên người dùng',
+    'phone_required' => 'Vui lòng nhập số điện thoại',
+    'phone_already_exists' => 'Số điện thoại đã tồn tại',
+    'password_required' => 'Vui lòng nhập mật khẩu',
+    'password_min_length' => 'Mật khẩu tối thiểu 6 ký tự',
+    'password_confirmation_mismatch' => 'Mật khẩu xác nhận không khớp',
+    'referral_code_required' => 'Vui lòng nhập mã giới thiệu',
+    'user_created_success' => 'Tạo người dùng thành công',
+    'invalid_data' => 'Dữ liệu không hợp lệ',
+    'error_occurred' => 'Đã xảy ra lỗi',
+    'updated_success' => 'Cập nhật thông tin thành công',
+    'cannot_delete_admin' => 'Không thể xóa tài khoản admin',
+    'user_deleted_success' => 'Người dùng đã được xóa thành công',
+    
+    // Validation
+    'validation_name_required' => 'Tên không được để trống',
+    'validation_gioi_tinh_required' => 'Giới tính không được để trống',
+    'validation_ngay_sinh_format' => 'Ngày sinh phải có định dạng YYYY-MM-DD',
+    'validation_dia_chi_required' => 'Địa chỉ không được để trống',
+    'validation_so_du_invalid' => 'Số dư phải là số không âm',
+    'validation_so_du_required' => 'Số dư không được để trống',
+    'validation_ngan_hang_required' => 'Ngân hàng không được để trống',
+    'validation_so_tai_khoan_required' => 'Số tài khoản không được để trống',
+    'validation_chu_tai_khoan_required' => 'Chủ tài khoản không được để trống',
+    'validation_cap_do_required' => 'Cấp độ không được để trống',
+    'validation_giai_thuong_id_required' => 'Giải thưởng ID không được để trống',
+    'validation_luot_trung_invalid' => 'Lượt trúng phải là số nguyên không âm',
     
     // Admin Dashboard
     'dashboard' => 'Bảng điều khiển',

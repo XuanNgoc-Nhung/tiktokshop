@@ -17,6 +17,38 @@ return [
     'access_denied' => 'অ্যাক্সেস অস্বীকার করা হয়েছে। অ্যাডমিন সুবিধা প্রয়োজন।',
     'login_success' => 'লগইন সফল! স্বাগতম।',
     'logout_success' => 'লগআউট সফল!',
+    'connection_error' => 'সংযোগ ত্রুটি',
+    'system_error' => 'সিস্টেম ত্রুটি',
+    'login_failed' => 'লগইন ব্যর্থ',
+    
+    // User Management
+    'name_required' => 'ব্যবহারকারীর নাম লিখুন',
+    'phone_required' => 'ফোন নম্বর লিখুন',
+    'phone_already_exists' => 'ফোন নম্বর ইতিমধ্যে বিদ্যমান',
+    'password_required' => 'পাসওয়ার্ড লিখুন',
+    'password_min_length' => 'পাসওয়ার্ড কমপক্ষে ৬ অক্ষর হতে হবে',
+    'password_confirmation_mismatch' => 'পাসওয়ার্ড নিশ্চিতকরণ মিলছে না',
+    'referral_code_required' => 'রেফারেল কোড লিখুন',
+    'user_created_success' => 'ব্যবহারকারী সফলভাবে তৈরি হয়েছে',
+    'invalid_data' => 'অবৈধ ডেটা',
+    'error_occurred' => 'একটি ত্রুটি ঘটেছে',
+    'updated_success' => 'ব্যবহারকারীর তথ্য সফলভাবে আপডেট হয়েছে',
+    'cannot_delete_admin' => 'অ্যাডমিন অ্যাকাউন্ট মুছে ফেলা যাবে না',
+    'user_deleted_success' => 'ব্যবহারকারী সফলভাবে মুছে ফেলা হয়েছে',
+    
+    // Validation
+    'validation_name_required' => 'নাম আবশ্যক',
+    'validation_gioi_tinh_required' => 'লিঙ্গ আবশ্যক',
+    'validation_ngay_sinh_format' => 'জন্ম তারিখ YYYY-MM-DD ফরম্যাটে হতে হবে',
+    'validation_dia_chi_required' => 'ঠিকানা আবশ্যক',
+    'validation_so_du_invalid' => 'ব্যালেন্স অবশ্যই অ-নেতিবাচক সংখ্যা হতে হবে',
+    'validation_so_du_required' => 'ব্যালেন্স আবশ্যক',
+    'validation_ngan_hang_required' => 'ব্যাংক আবশ্যক',
+    'validation_so_tai_khoan_required' => 'অ্যাকাউন্ট নম্বর আবশ্যক',
+    'validation_chu_tai_khoan_required' => 'অ্যাকাউন্ট হোল্ডার আবশ্যক',
+    'validation_cap_do_required' => 'লেভেল আবশ্যক',
+    'validation_giai_thuong_id_required' => 'পুরস্কার ID আবশ্যক',
+    'validation_luot_trung_invalid' => 'জয়ের সংখ্যা অবশ্যই অ-নেতিবাচক পূর্ণসংখ্যা হতে হবে',
     
     // Admin Dashboard
     'dashboard' => 'ড্যাশবোর্ড',

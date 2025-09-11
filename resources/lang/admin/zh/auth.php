@@ -17,6 +17,38 @@ return [
     'access_denied' => '访问被拒绝。需要管理员权限。',
     'login_success' => '登录成功！欢迎回来。',
     'logout_success' => '退出成功！',
+    'connection_error' => '连接错误',
+    'system_error' => '系统错误',
+    'login_failed' => '登录失败',
+    
+    // User Management
+    'name_required' => '请输入用户名',
+    'phone_required' => '请输入电话号码',
+    'phone_already_exists' => '电话号码已存在',
+    'password_required' => '请输入密码',
+    'password_min_length' => '密码至少需要6个字符',
+    'password_confirmation_mismatch' => '密码确认不匹配',
+    'referral_code_required' => '请输入推荐码',
+    'user_created_success' => '用户创建成功',
+    'invalid_data' => '无效数据',
+    'error_occurred' => '发生错误',
+    'updated_success' => '用户信息更新成功',
+    'cannot_delete_admin' => '无法删除管理员账户',
+    'user_deleted_success' => '用户已成功删除',
+    
+    // Validation
+    'validation_name_required' => '姓名是必需的',
+    'validation_gioi_tinh_required' => '性别是必需的',
+    'validation_ngay_sinh_format' => '出生日期必须是YYYY-MM-DD格式',
+    'validation_dia_chi_required' => '地址是必需的',
+    'validation_so_du_invalid' => '余额必须是非负数',
+    'validation_so_du_required' => '余额是必需的',
+    'validation_ngan_hang_required' => '银行是必需的',
+    'validation_so_tai_khoan_required' => '账户号码是必需的',
+    'validation_chu_tai_khoan_required' => '账户持有人是必需的',
+    'validation_cap_do_required' => '级别是必需的',
+    'validation_giai_thuong_id_required' => '奖品ID是必需的',
+    'validation_luot_trung_invalid' => '中奖次数必须是非负整数',
     
     // Admin Dashboard
     'dashboard' => '仪表板',

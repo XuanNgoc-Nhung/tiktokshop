@@ -17,6 +17,38 @@ return [
     'access_denied' => 'Access denied. Admin privileges required.',
     'login_success' => 'Login successful! Welcome back.',
     'logout_success' => 'Logout successful!',
+    'connection_error' => 'Connection Error',
+    'system_error' => 'System Error',
+    'login_failed' => 'Login Failed',
+    
+    // User Management
+    'name_required' => 'Please enter user name',
+    'phone_required' => 'Please enter phone number',
+    'phone_already_exists' => 'Phone number already exists',
+    'password_required' => 'Please enter password',
+    'password_min_length' => 'Password must be at least 6 characters',
+    'password_confirmation_mismatch' => 'Password confirmation does not match',
+    'referral_code_required' => 'Please enter referral code',
+    'user_created_success' => 'User created successfully',
+    'invalid_data' => 'Invalid data',
+    'error_occurred' => 'An error occurred',
+    'updated_success' => 'User information updated successfully',
+    'cannot_delete_admin' => 'Cannot delete admin account',
+    'user_deleted_success' => 'User has been deleted successfully',
+    
+    // Validation
+    'validation_name_required' => 'Name is required',
+    'validation_gioi_tinh_required' => 'Gender is required',
+    'validation_ngay_sinh_format' => 'Birth date must be in YYYY-MM-DD format',
+    'validation_dia_chi_required' => 'Address is required',
+    'validation_so_du_invalid' => 'Balance must be a non-negative number',
+    'validation_so_du_required' => 'Balance is required',
+    'validation_ngan_hang_required' => 'Bank is required',
+    'validation_so_tai_khoan_required' => 'Account number is required',
+    'validation_chu_tai_khoan_required' => 'Account holder is required',
+    'validation_cap_do_required' => 'Level is required',
+    'validation_giai_thuong_id_required' => 'Prize ID is required',
+    'validation_luot_trung_invalid' => 'Win count must be a non-negative integer',
     
     // Admin Dashboard
     'dashboard' => 'Dashboard',
