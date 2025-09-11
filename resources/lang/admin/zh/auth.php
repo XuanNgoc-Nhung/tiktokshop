@@ -35,6 +35,7 @@ return [
     'updated_success' => '用户信息更新成功',
     'cannot_delete_admin' => '无法删除管理员账户',
     'user_deleted_success' => '用户已成功删除',
+    'user_profile_not_found' => '未找到用户资料',
     
     // Validation
     'validation_name_required' => '姓名是必需的',

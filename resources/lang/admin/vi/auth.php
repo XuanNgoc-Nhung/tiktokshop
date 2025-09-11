@@ -35,6 +35,7 @@ return [
     'updated_success' => 'Cập nhật thông tin thành công',
     'cannot_delete_admin' => 'Không thể xóa tài khoản admin',
     'user_deleted_success' => 'Người dùng đã được xóa thành công',
+    'user_profile_not_found' => 'Không tìm thấy hồ sơ người dùng',
     
     // Validation
     'validation_name_required' => 'Tên không được để trống',

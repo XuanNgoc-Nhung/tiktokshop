@@ -35,6 +35,7 @@ return [
     'updated_success' => 'User information updated successfully',
     'cannot_delete_admin' => 'Cannot delete admin account',
     'user_deleted_success' => 'User has been deleted successfully',
+    'user_profile_not_found' => 'User profile not found',
     
     // Validation
     'validation_name_required' => 'Name is required',

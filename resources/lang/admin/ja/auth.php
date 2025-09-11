@@ -35,6 +35,7 @@ return [
     'updated_success' => 'ユーザー情報が正常に更新されました',
     'cannot_delete_admin' => '管理者アカウントは削除できません',
     'user_deleted_success' => 'ユーザーが正常に削除されました',
+    'user_profile_not_found' => 'ユーザープロフィールが見つかりません',
     
     // Validation
     'validation_name_required' => '名前は必須です',

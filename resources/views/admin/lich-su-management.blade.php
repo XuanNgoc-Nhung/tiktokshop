@@ -18,11 +18,11 @@
                     <option value="3" {{ request('hanh_dong') == '3' ? 'selected' : '' }}>{{ __('admin::cms.history_action_system') }}</option>
                     <option value="4" {{ request('hanh_dong') == '4' ? 'selected' : '' }}>{{ __('admin::cms.history_action_commission') }}</option>
                 </select>
-                <select name="trang_thai" class="form-select" aria-label="{{ __('admin::auth.status') }}" style="flex: 0 0 180px; width: 180px; height: 32px; padding: 0.2rem 1.6rem 0.2rem 0.5rem; font-size: 0.8125rem;">
-                    <option value="">{{ __('admin::auth.status') }}</option>
-                    <option value="0" {{ request('trang_thai') == '0' ? 'selected' : '' }}>{{ __('admin::auth.cancelled') }}</option>
-                    <option value="1" {{ request('trang_thai') == '1' ? 'selected' : '' }}>{{ __('admin::auth.pending') }}</option>
-                    <option value="2" {{ request('trang_thai') == '2' ? 'selected' : '' }}>{{ __('admin::auth.completed') }}</option>
+                <select name="trang_thai" class="form-select" aria-label="{{ __('admin::cms.status') }}" style="flex: 0 0 180px; width: 180px; height: 32px; padding: 0.2rem 1.6rem 0.2rem 0.5rem; font-size: 0.8125rem;">
+                    <option value="">{{ __('admin::cms.status') }}</option>
+                    <option value="0" {{ request('trang_thai') == '0' ? 'selected' : '' }}>{{ __('admin::cms.pending') }}</option>
+                    <option value="1" {{ request('trang_thai') == '1' ? 'selected' : '' }}>{{ __('admin::cms.completed') }}</option>
+                    <option value="2" {{ request('trang_thai') == '2' ? 'selected' : '' }}>{{ __('admin::cms.cancelled') }}</option>
                 </select>
                 <button type="submit" class="btn btn-primary" style="height: 32px; padding: 0.35rem 0.8rem; font-size: 0.8125rem; min-width: 110px; white-space: nowrap;"><i class="fas fa-filter"></i> {{ __('admin::auth.filter') }}</button>
                 @if(request()->hasAny(['search','hanh_dong','trang_thai']))
@@ -47,30 +47,25 @@
                             <tr>
                                 <td>{{ ($lichSu->currentPage() - 1) * $lichSu->perPage() + $index + 1 }}</td>
                                 <td>
-                                    @php($user = $item->user)
-                                    {{ $user->name ?? $user->email ?? ('#'.$item->user_id) }}
+                                    {{ $item->user?->name ?? $item->user?->email.' '.$item->user?->phone ?? ('#'.$item->user_id) }}
+                                    
+                                    - [{{ $item->user?->phone ?? $item->user?->phone ?? ('#'.$item->user_id) }}]
+
                                 </td>
                                 <td>
-                                    @php
-                                        $actionMap = [
-                                            1 => __('admin::cms.history_action_topup'),
-                                            2 => __('admin::cms.history_action_withdraw'),
-                                            3 => __('admin::cms.history_action_system'),
-                                            4 => __('admin::cms.history_action_commission'),
-                                        ];
-                                    @endphp
+                                   
                                     <span class="badge bg-info">{{ $actionMap[$item->hanh_dong] ?? '—' }}</span>
                                 </td>
-                                <td class="text-end">{{ number_format((float) $item->so_tien, 2, '.', ',') }}</td>
+                                <td class="text-end">{{ number_format((float) $item->so_tien, 0, '.', '.') }}</td>
                                 <td class="text-left">{{ $item->ghi_chu }}</td>
                                 <td>
                                     @php
                                         $statusMap = [
-                                            0 => ['text' => __('admin::auth.cancelled'), 'class' => 'bg-danger'],
-                                            1 => ['text' => __('admin::auth.pending'), 'class' => 'bg-warning'],
-                                            2 => ['text' => __('admin::auth.completed'), 'class' => 'bg-success'],
+                                            0 => ['text' => __('admin::cms.pending'), 'class' => 'bg-warning'],
+                                            1 => ['text' => __('admin::cms.completed'), 'class' => 'bg-success'],
+                                            2 => ['text' => __('admin::cms.cancelled'), 'class' => 'bg-danger'],
                                         ];
-                                        $status = $statusMap[$item->trang_thai] ?? ['text' => __('admin::auth.status'), 'class' => 'bg-secondary'];
+                                        $status = $statusMap[$item->trang_thai] ?? ['text' => __('admin::cms.status'), 'class' => 'bg-secondary'];
                                     @endphp
                                     <span class="badge {{ $status['class'] }}">{{ $status['text'] }}</span>
                                 </td>
@@ -78,7 +73,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center">{{ __('admin::auth.no_data') }}</td>
+                                <td colspan="7" class="text-center">{{ __('admin::cms.no_data') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

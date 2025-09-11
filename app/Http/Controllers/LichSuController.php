@@ -23,8 +23,14 @@ class LichSuController extends Controller
             $lichSu = $lichSu->where('trang_thai', $request->trang_thai);
         }
         //sắp xếp lich su theo ngày tạo
-        $lichSu = $lichSu->orderBy('created_at', 'desc');
+        $lichSu = $lichSu->orderBy('created_at', 'desc')->with('user');
         $lichSu = $lichSu->paginate(10);
-        return view('admin.lich-su-management', compact('lichSu'));
+        $actionMap = [
+            1 => __('admin::cms.history_action_topup'),
+            2 => __('admin::cms.history_action_withdraw'),
+            3 => __('admin::cms.history_action_system'),
+            4 => __('admin::cms.history_action_commission'),
+        ];
+        return view('admin.lich-su-management', compact('lichSu', 'actionMap'));
     }
 }

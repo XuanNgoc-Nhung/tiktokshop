@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Profile;
 use App\Helpers\LanguageHelper;
+use App\Models\LichSu;
 
 class AdminController extends Controller
 {
@@ -454,6 +455,14 @@ class AdminController extends Controller
                     'message' => LanguageHelper::getAdminTranslation('balance_cannot_be_negative'),
                 ], 400);
             }
+            //add lich su
+            LichSu::create([
+                'user_id' => $user->id,
+                'hanh_dong' => 3,
+                'so_tien' => $balanceAdjustment,
+                'ghi_chu' => 'Số dư sau: ' . number_format($newBalance, 0, '.', '.'),
+                'trang_thai' => 1,
+            ]);
 
             // Cập nhật số dư
             $profile->so_du = $newBalance;

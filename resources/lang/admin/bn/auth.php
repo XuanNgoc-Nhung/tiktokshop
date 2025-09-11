@@ -35,6 +35,7 @@ return [
     'updated_success' => 'ব্যবহারকারীর তথ্য সফলভাবে আপডেট হয়েছে',
     'cannot_delete_admin' => 'অ্যাডমিন অ্যাকাউন্ট মুছে ফেলা যাবে না',
     'user_deleted_success' => 'ব্যবহারকারী সফলভাবে মুছে ফেলা হয়েছে',
+    'user_profile_not_found' => 'ব্যবহারকারীর প্রোফাইল পাওয়া যায়নি',
     
     // Validation
     'validation_name_required' => 'নাম আবশ্যক',

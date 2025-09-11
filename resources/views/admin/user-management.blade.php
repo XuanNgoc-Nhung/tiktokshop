@@ -457,7 +457,7 @@
                                     <!-- Balance -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
                                         <label for="edit_so_du" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.balance') }}</label>
-                                        <input id="edit_so_du" name="so_du" type="number" step="0.01" min="0" placeholder="0" class="form-control form-control-sm">
+                                        <input readonly id="edit_so_du" name="so_du" type="number" step="0.01" min="0" placeholder="0" class="form-control form-control-sm">
                                         <div class="field-error" id="error_edit_so_du" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
