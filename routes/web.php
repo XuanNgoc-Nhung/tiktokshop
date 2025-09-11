@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
-// use App\Http\Controllers\RewardController;
 use App\Http\Controllers\ThongBaoController;
 use App\Http\Controllers\SlideShowController;
+use App\Http\Controllers\LichSuController;
 
 Route::middleware(['language.user'])->group(function () {
     Route::get('/', [UserController::class, 'index']);
@@ -53,6 +53,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin']], fu
     Route::put('/slider/{id}', [SlideShowController::class, 'update'])->name('admin.slider.update');
     Route::delete('/slider/{id}', [SlideShowController::class, 'destroy'])->name('admin.slider.destroy');
     Route::patch('/slider/{id}/toggle', [SlideShowController::class, 'toggleStatus'])->name('admin.slider.toggle');
+    // lich su management
+    Route::get('/lich-su-management', [LichSuController::class, 'lichSuManagement'])->name('admin.lich-su-management');
+    Route::get('/lich-su', [LichSuController::class, 'index'])->name('admin.lich-su.index');
+    Route::post('/lich-su', [LichSuController::class, 'store'])->name('admin.lich-su.store');
+    Route::put('/lich-su/{id}', [LichSuController::class, 'update'])->name('admin.lich-su.update');
+    Route::delete('/lich-su/{id}', [LichSuController::class, 'destroy'])->name('admin.lich-su.destroy');
+    Route::patch('/lich-su/{id}/toggle', [LichSuController::class, 'toggleStatus'])->name('admin.lich-su.toggle');
 });
 
 // Admin routes with authentication check

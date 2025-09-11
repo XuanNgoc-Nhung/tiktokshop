@@ -11,6 +11,7 @@ return [
     'product_management' => 'Product Management',
     'thong_bao_management' => 'Notification Management',
     'slider_management' => 'Slider Management',
+    'lich_su_management' => 'History Management',
     
     // Slider Management
     'add_slider' => 'Add Slider',
@@ -450,4 +451,12 @@ return [
     'updated_success' => 'Updated successfully',
     'deleting' => 'Deleting...',
     'deleted_success' => 'Deleted successfully',
+    'history_list' => 'History List',
+    'history_action' => 'Action',
+    'history_action_topup' => 'Top up',
+    'history_action_withdraw' => 'Withdraw',
+    'history_action_system' => 'System process',
+    'history_action_commission' => 'Receive commission',
+    'account' => 'Account',
+    'note' => 'Note',
 ];

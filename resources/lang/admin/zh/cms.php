@@ -11,6 +11,7 @@ return [
     'product_management' => '产品管理',
     'thong_bao_management' => '通知管理',
     'slider_management' => '轮播图管理',
+    'lich_su_management' => '历史管理',
     
     // Slider Management
     'add_slider' => '添加轮播图',
@@ -360,4 +361,14 @@ return [
     'validation_new_balance_invalid' => '新余额无效',
     'balance_adjusted_success' => '余额调整成功',
     'user_profile_not_found' => '未找到用户资料',
+
+    // History Management
+    'history_list' => '历史列表',
+    'history_action' => '操作',
+    'history_action_topup' => '充值',
+    'history_action_withdraw' => '提现',
+    'history_action_system' => '系统处理',
+    'history_action_commission' => '领取佣金',
+    'account' => '账号',
+    'note' => '备注',
 ];

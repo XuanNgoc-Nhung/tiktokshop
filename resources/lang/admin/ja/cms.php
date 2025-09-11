@@ -11,6 +11,7 @@ return [
     'product_management' => '商品管理',
     'thong_bao_management' => '通知管理',
     'slider_management' => 'スライダー管理',
+    'lich_su_management' => '履歴管理',
     
     // Slider Management
     'add_slider' => 'スライダー追加',
@@ -360,4 +361,14 @@ return [
     'validation_new_balance_invalid' => '新しい残高が無効です',
     'balance_adjusted_success' => '残高調整が成功しました',
     'user_profile_not_found' => 'ユーザープロファイルが見つかりません',
+    
+    // History Management
+    'history_list' => '履歴一覧',
+    'history_action' => '操作',
+    'history_action_topup' => '入金',
+    'history_action_withdraw' => '出金',
+    'history_action_system' => 'システム処理',
+    'history_action_commission' => 'コミッション受取',
+    'account' => 'アカウント',
+    'note' => 'メモ',
 ];

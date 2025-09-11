@@ -11,6 +11,7 @@ return [
     'product_management' => 'পণ্য ব্যবস্থাপনা',
     'thong_bao_management' => 'বিজ্ঞপ্তি ব্যবস্থাপনা',
     'slider_management' => 'স্লাইডার ব্যবস্থাপনা',
+    'lich_su_management' => 'ইতিহাস ব্যবস্থাপনা',
     
     // Slider Management
     'add_slider' => 'স্লাইডার যোগ করুন',
@@ -360,4 +361,14 @@ return [
     'validation_new_balance_invalid' => 'নতুন ব্যালেন্স অবৈধ',
     'balance_adjusted_success' => 'ব্যালেন্স সফলভাবে সামঞ্জস্য করা হয়েছে',
     'user_profile_not_found' => 'ব্যবহারকারীর প্রোফাইল পাওয়া যায়নি',
+    
+    // History Management
+    'history_list' => 'ইতিহাস তালিকা',
+    'history_action' => 'ক্রিয়া',
+    'history_action_topup' => 'টপ আপ',
+    'history_action_withdraw' => 'উত্তোলন',
+    'history_action_system' => 'সিস্টেম প্রক্রিয়া',
+    'history_action_commission' => 'কমিশন গ্রহণ',
+    'account' => 'অ্যাকাউন্ট',
+    'note' => 'নোট',
 ];
