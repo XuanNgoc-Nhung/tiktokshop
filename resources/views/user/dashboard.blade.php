@@ -106,7 +106,7 @@
             <span class="small">{{ $__home('recharge') }}</span>
         </div>
         <div class="nav-icon text-center">
-            <i class="fas fa-wallet fs-4 d-block mb-2"></i>
+            <i class="fas fa-money-bill fs-4 d-block mb-2"></i>
             <span class="small">{{ $__home('withdraw') }}</span>
         </div>
         <div class="nav-icon text-center">

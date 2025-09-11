@@ -240,7 +240,7 @@
                             <!-- Current Balance -->
                             <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
                                 <label for="current_balance" class="form-label fw-semibold">
-                                    <i class="fas fa-wallet me-1 text-primary"></i>
+                                    <i class="fas fa-money-bill me-1 text-primary"></i>
                                     {{ __('admin::cms.current_balance') }}
                                 </label>
                                 <div class="input-group">

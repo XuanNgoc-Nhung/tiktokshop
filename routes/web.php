@@ -18,6 +18,9 @@ Route::middleware(['language.user'])->group(function () {
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     //notification
     Route::get('/notification', [UserController::class, 'notification'])->name('notification');
+    Route::get('/search', [UserController::class, 'search'])->name('search');
+    Route::get('/orders', [UserController::class, 'orders'])->name('orders');
+    Route::get('/account', [UserController::class, 'account'])->name('account');
 });
 
 // Admin routes without authentication check (login, register)

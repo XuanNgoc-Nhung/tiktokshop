@@ -761,15 +761,15 @@
                 <i class="fas fa-home"></i>
                 <span>{{ __('auth.home') }}</span>
             </a>
-            <a href="#" class="nav-item">
+            <a href="{{ route('search') }}" class="nav-item {{ request()->is('search') ? 'active' : '' }}">
                 <i class="fas fa-search"></i>
                 <span>{{ __('auth.search') }}</span>
             </a>
-            <a href="#" class="nav-item">
+            <a href="{{ route('orders') }}" class="nav-item {{ request()->is('orders') ? 'active' : '' }}">
                 <i class="fas fa-shopping-bag"></i>
                 <span>{{ __('auth.orders') }}</span>
             </a>
-            <a href="#" class="nav-item">
+            <a href="{{ route('account') }}" class="nav-item {{ request()->is('account') ? 'active' : '' }}">
                 <i class="fas fa-user"></i>
                 <span>{{ __('auth.account') }}</span>
             </a>

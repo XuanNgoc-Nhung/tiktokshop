@@ -213,7 +213,6 @@ class UserController extends Controller
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', LanguageHelper::getUserTranslation('fill_all_fields'));
         }
-        
         // Get authenticated user data
         $user = Auth::user();
         $userData = [
@@ -225,6 +224,18 @@ class UserController extends Controller
         ];
         $notifications = ThongBao::where('trang_thai', 1)->get();
         return view('user.notification', compact('userData', 'notifications'));
+    }
+    public function search()
+    {
+        return view('user.search');
+    }
+    public function orders()
+    {
+        return view('user.orders');
+    }
+    public function account()
+    {
+        return view('user.account');
     }
 
     public function logout()
