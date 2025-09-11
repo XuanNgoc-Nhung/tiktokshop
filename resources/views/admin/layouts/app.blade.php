@@ -875,6 +875,13 @@
                 </div>
 
                 <div class="menu-item">
+                    <a href="{{ route('admin.slider-management') }}" class="menu-link {{ request()->routeIs('admin.slider-management') ? 'active' : '' }}" data-tooltip="{{ __('admin::cms.slider_management') }}">
+                        <i class="fas fa-images"></i>
+                        <span class="menu-text">{{ __('admin::cms.slider_management') }}</span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
                     <a href="#" class="menu-link" data-tooltip="{{ __('admin::cms.analytics') }}">
                         <i class="fas fa-chart-bar"></i>
                         <span class="menu-text">{{ __('admin::cms.analytics') }}</span>

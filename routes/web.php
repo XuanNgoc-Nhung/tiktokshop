@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\RewardController;
+// use App\Http\Controllers\RewardController;
 use App\Http\Controllers\ThongBaoController;
+use App\Http\Controllers\SlideShowController;
 
 Route::middleware(['language.user'])->group(function () {
     Route::get('/', [UserController::class, 'index']);
@@ -37,7 +38,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin']], fu
     Route::put('/product-management/{id}', [ProductController::class, 'updateProduct'])->name('admin.product-management.update');
     Route::delete('/product-management/{id}', [ProductController::class, 'deleteProduct'])->name('admin.product-management.delete');
     //reward management
-    Route::get('/reward-management', [RewardController::class, 'rewardManagement'])->name('admin.reward-management');
+    // Route::get('/reward-management', [RewardController::class, 'rewardManagement'])->name('admin.reward-management');
     // thong bao management
     Route::get('/thong-bao-management', [ThongBaoController::class, 'thongBaoManagement'])->name('admin.thong-bao-management');
     Route::get('/thong-bao', [ThongBaoController::class, 'index'])->name('admin.thong-bao.index');
@@ -45,6 +46,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin']], fu
     Route::put('/thong-bao/{id}', [ThongBaoController::class, 'update'])->name('admin.thong-bao.update');
     Route::delete('/thong-bao/{id}', [ThongBaoController::class, 'destroy'])->name('admin.thong-bao.destroy');
     Route::patch('/thong-bao/{id}/toggle', [ThongBaoController::class, 'toggleStatus'])->name('admin.thong-bao.toggle');
+    // slider management
+    Route::get('/slider-management', [SlideShowController::class, 'sliderManagement'])->name('admin.slider-management');
+    Route::get('/slider', [SlideShowController::class, 'index'])->name('admin.slider.index');
+    Route::post('/slider', [SlideShowController::class, 'store'])->name('admin.slider.store');
+    Route::put('/slider/{id}', [SlideShowController::class, 'update'])->name('admin.slider.update');
+    Route::delete('/slider/{id}', [SlideShowController::class, 'destroy'])->name('admin.slider.destroy');
+    Route::patch('/slider/{id}/toggle', [SlideShowController::class, 'toggleStatus'])->name('admin.slider.toggle');
 });
 
 // Admin routes with authentication check
@@ -100,4 +108,5 @@ Route::get('/admin/language/{locale}', function ($locale) {
     }
     return redirect()->back();
 })->name('admin.language.switch');
+
 

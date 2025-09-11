@@ -10,6 +10,721 @@ return [
     'order_management' => 'Quản lý đơn hàng',
     'product_management' => 'Quản lý sản phẩm',
     'thong_bao_management' => 'Quản lý thông báo',
+    'slider_management' => 'Quản lý slider',
+    
+    // Slider Management
+    'add_slider' => 'Thêm slider',
+    'edit_slider' => 'Chỉnh sửa slider',
+    'slider_created_success' => 'Slider đã được tạo thành công',
+    'slider_updated_success' => 'Slider đã được cập nhật thành công',
+    'slider_deleted_success' => 'Slider đã được xóa thành công',
+    'slider_delete_failed' => 'Xóa slider thất bại',
+    'slider_toggle_failed' => 'Thay đổi trạng thái slider thất bại',
+    'delete_slider_confirm' => 'Bạn có chắc chắn muốn xóa slider này?',
+    'delete_slider' => 'Xóa slider',
+    'image' => 'Hình ảnh',
+    'title' => 'Tiêu đề',
+    'position' => 'Vị trí',
+    'position_help' => 'Số càng nhỏ, vị trí càng cao',
+    'select_position' => 'Chọn vị trí',
+    'position_required' => 'Vị trí là bắt buộc',
+    'about' => 'Giới thiệu',
+    'homepage' => 'Trang chủ',
+    'search' => 'Tìm kiếm',
+    
+    // Modal translations
+    'create_slider' => 'Tạo slider mới',
+    'update_slider' => 'Cập nhật slider',
+    'slider_details' => 'Chi tiết slider',
+    'slider_form_title' => 'Thông tin slider',
+    'slider_form_description' => 'Điền thông tin chi tiết cho slider',
+    
+    // Form validation messages
+    'validation_required' => 'Trường này là bắt buộc',
+    'validation_image_required' => 'Vui lòng chọn hình ảnh',
+    'validation_title_required' => 'Vui lòng nhập tiêu đề',
+    'validation_position_required' => 'Vui lòng chọn vị trí',
+    'validation_status_required' => 'Vui lòng chọn trạng thái',
+    
+    // Success messages
+    'slider_added_successfully' => 'Slider đã được thêm thành công',
+    'slider_updated_successfully' => 'Slider đã được cập nhật thành công',
+    'slider_deleted_successfully' => 'Slider đã được xóa thành công',
+    
+    // Error messages
+    'slider_add_failed' => 'Thêm slider thất bại',
+    'slider_update_failed' => 'Cập nhật slider thất bại',
+    'slider_delete_failed' => 'Xóa slider thất bại',
+    
+    // Form placeholders
+    'placeholder_title' => 'Nhập tiêu đề slider',
+    'placeholder_position' => 'Chọn vị trí hiển thị',
+    'placeholder_status' => 'Chọn trạng thái',
+    
+    // Button labels
+    'add_new_slider' => 'Thêm slider mới',
+    'edit_slider' => 'Chỉnh sửa slider',
+    'delete_slider' => 'Xóa slider',
+    'save_changes' => 'Lưu thay đổi',
+    'cancel_changes' => 'Hủy thay đổi',
+    
+    // Status labels
+    'status_active' => 'Hoạt động',
+    'status_inactive' => 'Không hoạt động',
+    'status_enabled' => 'Đã kích hoạt',
+    'status_disabled' => 'Đã vô hiệu hóa',
+    
+    // Position labels
+    'position_homepage' => 'Trang chủ',
+    'position_search' => 'Tìm kiếm',
+    'position_about' => 'Giới thiệu',
+    
+    // Image upload messages
+    'image_upload_success' => 'Tải lên hình ảnh thành công',
+    'image_upload_failed' => 'Tải lên hình ảnh thất bại',
+    'image_format_error' => 'Định dạng hình ảnh không được hỗ trợ',
+    'image_size_error' => 'Kích thước hình ảnh quá lớn',
+    
+    // Confirmation messages
+    'confirm_save_slider' => 'Bạn có chắc chắn muốn lưu slider này?',
+    'confirm_update_slider' => 'Bạn có chắc chắn muốn cập nhật slider này?',
+    'confirm_delete_slider' => 'Bạn có chắc chắn muốn xóa slider này?',
+    
+    // Loading messages
+    'loading_sliders' => 'Đang tải danh sách slider...',
+    'saving_slider' => 'Đang lưu slider...',
+    'updating_slider' => 'Đang cập nhật slider...',
+    'deleting_slider' => 'Đang xóa slider...',
+    
+    // Table headers
+    'table_slider_id' => 'ID',
+    'table_slider_image' => 'Hình ảnh',
+    'table_slider_title' => 'Tiêu đề',
+    'table_slider_position' => 'Vị trí',
+    'table_slider_status' => 'Trạng thái',
+    'table_slider_created' => 'Ngày tạo',
+    'table_slider_actions' => 'Thao tác',
+    
+    // Modal titles
+    'modal_create_slider' => 'Tạo slider mới',
+    'modal_edit_slider' => 'Chỉnh sửa slider',
+    'modal_delete_slider' => 'Xóa slider',
+    'modal_view_slider' => 'Xem chi tiết slider',
+    
+    // Form labels
+    'label_slider_title' => 'Tiêu đề slider',
+    'label_slider_image' => 'Hình ảnh slider',
+    'label_slider_position' => 'Vị trí hiển thị',
+    'label_slider_status' => 'Trạng thái slider',
+    'label_slider_description' => 'Mô tả slider',
+    
+    // Help text
+    'help_slider_title' => 'Nhập tiêu đề cho slider',
+    'help_slider_image' => 'Chọn hình ảnh cho slider (JPG, PNG, GIF)',
+    'help_slider_position' => 'Chọn vị trí hiển thị slider',
+    'help_slider_status' => 'Chọn trạng thái hoạt động của slider',
+    
+    // Tooltips
+    'tooltip_edit_slider' => 'Chỉnh sửa slider',
+    'tooltip_delete_slider' => 'Xóa slider',
+    'tooltip_view_slider' => 'Xem chi tiết slider',
+    'tooltip_toggle_status' => 'Thay đổi trạng thái',
+    
+    // Notifications
+    'notification_slider_created' => 'Slider đã được tạo thành công',
+    'notification_slider_updated' => 'Slider đã được cập nhật thành công',
+    'notification_slider_deleted' => 'Slider đã được xóa thành công',
+    'notification_slider_error' => 'Có lỗi xảy ra khi xử lý slider',
+    
+    // Search and filter
+    'search_sliders' => 'Tìm kiếm slider',
+    'filter_by_status' => 'Lọc theo trạng thái',
+    'filter_by_position' => 'Lọc theo vị trí',
+    'filter_all' => 'Tất cả',
+    'filter_active' => 'Hoạt động',
+    'filter_inactive' => 'Không hoạt động',
+    
+    // Pagination
+    'showing_sliders' => 'Hiển thị slider',
+    'of_total_sliders' => 'trong tổng số',
+    'sliders_found' => 'slider được tìm thấy',
+    'no_sliders_found' => 'Không tìm thấy slider nào',
+    
+    // Actions
+    'action_create' => 'Tạo mới',
+    'action_edit' => 'Chỉnh sửa',
+    'action_delete' => 'Xóa',
+    'action_view' => 'Xem',
+    'action_save' => 'Lưu',
+    'action_cancel' => 'Hủy',
+    'action_close' => 'Đóng',
+    'action_confirm' => 'Xác nhận',
+    
+    // Form validation
+    'validation_slider_title_required' => 'Tiêu đề slider là bắt buộc',
+    'validation_slider_image_required' => 'Hình ảnh slider là bắt buộc',
+    'validation_slider_position_required' => 'Vị trí slider là bắt buộc',
+    'validation_slider_status_required' => 'Trạng thái slider là bắt buộc',
+    'validation_slider_title_min' => 'Tiêu đề slider phải có ít nhất 3 ký tự',
+    'validation_slider_title_max' => 'Tiêu đề slider không được vượt quá 255 ký tự',
+    'validation_slider_image_format' => 'Hình ảnh phải có định dạng JPG, PNG hoặc GIF',
+    'validation_slider_image_size' => 'Kích thước hình ảnh không được vượt quá 2MB',
+    
+    // Error messages
+    'error_slider_not_found' => 'Không tìm thấy slider',
+    'error_slider_create_failed' => 'Tạo slider thất bại',
+    'error_slider_update_failed' => 'Cập nhật slider thất bại',
+    'error_slider_delete_failed' => 'Xóa slider thất bại',
+    'error_slider_image_upload_failed' => 'Tải lên hình ảnh thất bại',
+    'error_slider_validation_failed' => 'Dữ liệu slider không hợp lệ',
+    
+    // Success messages
+    'success_slider_created' => 'Slider đã được tạo thành công',
+    'success_slider_updated' => 'Slider đã được cập nhật thành công',
+    'success_slider_deleted' => 'Slider đã được xóa thành công',
+    'success_slider_status_updated' => 'Trạng thái slider đã được cập nhật',
+    
+    // Modal messages
+    'modal_slider_create_title' => 'Tạo slider mới',
+    'modal_slider_edit_title' => 'Chỉnh sửa slider',
+    'modal_slider_delete_title' => 'Xóa slider',
+    'modal_slider_view_title' => 'Xem chi tiết slider',
+    'modal_slider_create_description' => 'Điền thông tin để tạo slider mới',
+    'modal_slider_edit_description' => 'Chỉnh sửa thông tin slider',
+    'modal_slider_delete_description' => 'Bạn có chắc chắn muốn xóa slider này?',
+    'modal_slider_view_description' => 'Xem thông tin chi tiết của slider',
+    
+    // Form messages
+    'form_slider_title_placeholder' => 'Nhập tiêu đề slider',
+    'form_slider_position_placeholder' => 'Chọn vị trí hiển thị',
+    'form_slider_status_placeholder' => 'Chọn trạng thái',
+    'form_slider_image_placeholder' => 'Chọn hình ảnh',
+    
+    // Button messages
+    'button_create_slider' => 'Tạo slider',
+    'button_edit_slider' => 'Chỉnh sửa slider',
+    'button_delete_slider' => 'Xóa slider',
+    'button_view_slider' => 'Xem slider',
+    'button_save_slider' => 'Lưu slider',
+    'button_cancel_slider' => 'Hủy',
+    'button_close_slider' => 'Đóng',
+    'button_confirm_slider' => 'Xác nhận',
+    
+    // Status messages
+    'status_slider_active' => 'Slider đang hoạt động',
+    'status_slider_inactive' => 'Slider không hoạt động',
+    'status_slider_enabled' => 'Slider đã được kích hoạt',
+    'status_slider_disabled' => 'Slider đã bị vô hiệu hóa',
+    
+    // Position messages
+    'position_slider_homepage' => 'Slider hiển thị ở trang chủ',
+    'position_slider_search' => 'Slider hiển thị ở trang tìm kiếm',
+    'position_slider_about' => 'Slider hiển thị ở trang giới thiệu',
+    
+    // Image messages
+    'image_slider_upload_success' => 'Tải lên hình ảnh slider thành công',
+    'image_slider_upload_failed' => 'Tải lên hình ảnh slider thất bại',
+    'image_slider_format_error' => 'Định dạng hình ảnh slider không được hỗ trợ',
+    'image_slider_size_error' => 'Kích thước hình ảnh slider quá lớn',
+    'image_slider_required' => 'Hình ảnh slider là bắt buộc',
+    
+    // Confirmation messages
+    'confirm_slider_create' => 'Bạn có chắc chắn muốn tạo slider này?',
+    'confirm_slider_update' => 'Bạn có chắc chắn muốn cập nhật slider này?',
+    'confirm_slider_delete' => 'Bạn có chắc chắn muốn xóa slider này?',
+    'confirm_slider_status_change' => 'Bạn có chắc chắn muốn thay đổi trạng thái slider này?',
+    
+    // Loading messages
+    'loading_slider_create' => 'Đang tạo slider...',
+    'loading_slider_update' => 'Đang cập nhật slider...',
+    'loading_slider_delete' => 'Đang xóa slider...',
+    'loading_slider_list' => 'Đang tải danh sách slider...',
+    'loading_slider_details' => 'Đang tải chi tiết slider...',
+    
+    // Empty state messages
+    'empty_slider_list' => 'Chưa có slider nào',
+    'empty_slider_search' => 'Không tìm thấy slider nào phù hợp',
+    'empty_slider_filter' => 'Không có slider nào với bộ lọc này',
+    
+    // Tooltip messages
+    'tooltip_slider_edit' => 'Chỉnh sửa slider',
+    'tooltip_slider_delete' => 'Xóa slider',
+    'tooltip_slider_view' => 'Xem chi tiết slider',
+    'tooltip_slider_status' => 'Thay đổi trạng thái slider',
+    'tooltip_slider_position' => 'Thay đổi vị trí slider',
+    
+    // Alert messages
+    'alert_slider_created' => 'Slider đã được tạo thành công!',
+    'alert_slider_updated' => 'Slider đã được cập nhật thành công!',
+    'alert_slider_deleted' => 'Slider đã được xóa thành công!',
+    'alert_slider_error' => 'Có lỗi xảy ra khi xử lý slider!',
+    'alert_slider_validation_error' => 'Dữ liệu slider không hợp lệ!',
+    
+    // Form field labels
+    'field_slider_title' => 'Tiêu đề slider',
+    'field_slider_image' => 'Hình ảnh slider',
+    'field_slider_position' => 'Vị trí slider',
+    'field_slider_status' => 'Trạng thái slider',
+    'field_slider_created_at' => 'Ngày tạo',
+    'field_slider_updated_at' => 'Ngày cập nhật',
+    
+    // Form field help text
+    'help_slider_title' => 'Nhập tiêu đề cho slider (tối đa 255 ký tự)',
+    'help_slider_image' => 'Chọn hình ảnh cho slider (JPG, PNG, GIF, tối đa 2MB)',
+    'help_slider_position' => 'Chọn vị trí hiển thị slider trên website',
+    'help_slider_status' => 'Chọn trạng thái hoạt động của slider',
+    
+    // Form field placeholders
+    'placeholder_slider_title' => 'Nhập tiêu đề slider...',
+    'placeholder_slider_image' => 'Chọn hình ảnh...',
+    'placeholder_slider_position' => 'Chọn vị trí...',
+    'placeholder_slider_status' => 'Chọn trạng thái...',
+    
+    // Form field validation messages
+    'validation_slider_title_required' => 'Tiêu đề slider là bắt buộc',
+    'validation_slider_title_min' => 'Tiêu đề slider phải có ít nhất 3 ký tự',
+    'validation_slider_title_max' => 'Tiêu đề slider không được vượt quá 255 ký tự',
+    'validation_slider_image_required' => 'Hình ảnh slider là bắt buộc',
+    'validation_slider_image_format' => 'Hình ảnh phải có định dạng JPG, PNG hoặc GIF',
+    'validation_slider_image_size' => 'Kích thước hình ảnh không được vượt quá 2MB',
+    'validation_slider_position_required' => 'Vị trí slider là bắt buộc',
+    'validation_slider_status_required' => 'Trạng thái slider là bắt buộc',
+    
+    // Table column headers
+    'column_slider_id' => 'ID',
+    'column_slider_image' => 'Hình ảnh',
+    'column_slider_title' => 'Tiêu đề',
+    'column_slider_position' => 'Vị trí',
+    'column_slider_status' => 'Trạng thái',
+    'column_slider_created_at' => 'Ngày tạo',
+    'column_slider_updated_at' => 'Ngày cập nhật',
+    'column_slider_actions' => 'Thao tác',
+    
+    // Table row actions
+    'action_edit_slider' => 'Chỉnh sửa slider',
+    'action_delete_slider' => 'Xóa slider',
+    'action_view_slider' => 'Xem slider',
+    'action_toggle_status' => 'Thay đổi trạng thái',
+    'action_change_position' => 'Thay đổi vị trí',
+    
+    // Table empty states
+    'empty_slider_table' => 'Chưa có slider nào',
+    'empty_slider_search_results' => 'Không tìm thấy slider nào phù hợp',
+    'empty_slider_filter_results' => 'Không có slider nào với bộ lọc này',
+    
+    // Table pagination
+    'pagination_slider_showing' => 'Hiển thị slider',
+    'pagination_slider_of' => 'trong tổng số',
+    'pagination_slider_entries' => 'slider',
+    'pagination_slider_previous' => 'Trước',
+    'pagination_slider_next' => 'Tiếp',
+    'pagination_slider_first' => 'Đầu',
+    'pagination_slider_last' => 'Cuối',
+    
+    // Search and filter labels
+    'search_slider_placeholder' => 'Tìm kiếm slider...',
+    'filter_slider_status' => 'Lọc theo trạng thái',
+    'filter_slider_position' => 'Lọc theo vị trí',
+    'filter_slider_all' => 'Tất cả slider',
+    'filter_slider_active' => 'Slider hoạt động',
+    'filter_slider_inactive' => 'Slider không hoạt động',
+    'filter_slider_homepage' => 'Slider trang chủ',
+    'filter_slider_search' => 'Slider tìm kiếm',
+    'filter_slider_about' => 'Slider giới thiệu',
+    
+    // Button labels
+    'button_add_slider' => 'Thêm slider',
+    'button_create_slider' => 'Tạo slider',
+    'button_edit_slider' => 'Chỉnh sửa slider',
+    'button_delete_slider' => 'Xóa slider',
+    'button_view_slider' => 'Xem slider',
+    'button_save_slider' => 'Lưu slider',
+    'button_cancel_slider' => 'Hủy',
+    'button_close_slider' => 'Đóng',
+    'button_confirm_slider' => 'Xác nhận',
+    'button_reset_slider' => 'Đặt lại',
+    'button_clear_slider' => 'Xóa bộ lọc',
+    
+    // Status labels
+    'status_slider_active' => 'Hoạt động',
+    'status_slider_inactive' => 'Không hoạt động',
+    'status_slider_enabled' => 'Đã kích hoạt',
+    'status_slider_disabled' => 'Đã vô hiệu hóa',
+    
+    // Position labels
+    'position_slider_homepage' => 'Trang chủ',
+    'position_slider_search' => 'Tìm kiếm',
+    'position_slider_about' => 'Giới thiệu',
+    
+    // Modal titles
+    'modal_slider_create_title' => 'Tạo slider mới',
+    'modal_slider_edit_title' => 'Chỉnh sửa slider',
+    'modal_slider_delete_title' => 'Xóa slider',
+    'modal_slider_view_title' => 'Xem chi tiết slider',
+    
+    // Modal descriptions
+    'modal_slider_create_description' => 'Điền thông tin để tạo slider mới',
+    'modal_slider_edit_description' => 'Chỉnh sửa thông tin slider',
+    'modal_slider_delete_description' => 'Bạn có chắc chắn muốn xóa slider này?',
+    'modal_slider_view_description' => 'Xem thông tin chi tiết của slider',
+    
+    // Form labels
+    'form_slider_title_label' => 'Tiêu đề slider',
+    'form_slider_image_label' => 'Hình ảnh slider',
+    'form_slider_position_label' => 'Vị trí slider',
+    'form_slider_status_label' => 'Trạng thái slider',
+    
+    // Form placeholders
+    'form_slider_title_placeholder' => 'Nhập tiêu đề slider...',
+    'form_slider_image_placeholder' => 'Chọn hình ảnh...',
+    'form_slider_position_placeholder' => 'Chọn vị trí...',
+    'form_slider_status_placeholder' => 'Chọn trạng thái...',
+    
+    // Form help text
+    'form_slider_title_help' => 'Nhập tiêu đề cho slider (tối đa 255 ký tự)',
+    'form_slider_image_help' => 'Chọn hình ảnh cho slider (JPG, PNG, GIF, tối đa 2MB)',
+    'form_slider_position_help' => 'Chọn vị trí hiển thị slider trên website',
+    'form_slider_status_help' => 'Chọn trạng thái hoạt động của slider',
+    
+    // Success messages
+    'success_slider_created' => 'Slider đã được tạo thành công!',
+    'success_slider_updated' => 'Slider đã được cập nhật thành công!',
+    'success_slider_deleted' => 'Slider đã được xóa thành công!',
+    'success_slider_status_updated' => 'Trạng thái slider đã được cập nhật!',
+    'success_slider_position_updated' => 'Vị trí slider đã được cập nhật!',
+    
+    // Error messages
+    'error_slider_not_found' => 'Không tìm thấy slider!',
+    'error_slider_create_failed' => 'Tạo slider thất bại!',
+    'error_slider_update_failed' => 'Cập nhật slider thất bại!',
+    'error_slider_delete_failed' => 'Xóa slider thất bại!',
+    'error_slider_image_upload_failed' => 'Tải lên hình ảnh thất bại!',
+    'error_slider_validation_failed' => 'Dữ liệu slider không hợp lệ!',
+    'error_slider_permission_denied' => 'Bạn không có quyền thực hiện hành động này!',
+    
+    // Warning messages
+    'warning_slider_delete_confirm' => 'Bạn có chắc chắn muốn xóa slider này?',
+    'warning_slider_status_change' => 'Bạn có chắc chắn muốn thay đổi trạng thái slider này?',
+    'warning_slider_position_change' => 'Bạn có chắc chắn muốn thay đổi vị trí slider này?',
+    
+    // Info messages
+    'info_slider_created' => 'Slider đã được tạo thành công',
+    'info_slider_updated' => 'Slider đã được cập nhật thành công',
+    'info_slider_deleted' => 'Slider đã được xóa thành công',
+    'info_slider_status_updated' => 'Trạng thái slider đã được cập nhật',
+    'info_slider_position_updated' => 'Vị trí slider đã được cập nhật',
+    
+    // Loading states
+    'loading_slider_create' => 'Đang tạo slider...',
+    'loading_slider_update' => 'Đang cập nhật slider...',
+    'loading_slider_delete' => 'Đang xóa slider...',
+    'loading_slider_list' => 'Đang tải danh sách slider...',
+    'loading_slider_details' => 'Đang tải chi tiết slider...',
+    'loading_slider_image_upload' => 'Đang tải lên hình ảnh...',
+    
+    // Empty states
+    'empty_slider_list' => 'Chưa có slider nào',
+    'empty_slider_search' => 'Không tìm thấy slider nào phù hợp',
+    'empty_slider_filter' => 'Không có slider nào với bộ lọc này',
+    'empty_slider_table' => 'Chưa có slider nào trong bảng',
+    
+    // Tooltips
+    'tooltip_slider_edit' => 'Chỉnh sửa slider',
+    'tooltip_slider_delete' => 'Xóa slider',
+    'tooltip_slider_view' => 'Xem chi tiết slider',
+    'tooltip_slider_status' => 'Thay đổi trạng thái slider',
+    'tooltip_slider_position' => 'Thay đổi vị trí slider',
+    'tooltip_slider_image' => 'Xem hình ảnh slider',
+    
+    // Accessibility
+    'aria_slider_table' => 'Bảng danh sách slider',
+    'aria_slider_create_button' => 'Nút tạo slider mới',
+    'aria_slider_edit_button' => 'Nút chỉnh sửa slider',
+    'aria_slider_delete_button' => 'Nút xóa slider',
+    'aria_slider_view_button' => 'Nút xem slider',
+    'aria_slider_search_input' => 'Ô tìm kiếm slider',
+    'aria_slider_filter_select' => 'Bộ lọc slider',
+    
+    // Form validation messages
+    'validation_slider_title_required' => 'Tiêu đề slider là bắt buộc',
+    'validation_slider_title_min' => 'Tiêu đề slider phải có ít nhất 3 ký tự',
+    'validation_slider_title_max' => 'Tiêu đề slider không được vượt quá 255 ký tự',
+    'validation_slider_image_required' => 'Hình ảnh slider là bắt buộc',
+    'validation_slider_image_format' => 'Hình ảnh phải có định dạng JPG, PNG hoặc GIF',
+    'validation_slider_image_size' => 'Kích thước hình ảnh không được vượt quá 2MB',
+    'validation_slider_position_required' => 'Vị trí slider là bắt buộc',
+    'validation_slider_status_required' => 'Trạng thái slider là bắt buộc',
+    
+    // Form field labels
+    'field_slider_title' => 'Tiêu đề slider',
+    'field_slider_image' => 'Hình ảnh slider',
+    'field_slider_position' => 'Vị trí slider',
+    'field_slider_status' => 'Trạng thái slider',
+    'field_slider_created_at' => 'Ngày tạo',
+    'field_slider_updated_at' => 'Ngày cập nhật',
+    
+    // Form field help text
+    'help_slider_title' => 'Nhập tiêu đề cho slider (tối đa 255 ký tự)',
+    'help_slider_image' => 'Chọn hình ảnh cho slider (JPG, PNG, GIF, tối đa 2MB)',
+    'help_slider_position' => 'Chọn vị trí hiển thị slider trên website',
+    'help_slider_status' => 'Chọn trạng thái hoạt động của slider',
+    
+    // Form field placeholders
+    'placeholder_slider_title' => 'Nhập tiêu đề slider...',
+    'placeholder_slider_image' => 'Chọn hình ảnh...',
+    'placeholder_slider_position' => 'Chọn vị trí...',
+    'placeholder_slider_status' => 'Chọn trạng thái...',
+    
+    // Table column headers
+    'column_slider_id' => 'ID',
+    'column_slider_image' => 'Hình ảnh',
+    'column_slider_title' => 'Tiêu đề',
+    'column_slider_position' => 'Vị trí',
+    'column_slider_status' => 'Trạng thái',
+    'column_slider_created_at' => 'Ngày tạo',
+    'column_slider_updated_at' => 'Ngày cập nhật',
+    'column_slider_actions' => 'Thao tác',
+    
+    // Table row actions
+    'action_edit_slider' => 'Chỉnh sửa slider',
+    'action_delete_slider' => 'Xóa slider',
+    'action_view_slider' => 'Xem slider',
+    'action_toggle_status' => 'Thay đổi trạng thái',
+    'action_change_position' => 'Thay đổi vị trí',
+    
+    // Table empty states
+    'empty_slider_table' => 'Chưa có slider nào',
+    'empty_slider_search_results' => 'Không tìm thấy slider nào phù hợp',
+    'empty_slider_filter_results' => 'Không có slider nào với bộ lọc này',
+    
+    // Table pagination
+    'pagination_slider_showing' => 'Hiển thị slider',
+    'pagination_slider_of' => 'trong tổng số',
+    'pagination_slider_entries' => 'slider',
+    'pagination_slider_previous' => 'Trước',
+    'pagination_slider_next' => 'Tiếp',
+    'pagination_slider_first' => 'Đầu',
+    'pagination_slider_last' => 'Cuối',
+    
+    // Search and filter labels
+    'search_slider_placeholder' => 'Tìm kiếm slider...',
+    'filter_slider_status' => 'Lọc theo trạng thái',
+    'filter_slider_position' => 'Lọc theo vị trí',
+    'filter_slider_all' => 'Tất cả slider',
+    'filter_slider_active' => 'Slider hoạt động',
+    'filter_slider_inactive' => 'Slider không hoạt động',
+    'filter_slider_homepage' => 'Slider trang chủ',
+    'filter_slider_search' => 'Slider tìm kiếm',
+    'filter_slider_about' => 'Slider giới thiệu',
+    
+    // Button labels
+    'button_add_slider' => 'Thêm slider',
+    'button_create_slider' => 'Tạo slider',
+    'button_edit_slider' => 'Chỉnh sửa slider',
+    'button_delete_slider' => 'Xóa slider',
+    'button_view_slider' => 'Xem slider',
+    'button_save_slider' => 'Lưu slider',
+    'button_cancel_slider' => 'Hủy',
+    'button_close_slider' => 'Đóng',
+    'button_confirm_slider' => 'Xác nhận',
+    'button_reset_slider' => 'Đặt lại',
+    'button_clear_slider' => 'Xóa bộ lọc',
+    
+    // Status labels
+    'status_slider_active' => 'Hoạt động',
+    'status_slider_inactive' => 'Không hoạt động',
+    'status_slider_enabled' => 'Đã kích hoạt',
+    'status_slider_disabled' => 'Đã vô hiệu hóa',
+    
+    // Position labels
+    'position_slider_homepage' => 'Trang chủ',
+    'position_slider_search' => 'Tìm kiếm',
+    'position_slider_about' => 'Giới thiệu',
+    
+    // Modal titles
+    'modal_slider_create_title' => 'Tạo slider mới',
+    'modal_slider_edit_title' => 'Chỉnh sửa slider',
+    'modal_slider_delete_title' => 'Xóa slider',
+    'modal_slider_view_title' => 'Xem chi tiết slider',
+    
+    // Modal descriptions
+    'modal_slider_create_description' => 'Điền thông tin để tạo slider mới',
+    'modal_slider_edit_description' => 'Chỉnh sửa thông tin slider',
+    'modal_slider_delete_description' => 'Bạn có chắc chắn muốn xóa slider này?',
+    'modal_slider_view_description' => 'Xem thông tin chi tiết của slider',
+    
+    // Form labels
+    'form_slider_title_label' => 'Tiêu đề slider',
+    'form_slider_image_label' => 'Hình ảnh slider',
+    'form_slider_position_label' => 'Vị trí slider',
+    'form_slider_status_label' => 'Trạng thái slider',
+    
+    // Form placeholders
+    'form_slider_title_placeholder' => 'Nhập tiêu đề slider...',
+    'form_slider_image_placeholder' => 'Chọn hình ảnh...',
+    'form_slider_position_placeholder' => 'Chọn vị trí...',
+    'form_slider_status_placeholder' => 'Chọn trạng thái...',
+    
+    // Form help text
+    'form_slider_title_help' => 'Nhập tiêu đề cho slider (tối đa 255 ký tự)',
+    'form_slider_image_help' => 'Chọn hình ảnh cho slider (JPG, PNG, GIF, tối đa 2MB)',
+    'form_slider_position_help' => 'Chọn vị trí hiển thị slider trên website',
+    'form_slider_status_help' => 'Chọn trạng thái hoạt động của slider',
+    
+    // Success messages
+    'success_slider_created' => 'Slider đã được tạo thành công!',
+    'success_slider_updated' => 'Slider đã được cập nhật thành công!',
+    'success_slider_deleted' => 'Slider đã được xóa thành công!',
+    'success_slider_status_updated' => 'Trạng thái slider đã được cập nhật!',
+    'success_slider_position_updated' => 'Vị trí slider đã được cập nhật!',
+    
+    // Error messages
+    'error_slider_not_found' => 'Không tìm thấy slider!',
+    'error_slider_create_failed' => 'Tạo slider thất bại!',
+    'error_slider_update_failed' => 'Cập nhật slider thất bại!',
+    'error_slider_delete_failed' => 'Xóa slider thất bại!',
+    'error_slider_image_upload_failed' => 'Tải lên hình ảnh thất bại!',
+    'error_slider_validation_failed' => 'Dữ liệu slider không hợp lệ!',
+    'error_slider_permission_denied' => 'Bạn không có quyền thực hiện hành động này!',
+    
+    // Warning messages
+    'warning_slider_delete_confirm' => 'Bạn có chắc chắn muốn xóa slider này?',
+    'warning_slider_status_change' => 'Bạn có chắc chắn muốn thay đổi trạng thái slider này?',
+    'warning_slider_position_change' => 'Bạn có chắc chắn muốn thay đổi vị trí slider này?',
+    
+    // Info messages
+    'info_slider_created' => 'Slider đã được tạo thành công',
+    'info_slider_updated' => 'Slider đã được cập nhật thành công',
+    'info_slider_deleted' => 'Slider đã được xóa thành công',
+    'info_slider_status_updated' => 'Trạng thái slider đã được cập nhật',
+    'info_slider_position_updated' => 'Vị trí slider đã được cập nhật',
+    
+    // Loading states
+    'loading_slider_create' => 'Đang tạo slider...',
+    'loading_slider_update' => 'Đang cập nhật slider...',
+    'loading_slider_delete' => 'Đang xóa slider...',
+    'loading_slider_list' => 'Đang tải danh sách slider...',
+    'loading_slider_details' => 'Đang tải chi tiết slider...',
+    'loading_slider_image_upload' => 'Đang tải lên hình ảnh...',
+    
+    // Empty states
+    'empty_slider_list' => 'Chưa có slider nào',
+    'empty_slider_search' => 'Không tìm thấy slider nào phù hợp',
+    'empty_slider_filter' => 'Không có slider nào với bộ lọc này',
+    'empty_slider_table' => 'Chưa có slider nào trong bảng',
+    
+    // Tooltips
+    'tooltip_slider_edit' => 'Chỉnh sửa slider',
+    'tooltip_slider_delete' => 'Xóa slider',
+    'tooltip_slider_view' => 'Xem chi tiết slider',
+    'tooltip_slider_status' => 'Thay đổi trạng thái slider',
+    'tooltip_slider_position' => 'Thay đổi vị trí slider',
+    'tooltip_slider_image' => 'Xem hình ảnh slider',
+    
+    // Accessibility
+    'aria_slider_table' => 'Bảng danh sách slider',
+    'aria_slider_create_button' => 'Nút tạo slider mới',
+    'aria_slider_edit_button' => 'Nút chỉnh sửa slider',
+    'aria_slider_delete_button' => 'Nút xóa slider',
+    'aria_slider_view_button' => 'Nút xem slider',
+    'aria_slider_search_input' => 'Ô tìm kiếm slider',
+    'aria_slider_filter_select' => 'Bộ lọc slider',
+    
+    // Form validation messages
+    'validation_slider_title_required' => 'Tiêu đề slider là bắt buộc',
+    'validation_slider_title_min' => 'Tiêu đề slider phải có ít nhất 3 ký tự',
+    'validation_slider_title_max' => 'Tiêu đề slider không được vượt quá 255 ký tự',
+    'validation_slider_image_required' => 'Hình ảnh slider là bắt buộc',
+    'validation_slider_image_format' => 'Hình ảnh phải có định dạng JPG, PNG hoặc GIF',
+    'validation_slider_image_size' => 'Kích thước hình ảnh không được vượt quá 2MB',
+    'validation_slider_position_required' => 'Vị trí slider là bắt buộc',
+    'validation_slider_status_required' => 'Trạng thái slider là bắt buộc',
+    
+    // Form field labels
+    'field_slider_title' => 'Tiêu đề slider',
+    'field_slider_image' => 'Hình ảnh slider',
+    'field_slider_position' => 'Vị trí slider',
+    'field_slider_status' => 'Trạng thái slider',
+    'field_slider_created_at' => 'Ngày tạo',
+    'field_slider_updated_at' => 'Ngày cập nhật',
+    
+    // Form field help text
+    'help_slider_title' => 'Nhập tiêu đề cho slider (tối đa 255 ký tự)',
+    'help_slider_image' => 'Chọn hình ảnh cho slider (JPG, PNG, GIF, tối đa 2MB)',
+    'help_slider_position' => 'Chọn vị trí hiển thị slider trên website',
+    'help_slider_status' => 'Chọn trạng thái hoạt động của slider',
+    
+    // Form field placeholders
+    'placeholder_slider_title' => 'Nhập tiêu đề slider...',
+    'placeholder_slider_image' => 'Chọn hình ảnh...',
+    'placeholder_slider_position' => 'Chọn vị trí...',
+    'placeholder_slider_status' => 'Chọn trạng thái...',
+    
+    // Table column headers
+    'column_slider_id' => 'ID',
+    'column_slider_image' => 'Hình ảnh',
+    'column_slider_title' => 'Tiêu đề',
+    'column_slider_position' => 'Vị trí',
+    'column_slider_status' => 'Trạng thái',
+    'column_slider_created_at' => 'Ngày tạo',
+    'column_slider_updated_at' => 'Ngày cập nhật',
+    'column_slider_actions' => 'Thao tác',
+    
+    // Table row actions
+    'action_edit_slider' => 'Chỉnh sửa slider',
+    'action_delete_slider' => 'Xóa slider',
+    'action_view_slider' => 'Xem slider',
+    'action_toggle_status' => 'Thay đổi trạng thái',
+    'action_change_position' => 'Thay đổi vị trí',
+    
+    // Table empty states
+    'empty_slider_table' => 'Chưa có slider nào',
+    'empty_slider_search_results' => 'Không tìm thấy slider nào phù hợp',
+    'empty_slider_filter_results' => 'Không có slider nào với bộ lọc này',
+    
+    // Table pagination
+    'pagination_slider_showing' => 'Hiển thị slider',
+    'pagination_slider_of' => 'trong tổng số',
+    'pagination_slider_entries' => 'slider',
+    'pagination_slider_previous' => 'Trước',
+    'pagination_slider_next' => 'Tiếp',
+    'pagination_slider_first' => 'Đầu',
+    'pagination_slider_last' => 'Cuối',
+    
+    'promotion' => 'Khuyến mại',
+    'image_upload_help' => 'Chọn hình ảnh cho slider (JPG, PNG, GIF)',
+    'no_image' => 'Không có hình',
+    'activate' => 'Kích hoạt',
+    'deactivate' => 'Vô hiệu hóa',
+    'active' => 'Đang hoạt động',
+    'inactive' => 'Ngưng hoạt động',
+    'showing' => 'Hiển thị',
+    'to' => 'đến',
+    'of' => 'trong tổng số',
+    'entries' => 'mục',
+    'no_data' => 'Không có dữ liệu',
+    'title_required' => 'Tiêu đề là bắt buộc',
+    'image_required' => 'Hình ảnh là bắt buộc',
+    'drag_drop_or_click' => 'Kéo thả hoặc click để chọn',
+    'saving' => 'Đang lưu...',
+    'confirm_delete' => 'Xác nhận xóa',
+    'search' => 'Tìm kiếm',
+    'cancel' => 'Hủy',
+    'save' => 'Lưu',
+    'edit' => 'Chỉnh sửa',
+    'delete' => 'Xóa',
+    'actions' => 'Hành động',
+    'created_at' => 'Ngày tạo',
+    'loading' => 'Đang tải...',
+    'no_data' => 'Không có dữ liệu',
+    'showing' => 'Hiển thị',
+    'to' => 'đến',
+    'of' => 'trong tổng số',
+    'entries' => 'mục',
+    'no_image' => 'Không có hình',
+    'activate' => 'Kích hoạt',
+    'deactivate' => 'Vô hiệu hóa',
+    'edit_slider' => 'Chỉnh sửa slider',
     'analytics' => 'Phân tích',
     'system_settings' => 'Cài đặt hệ thống',
     
