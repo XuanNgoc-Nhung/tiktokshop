@@ -127,4 +127,28 @@ return [
     
     // Navigation
     'back_to_user_page' => 'ব্যবহারকারীর পৃষ্ঠায় ফিরে যান',
+    
+    // Notification Management
+    'notification_management' => 'বিজ্ঞপ্তি ব্যবস্থাপনা',
+    'add_notification' => 'বিজ্ঞপ্তি যোগ করুন',
+    'edit_notification' => 'বিজ্ঞপ্তি সম্পাদনা করুন',
+    'notification_title' => 'বিজ্ঞপ্তির শিরোনাম',
+    'notification_content' => 'বিজ্ঞপ্তির বিষয়বস্তু',
+    'notification_status' => 'বিজ্ঞপ্তির অবস্থা',
+    'all_status' => 'সব অবস্থা',
+    'notification_created_success' => 'বিজ্ঞপ্তি সফলভাবে তৈরি হয়েছে',
+    'notification_updated_success' => 'বিজ্ঞপ্তি সফলভাবে আপডেট হয়েছে',
+    'notification_deleted_success' => 'বিজ্ঞপ্তি সফলভাবে মুছে ফেলা হয়েছে',
+    'notification_toggle_success' => 'অবস্থা সফলভাবে পরিবর্তন হয়েছে',
+    'notification_toggle_failed' => 'অবস্থা পরিবর্তন করা যায়নি',
+    'confirm_delete_notification' => 'বিজ্ঞপ্তি মুছে ফেলার নিশ্চিতকরণ',
+    'confirm_delete_notification_message' => 'আপনি কি এই বিজ্ঞপ্তিটি মুছে ফেলতে চান?',
+    'validation_title_required' => 'শিরোনাম লিখুন',
+    'validation_content_required' => 'বিষয়বস্তু লিখুন',
+    'validation_status_required' => 'অবস্থা নির্বাচন করুন',
+    'search_placeholder' => 'শিরোনাম বা বিষয়বস্তু অনুসারে অনুসন্ধান',
+    'no_data' => 'কোন ডেটা নেই',
+    'error_generic' => 'একটি ত্রুটি ঘটেছে',
+    'add_new' => 'নতুন যোগ করুন',
+    'reset' => 'রিসেট',
 ];

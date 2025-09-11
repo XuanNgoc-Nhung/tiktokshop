@@ -10,26 +10,26 @@
         </div>
         <div class="card-body">
             <form id="searchForm" method="GET" action="#" style="margin-bottom: 0.75rem; display: flex; gap: 0.4rem; align-items: center; flex-wrap: nowrap;">
-                <input type="text" id="searchInput" placeholder="Tìm theo tiêu đề hoặc nội dung" class="form-control" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="flex: 4 1 0; min-width: 320px; padding: 0.35rem 0.5rem; font-size: 0.875rem; height: 32px;">
+                <input type="text" id="searchInput" placeholder="{{ __('admin::auth.search_placeholder') }}" class="form-control" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="flex: 4 1 0; min-width: 320px; padding: 0.35rem 0.5rem; font-size: 0.875rem; height: 32px;">
                 <select id="statusFilter" class="form-select" style="flex: 0 0 280px; width: 280px; height: 32px; padding: 0.2rem 1.6rem 0.2rem 0.5rem; font-size: 0.8125rem;">
-                    <option value="">Tất cả trạng thái</option>
-                    <option value="1">Hoạt động</option>
-                    <option value="0">Không hoạt động</option>
+                    <option value="">{{ __('admin::auth.all_status') }}</option>
+                    <option value="1">{{ __('admin::auth.active') }}</option>
+                    <option value="0">{{ __('admin::auth.inactive') }}</option>
                 </select>
                 <button type="submit" class="btn btn-primary" style="height: 32px; padding: 0.35rem 0.8rem; font-size: 0.8125rem; min-width: 110px; white-space: nowrap;"><i class="fas fa-search"></i> {{ __('admin::cms.search') }}</button>
-                <button type="button" class="btn btn-secondary" id="resetBtn" style="height: 32px; padding: 0.35rem 0.8rem; font-size: 0.8125rem; min-width: 110px; white-space: nowrap;"><i class="fas fa-rotate"></i> {{ __('admin::cms.reset') }}</button>
-                <button type="button" class="btn btn-primary" id="addBtn" style="height: 32px; padding: 0.35rem 0.8rem; font-size: 0.8125rem; min-width: 120px; white-space: nowrap;"><i class="fas fa-plus"></i> {{ __('admin::cms.add_new') }}</button>
+                <button type="button" class="btn btn-secondary" id="resetBtn" style="height: 32px; padding: 0.35rem 0.8rem; font-size: 0.8125rem; min-width: 110px; white-space: nowrap;"><i class="fas fa-rotate"></i> {{ __('admin::auth.reset') }}</button>
+                <button type="button" class="btn btn-primary" id="addBtn" style="height: 32px; padding: 0.35rem 0.8rem; font-size: 0.8125rem; min-width: 120px; white-space: nowrap;"><i class="fas fa-plus"></i> {{ __('admin::auth.add_new') }}</button>
             </form>
             <div class="table-responsive">
                 <table class="table" id="thongBaoTable">
                     <thead>
                         <tr>
                             <th style="width: 60px;">ID</th>
-                            <th>Tiêu đề</th>
-                            <th>Nội dung</th>
-                            <th style="width: 140px;">Trạng thái</th>
+                            <th>{{ __('admin::auth.notification_title') }}</th>
+                            <th>{{ __('admin::auth.notification_content') }}</th>
+                            <th style="width: 180px;">{{ __('admin::auth.status') }}</th>
                             <th style="width: 180px;">{{ __('admin::cms.created_at') }}</th>
-                            <th style="width: 160px;" class="text-center">{{ __('admin::cms.actions') }}</th>
+                            <th style="width: 200px;" class="text-center">{{ __('admin::cms.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,28 +48,28 @@
 
     <!-- Modal Create/Edit -->
     <div class="modal fade" id="thongBaoModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content" style="background: var(--gray-200); color: var(--gray-800);">
-                <div class="modal-header" style="background: var(--gray-300);">
-                    <h5 class="modal-title" id="modalTitle">Thêm thông báo</h5>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="background: white; color: #333;">
+                <div class="modal-header" style="background: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                    <h5 class="modal-title" id="modalTitle">{{ __('admin::auth.add_notification') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="thongBaoForm">
                         <input type="hidden" id="thongBaoId">
                         <div class="mb-3">
-                            <label for="tieuDe" class="form-label">Tiêu đề</label>
-                            <input type="text" id="tieuDe" class="form-control" placeholder="Nhập tiêu đề" required>
+                            <label for="tieuDe" class="form-label">{{ __('admin::auth.notification_title') }}</label>
+                            <input type="text" id="tieuDe" class="form-control" placeholder="{{ __('admin::auth.notification_title') }}" required style="border: 2px solid #dee2e6;">
                         </div>
                         <div class="mb-3">
-                            <label for="noiDung" class="form-label">Nội dung</label>
-                            <textarea id="noiDung" class="form-control" rows="4" placeholder="Nhập nội dung" required></textarea>
+                            <label for="noiDung" class="form-label">{{ __('admin::auth.notification_content') }}</label>
+                            <textarea id="noiDung" class="form-control" rows="4" placeholder="{{ __('admin::auth.notification_content') }}" required style="border: 2px solid #dee2e6;"></textarea>
                         </div>
                         <div class="mb-2">
-                            <label class="form-label">Trạng thái</label>
-                            <select id="trangThai" class="form-select">
-                                <option value="1">Hoạt động</option>
-                                <option value="0">Không hoạt động</option>
+                            <label class="form-label">{{ __('admin::auth.notification_status') }}</label>
+                            <select id="trangThai" class="form-select" style="border: 2px solid #dee2e6;">
+                                <option value="1">{{ __('admin::auth.active') }}</option>
+                                <option value="0">{{ __('admin::auth.inactive') }}</option>
                             </select>
                         </div>
                     </form>
@@ -85,13 +85,13 @@
     <!-- Confirm Delete Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content" style="background: var(--gray-200); color: var(--gray-800);">
-                <div class="modal-header" style="background: var(--gray-300);">
-                    <h5 class="modal-title">{{ __('admin::cms.confirm_delete') }}</h5>
+            <div class="modal-content" style="background: white; color: #333;">
+                <div class="modal-header" style="background: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+                    <h5 class="modal-title">{{ __('admin::auth.confirm_delete_notification') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Bạn có chắc chắn muốn xóa thông báo này không?</p>
+                    <p>{{ __('admin::auth.confirm_delete_notification_message') }}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('admin::cms.cancel') }}</button>
@@ -149,7 +149,7 @@
 
         function renderRows(items){
             if(!items.length){
-                tableBody.innerHTML = `<tr><td colspan="6" class="text-center">{{ __('admin::cms.no_data') }}</td></tr>`;
+                tableBody.innerHTML = `<tr><td colspan="6" class="text-center">{{ __("admin::auth.no_data") }}</td></tr>`;
                 return;
             }
             tableBody.innerHTML = items.map(it => `
@@ -157,14 +157,18 @@
                     <td>${it.id}</td>
                     <td>${escapeHtml(it.tieu_de)}</td>
                     <td style="max-width: 420px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(it.noi_dung)}">${escapeHtml(it.noi_dung)}</td>
-                    <td>
-                        <span class="badge ${it.trang_thai ? 'bg-success' : 'bg-secondary'}">${it.trang_thai ? 'Hoạt động' : 'Không hoạt động'}</span>
-                        <button class="btn btn-sm btn-warning ms-2" data-action="toggle" data-id="${it.id}"><i class="fas fa-exchange-alt"></i></button>
+                    <td style="white-space: nowrap;">
+                        <div class="d-flex align-items-center gap-2">
+                            <button class="btn btn-sm btn-warning" data-action="toggle" data-id="${it.id}" title="Đổi trạng thái"><i class="fas fa-exchange-alt"></i></button>
+                            <span class="badge ${it.trang_thai ? 'bg-success' : 'bg-secondary'}">${it.trang_thai ? '{{ __("admin::auth.active") }}' : '{{ __("admin::auth.inactive") }}'}</span>
+                        </div>
                     </td>
                     <td>${formatDate(it.created_at)}</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-primary" data-action="edit" data-id="${it.id}"><i class="fas fa-edit"></i> {{ __('admin::cms.edit') }}</button>
-                        <button class="btn btn-sm btn-danger" data-action="delete" data-id="${it.id}"><i class="fas fa-trash"></i> {{ __('admin::cms.delete') }}</button>
+                    <td class="text-center" style="white-space: nowrap;">
+                        <div class="d-flex justify-content-center gap-1">
+                            <button class="btn btn-sm btn-primary" data-action="edit" data-id="${it.id}"><i class="fas fa-edit"></i> {{ __('admin::cms.edit') }}</button>
+                            <button class="btn btn-sm btn-danger" data-action="delete" data-id="${it.id}"><i class="fas fa-trash"></i> {{ __('admin::cms.delete') }}</button>
+                        </div>
                     </td>
                 </tr>
             `).join('');
@@ -176,7 +180,7 @@
                 paginationInfo.textContent = '';
                 return;
             }
-            paginationInfo.textContent = `${meta.total} thông báo`;
+            paginationInfo.textContent = `${meta.total} {{ __("admin::auth.notification_management") }}`;
             const createItem = (label, page, disabled=false, active=false) => {
                 const li = document.createElement('li');
                 li.className = 'page-item' + (disabled ? ' disabled' : '') + (active ? ' active' : '');
@@ -200,7 +204,7 @@
         }
 
         function load(){
-            tableBody.innerHTML = `<tr><td colspan="6" class="text-center">{{ __('admin::cms.loading') }}</td></tr>`;
+                tableBody.innerHTML = `<tr><td colspan="6" class="text-center">{{ __('admin::auth.loading') }}</td></tr>`;
             const q = encodeQuery({
                 page: state.page,
                 per_page: state.per_page,
@@ -214,7 +218,7 @@
                 renderPagination(payload.meta || null);
             })
             .catch(function(){
-                tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">{{ __('admin::cms.error_generic') }}</td></tr>`;
+                tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">{{ __('admin::auth.error_generic') }}</td></tr>`;
             });
         }
 
@@ -223,7 +227,8 @@
             tieuDe.value = '';
             noiDung.value = '';
             trangThai.value = '1';
-            modalTitle.textContent = 'Thêm thông báo';
+            modalTitle.textContent = '{{ __("admin::auth.add_notification") }}';
+            clearValidationErrors();
             modal.show();
         }
 
@@ -232,8 +237,21 @@
             tieuDe.value = row.tieu_de || '';
             noiDung.value = row.noi_dung || '';
             trangThai.value = String(row.trang_thai ?? 1);
-            modalTitle.textContent = 'Chỉnh sửa thông báo';
+            modalTitle.textContent = '{{ __("admin::auth.edit_notification") }}';
+            clearValidationErrors();
             modal.show();
+        }
+
+        function clearValidationErrors(){
+            tieuDe.style.borderColor = '#dee2e6';
+            noiDung.style.borderColor = '#dee2e6';
+            trangThai.style.borderColor = '#dee2e6';
+        }
+
+        function setValidationError(element, message){
+            element.style.borderColor = '#dc3545';
+            element.focus();
+            showToast(message, {type: 'warning'});
         }
 
         function save(){
@@ -243,8 +261,23 @@
                 noi_dung: noiDung.value.trim(),
                 trang_thai: Number(trangThai.value)
             };
-            if(!payload.tieu_de){ return showToast('Vui lòng nhập tiêu đề', {type: 'warning'}); }
-            if(!payload.noi_dung){ return showToast('Vui lòng nhập nội dung', {type: 'warning'}); }
+
+            // Clear previous validation errors
+            clearValidationErrors();
+
+            // Validation với focus và toast
+            if(!payload.tieu_de){ 
+                setValidationError(tieuDe, '{{ __("admin::auth.validation_title_required") }}');
+                return;
+            }
+            if(!payload.noi_dung){ 
+                setValidationError(noiDung, '{{ __("admin::auth.validation_content_required") }}');
+                return;
+            }
+            if(payload.trang_thai === '' || isNaN(payload.trang_thai)){ 
+                setValidationError(trangThai, '{{ __("admin::auth.validation_status_required") }}');
+                return;
+            }
 
             const url = id ? routes.update(id) : routes.store;
             const method = id ? 'PUT' : 'POST';
@@ -256,7 +289,7 @@
             req
             .then(function(){
                 modal.hide();
-                showToast(id ? 'Cập nhật thành công' : 'Tạo thành công', {type: 'success'});
+                showToast(id ? '{{ __("admin::auth.notification_updated_success") }}' : '{{ __("admin::auth.notification_created_success") }}', {type: 'success'});
                 load();
             })
             .catch(function(err){
@@ -289,7 +322,7 @@
             } else if(action === 'toggle'){
                 axios.patch(routes.toggle(id), {}, { headers: { 'X-CSRF-TOKEN': csrf, 'Accept': 'application/json' } })
                 .then(function(){ load(); })
-                .catch(function(){ showToast('Không thể đổi trạng thái', {type:'error'}); });
+                .catch(function(){ showToast('{{ __("admin::auth.notification_toggle_failed") }}', {type:'error'}); });
             }
         }
 
@@ -299,8 +332,8 @@
             const btn = document.getElementById('confirmDeleteBtn');
             btn.disabled = true; btn.innerHTML = '<span class="loading"></span>';
             axios.delete(routes.destroy(id), { headers: { 'X-CSRF-TOKEN': csrf, 'Accept': 'application/json' } })
-            .then(function(){ deleteModal.hide(); showToast('Đã xóa', {type:'success'}); load(); })
-            .catch(function(){ showToast('Xóa thất bại', {type:'error'}); })
+            .then(function(){ deleteModal.hide(); showToast('{{ __("admin::auth.notification_deleted_success") }}', {type:'success'}); load(); })
+            .catch(function(){ showToast('{{ __("admin::auth.error_generic") }}', {type:'error'}); })
             .finally(function(){ btn.disabled = false; btn.innerHTML = '{{ __('admin::cms.delete') }}'; });
         }
 
@@ -318,6 +351,11 @@
         saveBtn.addEventListener('click', save);
         document.getElementById('thongBaoTable').addEventListener('click', onTableClick);
         document.getElementById('confirmDeleteBtn').addEventListener('click', confirmDelete);
+        
+        // Clear validation errors when user starts typing
+        tieuDe.addEventListener('input', function(){ this.style.borderColor = '#dee2e6'; });
+        noiDung.addEventListener('input', function(){ this.style.borderColor = '#dee2e6'; });
+        trangThai.addEventListener('change', function(){ this.style.borderColor = '#dee2e6'; });
         // Submit search form like product layout
         const searchForm = document.getElementById('searchForm');
         searchForm && searchForm.addEventListener('submit', function(e){

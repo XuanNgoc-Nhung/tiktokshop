@@ -186,4 +186,28 @@ return [
     
     // Revenue
     'revenue' => 'Revenue',
+    
+    // Notification Management
+    'notification_management' => 'Notification Management',
+    'add_notification' => 'Add Notification',
+    'edit_notification' => 'Edit Notification',
+    'notification_title' => 'Notification Title',
+    'notification_content' => 'Notification Content',
+    'notification_status' => 'Notification Status',
+    'all_status' => 'All Status',
+    'notification_created_success' => 'Notification created successfully',
+    'notification_updated_success' => 'Notification updated successfully',
+    'notification_deleted_success' => 'Notification deleted successfully',
+    'notification_toggle_success' => 'Status changed successfully',
+    'notification_toggle_failed' => 'Cannot change status',
+    'confirm_delete_notification' => 'Confirm Delete Notification',
+    'confirm_delete_notification_message' => 'Are you sure you want to delete this notification?',
+    'validation_title_required' => 'Please enter title',
+    'validation_content_required' => 'Please enter content',
+    'validation_status_required' => 'Please select status',
+    'search_placeholder' => 'Search by title or content',
+    'no_data' => 'No data',
+    'error_generic' => 'An error occurred',
+    'add_new' => 'Add New',
+    'reset' => 'Reset',
 ];

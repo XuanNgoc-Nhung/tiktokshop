@@ -127,4 +127,28 @@ return [
     
     // Navigation
     'back_to_user_page' => '返回用户页面',
+    
+    // Notification Management
+    'notification_management' => '通知管理',
+    'add_notification' => '添加通知',
+    'edit_notification' => '编辑通知',
+    'notification_title' => '通知标题',
+    'notification_content' => '通知内容',
+    'notification_status' => '通知状态',
+    'all_status' => '所有状态',
+    'notification_created_success' => '通知创建成功',
+    'notification_updated_success' => '通知更新成功',
+    'notification_deleted_success' => '通知删除成功',
+    'notification_toggle_success' => '状态更改成功',
+    'notification_toggle_failed' => '无法更改状态',
+    'confirm_delete_notification' => '确认删除通知',
+    'confirm_delete_notification_message' => '您确定要删除此通知吗？',
+    'validation_title_required' => '请输入标题',
+    'validation_content_required' => '请输入内容',
+    'validation_status_required' => '请选择状态',
+    'search_placeholder' => '按标题或内容搜索',
+    'no_data' => '无数据',
+    'error_generic' => '发生错误',
+    'add_new' => '添加新',
+    'reset' => '重置',
 ];

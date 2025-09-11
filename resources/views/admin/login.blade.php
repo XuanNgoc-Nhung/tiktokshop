@@ -107,6 +107,23 @@
             border-left: none;
             border-radius: 0 4px 4px 0;
         }
+        .input-group .btn {
+            border-left: none;
+            border-radius: 0 4px 4px 0;
+            background: #f8f9fa;
+            border-color: #ddd;
+            color: #666;
+            transition: all 0.2s ease;
+        }
+        .input-group .btn:hover {
+            background: #e9ecef;
+            border-color: #ccc;
+            color: #333;
+        }
+        .input-group .btn:focus {
+            box-shadow: 0 0 0 0.1rem rgba(102, 126, 234, 0.15);
+            border-color: #667eea;
+        }
         .form-check-input:checked {
             background-color: #667eea;
             border-color: #667eea;
@@ -241,12 +258,17 @@
 
             <div class="mb-3">
                 <label for="password" class="form-label">{{ LanguageHelper::getAdminTranslation('password') }}</label>
-                <input type="password" 
-                       class="form-control @error('password') is-invalid @enderror" 
-                       id="password" 
-                       name="password" 
-                       placeholder="{{ LanguageHelper::getAdminTranslation('password') }}"
-                       required>
+                <div class="input-group">
+                    <input type="password" 
+                           class="form-control @error('password') is-invalid @enderror" 
+                           id="password" 
+                           name="password" 
+                           placeholder="{{ LanguageHelper::getAdminTranslation('password') }}"
+                           required>
+                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                        <i class="fas fa-eye" id="toggleIcon"></i>
+                    </button>
+                </div>
                 @error('password')
                     <div class="invalid-feedback d-block">
                         {{ $message }}

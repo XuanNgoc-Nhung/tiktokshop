@@ -127,4 +127,28 @@ return [
     
     // Navigation
     'back_to_user_page' => 'ユーザーページに戻る',
+    
+    // Notification Management
+    'notification_management' => '通知管理',
+    'add_notification' => '通知を追加',
+    'edit_notification' => '通知を編集',
+    'notification_title' => '通知タイトル',
+    'notification_content' => '通知内容',
+    'notification_status' => '通知ステータス',
+    'all_status' => 'すべてのステータス',
+    'notification_created_success' => '通知が正常に作成されました',
+    'notification_updated_success' => '通知が正常に更新されました',
+    'notification_deleted_success' => '通知が正常に削除されました',
+    'notification_toggle_success' => 'ステータスが正常に変更されました',
+    'notification_toggle_failed' => 'ステータスを変更できません',
+    'confirm_delete_notification' => '通知の削除を確認',
+    'confirm_delete_notification_message' => 'この通知を削除してもよろしいですか？',
+    'validation_title_required' => 'タイトルを入力してください',
+    'validation_content_required' => '内容を入力してください',
+    'validation_status_required' => 'ステータスを選択してください',
+    'search_placeholder' => 'タイトルまたは内容で検索',
+    'no_data' => 'データがありません',
+    'error_generic' => 'エラーが発生しました',
+    'add_new' => '新規追加',
+    'reset' => 'リセット',
 ];

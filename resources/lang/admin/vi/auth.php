@@ -186,4 +186,28 @@ return [
     
     // Revenue
     'revenue' => 'Doanh thu',
+    
+    // Notification Management
+    'notification_management' => 'Quản lý thông báo',
+    'add_notification' => 'Thêm thông báo',
+    'edit_notification' => 'Chỉnh sửa thông báo',
+    'notification_title' => 'Tiêu đề thông báo',
+    'notification_content' => 'Nội dung thông báo',
+    'notification_status' => 'Trạng thái thông báo',
+    'all_status' => 'Tất cả trạng thái',
+    'notification_created_success' => 'Tạo thông báo thành công',
+    'notification_updated_success' => 'Cập nhật thông báo thành công',
+    'notification_deleted_success' => 'Xóa thông báo thành công',
+    'notification_toggle_success' => 'Đổi trạng thái thành công',
+    'notification_toggle_failed' => 'Không thể đổi trạng thái',
+    'confirm_delete_notification' => 'Xác nhận xóa thông báo',
+    'confirm_delete_notification_message' => 'Bạn có chắc chắn muốn xóa thông báo này không?',
+    'validation_title_required' => 'Vui lòng nhập tiêu đề',
+    'validation_content_required' => 'Vui lòng nhập nội dung',
+    'validation_status_required' => 'Vui lòng chọn trạng thái',
+    'search_placeholder' => 'Tìm theo tiêu đề hoặc nội dung',
+    'no_data' => 'Không có dữ liệu',
+    'error_generic' => 'Có lỗi xảy ra',
+    'add_new' => 'Thêm mới',
+    'reset' => 'Đặt lại',
 ];
