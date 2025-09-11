@@ -258,6 +258,7 @@ return [
     'placeholder_account_number' => 'অ্যাকাউন্ট নম্বর লিখুন',
     'placeholder_account_holder' => 'অ্যাকাউন্ট হোল্ডারের নাম লিখুন',
     'placeholder_level' => 'লেভেল লিখুন',
+    'select_level' => 'লেভেল নির্বাচন করুন',
     'placeholder_prize_id' => 'পুরস্কার আইডি লিখুন',
     'placeholder_image_url' => 'ছবির URL লিখুন',
 
@@ -292,6 +293,9 @@ return [
     'user_info' => 'ব্যবহারকারীর তথ্য',
     'current_balance' => 'বর্তমান ব্যালেন্স',
     'balance_adjustment' => 'ব্যালেন্স সামঞ্জস্য',
+    'balance_adjustment_help' => 'যোগ করতে ধনাত্মক (+) বা বিয়োগ করতে ঋণাত্মক (-) সংখ্যা লিখুন। উদাহরণ: +৫০০০০০ বা -২০০০০০',
+    'balance_cannot_be_negative' => 'সামঞ্জস্যের পর ব্যালেন্স ঋণাত্মক হতে পারে না',
+    'new_balance_preview_help' => 'আপনি সামঞ্জস্যের পরিমাণ লিখার সাথে সাথে নতুন ব্যালেন্স স্বয়ংক্রিয়ভাবে গণনা করা হবে',
     'adjustment_type' => 'সামঞ্জস্যের ধরন',
     'add_balance' => 'টাকা যোগ করুন',
     'subtract_balance' => 'টাকা বিয়োগ করুন',

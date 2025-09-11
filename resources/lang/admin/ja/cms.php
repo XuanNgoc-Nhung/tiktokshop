@@ -258,6 +258,7 @@ return [
     'placeholder_account_number' => '口座番号を入力',
     'placeholder_account_holder' => '口座名義人を入力',
     'placeholder_level' => 'レベルを入力',
+    'select_level' => 'レベルを選択',
     'placeholder_prize_id' => '賞品IDを入力',
     'placeholder_image_url' => '画像URLを入力',
 
@@ -292,6 +293,9 @@ return [
     'user_info' => 'ユーザー情報',
     'current_balance' => '現在の残高',
     'balance_adjustment' => '残高調整',
+    'balance_adjustment_help' => '追加する場合は正の数（+）、減算する場合は負の数（-）を入力してください。例：+500000 または -200000',
+    'balance_cannot_be_negative' => '調整後の残高は負の値にできません',
+    'new_balance_preview_help' => '調整金額を入力すると、新しい残高が自動的に計算されます',
     'adjustment_type' => '調整タイプ',
     'add_balance' => '金額を追加',
     'subtract_balance' => '金額を減算',

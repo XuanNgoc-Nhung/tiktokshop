@@ -258,6 +258,7 @@ return [
     'placeholder_account_number' => '输入账号',
     'placeholder_account_holder' => '输入账户持有人姓名',
     'placeholder_level' => '输入等级',
+    'select_level' => '选择等级',
     'placeholder_prize_id' => '输入奖品ID',
     'placeholder_image_url' => '输入图片URL',
 
@@ -292,6 +293,9 @@ return [
     'user_info' => '用户信息',
     'current_balance' => '当前余额',
     'balance_adjustment' => '余额调整',
+    'balance_adjustment_help' => '输入正数（+）表示增加，负数（-）表示减少。例如：+500000 或 -200000',
+    'balance_cannot_be_negative' => '调整后的余额不能为负数',
+    'new_balance_preview_help' => '当您输入调整金额时，新余额将自动计算',
     'adjustment_type' => '调整类型',
     'add_balance' => '增加金额',
     'subtract_balance' => '减少金额',

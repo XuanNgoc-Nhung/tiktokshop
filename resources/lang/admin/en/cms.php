@@ -259,6 +259,7 @@ return [
     'placeholder_account_number' => 'Enter account number',
     'placeholder_account_holder' => 'Enter account holder name',
     'placeholder_level' => 'Enter level',
+    'select_level' => 'Select level',
     'placeholder_prize_id' => 'Enter prize ID',
     'placeholder_image_url' => 'Enter image URL',
     
@@ -301,6 +302,12 @@ return [
     'validation_amount_invalid' => 'Invalid amount',
     'validation_new_balance_required' => 'Please enter new balance',
     'validation_new_balance_invalid' => 'Invalid new balance',
+    'validation_balance_adjustment_required' => 'Please enter balance adjustment amount',
+    'validation_balance_adjustment_invalid' => 'Invalid balance adjustment amount',
+    'balance_adjustment' => 'Balance Adjustment',
+    'balance_adjustment_help' => 'Enter amount to add (positive) or subtract (negative). Example: +500000 or -200000',
+    'balance_cannot_be_negative' => 'Balance after adjustment cannot be negative',
+    'new_balance_preview_help' => 'New balance will be calculated automatically as you enter the adjustment amount',
     'balance_adjusted_success' => 'Balance adjusted successfully',
     'user_profile_not_found' => 'User profile not found',
     

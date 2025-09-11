@@ -425,11 +425,10 @@ class AdminController extends Controller
 
             // Validate input
             $request->validate([
-                'new_balance' => 'required|numeric|min:0'
+                'balance_adjustment' => 'required|numeric'
             ], [
-                'new_balance.required' => LanguageHelper::getAdminTranslation('validation_new_balance_required'),
-                'new_balance.numeric' => LanguageHelper::getAdminTranslation('validation_new_balance_invalid'),
-                'new_balance.min' => LanguageHelper::getAdminTranslation('validation_new_balance_invalid'),
+                'balance_adjustment.required' => LanguageHelper::getAdminTranslation('validation_balance_adjustment_required'),
+                'balance_adjustment.numeric' => LanguageHelper::getAdminTranslation('validation_balance_adjustment_invalid'),
             ]);
 
             // Tìm user
@@ -444,8 +443,17 @@ class AdminController extends Controller
             }
 
             // Lấy dữ liệu từ request
-            $newBalance = floatval($request->new_balance);
+            $balanceAdjustment = floatval($request->balance_adjustment);
             $currentBalance = floatval($profile->so_du ?? 0);
+            $newBalance = $currentBalance + $balanceAdjustment;
+
+            // Kiểm tra số dư mới không âm
+            if ($newBalance < 0) {
+                return response()->json([
+                    'success' => false,
+                    'message' => LanguageHelper::getAdminTranslation('balance_cannot_be_negative'),
+                ], 400);
+            }
 
             // Cập nhật số dư
             $profile->so_du = $newBalance;
@@ -457,6 +465,7 @@ class AdminController extends Controller
                 'user_name' => $user->name,
                 'admin_id' => Auth::id(),
                 'old_balance' => $currentBalance,
+                'adjustment_amount' => $balanceAdjustment,
                 'new_balance' => $newBalance,
                 'timestamp' => now()
             ]);
@@ -466,6 +475,7 @@ class AdminController extends Controller
                 'message' => LanguageHelper::getAdminTranslation('balance_adjusted_success'),
                 'data' => [
                     'old_balance' => $currentBalance,
+                    'adjustment_amount' => $balanceAdjustment,
                     'new_balance' => $newBalance
                 ]
             ]);

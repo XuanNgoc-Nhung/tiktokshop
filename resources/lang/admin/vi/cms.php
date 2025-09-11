@@ -258,6 +258,7 @@ return [
     'placeholder_account_number' => 'Nhập số tài khoản',
     'placeholder_account_holder' => 'Nhập tên chủ tài khoản',
     'placeholder_level' => 'Nhập cấp độ',
+    'select_level' => 'Chọn cấp độ',
     'placeholder_prize_id' => 'Nhập ID giải thưởng',
     'placeholder_image_url' => 'Nhập URL hình ảnh',
     
@@ -300,6 +301,12 @@ return [
     'validation_amount_invalid' => 'Số tiền không hợp lệ',
     'validation_new_balance_required' => 'Vui lòng nhập số dư mới',
     'validation_new_balance_invalid' => 'Số dư mới không hợp lệ',
+    'validation_balance_adjustment_required' => 'Vui lòng nhập số tiền điều chỉnh',
+    'validation_balance_adjustment_invalid' => 'Số tiền điều chỉnh không hợp lệ',
+    'balance_adjustment' => 'Điều chỉnh số dư',
+    'balance_adjustment_help' => 'Nhập số tiền cộng thêm (dương) hoặc trừ đi (âm). Ví dụ: +500000 hoặc -200000',
+    'balance_cannot_be_negative' => 'Số dư sau điều chỉnh không được âm',
+    'new_balance_preview_help' => 'Số dư mới sẽ được tính tự động khi bạn nhập số tiền điều chỉnh',
     'balance_adjusted_success' => 'Điều chỉnh số dư thành công',
     'user_profile_not_found' => 'Không tìm thấy hồ sơ người dùng',
     

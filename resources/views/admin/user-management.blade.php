@@ -37,7 +37,7 @@
                                 <td style="width: 280px;">
                                     <div class="user-card" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; background: var(--gray-50); border: 1px solid var(--gray-200); min-height: 120px;">
                                         <!-- Phần bên trái: Avatar + Tên -->
-                                        <div class="user-left" style="display: flex; flex-direction: column; align-items: center; gap: 10px; flex-shrink: 0; width: 100px; min-width: 100px;">
+                                        <div class="user-left" style="display: flex; flex-direction: column; align-items: center; gap: 10px; flex-shrink: 0; width: 30%; min-width: 150px;">
                                             <div class="user-avatar" style="width: 85px; height: 85px; border-radius: 50%; overflow: hidden; background: var(--gray-300); display: flex; align-items: center; justify-content: center; border: 3px solid var(--gray-200); position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                                                 @if($user->profile && $user->profile->anh_chan_dung)
                                                     <img src="{{ $user->profile->anh_chan_dung }}" alt="{{ $user->name }}" style="width: 85px; height: 85px; object-fit: cover; object-position: center; border-radius: 50%;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -47,16 +47,16 @@
                                                     <div style="position: absolute; top: 5px; right: 5px; width: 12px; height: 12px; background: #6b7280; border-radius: 50%; opacity: 0.3;"></div>
                                                 </div>
                                             </div>
-                                            <div class="user-name" style="font-weight: 700; font-size: 0.85rem; color: var(--gray-800); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; line-height: 1.2;">{{ $user->name }}</div>
+                                            <div class="user-name" style="font-weight: 700; font-size: 0.85rem; color: var(--gray-800); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; line-height: 1.2;">{{ $user->name }}</div>
                                         </div>
                                         
                                         <!-- Phần bên phải: Thông tin chi tiết -->
-                                        <div class="user-right" style="flex: 1; min-width: 0;">
+                                        <div class="user-right" style="width: 70%; min-width: 0;">
                                             <div class="user-details" style="font-size: 0.8rem; color: var(--gray-600); line-height: 1.4;">
                                                 @if($user->profile && $user->profile->so_du)
                                                     <div style="margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
                                                         <i class="fas fa-coins" style="color: #f59e0b; flex-shrink: 0;"></i>
-                                                        <span style="font-weight: 600; color: var(--success-color); font-size: 0.8rem;">{{ number_format($user->profile->so_du, 0, ',', '.') }} VNĐ</span>
+                                                        <span style="font-weight: 600; color: var(--success-color); font-size: 0.8rem;">{{ number_format($user->profile->so_du, 0, ',', '.') }} 💰</span>
                                                     </div>
                                                 @endif
                                                 <div style="margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
@@ -93,7 +93,7 @@
                                         
                                         @if($user->profile)
                                             @if($user->profile->dia_chi)
-                                                <div style="margin-bottom: 6px; padding: 6px 10px; background: var(--gray-100); border-radius: 6px; border-left: 4px solid var(--primary-color); display: flex; align-items: flex-start; gap: 8px;">
+                                                <div style="margin-bottom: 6px; padding: 6px 10px; border-radius: 6px; border-left: 4px solid var(--primary-color); display: flex; align-items: flex-start; gap: 8px;">
                                                     <i class="fas fa-map-marker-alt" style="color: #3b82f6; flex-shrink: 0; margin-top: 2px;"></i>
                                                     <div style="flex: 1; min-width: 0;">
                                                         <div style="word-wrap: break-word; line-height: 1.3;">{{ $user->profile->dia_chi }}</div>
@@ -220,7 +220,7 @@
 
     <!-- Adjust Balance Modal -->
     <div id="adjustBalanceModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="adjustBalanceModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-dialog-centered" style="min-width: 350px; max-width: 400px;" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered" style="min-width: 600px; max-width: 800px;" role="document">
             <div class="modal-content">
                 <!-- Header -->
                 <div class="modal-header">
@@ -235,27 +235,54 @@
                         <input type="hidden" id="adjust_user_id" name="user_id">
                         
                         
-                        <!-- Balance Adjustment -->
-                        <div class="mb-3">
-                            <div class="mb-3">
-                                <label for="current_balance" class="form-label">{{ __('admin::cms.current_balance') }}</label>
+                        <!-- Balance Adjustment - 3 inputs in one row -->
+                        <div class="row mb-3">
+                            <!-- Current Balance -->
+                            <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                                <label for="current_balance" class="form-label fw-semibold">
+                                    <i class="fas fa-wallet me-1 text-primary"></i>
+                                    {{ __('admin::cms.current_balance') }}
+                                </label>
                                 <div class="input-group">
                                     <input type="number" id="current_balance" class="form-control" 
-                                           step="0.01" readonly style="background-color: #f8f9fa;">
-                                    <span class="input-group-text">VNĐ</span>
+                                           step="0.01" readonly style="background-color: #f8f9fa; border-color: #d1d5db;">
+                                    <span class="input-group-text bg-light">💰</span>
                                 </div>
                             </div>
                             
-                            <!-- New Balance -->
-                            <div class="mb-3">
-                                <label for="new_balance" class="form-label">{{ __('admin::cms.new_balance') }}</label>
+                            <!-- Balance Adjustment -->
+                            <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                                <label for="balance_adjustment" class="form-label fw-semibold">
+                                    <i class="fas fa-plus-minus me-1 text-warning"></i>
+                                    {{ __('admin::cms.balance_adjustment') }}
+                                </label>
                                 <div class="input-group">
-                                    <input type="number" id="new_balance" name="new_balance" class="form-control" 
-                                           step="0.01" min="0" placeholder="0.00" required>
-                                    <span class="input-group-text">VNĐ</span>
+                                    <input type="number" id="balance_adjustment" oninput="calculateNewBalance()" name="balance_adjustment" class="form-control" 
+                                           step="0.01" placeholder="0.00" required style="border-color: #d1d5db;">
+                                    <span class="input-group-text bg-light">💰</span>
                                 </div>
-                                <div class="field-error" id="error_new_balance" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                             </div>
+                            
+                            <!-- New Balance Preview -->
+                            <div class="col-lg-4 col-md-12 col-sm-12 mb-3">
+                                <label for="new_balance_preview" class="form-label fw-semibold">
+                                    <i class="fas fa-calculator me-1 text-success"></i>
+                                    {{ __('admin::cms.new_balance') }}
+                                </label>
+                                <div class="input-group">
+                                    <input type="number" id="new_balance_preview" class="form-control" 
+                                           step="0.01" disabled style="background-color: #f8f9fa; font-weight: 600; color: #6b7280; border-color: #d1d5db;">
+                                    <span class="input-group-text bg-light">💰</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Help text -->
+                        <div class="mb-3">
+                            <small class="form-text text-muted">
+                                <i class="fas fa-info-circle me-1"></i>
+                                {{ __('admin::cms.balance_adjustment_help') }}
+                            </small>
                         </div>
                     </form>
                 </div>
@@ -465,7 +492,24 @@
                                     <!-- Level -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
                                         <label for="edit_cap_do" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.level') }}</label>
-                                        <input id="edit_cap_do" name="cap_do" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_level') }}">
+                                        <select id="edit_cap_do" name="cap_do" class="form-select form-select-sm">
+                                            <option value="">{{ __('admin::cms.select_level') }}</option>
+                                            <option value="VIP 1">VIP 1</option>
+                                            <option value="VIP 2">VIP 2</option>
+                                            <option value="VIP 3">VIP 3</option>
+                                            <option value="VIP 4">VIP 4</option>
+                                            <option value="VIP 5">VIP 5</option>
+                                            <option value="VIP 6">VIP 6</option>
+                                            <option value="VIP 7">VIP 7</option>
+                                            <option value="VIP 8">VIP 8</option>
+                                            <option value="VIP 9">VIP 9</option>
+                                            <option value="VIP 10">VIP 10</option>
+                                            <option value="VIP 11">VIP 11</option>
+                                            <option value="VIP 12">VIP 12</option>
+                                            <option value="VIP 13">VIP 13</option>
+                                            <option value="VIP 14">VIP 14</option>
+                                            <option value="VIP 15">VIP 15</option>
+                                        </select>
                                         <div class="field-error" id="error_edit_cap_do" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     
@@ -613,6 +657,42 @@
         border-radius: 0.25rem;
     }
     .table-responsive { width: 100%; overflow-x: auto; }
+    
+    /* Responsive user card layout */
+    @media (max-width: 768px) {
+        .user-left {
+            width: 25% !important;
+            min-width: 120px !important;
+        }
+        .user-right {
+            width: 75% !important;
+        }
+        .user-avatar {
+            width: 60px !important;
+            height: 60px !important;
+        }
+        .user-avatar img {
+            width: 60px !important;
+            height: 60px !important;
+        }
+        .avatar-placeholder {
+            width: 60px !important;
+            height: 60px !important;
+        }
+        .user-name {
+            font-size: 0.75rem !important;
+            max-width: 110px !important;
+        }
+    }
+    
+    @media (min-width: 1200px) {
+        .user-left {
+            width: 25% !important;
+        }
+        .user-right {
+            width: 75% !important;
+        }
+    }
     
     /* Modal title color */
     .modal-title {
@@ -788,6 +868,49 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+    // Global function for balance calculation
+    let calculateTimeout;
+    function calculateNewBalance() {
+        console.log('calculateNewBalance called'); // Debug log
+        clearTimeout(calculateTimeout);
+        calculateTimeout = setTimeout(() => {
+            const currentBalance = parseFloat(document.getElementById('current_balance').value) || 0;
+            const balanceAdjustmentInput = document.getElementById('balance_adjustment').value.trim();
+            const balanceAdjustment = balanceAdjustmentInput === '' ? 0 : parseFloat(balanceAdjustmentInput) || 0;
+            const newBalance = currentBalance + balanceAdjustment;
+            
+            console.log('Current:', currentBalance, 'Adjustment:', balanceAdjustment, 'New:', newBalance); // Debug log
+            
+            // Update preview field
+            const previewField = document.getElementById('new_balance_preview');
+            if (previewField) {
+                previewField.value = newBalance.toFixed(2);
+                
+                // Change color based on whether it's positive or negative
+                if (newBalance < 0) {
+                    previewField.style.backgroundColor = '#fef2f2';
+                    previewField.style.color = '#dc2626';
+                    previewField.style.borderColor = '#fca5a5';
+                } else if (balanceAdjustment > 0) {
+                    previewField.style.backgroundColor = '#ecfdf5';
+                    previewField.style.color = '#059669';
+                    previewField.style.borderColor = '#10b981';
+                } else if (balanceAdjustment < 0) {
+                    previewField.style.backgroundColor = '#fef3c7';
+                    previewField.style.color = '#d97706';
+                    previewField.style.borderColor = '#f59e0b';
+                } else {
+                    // No adjustment or adjustment is 0
+                    previewField.style.backgroundColor = '#f8f9fa';
+                    previewField.style.color = '#6b7280';
+                    previewField.style.borderColor = '#d1d5db';
+                }
+            } else {
+                console.error('new_balance_preview field not found');
+            }
+        }, 100); // 100ms debounce
+    }
+
     (function() {
         const openBtn = document.getElementById('openCreateUserModal');
         const closeBtn = document.getElementById('closeCreateUserModal');
@@ -1553,7 +1676,8 @@
         
         setValue('adjust_user_id', data.user_id);
         setValue('current_balance', data.current_balance);
-        setValue('new_balance', ''); // Clear new balance field
+        setValue('balance_adjustment', ''); // Clear balance adjustment field
+        setValue('new_balance_preview', data.current_balance); // Set initial value to current balance
         
         // Show modal
         const modal = new bootstrap.Modal(adjustModal);
@@ -1781,8 +1905,9 @@
                 updatedSuccess: "{{ __('admin::cms.updated_success') }}",
                 
                 // Validation messages
-                validationNewBalanceRequired: "{{ __('admin::cms.validation_new_balance_required') }}",
-                validationNewBalanceInvalid: "{{ __('admin::cms.validation_new_balance_invalid') }}",
+                validationBalanceAdjustmentRequired: "{{ __('admin::cms.validation_balance_adjustment_required') }}",
+                validationBalanceAdjustmentInvalid: "{{ __('admin::cms.validation_balance_adjustment_invalid') }}",
+                balanceCannotBeNegative: "{{ __('admin::cms.balance_cannot_be_negative') }}",
             };
 
             function openAdjustModal(e) {
@@ -1807,7 +1932,7 @@
                 });
                 
                 // Reset border colors
-                const adjustFields = ['new_balance'];
+                const adjustFields = ['balance_adjustment'];
                 adjustFields.forEach(id => {
                     const input = document.getElementById(id);
                     if (input) {
@@ -1827,27 +1952,42 @@
                 }
             }
 
+
             function validateAdjustForm() {
                 // Clear previous errors
                 clearAdjustFieldErrors();
                 
                 // Required fields validation
-                const newBalance = document.getElementById('new_balance').value.trim();
+                const balanceAdjustment = document.getElementById('balance_adjustment').value.trim();
                 
-                if (!newBalance) {
-                    document.getElementById('new_balance').style.borderColor = '#dc2626';
-                    document.getElementById('new_balance').focus();
+                if (!balanceAdjustment) {
+                    document.getElementById('balance_adjustment').style.borderColor = '#dc2626';
+                    document.getElementById('balance_adjustment').focus();
                     if (window.showToast) { 
-                        window.showToast(adjustI18n.validationNewBalanceRequired, { type: 'error' }); 
+                        window.showToast(adjustI18n.validationBalanceAdjustmentRequired, { type: 'error' }); 
                     }
                     return false;
                 }
                 
-                if (isNaN(newBalance) || parseFloat(newBalance) < 0) {
-                    document.getElementById('new_balance').style.borderColor = '#dc2626';
-                    document.getElementById('new_balance').focus();
+                if (isNaN(balanceAdjustment)) {
+                    document.getElementById('balance_adjustment').style.borderColor = '#dc2626';
+                    document.getElementById('balance_adjustment').focus();
                     if (window.showToast) { 
-                        window.showToast(adjustI18n.validationNewBalanceInvalid, { type: 'error' }); 
+                        window.showToast(adjustI18n.validationBalanceAdjustmentInvalid, { type: 'error' }); 
+                    }
+                    return false;
+                }
+                
+                // Check if new balance would be negative
+                const currentBalance = parseFloat(document.getElementById('current_balance').value) || 0;
+                const adjustment = parseFloat(balanceAdjustment);
+                const newBalance = currentBalance + adjustment;
+                
+                if (newBalance < 0) {
+                    document.getElementById('balance_adjustment').style.borderColor = '#dc2626';
+                    document.getElementById('balance_adjustment').focus();
+                    if (window.showToast) { 
+                        window.showToast(adjustI18n.balanceCannotBeNegative, { type: 'error' }); 
                     }
                     return false;
                 }
@@ -1859,6 +1999,34 @@
             // Event listeners for adjust modal
             closeAdjustBtn.addEventListener('click', closeAdjustModal);
             adjustModal.addEventListener('click', function(e){ if (e.target === adjustModal) closeAdjustModal(); });
+            
+            // Global event listener for balance adjustment field using event delegation
+            document.addEventListener('DOMContentLoaded', function() {
+                // Use event delegation to catch events on dynamically loaded elements
+                document.addEventListener('input', function(e) {
+                    if (e.target && e.target.id === 'balance_adjustment') {
+                        calculateNewBalance();
+                    }
+                });
+                
+                document.addEventListener('keyup', function(e) {
+                    if (e.target && e.target.id === 'balance_adjustment') {
+                        calculateNewBalance();
+                    }
+                });
+                
+                document.addEventListener('change', function(e) {
+                    if (e.target && e.target.id === 'balance_adjustment') {
+                        calculateNewBalance();
+                    }
+                });
+                
+                document.addEventListener('paste', function(e) {
+                    if (e.target && e.target.id === 'balance_adjustment') {
+                        setTimeout(calculateNewBalance, 10);
+                    }
+                });
+            });
             
             // Thêm event listener để xử lý khi modal được ẩn
             adjustModal.addEventListener('hidden.bs.modal', function () {
@@ -1894,8 +2062,33 @@
                 document.getElementById('adjust_user_id').value = data.user_id;
                 document.getElementById('current_balance').value = data.current_balance;
                 
-                // Reset form
-                document.getElementById('new_balance').value = '';
+                // Set initial value for new balance preview (same as current balance)
+                document.getElementById('new_balance_preview').value = data.current_balance;
+                
+                // Reset adjustment field
+                document.getElementById('balance_adjustment').value = '';
+                
+                // Get the balance adjustment field
+                const balanceAdjustmentField = document.getElementById('balance_adjustment');
+                
+                // Remove existing event listeners if any
+                balanceAdjustmentField.removeEventListener('input', calculateNewBalance);
+                balanceAdjustmentField.removeEventListener('keyup', calculateNewBalance);
+                balanceAdjustmentField.removeEventListener('change', calculateNewBalance);
+                
+                // Add multiple event listeners for real-time calculation
+                balanceAdjustmentField.addEventListener('input', calculateNewBalance);
+                balanceAdjustmentField.addEventListener('keyup', calculateNewBalance);
+                balanceAdjustmentField.addEventListener('change', calculateNewBalance);
+                
+                // Also add event listener for paste events
+                balanceAdjustmentField.addEventListener('paste', function() {
+                    setTimeout(calculateNewBalance, 10);
+                });
+                
+                // Test function call immediately
+                console.log('Event listeners attached, testing calculation...');
+                calculateNewBalance();
                 
                 openAdjustModal();
             }
@@ -1918,7 +2111,7 @@
             function performBalanceAdjustment() {
                 const data = {
                     user_id: document.getElementById('adjust_user_id').value,
-                    new_balance: document.getElementById('new_balance').value
+                    balance_adjustment: document.getElementById('balance_adjustment').value
                 };
                 
                 submitAdjustBtn.disabled = true;
