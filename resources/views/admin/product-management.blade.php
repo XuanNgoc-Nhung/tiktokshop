@@ -24,7 +24,7 @@
                 <thead>
                     <tr>
                         <th class="text-center" style="width:48px;">#</th>
-                        <th style="width:80px;" class="text-left">{{ __('admin::cms.image') }}</th>
+                        <th style="width:150px;" class="text-left">{{ __('admin::cms.image') }}</th>
                         <th class="text-left">{{ __('admin::cms.product_name') }}</th>
                         <th class="text-left">{{ __('admin::cms.price') }}</th>
                         <th class="text-left">{{ __('admin::cms.commission') }}</th>
@@ -43,7 +43,7 @@
                                     $isUrl = filter_var($img, FILTER_VALIDATE_URL) !== false;
                                     $src = $isUrl ? $img : asset($img);
                                 @endphp
-                                <img src="{{ $src }}" alt="img" style="width:60px; height:60px; object-fit:cover; border-radius:6px;">
+                                <img src="{{ $src }}" alt="img" style="width:100px; height:100px; object-fit:cover; border-radius:6px;">
                             </td>
                             <td>
                                 <div style="font-weight:600;">{{ $product->ten }}</div>
@@ -138,7 +138,12 @@
                         </div>
                         <div class="col-12 col-md-6 col-lg-3">
                             <label for="cp_cap_do" class="form-label">{{ __('admin::cms.vip_level') }}</label>
-                            <input id="cp_cap_do" name="cap_do" type="text" placeholder="{{ __('admin::cms.placeholder_vip_level') }}" class="form-control">
+                            <select id="cp_cap_do" name="cap_do" class="form-control">
+                                <option value="">{{ __('admin::cms.placeholder_vip_level') }}</option>
+                                @for($i = 1; $i <= 15; $i++)
+                                    <option value="{{ $i }}">VIP{{ $i }}</option>
+                                @endfor
+                            </select>
                             <div class="field-error" id="error_cp_cap_do" style="display:none; margin-top: 0.25rem; font-size: 0.8125rem; color: #dc2626;"></div>
                         </div>
                     </div>
@@ -209,7 +214,12 @@
                         </div>
                         <div class="col-12 col-md-6 col-lg-3">
                             <label for="ep_cap_do" class="form-label">{{ __('admin::cms.vip_level') }}</label>
-                            <input id="ep_cap_do" name="cap_do" type="text" class="form-control">
+                            <select id="ep_cap_do" name="cap_do" class="form-control">
+                                <option value="">{{ __('admin::cms.placeholder_vip_level') }}</option>
+                                @for($i = 1; $i <= 15; $i++)
+                                    <option value="{{ $i }}">VIP{{ $i }}</option>
+                                @endfor
+                            </select>
                             <div class="field-error" id="error_ep_cap_do" style="display:none; margin-top: 0.25rem; font-size: 0.8125rem; color: #dc2626;"></div>
                         </div>
                     </div>
@@ -382,13 +392,13 @@
                 console.log('[Submit] using input file');
                 fd.append('hinh_anh', inp.files[0]);
             }
-            fd.append('cap_do', document.getElementById('cp_cap_do').value.trim());
+            fd.append('cap_do', document.getElementById('cp_cap_do').value);
 
             const clientErrors = [];
             const vTen = fd.get('ten');
             const vGia = fd.get('gia');
             const vHoaHong = fd.get('hoa_hong');
-            const vCapDo = fd.get('cap_do');
+            const vCapDo = document.getElementById('cp_cap_do').value;
             const hasImage = !!(droppedFile || (document.getElementById('cp_hinh_anh') && document.getElementById('cp_hinh_anh').files && document.getElementById('cp_hinh_anh').files[0]));
             if (!vTen) clientErrors.push({ f:'cp_ten', m:'{{ __('admin::cms.validation_enter_name') }}' });
             if (vGia === '' || isNaN(vGia) || Number(vGia) < 0) clientErrors.push({ f:'cp_gia', m:'{{ __('admin::cms.validation_enter_price') }}' });
@@ -566,7 +576,7 @@
             fd.append('gia', (epGia && epGia.value.trim()) || '');
             fd.append('hoa_hong', (epHoaHong && epHoaHong.value.trim()) || '');
             fd.append('mo_ta', (epMoTa && epMoTa.value.trim()) || '');
-            fd.append('cap_do', (epCapDo && epCapDo.value.trim()) || '');
+            fd.append('cap_do', (epCapDo && epCapDo.value) || '');
             // Optional image
             if (epDroppedFile) {
                 fd.append('hinh_anh', epDroppedFile);
@@ -580,7 +590,7 @@
             const vTen = fd.get('ten');
             const vGia = fd.get('gia');
             const vHoaHong = fd.get('hoa_hong');
-            const vCapDo = fd.get('cap_do');
+            const vCapDo = document.getElementById('ep_cap_do').value;
             if (!vTen) errs.push({ f:'ep_ten', m:'{{ __('admin::cms.validation_enter_name') }}' });
             if (vGia === '' || isNaN(vGia) || Number(vGia) < 0) errs.push({ f:'ep_gia', m:'{{ __('admin::cms.validation_enter_price') }}' });
             if (vHoaHong !== '' && (isNaN(vHoaHong) || Number(vHoaHong) < 0)) errs.push({ f:'ep_hoa_hong', m:'{{ __('admin::cms.validation_enter_commission') }}' });
@@ -602,7 +612,7 @@
                 if (res.data && res.data.success){
                     if (editBsModal) editBsModal.hide();
                     if (window.showToast) window.showToast('{{ __('admin::cms.product_updated_success') ?? 'Updated successfully' }}', { type: 'success' });
-                    setTimeout(()=>{ location.reload(); }, 600);
+                    setTimeout(()=>{ location.reload(); }, 1500);
                 } else {
                     const msg = res.data && (res.data.message || res.data.errors) || '{{ __('admin::cms.error_generic') }}';
                     if (window.showToast) window.showToast(Array.isArray(msg) ? msg[0] : String(msg), { type: 'error' });

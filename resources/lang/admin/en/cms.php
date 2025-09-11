@@ -164,6 +164,7 @@ return [
 
     // Product Management
     'product_created_success' => 'Product created successfully',
+    'product_updated_success' => 'Product updated successfully',
     'product_list' => 'Product List',
     'product_name' => 'Product Name',
     'price' => 'Price',

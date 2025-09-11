@@ -170,6 +170,7 @@ return [
 
     // Product Management
     'product_created_success' => '产品创建成功',
+    'product_updated_success' => '产品更新成功',
     'product_list' => '产品列表',
     'product_name' => '产品名称',
     'price' => '价格',

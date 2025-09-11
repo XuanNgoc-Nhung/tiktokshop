@@ -170,6 +170,7 @@ return [
 
     // Product Management
     'product_created_success' => '商品が正常に作成されました',
+    'product_updated_success' => '商品が正常に更新されました',
     'product_list' => '商品一覧',
     'product_name' => '商品名',
     'price' => '価格',

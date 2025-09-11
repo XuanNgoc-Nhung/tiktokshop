@@ -170,6 +170,7 @@ return [
 
     // Product Management
     'product_created_success' => 'পণ্য সফলভাবে তৈরি হয়েছে',
+    'product_updated_success' => 'পণ্য সফলভাবে আপডেট হয়েছে',
     'product_list' => 'পণ্য তালিকা',
     'product_name' => 'পণ্যের নাম',
     'price' => 'দাম',

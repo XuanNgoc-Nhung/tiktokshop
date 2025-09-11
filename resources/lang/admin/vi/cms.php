@@ -163,6 +163,7 @@ return [
 
     // Product Management
     'product_created_success' => 'Tạo sản phẩm thành công',
+    'product_updated_success' => 'Cập nhật sản phẩm thành công',
     'product_list' => 'Danh sách sản phẩm',
     'product_name' => 'Tên sản phẩm',
     'price' => 'Giá',
