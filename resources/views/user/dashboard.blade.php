@@ -20,10 +20,10 @@
 
 <div class="container-fluid px-0">
     <!-- Banner Carousel -->
-    <div class="banner-carousel-container mb-3 px-3 pt-3">
+    <div class="banner-carousel-container mb-3 mx-3 mt-4">
         <div class="banner-carousel" id="bannerCarousel">
             <!-- Slide 1 -->
-            <div class="banner-slide active">
+            <div class="banner-slide active" >
                 <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
                      alt="Shopping Mall" 
                      class="banner-image">
@@ -117,7 +117,7 @@
             <i class="fas fa-headset fs-4 d-block mb-2"></i>
             <span class="small">{{ $__home('service') }}</span>
         </div>
-        <div class="nav-icon text-center">
+        <div class="nav-icon text-center" onclick="window.location.href='{{ route('notification') }}'">
             <i class="fas fa-bell fs-4 d-block mb-2"></i>
             <span class="small">{{ $__home('notification') }}</span>
         </div>
@@ -218,7 +218,7 @@
 
     .banner-carousel {
         position: relative;
-        height: 150px;
+        height: 200px;
         overflow: hidden;
     }
 
@@ -355,10 +355,16 @@
 
     .nav-icon i {
         font-size: 1.5rem !important;
+        text-shadow: 0 2px 6px rgba(255, 140, 66, 0.6);
+        transition: color 0.3s ease, text-shadow 0.3s ease;
     }
 
     .nav-icon:hover {
         color: #ff6b6b;
+    }
+
+    .nav-icon:hover i {
+        text-shadow: 0 4px 12px rgba(255, 140, 66, 0.8);
     }
 
     /* Feature Items */

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Profile;
 use App\Models\User;
+use App\Models\ThongBao;
 use App\Helpers\LanguageHelper;
 
 class UserController extends Controller
@@ -206,6 +207,24 @@ class UserController extends Controller
         ];
         
         return view('user.dashboard', compact('userData'));
+    }
+    public function notification()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', LanguageHelper::getUserTranslation('fill_all_fields'));
+        }
+        
+        // Get authenticated user data
+        $user = Auth::user();
+        $userData = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'phone' => $user->phone,
+            'email' => $user->email,
+            'role' => $user->role ?? 'user'
+        ];
+        $notifications = ThongBao::where('trang_thai', 1)->get();
+        return view('user.notification', compact('userData', 'notifications'));
     }
 
     public function logout()
