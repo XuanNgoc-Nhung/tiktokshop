@@ -125,7 +125,6 @@ class AdminController extends Controller
         if ($keyword !== '') {
             $query->where(function ($q) use ($keyword) {
                 $q->where('name', 'like', '%' . $keyword . '%')
-                  ->orWhere('email', 'like', '%' . $keyword . '%')
                   ->orWhere('phone', 'like', '%' . $keyword . '%');
             });
         }
@@ -407,6 +406,78 @@ class AdminController extends Controller
 
         } catch (\Exception $e) {
             \Log::error('Delete user error', ['error' => $e->getMessage()]);
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getAdminTranslation('error_occurred'),
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function adjustBalance(Request $request, $id)
+    {
+        try {
+            // Ensure admin locale is set for validation messages
+            $adminLocale = session('admin_locale', 'vi');
+            if (LanguageHelper::isSupported($adminLocale)) {
+                app()->setLocale($adminLocale);
+            }
+
+            // Validate input
+            $request->validate([
+                'new_balance' => 'required|numeric|min:0'
+            ], [
+                'new_balance.required' => LanguageHelper::getAdminTranslation('validation_new_balance_required'),
+                'new_balance.numeric' => LanguageHelper::getAdminTranslation('validation_new_balance_invalid'),
+                'new_balance.min' => LanguageHelper::getAdminTranslation('validation_new_balance_invalid'),
+            ]);
+
+            // Tìm user
+            $user = User::findOrFail($id);
+            $profile = Profile::where('user_id', $id)->first();
+            
+            if (!$profile) {
+                return response()->json([
+                    'success' => false,
+                    'message' => LanguageHelper::getAdminTranslation('user_profile_not_found'),
+                ], 404);
+            }
+
+            // Lấy dữ liệu từ request
+            $newBalance = floatval($request->new_balance);
+            $currentBalance = floatval($profile->so_du ?? 0);
+
+            // Cập nhật số dư
+            $profile->so_du = $newBalance;
+            $profile->save();
+
+            // Log hoạt động điều chỉnh số dư
+            \Log::info('Balance adjusted', [
+                'user_id' => $user->id,
+                'user_name' => $user->name,
+                'admin_id' => Auth::id(),
+                'old_balance' => $currentBalance,
+                'new_balance' => $newBalance,
+                'timestamp' => now()
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => LanguageHelper::getAdminTranslation('balance_adjusted_success'),
+                'data' => [
+                    'old_balance' => $currentBalance,
+                    'new_balance' => $newBalance
+                ]
+            ]);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getAdminTranslation('invalid_data'),
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            \Log::error('Adjust balance error', ['error' => $e->getMessage()]);
             return response()->json([
                 'success' => false,
                 'message' => LanguageHelper::getAdminTranslation('error_occurred'),

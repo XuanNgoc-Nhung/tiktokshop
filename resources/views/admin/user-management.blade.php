@@ -24,11 +24,9 @@
                     <thead>
                         <tr>
                             <th class="text-center" style="width:48px;">#</th>
-                            <th class="text-left">{{ __('admin::cms.name') }}</th>
-                            <th>{{ __('admin::cms.email') }}</th>
-                            <th class="text-left">{{ __('admin::cms.phone') }}</th>
-                            <th class="text-left">{{ __('admin::cms.role') }}</th>
-                            <th class="text-left">{{ __('admin::cms.joined') }}</th>
+                            <th class="text-left" style="width:280px;">{{ __('admin::cms.name') }}</th>
+                            <th class="text-left" style="width:300px;">{{ __('admin::cms.additional_info') }}</th>
+                            <th class="text-left" style="width:280px;">{{ __('admin::cms.bank_name') }}</th>
                             <th class="text-left" style="width:140px;">{{ __('admin::cms.actions') }}</th>
                         </tr>
                     </thead>
@@ -36,43 +34,170 @@
                         @forelse(($users ?? []) as $index => $user)
                             <tr>
                                 <td class="text-center">{{ $users->firstItem() + $index }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->phone }}</td>
-                                <td>
-                                    @php
-                                        $role = $user->role ?? 'user';
-                                        $color = $role === 'admin' ? 'var(--danger-color)' : ($role === 'seller' ? 'var(--warning-color)' : 'var(--primary-color)');
-                                    @endphp
-                                    <span style="padding: 0.15rem 0.4rem; border-radius: 0.25rem; background: var(--gray-300); color: {{ $color }}; text-transform: capitalize; font-weight: 600; font-size: 0.8125rem;">{{ $role === 'seller' ? __('admin::cms.seller') : ($role === 'admin' ? __('admin::cms.admin') : __('admin::cms.user')) }}</span>
+                                <td style="width: 280px;">
+                                    <div class="user-card" style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; background: var(--gray-50); border: 1px solid var(--gray-200); min-height: 120px;">
+                                        <!-- Phần bên trái: Avatar + Tên -->
+                                        <div class="user-left" style="display: flex; flex-direction: column; align-items: center; gap: 10px; flex-shrink: 0; width: 100px; min-width: 100px;">
+                                            <div class="user-avatar" style="width: 85px; height: 85px; border-radius: 50%; overflow: hidden; background: var(--gray-300); display: flex; align-items: center; justify-content: center; border: 3px solid var(--gray-200); position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                                @if($user->profile && $user->profile->anh_chan_dung)
+                                                    <img src="{{ $user->profile->anh_chan_dung }}" alt="{{ $user->name }}" style="width: 85px; height: 85px; object-fit: cover; object-position: center; border-radius: 50%;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                                @endif
+                                                <div class="avatar-placeholder" style="width: 85px; height: 85px; display: {{ $user->profile && $user->profile->anh_chan_dung ? 'none' : 'flex' }}; align-items: center; justify-content: center; background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%); position: relative;">
+                                                    <i class="fas fa-user" style="font-size: 24px; color: #9ca3af; opacity: 0.8;"></i>
+                                                    <div style="position: absolute; top: 5px; right: 5px; width: 12px; height: 12px; background: #6b7280; border-radius: 50%; opacity: 0.3;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="user-name" style="font-weight: 700; font-size: 0.85rem; color: var(--gray-800); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; line-height: 1.2;">{{ $user->name }}</div>
+                                        </div>
+                                        
+                                        <!-- Phần bên phải: Thông tin chi tiết -->
+                                        <div class="user-right" style="flex: 1; min-width: 0;">
+                                            <div class="user-details" style="font-size: 0.8rem; color: var(--gray-600); line-height: 1.4;">
+                                                @if($user->profile && $user->profile->so_du)
+                                                    <div style="margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                                                        <i class="fas fa-coins" style="color: #f59e0b; flex-shrink: 0;"></i>
+                                                        <span style="font-weight: 600; color: var(--success-color); font-size: 0.8rem;">{{ number_format($user->profile->so_du, 0, ',', '.') }} VNĐ</span>
+                                                    </div>
+                                                @endif
+                                                <div style="margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                                                    <i class="fas fa-phone" style="color: #10b981; flex-shrink: 0;"></i>
+                                                    <span style="font-size: 0.8rem;">{{ $user->phone }}</span>
+                                                </div>
+                                                @if($user->profile)
+                                                    @if($user->profile->gioi_tinh)
+                                                        <div style="margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                                                            <i class="fas {{ $user->profile->gioi_tinh === 'nam' ? 'fa-mars' : 'fa-venus' }}" style="color: {{ $user->profile->gioi_tinh === 'nam' ? '#3b82f6' : '#ec4899' }}; flex-shrink: 0;"></i>
+                                                            <span style="font-size: 0.8rem;">{{ $user->profile->gioi_tinh === 'nam' ? 'Nam' : ($user->profile->gioi_tinh === 'nu' ? 'Nữ' : $user->profile->gioi_tinh) }}</span>
+                                                        </div>
+                                                    @endif
+                                                    @if($user->profile->ngay_sinh)
+                                                        <div style="margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                                                            <i class="fas fa-calendar-alt" style="color: #6b7280; flex-shrink: 0;"></i>
+                                                            <span style="font-size: 0.8rem;">{{ \Carbon\Carbon::parse($user->profile->ngay_sinh)->format('d/m/Y') }}</span>
+                                                        </div>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
-                                <td>{{ $user->created_at_formatted ?? '' }}</td>
-                                <td class="text-center" style="display: flex; gap: 0.4rem;">
+                                <td style="width: 300px;">
+                                    <div style="font-size: 0.8rem; color: var(--gray-700); line-height: 1.4;">
+                                        <!-- Ngày tham gia -->
+                                        <div style="margin-bottom: 6px; padding: 6px 10px; background: var(--gray-50); border-radius: 6px; border-left: 4px solid #6b7280; display: flex; align-items: flex-start; gap: 8px;">
+                                            <i class="fas fa-calendar-plus" style="color: #6b7280; flex-shrink: 0; margin-top: 2px;"></i>
+                                            <div style="flex: 1; min-width: 0;">
+                                                <div style="font-weight: 500; color: var(--gray-800);">{{ $user->created_at_formatted ?? '' }}</div>
+                                            </div>
+                                        </div>
+                                        
+                                        @if($user->profile)
+                                            @if($user->profile->dia_chi)
+                                                <div style="margin-bottom: 6px; padding: 6px 10px; background: var(--gray-100); border-radius: 6px; border-left: 4px solid var(--primary-color); display: flex; align-items: flex-start; gap: 8px;">
+                                                    <i class="fas fa-map-marker-alt" style="color: #3b82f6; flex-shrink: 0; margin-top: 2px;"></i>
+                                                    <div style="flex: 1; min-width: 0;">
+                                                        <div style="word-wrap: break-word; line-height: 1.3;">{{ $user->profile->dia_chi }}</div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if($user->profile->cap_do)
+                                                <div style="margin-bottom: 6px; padding: 6px 10px; background: var(--warning-50); border-radius: 6px; border-left: 4px solid var(--warning-color); display: flex; align-items: flex-start; gap: 8px;">
+                                                    <i class="fas fa-crown" style="color: #f59e0b; flex-shrink: 0; margin-top: 2px;"></i>
+                                                    <div style="flex: 1; min-width: 0;">
+                                                        <div style="font-weight: 500; color: var(--warning-color);">{{ $user->profile->cap_do }}</div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if($user->profile->luot_trung)
+                                                <div style="margin-bottom: 6px; padding: 6px 10px; background: var(--success-50); border-radius: 6px; border-left: 4px solid var(--success-color); display: flex; align-items: flex-start; gap: 8px;">
+                                                    <i class="fas fa-trophy" style="color: #10b981; flex-shrink: 0; margin-top: 2px;"></i>
+                                                    <div style="flex: 1; min-width: 0;">
+                                                        <div style="font-weight: 500; color: var(--success-color);">{{ $user->profile->luot_trung }} lần</div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endif
+                                        @if(!$user->profile || (!$user->profile->dia_chi && !$user->profile->cap_do && !$user->profile->luot_trung))
+                                            <div style="color: var(--gray-500); font-style: italic; text-align: center; padding: 12px; background: var(--gray-50); border-radius: 6px; border: 1px dashed var(--gray-300);">
+                                                <i class="fas fa-info-circle" style="margin-right: 4px;"></i>
+                                                Chưa có thông tin bổ sung
+                                            </div>
+                                        @endif
+                                    </div>
+                                </td>
+                                <td style="width: 280px;">
+                                    @if($user->profile && ($user->profile->ngan_hang || $user->profile->so_tai_khoan || $user->profile->chu_tai_khoan))
+                                        <div style="font-size: 0.8rem; line-height: 1.4;">
+                                            @if($user->profile->ngan_hang)
+                                                <div style="margin-bottom: 6px; padding: 6px 10px; background: var(--gray-50); border-radius: 6px; border-left: 4px solid #6b7280; display: flex; align-items: flex-start; gap: 8px;">
+                                                    <i class="fas fa-university" style="color: #6b7280; flex-shrink: 0; margin-top: 2px;"></i>
+                                                    <div style="flex: 1; min-width: 0;">
+                                                        <div style="word-wrap: break-word; line-height: 1.3;">{{ $user->profile->ngan_hang }}</div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if($user->profile->so_tai_khoan)
+                                                <div style="margin-bottom: 6px; padding: 6px 10px; background: var(--gray-50); border-radius: 6px; border-left: 4px solid #6b7280; display: flex; align-items: flex-start; gap: 8px;">
+                                                    <i class="fas fa-credit-card" style="color: #6b7280; flex-shrink: 0; margin-top: 2px;"></i>
+                                                    <div style="flex: 1; min-width: 0;">
+                                                        <div style="font-family: monospace; font-size: 0.75rem; word-wrap: break-word; line-height: 1.3;">{{ $user->profile->so_tai_khoan }}</div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if($user->profile->chu_tai_khoan)
+                                                <div style="margin-bottom: 6px; padding: 6px 10px; background: var(--gray-50); border-radius: 6px; border-left: 4px solid #6b7280; display: flex; align-items: flex-start; gap: 8px;">
+                                                    <i class="fas fa-user-tie" style="color: #6b7280; flex-shrink: 0; margin-top: 2px;"></i>
+                                                    <div style="flex: 1; min-width: 0;">
+                                                        <div style="word-wrap: break-word; line-height: 1.3;">{{ $user->profile->chu_tai_khoan }}</div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @else
+                                        <div style="color: var(--gray-500); font-style: italic; text-align: center; padding: 12px; background: var(--gray-50); border-radius: 6px; border: 1px dashed var(--gray-300);">
+                                            <i class="fas fa-info-circle" style="margin-right: 4px;"></i>
+                                            Chưa có thông tin ngân hàng
+                                        </div>
+                                    @endif
+                                </td>
+                                <td class="text-center">
                                     <button type="button" class="btn btn-secondary edit-user-btn" 
-                                        data-user-id="{{ $user->id }}"
-                                        data-name="{{ $user->name }}"
-                                        data-phone="{{ $user->phone }}"
-                                        data-email="{{ $user->email }}"
-                                        data-gioi-tinh="{{ $user->profile->gioi_tinh ?? '' }}"
-                                        data-ngay-sinh="{{ $user->profile->ngay_sinh ?? '' }}"
-                                        data-dia-chi="{{ $user->profile->dia_chi ?? '' }}"
-                                        data-so-du="{{ $user->profile->so_du ?? 0 }}"
-                                        data-luot-trung="{{ $user->profile->luot_trung ?? 0 }}"
-                                        data-ngan-hang="{{ $user->profile->ngan_hang ?? '' }}"
-                                        data-so-tai-khoan="{{ $user->profile->so_tai_khoan ?? '' }}"
-                                        data-chu-tai-khoan="{{ $user->profile->chu_tai_khoan ?? '' }}"
-                                        data-cap-do="{{ $user->profile->cap_do ?? '' }}"
-                                        data-giai-thuong-id="{{ $user->profile->giai_thuong_id ?? '' }}"
-                                        data-anh-mat-truoc="{{ $user->profile->anh_mat_truoc ?? '' }}"
-                                        data-anh-mat-sau="{{ $user->profile->anh_mat_sau ?? '' }}"
-                                        data-anh-chan-dung="{{ $user->profile->anh_chan_dung ?? '' }}"
+                                        onclick="loadUserDataFromButton({
+                                            id: {{ $user->id }},
+                                            name: '{{ addslashes($user->name) }}',
+                                            phone: '{{ addslashes($user->phone) }}',
+                                            email: '{{ addslashes($user->email) }}',
+                                            profile: {
+                                                gioi_tinh: '{{ addslashes($user->profile->gioi_tinh ?? '') }}',
+                                                ngay_sinh: '{{ addslashes($user->profile->ngay_sinh ?? '') }}',
+                                                dia_chi: '{{ addslashes($user->profile->dia_chi ?? '') }}',
+                                                so_du: {{ $user->profile->so_du ?? 0 }},
+                                                luot_trung: {{ $user->profile->luot_trung ?? 0 }},
+                                                ngan_hang: '{{ addslashes($user->profile->ngan_hang ?? '') }}',
+                                                so_tai_khoan: '{{ addslashes($user->profile->so_tai_khoan ?? '') }}',
+                                                chu_tai_khoan: '{{ addslashes($user->profile->chu_tai_khoan ?? '') }}',
+                                                cap_do: '{{ addslashes($user->profile->cap_do ?? '') }}',
+                                                giai_thuong_id: '{{ addslashes($user->profile->giai_thuong_id ?? '') }}',
+                                                anh_mat_truoc: '{{ addslashes($user->profile->anh_mat_truoc ?? '') }}',
+                                                anh_mat_sau: '{{ addslashes($user->profile->anh_mat_sau ?? '') }}',
+                                                anh_chan_dung: '{{ addslashes($user->profile->anh_chan_dung ?? '') }}'
+                                            }
+                                        })"
                                         style="height: 30px; padding: 0.25rem 0.5rem; font-size: 0.8125rem;" 
                                         title="{{ __('admin::cms.edit') }}">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button type="button" class="btn btn-danger delete-user-btn" 
+                                    <button type="button" class="btn btn-warning adjust-balance-btn" 
+                                        onclick="loadUserDataForAdjustment(this)"
                                         data-user-id="{{ $user->id }}"
                                         data-name="{{ $user->name }}"
+                                        data-current-balance="{{ $user->profile->so_du ?? 0 }}"
+                                        style="height: 30px; padding: 0.25rem 0.5rem; font-size: 0.8125rem;" 
+                                        title="{{ __('admin::cms.adjust_balance') }}">
+                                        <i class="fas fa-coins"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger delete-user-btn" 
+                                        onclick="showDeleteConfirmation({{ $user->id }}, '{{ addslashes($user->name) }}')"
                                         style="height: 30px; padding: 0.25rem 0.5rem; font-size: 0.8125rem;" 
                                         title="{{ __('admin::cms.delete') }}">
                                         <i class="fas fa-trash"></i>
@@ -81,7 +206,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" style="text-align:center; color: var(--gray-600);">{{ __('admin::cms.no_data') }}</td>
+                                <td colspan="5" style="text-align:center; color: var(--gray-600);">{{ __('admin::cms.no_data') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -90,6 +215,58 @@
             
             <!-- Pagination -->
             <x-pagination :paginator="$users" />
+        </div>
+    </div>
+
+    <!-- Adjust Balance Modal -->
+    <div id="adjustBalanceModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="adjustBalanceModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" style="min-width: 350px; max-width: 400px;" role="document">
+            <div class="modal-content">
+                <!-- Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="adjustBalanceModalLabel">{{ __('admin::cms.adjust_balance') }}</h5>
+                    <button type="button" id="closeAdjustBalanceModal" class="btn-close" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-body">
+                    <div id="adjustBalanceError" class="alert alert-danger" style="display:none;"></div>
+                    
+                    <form id="adjustBalanceForm">
+                        <input type="hidden" id="adjust_user_id" name="user_id">
+                        
+                        
+                        <!-- Balance Adjustment -->
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="current_balance" class="form-label">{{ __('admin::cms.current_balance') }}</label>
+                                <div class="input-group">
+                                    <input type="number" id="current_balance" class="form-control" 
+                                           step="0.01" readonly style="background-color: #f8f9fa;">
+                                    <span class="input-group-text">VNĐ</span>
+                                </div>
+                            </div>
+                            
+                            <!-- New Balance -->
+                            <div class="mb-3">
+                                <label for="new_balance" class="form-label">{{ __('admin::cms.new_balance') }}</label>
+                                <div class="input-group">
+                                    <input type="number" id="new_balance" name="new_balance" class="form-control" 
+                                           step="0.01" min="0" placeholder="0.00" required>
+                                    <span class="input-group-text">VNĐ</span>
+                                </div>
+                                <div class="field-error" id="error_new_balance" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Footer -->
+                <div class="modal-footer">
+                    <button type="button" id="submitAdjustBalance" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>{{ __('admin::cms.update_balance') }}
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -142,7 +319,7 @@
 
     <!-- Bootstrap Delete Confirmation Modal -->
     <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-dialog modal-sm modal-dialog-centered" style="min-width: 300px; max-width: 350px;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h6 class="modal-title" id="deleteConfirmModalLabel">{{ __('admin::cms.confirm_delete') }}</h6>
@@ -383,12 +560,13 @@
     </div>
 
 
+
 @endsection
 
 @push('styles')
 <style>
     .modal.show {
-        display: flex !important;
+        /* display: flex !important; */
     }
     
     .modal-dialog {
@@ -794,7 +972,6 @@
             const submitEditBtn = document.getElementById('submitEditUser');
             const editForm = document.getElementById('editUserForm');
             const editErrorBox = document.getElementById('editUserError');
-            const editUserBtns = document.querySelectorAll('.edit-user-btn');
             
             if (!editModal || !closeEditBtn || !submitEditBtn || !editForm || !editErrorBox) {
                 console.error('Edit modal elements not found!');
@@ -840,11 +1017,8 @@
             }
 
             function closeEditModal() {
-                // Use Bootstrap modal hide method
-                const modal = bootstrap.Modal.getInstance(editModal);
-                if (modal) {
-                    modal.hide();
-                }
+                // Use global closeModal function to close only this modal
+                closeModal('editUserModal');
             }
 
             function clearEditFieldErrors() {
@@ -970,132 +1144,12 @@
                 return true;
             }
 
-            function updateImagePreview(inputId, previewId) {
-                const input = document.getElementById(inputId);
-                const preview = document.getElementById(previewId);
-                const placeholder = document.getElementById(previewId + '_placeholder');
-                
-                if (input && preview) {
-                    const url = input.value ? input.value.trim() : '';
-                    if (url) {
-                        // Show placeholder while loading
-                        preview.classList.add('d-none');
-                        if (placeholder) placeholder.classList.remove('d-none');
-                        
-                        // Create new image to test if URL is valid
-                        const testImg = new Image();
-                        testImg.onload = function() {
-                            // Image loaded successfully
-                            preview.src = url;
-                            preview.classList.remove('d-none');
-                            if (placeholder) placeholder.classList.add('d-none');
-                        };
-                        testImg.onerror = function() {
-                            // Image failed to load, keep showing placeholder
-                            preview.classList.add('d-none');
-                            if (placeholder) placeholder.classList.remove('d-none');
-                        };
-                        testImg.src = url;
-                    } else {
-                        preview.classList.add('d-none');
-                        if (placeholder) placeholder.classList.remove('d-none');
-                    }
-                }
-            }
 
             // Event listeners for edit modal
             closeEditBtn.addEventListener('click', closeEditModal);
             editModal.addEventListener('click', function(e){ if (e.target === editModal) closeEditModal(); });
 
-            // Event listeners for edit buttons
-            editUserBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    loadUserDataFromButton(this);
-                });
-            });
 
-            // Load user data from button data attributes
-            function loadUserDataFromButton(button) {
-                clearEditFieldErrors();
-                editErrorBox.style.display = 'none';
-                
-                // Get data from button attributes
-                const data = {
-                    user_id: button.getAttribute('data-user-id'),
-                    name: button.getAttribute('data-name') || '',
-                    phone: button.getAttribute('data-phone') || '',
-                    email: button.getAttribute('data-email') || '',
-                    gioi_tinh: button.getAttribute('data-gioi-tinh') || '',
-                    ngay_sinh: button.getAttribute('data-ngay-sinh') || '',
-                    dia_chi: button.getAttribute('data-dia-chi') || '',
-                    so_du: button.getAttribute('data-so-du') || 0,
-                    luot_trung: button.getAttribute('data-luot-trung') || 0,
-                    ngan_hang: button.getAttribute('data-ngan-hang') || '',
-                    so_tai_khoan: button.getAttribute('data-so-tai-khoan') || '',
-                    chu_tai_khoan: button.getAttribute('data-chu-tai-khoan') || '',
-                    cap_do: button.getAttribute('data-cap-do') || '',
-                    giai_thuong_id: button.getAttribute('data-giai-thuong-id') || '',
-                    anh_mat_truoc: button.getAttribute('data-anh-mat-truoc') || '',
-                    anh_mat_sau: button.getAttribute('data-anh-mat-sau') || '',
-                    anh_chan_dung: button.getAttribute('data-anh-chan-dung') || ''
-                };
-                
-                // Fill form fields with null safety
-                const setValue = (id, value) => {
-                    const element = document.getElementById(id);
-                    if (element) element.value = value || '';
-                };
-                
-                setValue('edit_user_id', data.user_id);
-                setValue('edit_name', data.name);
-                setValue('edit_phone', data.phone);
-                setValue('edit_email', data.email);
-                setValue('edit_gioi_tinh', data.gioi_tinh);
-                setValue('edit_ngay_sinh', data.ngay_sinh);
-                setValue('edit_dia_chi', data.dia_chi);
-                setValue('edit_so_du', data.so_du);
-                setValue('edit_luot_trung', data.luot_trung);
-                setValue('edit_ngan_hang', data.ngan_hang);
-                setValue('edit_so_tai_khoan', data.so_tai_khoan);
-                setValue('edit_chu_tai_khoan', data.chu_tai_khoan);
-                setValue('edit_cap_do', data.cap_do);
-                setValue('edit_giai_thuong_id', data.giai_thuong_id);
-                setValue('edit_anh_mat_truoc', data.anh_mat_truoc);
-                setValue('edit_anh_mat_sau', data.anh_mat_sau);
-                setValue('edit_anh_chan_dung', data.anh_chan_dung);
-                setValue('edit_anh_chan_dung_small', data.anh_chan_dung);
-                
-                // Update user display info with null safety
-                const setTextContent = (id, text) => {
-                    const element = document.getElementById(id);
-                    if (element) element.textContent = text || '';
-                };
-                
-                setTextContent('edit_user_name_display', data.name || 'User Name');
-                setTextContent('edit_user_email_display', data.email || 'user@example.com');
-                setTextContent('edit_user_phone_display', data.phone || '+84 123 456 789');
-                
-                // Update image previews with null safety
-                updateImagePreview('edit_anh_mat_truoc', 'preview_anh_mat_truoc');
-                updateImagePreview('edit_anh_mat_sau', 'preview_anh_mat_sau');
-                updateImagePreview('edit_anh_chan_dung', 'preview_anh_chan_dung');
-                
-                // Add error handling for existing images
-                const imageElements = ['preview_anh_mat_truoc', 'preview_anh_mat_sau', 'preview_anh_chan_dung'];
-                imageElements.forEach(imgId => {
-                    const img = document.getElementById(imgId);
-                    const placeholder = document.getElementById(imgId + '_placeholder');
-                    if (img && placeholder) {
-                        img.onerror = function() {
-                            // Image failed to load, show placeholder
-                            img.classList.add('d-none');
-                            placeholder.classList.remove('d-none');
-                        };
-                    }
-                });
-                
-                openEditModal();
-            }
 
             // Image preview updates
             document.getElementById('edit_anh_mat_truoc')?.addEventListener('input', function() {
@@ -1211,7 +1265,7 @@
                     }
                 }).then(function(res) {
                     if (res.data && res.data.success) {
-                        closeEditModal();
+                        closeModal('editUserModal');
                         if (window.showToast) { 
                             window.showToast(editI18n.updatedSuccess, { type: 'success' }); 
                         }
@@ -1263,6 +1317,262 @@
         }
     })();
 
+    // Global function for loading user data from user object
+    function loadUserDataFromButton(user) {
+        const editModal = document.getElementById('editUserModal');
+        const editErrorBox = document.getElementById('editUserError');
+        
+        if (!editModal || !editErrorBox) {
+            console.error('Edit modal elements not found!');
+            return;
+        }
+
+        // Clear errors
+        document.querySelectorAll('#editUserForm .field-error').forEach(el => { 
+            el.style.display = 'none'; 
+            el.textContent = ''; 
+        });
+        editErrorBox.style.display = 'none';
+        
+        // Khai báo dữ liệu mẫu bên trong hàm
+        const data = {
+            user_id: user.id,
+            name: user.name || '',
+            phone: user.phone || '',
+            email: user.email || '',
+            gioi_tinh: user?.profile?.gioi_tinh || '',
+            ngay_sinh: user?.profile?.ngay_sinh || '',
+            dia_chi: user?.profile?.dia_chi || '',
+            so_du: user?.profile?.so_du || 0,
+            luot_trung: user?.profile?.luot_trung || 0,
+            ngan_hang: user?.profile?.ngan_hang || '',
+            so_tai_khoan: user?.profile?.so_tai_khoan || '',
+            chu_tai_khoan: user?.profile?.chu_tai_khoan || '',
+            cap_do: user?.profile?.cap_do || '',
+            giai_thuong_id: user?.profile?.giai_thuong_id || '',
+            anh_mat_truoc: user?.profile?.anh_mat_truoc || '',
+            anh_mat_sau: user?.profile?.anh_mat_sau || '',
+            anh_chan_dung: user?.profile?.anh_chan_dung || ''
+        };
+        
+        // Fill form fields with null safety
+        const setValue = (id, value) => {
+            const element = document.getElementById(id);
+            if (element) element.value = value || '';
+        };
+        
+        setValue('edit_user_id', data.user_id);
+        setValue('edit_name', data.name);
+        setValue('edit_phone', data.phone);
+        setValue('edit_email', data.email);
+        setValue('edit_gioi_tinh', data.gioi_tinh);
+        setValue('edit_ngay_sinh', data.ngay_sinh);
+        setValue('edit_dia_chi', data.dia_chi);
+        setValue('edit_so_du', data.so_du);
+        setValue('edit_luot_trung', data.luot_trung);
+        setValue('edit_ngan_hang', data.ngan_hang);
+        setValue('edit_so_tai_khoan', data.so_tai_khoan);
+        setValue('edit_chu_tai_khoan', data.chu_tai_khoan);
+        setValue('edit_cap_do', data.cap_do);
+        setValue('edit_giai_thuong_id', data.giai_thuong_id);
+        setValue('edit_anh_mat_truoc', data.anh_mat_truoc);
+        setValue('edit_anh_mat_sau', data.anh_mat_sau);
+        setValue('edit_anh_chan_dung', data.anh_chan_dung);
+        setValue('edit_anh_chan_dung_small', data.anh_chan_dung);
+        
+        // Update user display info with null safety
+        const setTextContent = (id, text) => {
+            const element = document.getElementById(id);
+            if (element) element.textContent = text || '';
+        };
+        
+        setTextContent('edit_user_name_display', data.name || 'User Name');
+        setTextContent('edit_user_email_display', data.email || 'user@example.com');
+        setTextContent('edit_user_phone_display', data.phone || '+84 123 456 789');
+        
+        // Update image previews with null safety
+        updateImagePreview('edit_anh_mat_truoc', 'preview_anh_mat_truoc');
+        updateImagePreview('edit_anh_mat_sau', 'preview_anh_mat_sau');
+        updateImagePreview('edit_anh_chan_dung', 'preview_anh_chan_dung');
+        
+        // Add error handling for existing images
+        const imageElements = ['preview_anh_mat_truoc', 'preview_anh_mat_sau', 'preview_anh_chan_dung'];
+        imageElements.forEach(imgId => {
+            const img = document.getElementById(imgId);
+            const placeholder = document.getElementById(imgId + '_placeholder');
+            if (img && placeholder) {
+                img.onerror = function() {
+                    // Image failed to load, show placeholder
+                    img.classList.add('d-none');
+                    placeholder.classList.remove('d-none');
+                };
+            }
+        });
+        
+        // Open modal
+        const modal = new bootstrap.Modal(editModal);
+        modal.show();
+    }
+
+    // Global i18n object for delete functionality
+    const deleteI18n = {
+        deleting: "{{ __('admin::cms.deleting') }}",
+        errorGeneric: "{{ __('admin::cms.error_generic') }}",
+        networkError: "{{ __('admin::cms.error_network') }}",
+        deletedSuccess: "{{ __('admin::cms.deleted_success') }}",
+        confirmDeleteUser: "{{ __('admin::cms.confirm_delete_user') }}",
+        confirmDeleteMessage: "{{ __('admin::cms.confirm_delete_message') }}",
+        confirmDeleteTitle: "{{ __('admin::cms.confirm_delete') }}",
+        confirmDeleteDescription: "{{ __('admin::cms.confirm_delete_description') }}"
+    };
+
+    // Global function for updating image preview
+    function updateImagePreview(inputId, previewId) {
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+        const placeholder = document.getElementById(previewId + '_placeholder');
+        
+        if (input && preview) {
+            const url = input.value ? input.value.trim() : '';
+            if (url) {
+                // Show placeholder while loading
+                preview.classList.add('d-none');
+                if (placeholder) placeholder.classList.remove('d-none');
+                
+                // Create new image to test if URL is valid
+                const testImg = new Image();
+                testImg.onload = function() {
+                    // Image loaded successfully
+                    preview.src = url;
+                    preview.classList.remove('d-none');
+                    if (placeholder) placeholder.classList.add('d-none');
+                };
+                testImg.onerror = function() {
+                    // Image failed to load, keep showing placeholder
+                    preview.classList.add('d-none');
+                    if (placeholder) placeholder.classList.remove('d-none');
+                };
+                testImg.src = url;
+            } else {
+                preview.classList.add('d-none');
+                if (placeholder) placeholder.classList.remove('d-none');
+            }
+        }
+    }
+
+    // Global function for showing delete confirmation
+    function showDeleteConfirmation(userId, userName) {
+        console.log('🔍 [DELETE] Hiển thị modal xác nhận xóa');
+        console.log('📋 [DELETE] Dữ liệu:', { userId, userName });
+        
+        // Set global variables for delete process
+        window.currentUserId = userId;
+        window.currentUserName = userName;
+        
+        // Cập nhật message trong modal
+        const confirmMessage = deleteI18n.confirmDeleteMessage.replace(':name', userName);
+        const messageElement = document.getElementById('deleteConfirmMessage');
+        if (messageElement) {
+            messageElement.textContent = confirmMessage;
+        }
+        
+        // Hiển thị modal
+        const deleteModal = document.getElementById('deleteConfirmModal');
+        if (deleteModal) {
+            const modal = new bootstrap.Modal(deleteModal);
+            
+            // Thêm event listener để xử lý khi modal được ẩn
+            deleteModal.addEventListener('hidden.bs.modal', function () {
+                // Xóa backdrop nếu còn sót lại
+                const backdrops = document.querySelectorAll('.modal-backdrop');
+                backdrops.forEach(backdrop => backdrop.remove());
+                
+                // Xóa class modal-open từ body
+                document.body.classList.remove('modal-open');
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+            });
+            
+            modal.show();
+        } else {
+            console.error('❌ [DELETE] Không tìm thấy delete modal!');
+        }
+    }
+
+    // Global function to close specific modal and clear backdrops
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            const bsModal = bootstrap.Modal.getInstance(modal);
+            if (bsModal) {
+                bsModal.hide();
+            }
+            
+            // Clear backdrops after modal is hidden
+            setTimeout(() => {
+                const backdrops = document.querySelectorAll('.modal-backdrop');
+                backdrops.forEach(backdrop => backdrop.remove());
+                document.body.classList.remove('modal-open');
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+            }, 150);
+        }
+    }
+
+    // Global function for loading user data for balance adjustment
+    function loadUserDataForAdjustment(button) {
+        const adjustModal = document.getElementById('adjustBalanceModal');
+        const adjustErrorBox = document.getElementById('adjustBalanceError');
+        
+        if (!adjustModal || !adjustErrorBox) {
+            console.error('Adjust balance modal elements not found!');
+            return;
+        }
+
+        // Clear errors
+        document.querySelectorAll('#adjustBalanceForm .field-error').forEach(el => { 
+            el.style.display = 'none'; 
+            el.textContent = ''; 
+        });
+        adjustErrorBox.style.display = 'none';
+        
+        // Get data from button attributes
+        const data = {
+            user_id: button.getAttribute('data-user-id'),
+            name: button.getAttribute('data-name') || '',
+            current_balance: button.getAttribute('data-current-balance') || 0
+        };
+        
+        console.log('📋 [ADJUST] Dữ liệu từ button:', data);
+        
+        // Fill form fields
+        const setValue = (id, value) => {
+            const element = document.getElementById(id);
+            if (element) element.value = value || '';
+        };
+        
+        setValue('adjust_user_id', data.user_id);
+        setValue('current_balance', data.current_balance);
+        setValue('new_balance', ''); // Clear new balance field
+        
+        // Show modal
+        const modal = new bootstrap.Modal(adjustModal);
+        
+        // Thêm event listener để xử lý khi modal được ẩn
+        adjustModal.addEventListener('hidden.bs.modal', function () {
+            // Xóa backdrop nếu còn sót lại
+            const backdrops = document.querySelectorAll('.modal-backdrop');
+            backdrops.forEach(backdrop => backdrop.remove());
+            
+            // Xóa class modal-open từ body
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+        });
+        
+        modal.show();
+    }
+
     // Delete User with Bootstrap Modal Confirmation Script
     (function() {
         // Global variables for delete functionality
@@ -1270,16 +1580,6 @@
         let currentUserName = '';
         let deleteModal = null;
 
-        const deleteI18n = {
-            deleting: "{{ __('admin::cms.deleting') }}",
-            errorGeneric: "{{ __('admin::cms.error_generic') }}",
-            networkError: "{{ __('admin::cms.error_network') }}",
-            deletedSuccess: "{{ __('admin::cms.deleted_success') }}",
-            confirmDeleteUser: "{{ __('admin::cms.confirm_delete_user') }}",
-            confirmDeleteMessage: "{{ __('admin::cms.confirm_delete_message') }}",
-            confirmDeleteTitle: "{{ __('admin::cms.confirm_delete') }}",
-            confirmDeleteDescription: "{{ __('admin::cms.confirm_delete_description') }}"
-        };
 
         function initDeleteUser() {
             console.log('🔧 [DELETE] Khởi tạo chức năng xóa người dùng với Bootstrap modal');
@@ -1299,16 +1599,16 @@
                 return;
             }
 
-            // Event listeners for delete buttons
-            deleteUserBtns.forEach((btn, index) => {
-                console.log(`🔗 [DELETE] Thêm event listener cho nút xóa ${index + 1}`);
-                btn.addEventListener('click', function() {
-                    const userId = this.getAttribute('data-user-id');
-                    const userName = this.getAttribute('data-name');
-                    console.log(`🖱️ [DELETE] Click nút xóa ${index + 1}:`, { userId, userName });
-                    showDeleteConfirmation(userId, userName);
-                });
-            });
+            // Event listeners for delete buttons - REMOVED because using onclick directly
+            // deleteUserBtns.forEach((btn, index) => {
+            //     console.log(`🔗 [DELETE] Thêm event listener cho nút xóa ${index + 1}`);
+            //     btn.addEventListener('click', function() {
+            //         const userId = this.getAttribute('data-user-id');
+            //         const userName = this.getAttribute('data-name');
+            //         console.log(`🖱️ [DELETE] Click nút xóa ${index + 1}:`, { userId, userName });
+            //         showDeleteConfirmation(userId, userName);
+            //     });
+            // });
 
             // Event listener for confirm delete button
             confirmDeleteBtn.addEventListener('click', function() {
@@ -1339,8 +1639,8 @@
             
             // Hiển thị Bootstrap modal
             const modal = new bootstrap.Modal(deleteModal, {
-                backdrop: 'static',
-                keyboard: false,
+                backdrop: true,
+                keyboard: true,
                 focus: true
             });
             modal.show();
@@ -1349,9 +1649,9 @@
 
         function performDelete() {
             console.log('🚀 [DELETE] Bước 2: Bắt đầu thực hiện xóa người dùng');
-            console.log('📋 [DELETE] Dữ liệu hiện tại:', { currentUserId, currentUserName });
+            console.log('📋 [DELETE] Dữ liệu hiện tại:', { currentUserId: window.currentUserId, currentUserName: window.currentUserName });
             
-            if (!currentUserId) {
+            if (!window.currentUserId) {
                 console.error('❌ [DELETE] Lỗi: Không có User ID để xóa');
                 return;
             }
@@ -1365,7 +1665,7 @@
             }
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            const deleteUrl = `/admin/user-management/${currentUserId}`;
+            const deleteUrl = `/admin/user-management/${window.currentUserId}`;
             
             console.log('🌐 [DELETE] Bước 3: Gửi request DELETE');
             console.log('📡 [DELETE] URL:', deleteUrl);
@@ -1388,6 +1688,15 @@
                     if (modal) {
                         modal.hide();
                         console.log('✅ [DELETE] Modal đã đóng');
+                        
+                        // Đảm bảo backdrop được xóa hoàn toàn
+                        setTimeout(() => {
+                            const backdrops = document.querySelectorAll('.modal-backdrop');
+                            backdrops.forEach(backdrop => backdrop.remove());
+                            document.body.classList.remove('modal-open');
+                            document.body.style.overflow = '';
+                            document.body.style.paddingRight = '';
+                        }, 150);
                     }
                     
                     if (window.showToast) { 
@@ -1412,6 +1721,19 @@
                 console.log('🚨 [DELETE] Error object:', err);
                 console.log('📊 [DELETE] Error response:', err.response);
                 
+                // Đóng modal khi có lỗi
+                const modal = bootstrap.Modal.getInstance(deleteModal);
+                if (modal) {
+                    modal.hide();
+                    setTimeout(() => {
+                        const backdrops = document.querySelectorAll('.modal-backdrop');
+                        backdrops.forEach(backdrop => backdrop.remove());
+                        document.body.classList.remove('modal-open');
+                        document.body.style.overflow = '';
+                        document.body.style.paddingRight = '';
+                    }, 150);
+                }
+                
                 if (err.response && err.response.data) {
                     const data = err.response.data;
                     console.log('📋 [DELETE] Error data:', data);
@@ -1434,6 +1756,234 @@
             document.addEventListener('DOMContentLoaded', initDeleteUser);
         } else {
             initDeleteUser();
+        }
+    })();
+
+    // Adjust Balance Modal Script
+    (function() {
+        function initAdjustBalanceModal() {
+            const adjustModal = document.getElementById('adjustBalanceModal');
+            const closeAdjustBtn = document.getElementById('closeAdjustBalanceModal');
+            const submitAdjustBtn = document.getElementById('submitAdjustBalance');
+            const adjustForm = document.getElementById('adjustBalanceForm');
+            const adjustErrorBox = document.getElementById('adjustBalanceError');
+            const adjustBalanceBtns = document.querySelectorAll('.adjust-balance-btn');
+            
+            if (!adjustModal || !closeAdjustBtn || !submitAdjustBtn || !adjustForm || !adjustErrorBox) {
+                console.error('Adjust balance modal elements not found!');
+                return;
+            }
+
+            const adjustI18n = {
+                updating: "{{ __('admin::cms.updating') }}",
+                errorGeneric: "{{ __('admin::cms.error_generic') }}",
+                networkError: "{{ __('admin::cms.error_network') }}",
+                updatedSuccess: "{{ __('admin::cms.updated_success') }}",
+                
+                // Validation messages
+                validationNewBalanceRequired: "{{ __('admin::cms.validation_new_balance_required') }}",
+                validationNewBalanceInvalid: "{{ __('admin::cms.validation_new_balance_invalid') }}",
+            };
+
+            function openAdjustModal(e) {
+                if (e) e.preventDefault();
+                adjustErrorBox.style.display = 'none';
+                adjustErrorBox.innerHTML = '';
+                // Use Bootstrap modal show method
+                const modal = new bootstrap.Modal(adjustModal);
+                modal.show();
+            }
+
+            function closeAdjustModal() {
+                // Use global closeModal function to close only this modal
+                closeModal('adjustBalanceModal');
+            }
+
+            function clearAdjustFieldErrors() {
+                // Clear error messages
+                document.querySelectorAll('#adjustBalanceForm .field-error').forEach(el => { 
+                    el.style.display = 'none'; 
+                    el.textContent = ''; 
+                });
+                
+                // Reset border colors
+                const adjustFields = ['new_balance'];
+                adjustFields.forEach(id => {
+                    const input = document.getElementById(id);
+                    if (input) {
+                        input.style.borderColor = '#d1d5db';
+                    }
+                });
+            }
+
+            function setAdjustFieldError(field, message) {
+                const input = document.getElementById(field);
+                if (input) {
+                    input.style.borderColor = '#dc2626';
+                    // Show error message via toast
+                    if (window.showToast) { 
+                        window.showToast(message, { type: 'error' }); 
+                    }
+                }
+            }
+
+            function validateAdjustForm() {
+                // Clear previous errors
+                clearAdjustFieldErrors();
+                
+                // Required fields validation
+                const newBalance = document.getElementById('new_balance').value.trim();
+                
+                if (!newBalance) {
+                    document.getElementById('new_balance').style.borderColor = '#dc2626';
+                    document.getElementById('new_balance').focus();
+                    if (window.showToast) { 
+                        window.showToast(adjustI18n.validationNewBalanceRequired, { type: 'error' }); 
+                    }
+                    return false;
+                }
+                
+                if (isNaN(newBalance) || parseFloat(newBalance) < 0) {
+                    document.getElementById('new_balance').style.borderColor = '#dc2626';
+                    document.getElementById('new_balance').focus();
+                    if (window.showToast) { 
+                        window.showToast(adjustI18n.validationNewBalanceInvalid, { type: 'error' }); 
+                    }
+                    return false;
+                }
+                
+                return true;
+            }
+
+
+            // Event listeners for adjust modal
+            closeAdjustBtn.addEventListener('click', closeAdjustModal);
+            adjustModal.addEventListener('click', function(e){ if (e.target === adjustModal) closeAdjustModal(); });
+            
+            // Thêm event listener để xử lý khi modal được ẩn
+            adjustModal.addEventListener('hidden.bs.modal', function () {
+                // Xóa backdrop nếu còn sót lại
+                const backdrops = document.querySelectorAll('.modal-backdrop');
+                backdrops.forEach(backdrop => backdrop.remove());
+                
+                // Xóa class modal-open từ body
+                document.body.classList.remove('modal-open');
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+            });
+
+            // Event listeners for adjust buttons - REMOVED because using onclick directly
+            // adjustBalanceBtns.forEach(btn => {
+            //     btn.addEventListener('click', function() {
+            //         loadUserDataForAdjustment(this);
+            //     });
+            // });
+
+            // Load user data from button data attributes
+            function loadUserDataForAdjustment(button) {
+                clearAdjustFieldErrors();
+                adjustErrorBox.style.display = 'none';
+                
+                // Get data from button attributes
+                const data = {
+                    user_id: button.getAttribute('data-user-id'),
+                    current_balance: button.getAttribute('data-current-balance') || 0
+                };
+                
+                // Fill form fields
+                document.getElementById('adjust_user_id').value = data.user_id;
+                document.getElementById('current_balance').value = data.current_balance;
+                
+                // Reset form
+                document.getElementById('new_balance').value = '';
+                
+                openAdjustModal();
+            }
+
+
+            // Submit adjust form
+            submitAdjustBtn.addEventListener('click', function() {
+                adjustErrorBox.style.display = 'none';
+                clearAdjustFieldErrors();
+                
+                // Validate form before submitting
+                if (!validateAdjustForm()) {
+                    return; // Stop if validation fails
+                }
+                
+                // Proceed with update
+                performBalanceAdjustment();
+            });
+
+            function performBalanceAdjustment() {
+                const data = {
+                    user_id: document.getElementById('adjust_user_id').value,
+                    new_balance: document.getElementById('new_balance').value
+                };
+                
+                submitAdjustBtn.disabled = true;
+                const originalHtml = submitAdjustBtn.innerHTML;
+                submitAdjustBtn.innerHTML = '<span class="loading" style="width:16px; height:16px; border-width:2px; margin-right:6px;"></span> ' + adjustI18n.updating;
+
+                axios.put(`/admin/user-management/${data.user_id}/adjust-balance`, data, {
+                    headers: { 
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function(res) {
+                    if (res.data && res.data.success) {
+                        closeModal('adjustBalanceModal');
+                        if (window.showToast) { 
+                            window.showToast(adjustI18n.updatedSuccess, { type: 'success' }); 
+                        }
+                        // Auto reload after 2 seconds
+                        setTimeout(function() {
+                            location.reload();
+                        }, 2000);
+                    } else {
+                        const msg = res.data && (res.data.message || res.data.errors) || adjustI18n.errorGeneric;
+                        if (window.showToast) { 
+                            window.showToast(Array.isArray(msg) ? msg[0] : String(msg), { type: 'error' }); 
+                        }
+                    }
+                }).catch(function(err) {
+                    // Đóng modal khi có lỗi
+                    closeModal('adjustBalanceModal');
+                    
+                    if (err.response && err.response.data) {
+                        const data = err.response.data;
+                        if (data && data.errors && typeof data.errors === 'object') {
+                            // Highlight fields with errors
+                            Object.keys(data.errors).forEach(k => {
+                                const input = document.getElementById(k);
+                                if (input) input.style.borderColor = '#dc2626';
+                            });
+                            const firstError = Object.values(data.errors)[0];
+                            if (window.showToast) { 
+                                window.showToast(Array.isArray(firstError) ? firstError[0] : String(firstError), { type: 'error' }); 
+                            }
+                        } else {
+                            if (window.showToast) { 
+                                window.showToast(data.message || adjustI18n.errorGeneric, { type: 'error' }); 
+                            }
+                        }
+                    } else {
+                        if (window.showToast) { 
+                            window.showToast(adjustI18n.networkError, { type: 'error' }); 
+                        }
+                    }
+                }).finally(function() {
+                    submitAdjustBtn.disabled = false;
+                    submitAdjustBtn.innerHTML = originalHtml;
+                });
+            }
+        }
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAdjustBalanceModal);
+        } else {
+            initAdjustBalanceModal();
         }
     })();
 </script>

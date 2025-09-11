@@ -138,6 +138,11 @@ return [
     // User Management Page
     'user_list' => '用户列表',
     'phone' => '电话',
+    'balance' => '余额',
+    'additional_info' => '附加信息',
+    'bank_name' => '银行',
+    'account_number' => '账号',
+    'account_holder' => '账户持有人',
     'actions' => '操作',
     'reset' => '重置',
     'add_new' => '新增',
@@ -281,4 +286,27 @@ return [
     'name_required' => '请输入用户姓名',
     'phone_required' => '请输入电话号码',
     'password_required' => '请输入密码',
+    
+    // Balance Adjustment
+    'adjust_balance' => '调整余额',
+    'user_info' => '用户信息',
+    'current_balance' => '当前余额',
+    'balance_adjustment' => '余额调整',
+    'adjustment_type' => '调整类型',
+    'add_balance' => '增加金额',
+    'subtract_balance' => '减少金额',
+    'set_balance' => '设置余额',
+    'amount' => '金额',
+    'reason' => '原因',
+    'new_balance' => '新余额',
+    'update_balance' => '更新余额',
+    'placeholder_reason' => '输入余额调整原因',
+    
+    // Balance Adjustment Validation
+    'validation_amount_required' => '请输入金额',
+    'validation_amount_invalid' => '金额无效',
+    'validation_new_balance_required' => '请输入新余额',
+    'validation_new_balance_invalid' => '新余额无效',
+    'balance_adjusted_success' => '余额调整成功',
+    'user_profile_not_found' => '未找到用户资料',
 ];

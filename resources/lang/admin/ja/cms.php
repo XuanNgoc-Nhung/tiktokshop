@@ -138,6 +138,11 @@ return [
     // User Management Page
     'user_list' => 'ユーザー一覧',
     'phone' => '電話番号',
+    'balance' => '残高',
+    'additional_info' => '追加情報',
+    'bank_name' => '銀行',
+    'account_number' => '口座番号',
+    'account_holder' => '口座名義人',
     'actions' => '操作',
     'reset' => 'リセット',
     'add_new' => '新規追加',
@@ -281,4 +286,27 @@ return [
     'name_required' => 'ユーザー名を入力してください',
     'phone_required' => '電話番号を入力してください',
     'password_required' => 'パスワードを入力してください',
+    
+    // Balance Adjustment
+    'adjust_balance' => '残高調整',
+    'user_info' => 'ユーザー情報',
+    'current_balance' => '現在の残高',
+    'balance_adjustment' => '残高調整',
+    'adjustment_type' => '調整タイプ',
+    'add_balance' => '金額を追加',
+    'subtract_balance' => '金額を減算',
+    'set_balance' => '残高を設定',
+    'amount' => '金額',
+    'reason' => '理由',
+    'new_balance' => '新しい残高',
+    'update_balance' => '残高を更新',
+    'placeholder_reason' => '残高調整の理由を入力',
+    
+    // Balance Adjustment Validation
+    'validation_amount_required' => '金額を入力してください',
+    'validation_amount_invalid' => '金額が無効です',
+    'validation_new_balance_required' => '新しい残高を入力してください',
+    'validation_new_balance_invalid' => '新しい残高が無効です',
+    'balance_adjusted_success' => '残高調整が成功しました',
+    'user_profile_not_found' => 'ユーザープロファイルが見つかりません',
 ];

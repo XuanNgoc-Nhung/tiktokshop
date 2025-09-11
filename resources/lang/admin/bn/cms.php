@@ -138,6 +138,11 @@ return [
     // User Management Page
     'user_list' => 'ব্যবহারকারী তালিকা',
     'phone' => 'ফোন',
+    'balance' => 'ব্যালেন্স',
+    'additional_info' => 'অতিরিক্ত তথ্য',
+    'bank_name' => 'ব্যাংক',
+    'account_number' => 'অ্যাকাউন্ট নম্বর',
+    'account_holder' => 'অ্যাকাউন্ট হোল্ডার',
     'actions' => 'ক্রিয়াকলাপ',
     'reset' => 'রিসেট',
     'add_new' => 'নতুন যোগ করুন',
@@ -281,4 +286,27 @@ return [
     'name_required' => 'দয়া করে ব্যবহারকারীর নাম লিখুন',
     'phone_required' => 'দয়া করে ফোন নম্বর লিখুন',
     'password_required' => 'দয়া করে পাসওয়ার্ড লিখুন',
+    
+    // Balance Adjustment
+    'adjust_balance' => 'ব্যালেন্স সামঞ্জস্য করুন',
+    'user_info' => 'ব্যবহারকারীর তথ্য',
+    'current_balance' => 'বর্তমান ব্যালেন্স',
+    'balance_adjustment' => 'ব্যালেন্স সামঞ্জস্য',
+    'adjustment_type' => 'সামঞ্জস্যের ধরন',
+    'add_balance' => 'টাকা যোগ করুন',
+    'subtract_balance' => 'টাকা বিয়োগ করুন',
+    'set_balance' => 'ব্যালেন্স সেট করুন',
+    'amount' => 'পরিমাণ',
+    'reason' => 'কারণ',
+    'new_balance' => 'নতুন ব্যালেন্স',
+    'update_balance' => 'ব্যালেন্স আপডেট করুন',
+    'placeholder_reason' => 'ব্যালেন্স সামঞ্জস্যের কারণ লিখুন',
+    
+    // Balance Adjustment Validation
+    'validation_amount_required' => 'দয়া করে পরিমাণ লিখুন',
+    'validation_amount_invalid' => 'পরিমাণ অবৈধ',
+    'validation_new_balance_required' => 'দয়া করে নতুন ব্যালেন্স লিখুন',
+    'validation_new_balance_invalid' => 'নতুন ব্যালেন্স অবৈধ',
+    'balance_adjusted_success' => 'ব্যালেন্স সফলভাবে সামঞ্জস্য করা হয়েছে',
+    'user_profile_not_found' => 'ব্যবহারকারীর প্রোফাইল পাওয়া যায়নি',
 ];
