@@ -600,9 +600,9 @@
                     passwordInput.dispatchEvent(new Event('input', { bubbles: true }));
                     
                     // Show success message
-                    showToast('success', 'Thành công', 'Đã điền thông tin đăng nhập admin!');
+                    showToast('success', window.adminTranslations.success, 'Đã điền thông tin đăng nhập admin!');
                 } else {
-                    showToast('error', 'Lỗi', 'Không thể tìm thấy các trường email hoặc password!');
+                    showToast('error', window.adminTranslations.error, 'Không thể tìm thấy các trường email hoặc password!');
                 }
             };
         });

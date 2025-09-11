@@ -73,7 +73,13 @@
                                                     @if($user->profile->ngay_sinh)
                                                         <div style="margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
                                                             <i class="fas fa-calendar-alt" style="color: #6b7280; flex-shrink: 0;"></i>
-                                                            <span style="font-size: 0.8rem;">{{ \Carbon\Carbon::parse($user->profile->ngay_sinh)->format('d/m/Y') }}</span>
+                                                            <span style="font-size: 0.8rem;">{{ $user->profile->ngay_sinh }}</span>
+                                                        </div>
+                                                    @endif
+                                                    @if($user->email)
+                                                        <div style="margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                                                            <i class="fas fa-envelope" style="color: #6b7280; flex-shrink: 0;"></i>
+                                                            <span style="font-size: 0.8rem;">{{ $user->email }}</span>
                                                         </div>
                                                     @endif
                                                 @endif
@@ -457,7 +463,7 @@
                                     <!-- Balance -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
                                         <label for="edit_so_du" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.balance') }}</label>
-                                        <input readonly id="edit_so_du" name="so_du" type="number" step="0.01" min="0" placeholder="0" class="form-control form-control-sm">
+                                        <input id="edit_so_du" name="so_du" type="number" step="0.01" min="0" placeholder="0" class="form-control form-control-sm">
                                         <div class="field-error" id="error_edit_so_du" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                     

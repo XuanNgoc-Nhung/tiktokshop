@@ -42,7 +42,7 @@
         @if(session('success'))
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    showToast('success', 'Thành công', '{{ session('success') }}');
+                    showToast('success', '{{ $__("success_title") ?? "Thành công" }}', '{{ session('success') }}');
                 });
             </script>
         @endif
@@ -50,7 +50,7 @@
         @if(session('error'))
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    showToast('error', 'Lỗi', '{{ session('error') }}');
+                    showToast('error', '{{ $__("error_title") ?? "Lỗi" }}', '{{ session('error') }}');
                 });
             </script>
         @endif

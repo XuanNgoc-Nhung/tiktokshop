@@ -21,6 +21,20 @@ Route::middleware(['language.user'])->group(function () {
     Route::get('/search', [UserController::class, 'search'])->name('search');
     Route::get('/orders', [UserController::class, 'orders'])->name('orders');
     Route::get('/account', [UserController::class, 'account'])->name('account');
+    Route::group(['prefix' => 'account'], function () {
+        Route::get('/personal-info', [UserController::class, 'personalInfo'])->name('account.personal-info');
+        Route::post('/personal-info', [UserController::class, 'personalInfoUpdate'])->name('account.personal-info.update');
+        Route::get('/bank', [UserController::class, 'bank'])->name('account.bank');
+        Route::post('/bank', [UserController::class, 'bankUpdate'])->name('account.bank.update');
+        Route::get('/kyc', [UserController::class, 'kyc'])->name('account.kyc');
+        Route::post('/kyc', [UserController::class, 'kycUpdate'])->name('account.kyc.update');
+        Route::get('/account-history', [UserController::class, 'accountHistory'])->name('account.account-history');
+        Route::get('/order-history', [UserController::class, 'orderHistory'])->name('account.order-history');
+        Route::get('/password', [UserController::class, 'password'])->name('account.password');
+        Route::post('/password', [UserController::class, 'passwordUpdate'])->name('account.password.update');
+        Route::get('/support', [UserController::class, 'support'])->name('account.support');
+        Route::post('/support', [UserController::class, 'supportUpdate'])->name('account.support.update');
+    });
 });
 
 // Admin routes without authentication check (login, register)

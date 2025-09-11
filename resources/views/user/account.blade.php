@@ -111,7 +111,7 @@
 
     <!-- Personal Menus -->
     <div class="account-card menu-list mb-3">
-        <a href="javascript:void(0)" class="menu-item">
+        <a href="{{ route('account.personal-info') }}" class="menu-item">
             <div class="d-flex align-items-center">
                 <div class="menu-icon"><i class="fas fa-id-card"></i></div>
                 <div class="menu-text">
@@ -122,7 +122,7 @@
             <i class="fas fa-chevron-right text-muted"></i>
         </a>
 
-        <a href="javascript:void(0)" class="menu-item">
+        <a href="{{ route('account.bank') }}" class="menu-item">
             <div class="d-flex align-items-center">
                 <div class="menu-icon"><i class="fas fa-building-columns"></i></div>
                 <div class="menu-text">
@@ -133,7 +133,7 @@
             <i class="fas fa-chevron-right text-muted"></i>
         </a>
 
-        <a href="javascript:void(0)" class="menu-item">
+        <a href="{{ route('account.kyc') }}" class="menu-item">
             <div class="d-flex align-items-center">
                 <div class="menu-icon"><i class="fas fa-shield-check"></i></div>
                 <div class="menu-text">
@@ -166,7 +166,7 @@
             <i class="fas fa-chevron-right text-muted"></i>
         </a>
 
-        <a href="javascript:void(0)" class="menu-item">
+        <a href="{{ route('account.password') }}" class="menu-item">
             <div class="d-flex align-items-center">
                 <div class="menu-icon"><i class="fas fa-lock"></i></div>
                 <div class="menu-text">
@@ -177,7 +177,7 @@
             <i class="fas fa-chevron-right text-muted"></i>
         </a>
 
-        <a href="javascript:void(0)" class="menu-item">
+        <a href="{{ route('account.support') }}" class="menu-item">
             <div class="d-flex align-items-center">
                 <div class="menu-icon"><i class="fas fa-headset"></i></div>
                 <div class="menu-text">

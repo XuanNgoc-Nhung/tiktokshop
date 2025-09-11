@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\ThongBao;
 use App\Helpers\LanguageHelper;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -236,6 +238,170 @@ class UserController extends Controller
     public function account()
     {
         return view('user.account');
+    }
+
+    public function personalInfo()
+    {
+        return view('user.personal-info');
+    }
+    public function personalInfoUpdate(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getTranslationFromFile('account', 'missing_data')
+            ], 401);
+        }
+
+        $user = Auth::user();
+
+        $validator = Validator::make($request->all(), [
+            'full_name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($user->id),
+            ],
+            'gioi_tinh' => 'required|string|max:20',
+            'ngay_sinh' => 'required|string',
+            'dia_chi' => 'required|string|max:255',
+        ], [
+            'full_name.required' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'email.required' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'email.email' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'gioi_tinh.required' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'ngay_sinh.required' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'dia_chi.required' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $user->name = $request->input('full_name');
+        $user->email = $request->input('email');
+        $user->save();
+
+        $profile = Profile::firstOrCreate(['user_id' => $user->id]);
+        $profile->gioi_tinh = $request->input('gioi_tinh');
+        $profile->ngay_sinh = $request->input('ngay_sinh');
+        $profile->dia_chi = $request->input('dia_chi');
+        $profile->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => LanguageHelper::getTranslationFromFile('account', 'update_success'),
+        ]);
+    }
+    public function bank()
+    {
+        return view('user.bank');
+    }
+
+    public function kyc()
+    {
+        return view('user.kyc');
+    }
+
+    public function kycUpdate(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getTranslationFromFile('account', 'missing_data')
+            ], 401);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'anh_chan_dung' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'anh_mat_truoc' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'anh_mat_sau' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+        ], [
+            'anh_chan_dung.image' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'anh_mat_truoc.image' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'anh_mat_sau.image' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $user = Auth::user();
+        $profile = Profile::firstOrCreate(['user_id' => $user->id]);
+
+        $paths = [];
+        $destinationPath = public_path('kyc');
+        if (!File::exists($destinationPath)) {
+            File::makeDirectory($destinationPath, 0755, true);
+        }
+        foreach (['anh_chan_dung', 'anh_mat_truoc', 'anh_mat_sau'] as $field) {
+            if ($request->hasFile($field)) {
+                $file = $request->file($field);
+                $extension = $file->getClientOriginalExtension();
+                $filename = $field . '_' . time() . '_' . uniqid() . '.' . $extension;
+                $file->move($destinationPath, $filename);
+                $publicPath = '/kyc/' . $filename;
+                $profile->$field = $publicPath;
+                $paths[$field] = $publicPath;
+            }
+        }
+
+        $profile->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => LanguageHelper::getTranslationFromFile('account', 'update_success'),
+            'paths' => $paths,
+        ]);
+    }
+
+    public function bankUpdate(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getTranslationFromFile('account', 'missing_data')
+            ], 401);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'ngan_hang' => 'required|string|max:255',
+            'so_tai_khoan' => 'required|string|max:100',
+            'chu_tai_khoan' => 'required|string|max:255',
+        ], [
+            'ngan_hang.required' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'so_tai_khoan.required' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'chu_tai_khoan.required' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $user = Auth::user();
+        $profile = Profile::firstOrCreate(['user_id' => $user->id]);
+        $profile->ngan_hang = $request->input('ngan_hang');
+        $profile->so_tai_khoan = $request->input('so_tai_khoan');
+        $profile->chu_tai_khoan = $request->input('chu_tai_khoan');
+        $profile->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => LanguageHelper::getTranslationFromFile('account', 'update_success'),
+        ]);
     }
 
     public function logout()

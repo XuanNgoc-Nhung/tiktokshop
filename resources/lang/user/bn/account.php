@@ -33,6 +33,33 @@ return [
 
     'logout' => 'লগআউট',
     'logout_desc' => 'বর্তমান অ্যাকাউন্ট থেকে প্রস্থান',
+    'please_fill_all' => 'দয়া করে সব প্রয়োজনীয় তথ্য পূরণ করুন।',
+    'update_success' => 'সফলভাবে আপডেট হয়েছে।',
+    'missing_data' => 'তথ্য অনুপস্থিত',
+    'success_title' => 'সফল',
+    'error_title' => 'ত্রুটি',
+    'birthday_invalid' => 'জন্মতারিখটি একটি বৈধ তারিখ হতে হবে।',
+
+    // Personal info form
+    'full_name' => 'পূর্ণ নাম',
+    'phone' => 'ফোন নম্বর',
+    'phone_desc' => 'লগইনের জন্য ফোন নম্বর ব্যবহার করা হয়।',
+    'email' => 'ইমেইল',
+    'gender' => 'লিঙ্গ',
+    'birthday' => 'জন্মতারিখ',
+    'address' => 'ঠিকানা',
+    'address_placeholder' => 'বাড়ি, রাস্তা, ওয়ার্ড/ইউনিয়ন, উপজেলা/জেলা, প্রদেশ/শহর',
+    'save' => 'পরিবর্তন সংরক্ষণ',
+    'update' => 'আপডেট',
+    'ui_only_note' => 'এটি শুধু UI। সংরক্ষণ ফিচার পরে যোগ হবে।',
+    
+    // Bank form
+    'bank_name' => 'ব্যাংক',
+    'account_number' => 'অ্যাকাউন্ট নম্বর',
+    'account_holder' => 'অ্যাকাউন্ট হোল্ডার',
+    'placeholder_bank' => 'ব্যাংকের নাম লিখুন',
+    'placeholder_account_number' => 'অ্যাকাউন্ট নম্বর লিখুন',
+    'placeholder_account_holder' => 'অ্যাকাউন্ট হোল্ডারের নাম লিখুন',
 ];
 
 
