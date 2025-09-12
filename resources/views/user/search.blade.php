@@ -113,17 +113,17 @@
             <!-- Account Balance Card -->
             <div class="stats-card">
                 <div class="stats-title">{{ $__home('account_balance') }}</div>
-                <div class="stats-value">0 <i class="fas fa-coins"></i></div>
+                <div class="stats-value">{{ number_format($so_du, 0, '.', '.') }} <i class="fas fa-coins"></i></div>
                 <div class="stats-subtitle">{{ $__home('current_commission') }}</div>
-                <div class="stats-subvalue positive">0 <i class="fas fa-coins"></i></div>
+                <div class="stats-subvalue positive">{{ number_format($tong_hoa_hong, 0, '.', '.') }} <i class="fas fa-coins"></i></div>
             </div>
             
             <!-- Level & Tickets Card -->
             <div class="stats-card">
                 <div class="stats-title">{{ $__home('current_level') }}</div>
-                <div class="stats-value">Bronze</div>
+                <div class="stats-value">{{ $cap_do }}</div>
                 <div class="stats-subtitle">{{ $__home('completed_tickets') }}</div>
-                <div class="stats-subvalue positive">0/0</div>
+                <div class="stats-subvalue positive">{{ $luot_quay_hom_nay }}</div>
             </div>
         </div>
     </div>
@@ -1363,6 +1363,9 @@ async function confirmProduct() {
             // Có thể thêm logic cập nhật UI ở đây
             // Ví dụ: cập nhật số dư, thống kê, etc.
             console.log('Đơn hàng đã được xác nhận:', data.data);
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
         } else {
             hideLoading();
             showToast('error', translations.error_title, data.message || 'Có lỗi xảy ra khi xác nhận đơn hàng');

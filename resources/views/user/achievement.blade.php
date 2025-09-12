@@ -43,7 +43,7 @@
                             <i class="fas fa-trophy"></i>
                         </div>
                         <div class="stat-content">
-                            <div class="stat-value">{{ number_format($amountNeededForNextTier, 0, '.', '.') }} 💰</div>
+                            <div class="stat-value">{{ number_format($user->profile->hoa_hong, 0, '.', '.') }} 💰</div>
                             <div class="stat-label">{{ $__account('profit') ?? 'Lợi nhuận' }}</div> 
                         </div>
                     </div>

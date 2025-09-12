@@ -232,7 +232,16 @@ class UserController extends Controller
     }
     public function search()
     {
-        return view('user.search');
+        $user = Auth::user();
+        $profile = $user->profile;
+        $tong_hoa_hong = $profile->hoa_hong;
+        $so_du = $profile->so_du;
+        $cap_do = $profile->cap_do;
+        $giai_thuong_id = $profile->giai_thuong_id;
+        $luot_trung = $profile->luot_trung;
+        //đếm xem có bao nhiêu bản ghi của mình ở bảng NhanDon
+        $luot_quay_hom_nay = NhanDon::where('user_id', $user->id)->where('created_at', '>=', now()->startOfDay())->count();
+        return view('user.search', compact('tong_hoa_hong', 'so_du', 'cap_do', 'giai_thuong_id', 'luot_trung', 'luot_quay_hom_nay'));
     }
     public function orders()
     {
@@ -681,6 +690,12 @@ class UserController extends Controller
                 'hoa_hong' => $request->hoa_hong
             ]);
 
+            // Cộng thêm hoa hồng vào hồ sơ người dùng
+            $profile = Profile::firstOrCreate(['user_id' => Auth::id()]);
+            $currentCommission = (int) ($profile->hoa_hong ?? 0);
+            $profile->hoa_hong = $currentCommission + (int) $request->hoa_hong;
+            $profile->save();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Xác nhận đơn hàng thành công!',
@@ -689,7 +704,8 @@ class UserController extends Controller
                     'ten_san_pham' => $nhanDon->ten_san_pham,
                     'gia_tri' => $nhanDon->gia_tri,
                     'hoa_hong' => $nhanDon->hoa_hong,
-                    'created_at' => $nhanDon->created_at
+                    'created_at' => $nhanDon->created_at,
+                    'tong_hoa_hong' => $profile->hoa_hong,
                 ]
             ]);
 
