@@ -854,9 +854,9 @@
                 </div>
 
                 <div class="menu-item">
-                    <a href="{{ route('admin.nạp-rut-tien') }}" class="menu-link {{ request()->routeIs('admin.nạp-rut-tien') ? 'active' : '' }}" data-tooltip="{{ __('admin::cms.lich_su') }}">
-                        <i class="fas fa-history"></i>
-                        <span class="menu-text">{{ __('admin::cms.nạp_rut_tien') }}</span>
+                    <a href="{{ route('admin.nap-rut-tien') }}" class="menu-link {{ request()->routeIs('admin.nap-rut-tien') ? 'active' : '' }}" data-tooltip="{{ __('admin::cms.nap_rut_management') }}">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span class="menu-text">{{ __('admin::cms.nap_rut_management') }}</span>
                     </a>
                 </div>
 

@@ -96,7 +96,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin']], fu
     Route::delete('/order/{id}', [LichSuController::class, 'destroy'])->name('admin.order.destroy');
     Route::patch('/order/{id}/toggle', [LichSuController::class, 'toggleStatus'])->name('admin.order.toggle');
     // nạp rút tiền
-    Route::get('/nạp-rut-tien', [LichSuController::class, 'nạpRutTien'])->name('admin.nạp-rut-tien');
+    Route::get('/nap-rut-tien', [LichSuController::class, 'napRutTien'])->name('admin.nap-rut-tien');
+    Route::post('/nap-rut-tien', [LichSuController::class, 'storeNapRut'])->name('admin.nap-rut-tien.store');
+    Route::get('/nap-rut-tien/{id}', [LichSuController::class, 'showNapRut'])->name('admin.nap-rut-tien.show');
+    Route::put('/nap-rut-tien/{id}', [LichSuController::class, 'updateNapRut'])->name('admin.nap-rut-tien.update');
+    Route::post('/nap-rut-tien/{id}/status', [LichSuController::class, 'updateStatus'])->name('admin.nap-rut-tien.status');
 });
 
 // Admin routes with authentication check
