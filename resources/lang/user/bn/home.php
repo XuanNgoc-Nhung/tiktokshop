@@ -115,13 +115,30 @@ return [
     'confirm' => 'নিশ্চিত করুন',
     
     // Success Messages
+    'success_title' => 'সফল!',
     'order_confirmed_successfully' => 'অর্ডার সফলভাবে নিশ্চিত হয়েছে!',
+    'receive_order_success' => 'অর্ডার সফলভাবে গ্রহণ করা হয়েছে!',
     
     // Error Messages
+    'error_title' => 'ত্রুটি!',
     'error_receiving_order' => 'অর্ডার গ্রহণ করার সময় ত্রুটি ঘটেছে',
+    'no_products_available' => 'সিস্টেমে কোনো পণ্য উপলব্ধ নেই',
     'error_connecting_server' => 'সার্ভারে সংযোগ করার সময় ত্রুটি ঘটেছে',
     'error_changing_product' => 'পণ্য পরিবর্তন করার সময় ত্রুটি ঘটেছে',
     'security_error' => 'নিরাপত্তা ত্রুটি। দয়া করে পৃষ্ঠাটি রিফ্রেশ করে আবার চেষ্টা করুন।',
     'session_expired' => 'সেশন মেয়াদ শেষ। দয়া করে আবার লগইন করুন।',
     'login_required' => 'এই বৈশিষ্ট্যটি ব্যবহার করতে আপনাকে লগইন করতে হবে।',
+
+    // Orders Screen
+    'orders' => 'অর্ডার',
+    'serial' => 'ক্রমিক',
+    'name' => 'নাম',
+    'commission' => 'কমিশন',
+    'amount' => 'পরিমাণ',
+    'status' => 'অবস্থা',
+    'success' => 'সফল',
+    'pending' => 'প্রক্রিয়াধীন',
+    'failed' => 'ব্যর্থ',
+    'time' => 'সময়',
+    'no_data' => 'কোন ডেটা নেই',
 ];

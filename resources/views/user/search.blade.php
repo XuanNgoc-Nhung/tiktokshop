@@ -437,6 +437,8 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    /* Giữ chiều cao ổn định, tránh layout shift khi cập nhật */
+    overflow: hidden;
 }
 
 .agent-item {
@@ -461,6 +463,9 @@
     color: #000;
     flex: 0 0 50%;
     text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .agent-quantity {
@@ -469,6 +474,9 @@
     color: #000;
     flex: 0 0 50%;
     text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Agent icons styling */
@@ -833,7 +841,9 @@ const translations = {
     error_changing_product: '{{ $__home("error_changing_product") }}',
     security_error: '{{ $__home("security_error") }}',
     session_expired: '{{ $__home("session_expired") }}',
-    login_required: '{{ $__home("login_required") }}'
+    login_required: '{{ $__home("login_required") }}',
+    success_title: '{{ $__home("success_title") }}',
+    error_title: '{{ $__home("error_title") }}'
 };
 
 // Haptic feedback simulation
@@ -1114,6 +1124,9 @@ async function receiveOrder() {
         const data = await response.json();
         
         if (data.success) {
+            // Hiển thị toast thông báo nhận đơn thành công
+            showToast('success', translations.success_title, data.message || 'Nhận đơn hàng thành công!');
+            
             // Cập nhật loading text
             showLoading(translations.preparing_order);
             
@@ -1126,13 +1139,13 @@ async function receiveOrder() {
         } else {
             hideLoading();
             hideButtonLoading(btn, originalText);
-            alert(data.message || translations.error_receiving_order);
+            showToast('error', translations.error_title, data.message || translations.error_receiving_order);
         }
     } catch (error) {
         hideLoading();
         hideButtonLoading(btn, originalText);
         console.error('Error:', error);
-        alert(translations.error_connecting_server);
+        showToast('error', translations.error_title, translations.error_connecting_server);
     }
 }
 
@@ -1153,7 +1166,11 @@ function showProductModal(product) {
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
-                <div class="product-modal-body">
+                <div class="product-modal-body" 
+                     data-product-id="${product.id}"
+                     data-product-name="${product.ten}"
+                     data-product-price="${product.gia}"
+                     data-product-commission="${product.hoa_hong}">
                     <div class="product-image">
                         <img src="${product.hinh_anh ? '/' + product.hinh_anh : '/products/prod_68c130da61910.png'}" 
                              alt="${product.ten}" 
@@ -1281,7 +1298,7 @@ async function changeProduct() {
             console.log('API thất bại:', data.message);
             // Ẩn loading và hiển thị thông báo lỗi
             hideLoading();
-            alert(data.message || translations.error_changing_product);
+            showToast('error', translations.error_title, data.message || translations.error_changing_product);
         }
     } catch (error) {
         console.error('Lỗi khi gọi API:', error);
@@ -1289,35 +1306,72 @@ async function changeProduct() {
         hideLoading();
         
         if (error.message.includes('CSRF token')) {
-            alert(translations.security_error);
+            showToast('error', translations.error_title, translations.security_error);
         } else if (error.message.includes('419')) {
-            alert(translations.session_expired);
+            showToast('warning', translations.error_title, translations.session_expired);
         } else if (error.message.includes('401')) {
-            alert(translations.login_required);
+            showToast('warning', translations.error_title, translations.login_required);
         } else {
-            alert(translations.error_connecting_server + ': ' + error.message);
+            showToast('error', translations.error_title, translations.error_connecting_server + ': ' + error.message);
         }
     }
 }
 
-function confirmProduct() {
+async function confirmProduct() {
     // Haptic feedback
     hapticFeedback();
     
     // Hiển thị loading
     showLoading(translations.confirming_order);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+        // Lấy thông tin sản phẩm từ modal
+        const productModal = document.getElementById('productModal');
+        const productId = productModal.querySelector('[data-product-id]')?.getAttribute('data-product-id');
+        const productName = productModal.querySelector('[data-product-name]')?.getAttribute('data-product-name');
+        const productPrice = productModal.querySelector('[data-product-price]')?.getAttribute('data-product-price');
+        const productCommission = productModal.querySelector('[data-product-commission]')?.getAttribute('data-product-commission');
+        
+        if (!productId || !productName || !productPrice || !productCommission) {
+            throw new Error('Thông tin sản phẩm không đầy đủ');
+        }
+        
+        // Gọi API để xác nhận đơn hàng
+        const response = await fetch('/confirm-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                san_pham_id: parseInt(productId),
+                ten_san_pham: productName,
+                gia_tri: parseFloat(productPrice),
+                hoa_hong: parseFloat(productCommission)
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            hideLoading();
+            closeProductModal();
+            
+            // Hiển thị thông báo thành công bằng toast
+            showToast('success', translations.success_title, translations.order_confirmed_successfully);
+            
+            // Có thể thêm logic cập nhật UI ở đây
+            // Ví dụ: cập nhật số dư, thống kê, etc.
+            console.log('Đơn hàng đã được xác nhận:', data.data);
+        } else {
+            hideLoading();
+            showToast('error', translations.error_title, data.message || 'Có lỗi xảy ra khi xác nhận đơn hàng');
+        }
+    } catch (error) {
         hideLoading();
-        closeProductModal();
-        
-        // Hiển thị thông báo thành công
-        alert(translations.order_confirmed_successfully);
-        
-        // Có thể thêm logic cập nhật UI ở đây
-        // Ví dụ: cập nhật số dư, thống kê, etc.
-    }, 2000);
+        console.error('Error:', error);
+        showToast('error', translations.error_title, 'Có lỗi xảy ra khi kết nối đến server');
+    }
 }
 
 
@@ -1327,6 +1381,7 @@ class TopAgentsGenerator {
         this.agentsList = document.getElementById('topAgentsList');
         this.updateInterval = null;
         this.currentAgents = [];
+        this.fixedContainerHeightSet = false;
         this.init();
     }
 
@@ -1364,6 +1419,15 @@ class TopAgentsGenerator {
         // Sắp xếp theo số tiền giảm dần
         this.sortAgents();
         this.renderAgents();
+
+        // Khóa chiều cao container sau lần render đầu tiên để tránh nhảy layout
+        if (!this.fixedContainerHeightSet && this.agentsList) {
+            const measuredHeight = this.agentsList.offsetHeight;
+            if (measuredHeight > 0) {
+                this.agentsList.style.minHeight = measuredHeight + 'px';
+                this.fixedContainerHeightSet = true;
+            }
+        }
     }
 
     sortAgents() {

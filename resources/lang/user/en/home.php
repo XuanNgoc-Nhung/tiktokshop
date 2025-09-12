@@ -115,13 +115,30 @@ return [
     'confirm' => 'Confirm',
     
     // Success Messages
+    'success_title' => 'Success!',
     'order_confirmed_successfully' => 'Order confirmed successfully!',
+    'receive_order_success' => 'Order received successfully!',
     
     // Error Messages
+    'error_title' => 'Error!',
     'error_receiving_order' => 'Error occurred while receiving order',
+    'no_products_available' => 'No products available in the system',
     'error_connecting_server' => 'Error occurred while connecting to server',
     'error_changing_product' => 'Error occurred while changing product',
     'security_error' => 'Security error. Please refresh the page and try again.',
     'session_expired' => 'Session has expired. Please log in again.',
     'login_required' => 'You need to log in to use this feature.',
+
+    // Orders Screen
+    'orders' => 'Orders',
+    'serial' => 'No.',
+    'name' => 'Name',
+    'commission' => 'Commission',
+    'amount' => 'Amount',
+    'status' => 'Status',
+    'success' => 'Success',
+    'pending' => 'Pending',
+    'failed' => 'Failed',
+    'time' => 'Time',
+    'no_data' => 'No data available',
 ];

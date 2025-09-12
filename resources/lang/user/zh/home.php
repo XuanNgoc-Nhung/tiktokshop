@@ -115,13 +115,30 @@ return [
     'confirm' => '确认',
     
     // Success Messages
+    'success_title' => '成功！',
     'order_confirmed_successfully' => '订单确认成功！',
+    'receive_order_success' => '接单成功！',
     
     // Error Messages
+    'error_title' => '错误！',
     'error_receiving_order' => '接收订单时发生错误',
+    'no_products_available' => '系统中没有可用的产品',
     'error_connecting_server' => '连接服务器时发生错误',
     'error_changing_product' => '更换产品时发生错误',
     'security_error' => '安全错误。请刷新页面并重试。',
     'session_expired' => '会话已过期。请重新登录。',
     'login_required' => '您需要登录才能使用此功能。',
+
+    // Orders Screen
+    'orders' => '订单',
+    'serial' => '序号',
+    'name' => '名称',
+    'commission' => '佣金',
+    'amount' => '金额',
+    'status' => '状态',
+    'success' => '成功',
+    'pending' => '处理中',
+    'failed' => '失败',
+    'time' => '时间',
+    'no_data' => '暂无数据',
 ];

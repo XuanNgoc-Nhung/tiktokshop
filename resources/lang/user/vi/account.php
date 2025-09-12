@@ -58,6 +58,9 @@ return [
 
     'account_history' => 'Lịch sử tài khoản',
     'account_history_desc' => 'Lịch sử biến động số dư',
+    'type' => 'Loại',
+    'deposit' => 'Nạp tiền',
+    'withdraw' => 'Rút tiền',
 
     'order_history' => 'Lịch sử đơn hàng',
     'order_history_desc' => 'Theo dõi các đơn đã mua',

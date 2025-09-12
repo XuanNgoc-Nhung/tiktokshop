@@ -58,6 +58,9 @@ return [
 
     'account_history' => 'অ্যাকাউন্ট ইতিহাস',
     'account_history_desc' => 'ব্যালেন্স পরিবর্তনের ইতিহাস',
+    'type' => 'ধরন',
+    'deposit' => 'জমা',
+    'withdraw' => 'উত্তোলন',
 
     'order_history' => 'অর্ডার ইতিহাস',
     'order_history_desc' => 'কেনা অর্ডার ট্র্যাক করুন',

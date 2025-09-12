@@ -11,8 +11,10 @@ use App\Models\Profile;
 use App\Models\User;
 use App\Models\ThongBao;
 use App\Models\SanPham;
+use App\Models\NhanDon;
 use App\Helpers\LanguageHelper;
 use Illuminate\Support\Facades\File;
+use App\Models\LichSu;
 
 class UserController extends Controller
 {
@@ -234,7 +236,17 @@ class UserController extends Controller
     }
     public function orders()
     {
-        return view('user.orders');
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', LanguageHelper::getUserTranslation('fill_all_fields'));
+        }
+
+        $user = Auth::user();
+        $orders = NhanDon::with('sanPham')
+            ->where('user_id', $user->id)
+            ->orderByDesc('created_at')
+            ->paginate(10);
+
+        return view('user.orders', compact('orders'));
     }
     public function account()
     {
@@ -593,14 +605,14 @@ class UserController extends Controller
             if (!$randomProduct) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Không có sản phẩm nào trong hệ thống'
+                    'message' => LanguageHelper::getHomeTranslation('no_products_available')
                 ], 404);
             }
 
             // Trả về thông tin sản phẩm
             return response()->json([
                 'success' => true,
-                'message' => 'Nhận đơn hàng thành công!',
+                'message' => LanguageHelper::getHomeTranslation('receive_order_success'),
                 'product' => [
                     'id' => $randomProduct->id,
                     'ten' => $randomProduct->ten,
@@ -615,9 +627,87 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Có lỗi xảy ra khi nhận đơn hàng',
+                'message' => LanguageHelper::getHomeTranslation('error_receiving_order'),
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function confirmOrder(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getUserTranslation('fill_all_fields')
+            ], 401);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'san_pham_id' => 'required|integer|exists:phan_thuong,id',
+            'ten_san_pham' => 'required|string|max:255',
+            'gia_tri' => 'required|numeric|min:0',
+            'hoa_hong' => 'required|numeric|min:0'
+        ], [
+            'san_pham_id.required' => 'ID sản phẩm là bắt buộc',
+            'san_pham_id.exists' => 'Sản phẩm không tồn tại',
+            'ten_san_pham.required' => 'Tên sản phẩm là bắt buộc',
+            'gia_tri.required' => 'Giá trị sản phẩm là bắt buộc',
+            'gia_tri.numeric' => 'Giá trị sản phẩm phải là số',
+            'gia_tri.min' => 'Giá trị sản phẩm phải lớn hơn 0',
+            'hoa_hong.required' => 'Hoa hồng là bắt buộc',
+            'hoa_hong.numeric' => 'Hoa hồng phải là số',
+            'hoa_hong.min' => 'Hoa hồng phải lớn hơn hoặc bằng 0'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Dữ liệu không hợp lệ',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            // Tạo bản ghi mới trong bảng nhan_don
+            $nhanDon = NhanDon::create([
+                'user_id' => Auth::id(),
+                'san_pham_id' => $request->san_pham_id,
+                'ten_san_pham' => $request->ten_san_pham,
+                'gia_tri' => $request->gia_tri,
+                'hoa_hong' => $request->hoa_hong
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Xác nhận đơn hàng thành công!',
+                'data' => [
+                    'id' => $nhanDon->id,
+                    'ten_san_pham' => $nhanDon->ten_san_pham,
+                    'gia_tri' => $nhanDon->gia_tri,
+                    'hoa_hong' => $nhanDon->hoa_hong,
+                    'created_at' => $nhanDon->created_at
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Có lỗi xảy ra khi xác nhận đơn hàng',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    public function accountHistory()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', LanguageHelper::getUserTranslation('fill_all_fields'));
+        }
+
+        $user = Auth::user();
+        $accountHistory = LichSu::where('user_id', $user->id)
+            ->orderByDesc('created_at')
+            ->paginate(10);
+
+        return view('user.account-history', compact('accountHistory'));
     }
 }

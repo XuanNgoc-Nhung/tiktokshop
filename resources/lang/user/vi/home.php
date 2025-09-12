@@ -115,13 +115,30 @@ return [
     'confirm' => 'Xác nhận',
     
     // Success Messages
+    'success_title' => 'Thành công!',
     'order_confirmed_successfully' => 'Đơn hàng đã được xác nhận thành công!',
+    'receive_order_success' => 'Nhận đơn hàng thành công!',
     
     // Error Messages
+    'error_title' => 'Lỗi!',
     'error_receiving_order' => 'Có lỗi xảy ra khi nhận đơn hàng',
+    'no_products_available' => 'Không có sản phẩm nào trong hệ thống',
     'error_connecting_server' => 'Có lỗi xảy ra khi kết nối đến server',
     'error_changing_product' => 'Có lỗi xảy ra khi đổi sản phẩm',
     'security_error' => 'Lỗi bảo mật. Vui lòng tải lại trang và thử lại.',
     'session_expired' => 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.',
     'login_required' => 'Bạn cần đăng nhập để sử dụng tính năng này.',
+
+    // Orders Screen
+    'orders' => 'Đơn hàng',
+    'serial' => 'STT',
+    'name' => 'Tên',
+    'commission' => 'Hoa hồng',
+    'amount' => 'Số tiền',
+    'status' => 'Trạng thái',
+    'success' => 'Thành công',
+    'pending' => 'Đang xử lý',
+    'failed' => 'Thất bại',
+    'time' => 'Thời gian',
+    'no_data' => 'Không có dữ liệu',
 ];

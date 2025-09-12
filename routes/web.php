@@ -41,6 +41,7 @@ Route::middleware(['language.user'])->group(function () {
     
     // API routes for order receiving
     Route::post('/receive-order', [UserController::class, 'receiveOrder'])->name('receive-order');
+    Route::post('/confirm-order', [UserController::class, 'confirmOrder'])->name('confirm-order');
 });
 
 // Admin routes without authentication check (login, register)

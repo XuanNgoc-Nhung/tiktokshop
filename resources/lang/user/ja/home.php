@@ -115,13 +115,30 @@ return [
     'confirm' => '確認',
     
     // Success Messages
+    'success_title' => '成功！',
     'order_confirmed_successfully' => '注文が正常に確認されました！',
+    'receive_order_success' => '注文を正常に受け付けました！',
     
     // Error Messages
+    'error_title' => 'エラー！',
     'error_receiving_order' => '注文受付中にエラーが発生しました',
+    'no_products_available' => 'システムに商品がありません',
     'error_connecting_server' => 'サーバーへの接続中にエラーが発生しました',
     'error_changing_product' => '商品変更中にエラーが発生しました',
     'security_error' => 'セキュリティエラー。ページを更新して再試行してください。',
     'session_expired' => 'セッションが期限切れです。再度ログインしてください。',
     'login_required' => 'この機能を使用するにはログインが必要です。',
+
+    // Orders Screen
+    'orders' => '注文',
+    'serial' => '番号',
+    'name' => '名前',
+    'commission' => 'コミッション',
+    'amount' => '金額',
+    'status' => 'ステータス',
+    'success' => '成功',
+    'pending' => '保留',
+    'failed' => '失敗',
+    'time' => '時間',
+    'no_data' => 'データがありません',
 ];

@@ -58,6 +58,9 @@ return [
 
     'account_history' => 'アカウント履歴',
     'account_history_desc' => '残高変動の履歴',
+    'type' => '種類',
+    'deposit' => '入金',
+    'withdraw' => '出金',
 
     'order_history' => '注文履歴',
     'order_history_desc' => '購入した注文を追跡',

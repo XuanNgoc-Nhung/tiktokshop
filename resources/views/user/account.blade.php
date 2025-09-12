@@ -80,7 +80,7 @@
             <i class="fas fa-chevron-right text-muted"></i>
         </a>
 
-        <a href="javascript:void(0)" class="menu-item">
+        <a href="{{ route('account.account-history') }}" class="menu-item">
             <div class="d-flex align-items-center">
                 <div class="menu-icon"><i class="fas fa-clock-rotate-left"></i></div>
                 <div class="menu-text">

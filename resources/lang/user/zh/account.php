@@ -58,6 +58,9 @@ return [
 
     'account_history' => '账户历史',
     'account_history_desc' => '余额变动历史',
+    'type' => '类型',
+    'deposit' => '充值',
+    'withdraw' => '提现',
 
     'order_history' => '订单历史',
     'order_history_desc' => '查看已购订单',

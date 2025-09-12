@@ -58,6 +58,9 @@ return [
 
     'account_history' => 'Account history',
     'account_history_desc' => 'Balance change history',
+    'type' => 'Type',
+    'deposit' => 'Deposit',
+    'withdraw' => 'Withdraw',
 
     'order_history' => 'Order history',
     'order_history_desc' => 'Track purchased orders',
