@@ -113,7 +113,7 @@
             <i class="fas fa-chevron-right text-muted"></i>
         </a>
 
-        <a href="javascript:void(0)" class="menu-item">
+        <a href="{{ route('account.about-us') }}" class="menu-item">
             <div class="d-flex align-items-center">
                 <div class="menu-icon"><i class="fas fa-circle-info"></i></div>
                 <div class="menu-text">

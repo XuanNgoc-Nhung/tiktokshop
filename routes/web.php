@@ -35,6 +35,7 @@ Route::middleware(['language.user'])->group(function () {
         Route::post('/password/change-transfer', [UserController::class, 'changeTransferPassword'])->name('account.password.change-transfer');
         Route::get('/support', [UserController::class, 'support'])->name('account.support');
         Route::post('/support', [UserController::class, 'supportUpdate'])->name('account.support.update');
+        Route::get('/about-us', [UserController::class, 'aboutUs'])->name('account.about-us');
     });
 });
 

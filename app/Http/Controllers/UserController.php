@@ -315,6 +315,10 @@ class UserController extends Controller
     {
         return view('user.support');
     }
+    public function aboutUs()
+    {
+        return view('user.about-us');
+    }
     public function supportUpdate(Request $request)
     {
         if (!Auth::check()) {
