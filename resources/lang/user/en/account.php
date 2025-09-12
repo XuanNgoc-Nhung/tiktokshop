@@ -7,6 +7,46 @@ return [
     'currency' => 'VND',
 
     // Sections
+    'achievement' => 'Achievements',
+    'achievement_desc' => 'View your achievements and badges',
+    
+    // Achievement page
+    'total_achievements' => 'Total Achievements',
+    'badges_earned' => 'Badges Earned',
+    'level' => 'Level',
+    'achievement_categories' => 'Achievement Categories',
+    'shopping_achievements' => 'Shopping Achievements',
+    'account_achievements' => 'Account Achievements',
+    'first_purchase' => 'First Purchase',
+    'first_purchase_desc' => 'Make your first order',
+    'loyal_customer' => 'Loyal Customer',
+    'loyal_customer_desc' => 'Make 10 purchases',
+    'verified_account' => 'Verified Account',
+    'verified_account_desc' => 'Complete KYC verification',
+    'bank_linked' => 'Bank Linked',
+    'bank_linked_desc' => 'Link bank account',
+    'more_achievements_coming' => 'More Achievements Coming Soon',
+    'achievement_coming_desc' => 'We are developing more exciting achievements for you!',
+    
+    // Store and Tiers
+    'current_store' => 'Current Store',
+    'daily_orders' => 'Number of orders per day',
+    'orders' => 'Orders',
+    'store_reference' => 'Refer to the store suitable for the capital you want to invest',
+    'tier_common' => 'COMMON',
+    'tier_small_merchant' => 'SMALL MERCHANT',
+    'tier_merchant' => 'MERCHANT',
+    'tier_agent' => 'AGENT',
+    'tier_enterprise' => 'ENTERPRISE',
+    'profit_per_order' => 'Profit per order',
+    'quantity' => 'Orders per day',
+    'daily_withdrawals' => 'Daily withdrawals',
+    'total_deposited' => 'Total deposited',
+    'amount_needed_for_upgrade' => 'Amount needed for upgrade',
+    'current_limit' => 'Current',
+    'upgrade_needed' => 'Upgrade',
+    'times' => 'times',
+
     'personal_info' => 'Personal information',
     'personal_info_desc' => 'Update full name, phone number, email',
 

@@ -7,6 +7,46 @@ return [
     'currency' => 'VND',
 
     // Sections
+    'achievement' => 'অর্জন',
+    'achievement_desc' => 'আপনার অর্জন এবং ব্যাজ দেখুন',
+    
+    // Achievement page
+    'total_achievements' => 'মোট অর্জন',
+    'badges_earned' => 'অর্জিত ব্যাজ',
+    'level' => 'লেভেল',
+    'achievement_categories' => 'অর্জন বিভাগ',
+    'shopping_achievements' => 'শপিং অর্জন',
+    'account_achievements' => 'অ্যাকাউন্ট অর্জন',
+    'first_purchase' => 'প্রথম কেনাকাটা',
+    'first_purchase_desc' => 'আপনার প্রথম অর্ডার সম্পূর্ণ করুন',
+    'loyal_customer' => 'নিবেদিত গ্রাহক',
+    'loyal_customer_desc' => '১০ বার কেনাকাটা করুন',
+    'verified_account' => 'যাচাইকৃত অ্যাকাউন্ট',
+    'verified_account_desc' => 'KYC যাচাইকরণ সম্পূর্ণ করুন',
+    'bank_linked' => 'ব্যাংক লিংক',
+    'bank_linked_desc' => 'ব্যাংক অ্যাকাউন্ট লিংক করুন',
+    'more_achievements_coming' => 'আরও অর্জন আসছে',
+    'achievement_coming_desc' => 'আমরা আপনার জন্য আরও উত্তেজনাপূর্ণ অর্জন তৈরি করছি!',
+    
+    // Store and Tiers
+    'current_store' => 'বর্তমান দোকান',
+    'daily_orders' => 'প্রতিদিনের অর্ডার সংখ্যা',
+    'orders' => 'অর্ডার',
+    'store_reference' => 'আপনি যে মূলধন বিনিয়োগ করতে চান তার জন্য উপযুক্ত দোকান দেখুন',
+    'tier_common' => 'সাধারণ',
+    'tier_small_merchant' => 'ছোট ব্যবসায়ী',
+    'tier_merchant' => 'ব্যবসায়ী',
+    'tier_agent' => 'এজেন্ট',
+    'tier_enterprise' => 'এন্টারপ্রাইজ',
+    'profit_per_order' => 'প্রতি অর্ডারে লাভ',
+    'quantity' => 'প্রতিদিনের অর্ডার',
+    'daily_withdrawals' => 'প্রতিদিনের উত্তোলন',
+    'total_deposited' => 'মোট জমা',
+    'amount_needed_for_upgrade' => 'আপগ্রেডের জন্য প্রয়োজনীয় পরিমাণ',
+    'current_limit' => 'বর্তমান',
+    'upgrade_needed' => 'আপগ্রেড',
+    'times' => 'বার',
+
     'personal_info' => 'ব্যক্তিগত তথ্য',
     'personal_info_desc' => 'পুরো নাম, ফোন নম্বর, ইমেইল আপডেট করুন',
 

@@ -7,6 +7,46 @@ return [
     'currency' => 'VND',
 
     // Sections
+    'achievement' => '実績',
+    'achievement_desc' => 'あなたの実績とバッジを表示',
+    
+    // Achievement page
+    'total_achievements' => '総実績数',
+    'badges_earned' => '獲得バッジ',
+    'level' => 'レベル',
+    'achievement_categories' => '実績カテゴリ',
+    'shopping_achievements' => 'ショッピング実績',
+    'account_achievements' => 'アカウント実績',
+    'first_purchase' => '初回購入',
+    'first_purchase_desc' => '初回注文を完了',
+    'loyal_customer' => 'ロイヤルカスタマー',
+    'loyal_customer_desc' => '10回購入',
+    'verified_account' => '認証済みアカウント',
+    'verified_account_desc' => 'KYC認証を完了',
+    'bank_linked' => '銀行連携',
+    'bank_linked_desc' => '銀行口座を連携',
+    'more_achievements_coming' => 'さらに多くの実績が近日公開',
+    'achievement_coming_desc' => 'あなたのためのよりエキサイティングな実績を開発中です！',
+    
+    // Store and Tiers
+    'current_store' => '現在の店舗',
+    'daily_orders' => '1日の注文数',
+    'orders' => '注文',
+    'store_reference' => '投資したい資本に適した店舗を参照',
+    'tier_common' => '一般',
+    'tier_small_merchant' => '小商人',
+    'tier_merchant' => '商人',
+    'tier_agent' => '代理店',
+    'tier_enterprise' => '企業',
+    'profit_per_order' => '注文あたりの利益',
+    'quantity' => '1日の注文数',
+    'daily_withdrawals' => '1日の出金回数',
+    'total_deposited' => '総入金額',
+    'amount_needed_for_upgrade' => 'アップグレードに必要な金額',
+    'current_limit' => '現在',
+    'upgrade_needed' => 'アップグレード',
+    'times' => '回',
+
     'personal_info' => '個人情報',
     'personal_info_desc' => '氏名、電話番号、メールを更新',
 

@@ -36,6 +36,17 @@
 
     <!-- Personal Menus -->
     <div class="account-card menu-list mb-3">
+        <a href="{{ route('account.achievement') }}" class="menu-item">
+            <div class="d-flex align-items-center">
+                <div class="menu-icon"><i class="fas fa-trophy"></i></div>
+                <div class="menu-text">
+                    <span class="menu-title">{{ $__account('achievement') }}</span>
+                    <span class="menu-desc">{{ $__account('achievement_desc') }}</span>
+                </div>
+            </div>
+            <i class="fas fa-chevron-right text-muted"></i>
+        </a>
+
         <a href="{{ route('account.personal-info') }}" class="menu-item">
             <div class="d-flex align-items-center">
                 <div class="menu-icon"><i class="fas fa-id-card"></i></div>

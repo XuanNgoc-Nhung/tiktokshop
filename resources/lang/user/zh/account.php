@@ -7,6 +7,46 @@ return [
     'currency' => 'VND',
 
     // Sections
+    'achievement' => '成就',
+    'achievement_desc' => '查看您的成就和徽章',
+    
+    // Achievement page
+    'total_achievements' => '总成就',
+    'badges_earned' => '已获得徽章',
+    'level' => '等级',
+    'achievement_categories' => '成就分类',
+    'shopping_achievements' => '购物成就',
+    'account_achievements' => '账户成就',
+    'first_purchase' => '首次购买',
+    'first_purchase_desc' => '完成首次订单',
+    'loyal_customer' => '忠实客户',
+    'loyal_customer_desc' => '购买10次',
+    'verified_account' => '已验证账户',
+    'verified_account_desc' => '完成KYC验证',
+    'bank_linked' => '银行关联',
+    'bank_linked_desc' => '关联银行账户',
+    'more_achievements_coming' => '更多成就即将推出',
+    'achievement_coming_desc' => '我们正在为您开发更多令人兴奋的成就！',
+    
+    // Store and Tiers
+    'current_store' => '当前店铺',
+    'daily_orders' => '每日订单数量',
+    'orders' => '订单',
+    'store_reference' => '参考适合您投资资本的店铺',
+    'tier_common' => '普通',
+    'tier_small_merchant' => '小商户',
+    'tier_merchant' => '商户',
+    'tier_agent' => '代理商',
+    'tier_enterprise' => '企业',
+    'profit_per_order' => '每单利润',
+    'quantity' => '每日订单数',
+    'daily_withdrawals' => '每日提现次数',
+    'total_deposited' => '总充值金额',
+    'amount_needed_for_upgrade' => '升级所需金额',
+    'current_limit' => '当前',
+    'upgrade_needed' => '升级',
+    'times' => '次',
+
     'personal_info' => '个人信息',
     'personal_info_desc' => '更新姓名、电话号码、邮箱',
 

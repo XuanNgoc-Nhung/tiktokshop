@@ -7,6 +7,46 @@ return [
     'currency' => 'VND',
 
     // Sections
+    'achievement' => 'Thành tích',
+    'achievement_desc' => 'Xem thành tích và huy hiệu của bạn',
+    
+    // Achievement page
+    'total_achievements' => 'Tổng thành tích',
+    'badges_earned' => 'Huy hiệu đã đạt',
+    'level' => 'Cấp độ',
+    'achievement_categories' => 'Danh mục thành tích',
+    'shopping_achievements' => 'Thành tích mua sắm',
+    'account_achievements' => 'Thành tích tài khoản',
+    'first_purchase' => 'Mua hàng đầu tiên',
+    'first_purchase_desc' => 'Thực hiện đơn hàng đầu tiên',
+    'loyal_customer' => 'Khách hàng thân thiết',
+    'loyal_customer_desc' => 'Mua hàng 10 lần',
+    'verified_account' => 'Tài khoản xác minh',
+    'verified_account_desc' => 'Hoàn thành xác minh KYC',
+    'bank_linked' => 'Liên kết ngân hàng',
+    'bank_linked_desc' => 'Liên kết tài khoản ngân hàng',
+    'more_achievements_coming' => 'Nhiều thành tích hơn sắp ra mắt',
+    'achievement_coming_desc' => 'Chúng tôi đang phát triển thêm nhiều thành tích thú vị cho bạn!',
+    
+    // Store and Tiers
+    'current_store' => 'Gian hàng hiện tại',
+    'daily_orders' => 'Số lượng đơn hàng mỗi ngày',
+    'orders' => 'Đơn hàng',
+    'store_reference' => 'Tham khảo gian hàng phù hợp với số vốn bạn muốn đầu tư',
+    'tier_common' => 'PHỔ THÔNG',
+    'tier_small_merchant' => 'TIÊU THƯƠNG',
+    'tier_merchant' => 'THƯƠNG GIA',
+    'tier_agent' => 'ĐẠI LÝ',
+    'tier_enterprise' => 'DOANH NGHIỆP',
+    'profit_per_order' => 'Lợi nhuận mỗi đơn',
+    'quantity' => 'Số lượng đơn/ngày',
+    'daily_withdrawals' => 'Số lượt rút tiền/ngày',
+    'total_deposited' => 'Tổng tiền đã nạp',
+    'amount_needed_for_upgrade' => 'Số tiền cần nạp để nâng hạng',
+    'current_limit' => 'Hiện tại',
+    'upgrade_needed' => 'Nâng hạng',
+    'times' => 'lần',
+
     'personal_info' => 'Thông tin cá nhân',
     'personal_info_desc' => 'Cập nhật họ tên, số điện thoại, email',
 
