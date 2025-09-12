@@ -95,4 +95,33 @@ return [
     'smart_watch' => 'স্মার্ট ওয়াচ',
     'gaming_laptop' => 'গেমিং ল্যাপটপ',
     'running_sneakers' => 'রানিং স্নিকার্স',
+    
+    // Loading and Processing Messages
+    'loading_data' => 'ডেটা লোড হচ্ছে...',
+    'processing' => 'প্রক্রিয়াকরণ...',
+    'receiving_order' => 'অর্ডার গ্রহণ করা হচ্ছে...',
+    'finding_suitable_order' => 'উপযুক্ত অর্ডার খুঁজছি...',
+    'preparing_order' => 'অর্ডার প্রস্তুত করা হচ্ছে...',
+    'confirming_order' => 'অর্ডার নিশ্চিত করা হচ্ছে...',
+    'finding_new_product' => 'নতুন পণ্য খুঁজছি...',
+    
+    // Modal Content
+    'your_order' => 'আপনার অর্ডার',
+    'product_price' => 'পণ্যের মূল্য:',
+    'profit' => 'লাভ:',
+    'level' => 'স্তর:',
+    'no_description' => 'কোন বর্ণনা নেই',
+    'change_product' => 'পণ্য পরিবর্তন',
+    'confirm' => 'নিশ্চিত করুন',
+    
+    // Success Messages
+    'order_confirmed_successfully' => 'অর্ডার সফলভাবে নিশ্চিত হয়েছে!',
+    
+    // Error Messages
+    'error_receiving_order' => 'অর্ডার গ্রহণ করার সময় ত্রুটি ঘটেছে',
+    'error_connecting_server' => 'সার্ভারে সংযোগ করার সময় ত্রুটি ঘটেছে',
+    'error_changing_product' => 'পণ্য পরিবর্তন করার সময় ত্রুটি ঘটেছে',
+    'security_error' => 'নিরাপত্তা ত্রুটি। দয়া করে পৃষ্ঠাটি রিফ্রেশ করে আবার চেষ্টা করুন।',
+    'session_expired' => 'সেশন মেয়াদ শেষ। দয়া করে আবার লগইন করুন।',
+    'login_required' => 'এই বৈশিষ্ট্যটি ব্যবহার করতে আপনাকে লগইন করতে হবে।',
 ];

@@ -95,4 +95,33 @@ return [
     'smart_watch' => 'スマートウォッチ',
     'gaming_laptop' => 'ゲーミングノートパソコン',
     'running_sneakers' => 'ランニングシューズ',
+    
+    // Loading and Processing Messages
+    'loading_data' => 'データを読み込み中...',
+    'processing' => '処理中...',
+    'receiving_order' => '注文を受付中...',
+    'finding_suitable_order' => '適切な注文を検索中...',
+    'preparing_order' => '注文を準備中...',
+    'confirming_order' => '注文を確認中...',
+    'finding_new_product' => '新しい商品を検索中...',
+    
+    // Modal Content
+    'your_order' => 'ご注文',
+    'product_price' => '商品価格:',
+    'profit' => '利益:',
+    'level' => 'レベル:',
+    'no_description' => '説明なし',
+    'change_product' => '商品変更',
+    'confirm' => '確認',
+    
+    // Success Messages
+    'order_confirmed_successfully' => '注文が正常に確認されました！',
+    
+    // Error Messages
+    'error_receiving_order' => '注文受付中にエラーが発生しました',
+    'error_connecting_server' => 'サーバーへの接続中にエラーが発生しました',
+    'error_changing_product' => '商品変更中にエラーが発生しました',
+    'security_error' => 'セキュリティエラー。ページを更新して再試行してください。',
+    'session_expired' => 'セッションが期限切れです。再度ログインしてください。',
+    'login_required' => 'この機能を使用するにはログインが必要です。',
 ];

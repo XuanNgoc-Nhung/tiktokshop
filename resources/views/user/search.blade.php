@@ -100,10 +100,11 @@
 
     <!-- Receive Order Button -->
     <div class="receive-order-section px-3 py-3">
-        <button class="receive-order-btn" onclick="receiveOrder()">
+        <button class="receive-order-btn" id="receiveOrderBtn" onclick="receiveOrder()">
             <i class="fas fa-hand-holding-usd me-2"></i>
             {{ $__home('receive_order') }}
         </button>
+        
     </div>
 
     <!-- Stats Cards Section -->
@@ -138,6 +139,16 @@
     </div>
     <div class="px-3">
         <x-upgrade-tiers />
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-container">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <div class="loading-text" id="loadingText">{{ $__home('loading_data') }}</div>
+        </div>
     </div>
 
 </div>
@@ -300,18 +311,35 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 8px rgba(244, 208, 63, 0.1);
+    position: relative;
+    overflow: hidden;
 }
 
-.receive-order-btn:hover {
+.receive-order-btn:hover:not(:disabled) {
     background: #f4d03f;
     color: #8b4513;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(244, 208, 63, 0.3);
 }
 
-.receive-order-btn:active {
+.receive-order-btn:active:not(:disabled) {
     transform: translateY(0);
     box-shadow: 0 2px 8px rgba(244, 208, 63, 0.2);
+}
+
+.receive-order-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.receive-order-btn .fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Stats Cards Styles */
@@ -453,6 +481,328 @@
 /* Simple styling for agents list */
 .top-agents-list {
     opacity: 1;
+    transition: all 0.3s ease;
+    transform: translateY(0);
+}
+
+/* Product Modal Styles */
+.product-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    visibility: hidden;
+}
+
+.product-modal-overlay[style*="opacity: 1"] {
+    visibility: visible;
+}
+
+.product-modal {
+    background: white;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.product-modal-overlay[style*="opacity: 1"] .product-modal {
+    transform: scale(1);
+}
+
+.product-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px 0 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.product-modal-header h3 {
+    margin: 0;
+    color: #8b4513;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.product-modal-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #666;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.product-modal-close:hover {
+    background: #f5f5f5;
+    color: #333;
+}
+
+.product-modal-body {
+    padding: 0 20px 20px 20px;
+}
+
+.product-image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.product-image img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-info {
+    text-align: center;
+}
+
+.product-name {
+    color: #333;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.product-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    min-height: 40px;
+}
+
+.product-details {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.product-details > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 8px 0;
+}
+
+.product-details > div:last-child {
+    margin-bottom: 0;
+}
+
+.product-details .label {
+    color: #8b4513;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.product-details .value {
+    color: #333;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.product-price .value {
+    color: #e74c3c;
+}
+
+.product-commission .value {
+    color: #27ae60;
+}
+
+.product-level .value {
+    color: #f39c12;
+}
+
+.product-modal-footer {
+    padding: 0 20px 20px 20px;
+    text-align: center;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.btn-confirm,
+.btn-change-product {
+    border: none;
+    border-radius: 12px;
+    padding: 12px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 0;
+    max-width: calc(50% - 4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 44px;
+}
+
+.btn-confirm {
+    background: linear-gradient(135deg, #f4d03f, #f7dc6f);
+    color: #8b4513;
+    box-shadow: 0 4px 12px rgba(244, 208, 63, 0.3);
+}
+
+.btn-confirm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(244, 208, 63, 0.4);
+}
+
+.btn-change-product {
+    background: linear-gradient(135deg, #3498db, #5dade2);
+    color: white;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.btn-change-product:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(52, 152, 219, 0.4);
+}
+
+
+.btn-confirm:active,
+.btn-change-product:active {
+    transform: translateY(0);
+}
+
+/* Loading Overlay Styles */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.loading-overlay.show {
+    display: flex;
+    opacity: 1;
+}
+
+.loading-container {
+    text-align: center;
+    color: white;
+}
+
+.loading-spinner {
+    margin-bottom: 20px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #f4d03f;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+.loading-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Pulse animation for loading text */
+.loading-text {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* Responsive Design for Modal */
+@media (max-width: 768px) {
+    .product-modal {
+        width: 95%;
+        margin: 20px;
+    }
+    
+    .product-image img {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .product-name {
+        font-size: 18px;
+    }
+    
+    .product-details .label,
+    .product-details .value {
+        font-size: 13px;
+    }
+    
+    .loading-text {
+        font-size: 14px;
+    }
+    
+    .spinner {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .modal-buttons {
+        flex-direction: row;
+        gap: 6px;
+        justify-content: space-between;
+    }
+    
+    .btn-confirm,
+    .btn-change-product {
+        flex: 1;
+        min-width: 0;
+        max-width: calc(50% - 3px);
+        font-size: 11px;
+        padding: 8px 6px;
+        height: 40px;
+    }
 }
 
 
@@ -461,6 +811,31 @@
 </style>
 
 <script>
+// Translation data from PHP
+const translations = {
+    loading_data: '{{ $__home("loading_data") }}',
+    processing: '{{ $__home("processing") }}',
+    receiving_order: '{{ $__home("receiving_order") }}',
+    finding_suitable_order: '{{ $__home("finding_suitable_order") }}',
+    preparing_order: '{{ $__home("preparing_order") }}',
+    confirming_order: '{{ $__home("confirming_order") }}',
+    finding_new_product: '{{ $__home("finding_new_product") }}',
+    your_order: '{{ $__home("your_order") }}',
+    product_price: '{{ $__home("product_price") }}',
+    profit: '{{ $__home("profit") }}',
+    level: '{{ $__home("level") }}',
+    no_description: '{{ $__home("no_description") }}',
+    change_product: '{{ $__home("change_product") }}',
+    confirm: '{{ $__home("confirm") }}',
+    order_confirmed_successfully: '{{ $__home("order_confirmed_successfully") }}',
+    error_receiving_order: '{{ $__home("error_receiving_order") }}',
+    error_connecting_server: '{{ $__home("error_connecting_server") }}',
+    error_changing_product: '{{ $__home("error_changing_product") }}',
+    security_error: '{{ $__home("security_error") }}',
+    session_expired: '{{ $__home("session_expired") }}',
+    login_required: '{{ $__home("login_required") }}'
+};
+
 // Haptic feedback simulation
 function hapticFeedback() {
     if ('vibrate' in navigator) {
@@ -690,25 +1065,261 @@ function goBack() {
 }
 
 
-function receiveOrder() {
+// Loading utility functions
+function showLoading(text = translations.loading_data) {
+    const overlay = document.getElementById('loadingOverlay');
+    const loadingText = document.getElementById('loadingText');
+    loadingText.textContent = text;
+    overlay.classList.add('show');
+}
+
+function hideLoading() {
+    const overlay = document.getElementById('loadingOverlay');
+    overlay.classList.remove('show');
+}
+
+function showButtonLoading(button, text = translations.processing) {
+    const originalText = button.innerHTML;
+    button.innerHTML = `<i class="fas fa-spinner fa-spin me-2"></i>${text}`;
+    button.disabled = true;
+    return originalText;
+}
+
+function hideButtonLoading(button, originalText) {
+    button.innerHTML = originalText;
+    button.disabled = false;
+}
+
+async function receiveOrder() {
     // Haptic feedback
     hapticFeedback();
     
-    // Show loading state
-    const btn = document.querySelector('.receive-order-btn');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang xử lý...';
-    btn.disabled = true;
+    const btn = document.getElementById('receiveOrderBtn');
+    const originalText = showButtonLoading(btn, translations.receiving_order);
+    
+    try {
+        // Show loading overlay
+        showLoading(translations.finding_suitable_order);
+        
+        // Gọi API để nhận đơn hàng
+        const response = await fetch('/receive-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({})
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            // Cập nhật loading text
+            showLoading(translations.preparing_order);
+            
+            // Loading 2 giây trước khi hiển thị modal
+            setTimeout(() => {
+                hideLoading();
+                showProductModal(data.product);
+                hideButtonLoading(btn, originalText);
+            }, 2000);
+        } else {
+            hideLoading();
+            hideButtonLoading(btn, originalText);
+            alert(data.message || translations.error_receiving_order);
+        }
+    } catch (error) {
+        hideLoading();
+        hideButtonLoading(btn, originalText);
+        console.error('Error:', error);
+        alert(translations.error_connecting_server);
+    }
+}
+
+function showProductModal(product) {
+    // Xóa modal cũ nếu có
+    const existingModal = document.getElementById('productModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    // Tạo modal HTML
+    const modalHTML = `
+        <div class="product-modal-overlay" id="productModal">
+            <div class="product-modal">
+                <div class="product-modal-header">
+                    <h3>${translations.your_order}</h3>
+                    <button class="product-modal-close" onclick="closeProductModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="product-modal-body">
+                    <div class="product-image">
+                        <img src="${product.hinh_anh ? '/' + product.hinh_anh : '/products/prod_68c130da61910.png'}" 
+                             alt="${product.ten}" 
+                             onerror="this.src='/products/prod_68c130da61910.png'">
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">${product.ten}</h4>
+                        <p class="product-description">${product.mo_ta || translations.no_description}</p>
+                        <div class="product-details">
+                            <div class="product-price">
+                                <span class="label">${translations.product_price}</span>
+                                <span class="value">${Number(product.gia).toLocaleString('vi-VN')} VNĐ</span>
+                            </div>
+                            <div class="product-commission">
+                                <span class="label">${translations.profit}</span>
+                                <span class="value">${Number(product.hoa_hong).toLocaleString('vi-VN')} VNĐ</span>
+                            </div>
+                            <div class="product-level">
+                                <span class="label">${translations.level}</span>
+                                <span class="value">${product.cap_do || 'N/A'}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-modal-footer">
+                    <div class="modal-buttons">
+                        <button class="btn-change-product" onclick="changeProduct()">
+                            <i class="fas fa-exchange-alt me-2"></i>${translations.change_product}
+                        </button>
+                        <button class="btn-confirm" onclick="confirmProduct()">
+                            <i class="fas fa-check me-2"></i>${translations.confirm}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Thêm modal vào body
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Kiểm tra modal đã được thêm chưa
+    const modal = document.getElementById('productModal');
+    
+    if (modal) {
+        // Hiệu ứng fade in
+        modal.style.opacity = '0';
+        modal.style.display = 'flex';
+        modal.style.visibility = 'hidden';
+        
+        setTimeout(() => {
+            modal.style.visibility = 'visible';
+            modal.style.opacity = '1';
+        }, 10);
+    }
+}
+
+function closeProductModal() {
+    const modal = document.getElementById('productModal');
+    if (modal) {
+        // Haptic feedback
+        hapticFeedback();
+        
+        modal.style.opacity = '0';
+        modal.style.visibility = 'hidden';
+        setTimeout(() => {
+            modal.remove();
+        }, 300);
+    }
+}
+
+
+async function changeProduct() {
+    // Haptic feedback
+    hapticFeedback();
+    
+    // Đóng modal hiện tại
+    closeProductModal();
+    
+    // Hiển thị loading overlay toàn màn hình
+    showLoading(translations.finding_new_product);
+    
+    try {
+        console.log('Đang gọi API /receive-order...');
+        
+        // Lấy CSRF token
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        console.log('CSRF Token:', csrfToken);
+        if (!csrfToken) {
+            throw new Error('CSRF token không tìm thấy');
+        }
+        
+        // Gọi API để nhận sản phẩm mới
+        const response = await fetch('/receive-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({}),
+            credentials: 'same-origin' // Đảm bảo gửi cookies session
+        });
+        
+        console.log('Response status:', response.status);
+        console.log('Response ok:', response.ok);
+        
+        // Kiểm tra nếu response không phải JSON
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            const text = await response.text();
+            console.log('Response text:', text);
+            throw new Error('Server trả về response không phải JSON. Status: ' + response.status);
+        }
+        
+        const data = await response.json();
+        console.log('Response data:', data);
+        
+        if (data.success) {
+            console.log('API thành công, hiển thị modal với sản phẩm:', data.product);
+            // Ẩn loading và hiển thị modal mới với sản phẩm mới
+            hideLoading();
+            showProductModal(data.product);
+        } else {
+            console.log('API thất bại:', data.message);
+            // Ẩn loading và hiển thị thông báo lỗi
+            hideLoading();
+            alert(data.message || translations.error_changing_product);
+        }
+    } catch (error) {
+        console.error('Lỗi khi gọi API:', error);
+        // Ẩn loading và hiển thị thông báo lỗi
+        hideLoading();
+        
+        if (error.message.includes('CSRF token')) {
+            alert(translations.security_error);
+        } else if (error.message.includes('419')) {
+            alert(translations.session_expired);
+        } else if (error.message.includes('401')) {
+            alert(translations.login_required);
+        } else {
+            alert(translations.error_connecting_server + ': ' + error.message);
+        }
+    }
+}
+
+function confirmProduct() {
+    // Haptic feedback
+    hapticFeedback();
+    
+    // Hiển thị loading
+    showLoading(translations.confirming_order);
     
     // Simulate API call
     setTimeout(() => {
-        btn.innerHTML = originalText;
-        btn.disabled = false;
+        hideLoading();
+        closeProductModal();
         
-        // Show success message
-        alert('Đã nhận đơn thành công!');
+        // Hiển thị thông báo thành công
+        alert(translations.order_confirmed_successfully);
+        
+        // Có thể thêm logic cập nhật UI ở đây
+        // Ví dụ: cập nhật số dư, thống kê, etc.
     }, 2000);
 }
+
 
 // Top Agents Random Data Generator
 class TopAgentsGenerator {
@@ -775,8 +1386,24 @@ class TopAgentsGenerator {
             this.currentAgents.pop();
         }
         
-        // Render lại danh sách (không sắp xếp để giữ thứ tự trượt)
-        this.renderAgents();
+        // Render lại danh sách với hiệu ứng fade
+        this.renderAgentsWithAnimation();
+    }
+
+    renderAgentsWithAnimation() {
+        const agentsList = this.agentsList;
+        
+        // Thêm class fade-out
+        agentsList.style.opacity = '0.7';
+        agentsList.style.transform = 'translateY(10px)';
+        
+        setTimeout(() => {
+            this.renderAgents();
+            
+            // Thêm class fade-in
+            agentsList.style.opacity = '1';
+            agentsList.style.transform = 'translateY(0)';
+        }, 150);
     }
 
     renderAgents() {
@@ -807,8 +1434,18 @@ class TopAgentsGenerator {
 
 // Initialize banner carousel when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    window.bannerCarousel = new BannerCarousel();
-    window.topAgentsGenerator = new TopAgentsGenerator();
+    // Show initial loading
+    showLoading(translations.loading_data);
+    
+    // Simulate loading time for better UX
+    setTimeout(() => {
+        // Initialize components
+        window.bannerCarousel = new BannerCarousel();
+        window.topAgentsGenerator = new TopAgentsGenerator();
+        
+        // Hide loading after components are initialized
+        hideLoading();
+    }, 1500);
 });
 </script>
 @endsection

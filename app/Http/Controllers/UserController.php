@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\ThongBao;
+use App\Models\SanPham;
 use App\Helpers\LanguageHelper;
 use Illuminate\Support\Facades\File;
 
@@ -574,5 +575,49 @@ class UserController extends Controller
     {
         Auth::logout();
         return redirect()->route('login')->with('success', LanguageHelper::getUserTranslation('logout_success'));
+    }
+
+    public function receiveOrder(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getUserTranslation('fill_all_fields')
+            ], 401);
+        }
+
+        try {
+            // Lấy ngẫu nhiên 1 sản phẩm từ database
+            $randomProduct = SanPham::inRandomOrder()->first();
+            
+            if (!$randomProduct) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Không có sản phẩm nào trong hệ thống'
+                ], 404);
+            }
+
+            // Trả về thông tin sản phẩm
+            return response()->json([
+                'success' => true,
+                'message' => 'Nhận đơn hàng thành công!',
+                'product' => [
+                    'id' => $randomProduct->id,
+                    'ten' => $randomProduct->ten,
+                    'gia' => $randomProduct->gia,
+                    'hoa_hong' => $randomProduct->hoa_hong,
+                    'mo_ta' => $randomProduct->mo_ta,
+                    'hinh_anh' => $randomProduct->hinh_anh,
+                    'cap_do' => $randomProduct->cap_do
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Có lỗi xảy ra khi nhận đơn hàng',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

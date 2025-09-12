@@ -95,4 +95,33 @@ return [
     'smart_watch' => 'Đồng hồ thông minh',
     'gaming_laptop' => 'Laptop gaming',
     'running_sneakers' => 'Giày chạy bộ',
+    
+    // Loading and Processing Messages
+    'loading_data' => 'Đang tải dữ liệu...',
+    'processing' => 'Đang xử lý...',
+    'receiving_order' => 'Đang nhận đơn...',
+    'finding_suitable_order' => 'Đang tìm đơn hàng phù hợp...',
+    'preparing_order' => 'Đang chuẩn bị đơn hàng...',
+    'confirming_order' => 'Đang xác nhận đơn hàng...',
+    'finding_new_product' => 'Đang tìm sản phẩm mới...',
+    
+    // Modal Content
+    'your_order' => 'Đơn hàng của bạn',
+    'product_price' => 'Giá sản phẩm:',
+    'profit' => 'Lợi nhuận:',
+    'level' => 'Cấp độ:',
+    'no_description' => 'Không có mô tả',
+    'change_product' => 'Đổi sản phẩm',
+    'confirm' => 'Xác nhận',
+    
+    // Success Messages
+    'order_confirmed_successfully' => 'Đơn hàng đã được xác nhận thành công!',
+    
+    // Error Messages
+    'error_receiving_order' => 'Có lỗi xảy ra khi nhận đơn hàng',
+    'error_connecting_server' => 'Có lỗi xảy ra khi kết nối đến server',
+    'error_changing_product' => 'Có lỗi xảy ra khi đổi sản phẩm',
+    'security_error' => 'Lỗi bảo mật. Vui lòng tải lại trang và thử lại.',
+    'session_expired' => 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.',
+    'login_required' => 'Bạn cần đăng nhập để sử dụng tính năng này.',
 ];

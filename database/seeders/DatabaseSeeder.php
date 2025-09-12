@@ -20,9 +20,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        // Gọi UserSeeder để tạo 50 user mẫu
+        // Gọi các seeder
         $this->call([
             UserSeeder::class,
+            SanPhamSeeder::class,
         ]);
     }
 }

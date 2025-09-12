@@ -95,4 +95,33 @@ return [
     'smart_watch' => '智能手表',
     'gaming_laptop' => '游戏笔记本',
     'running_sneakers' => '跑步鞋',
+    
+    // Loading and Processing Messages
+    'loading_data' => '正在加载数据...',
+    'processing' => '正在处理...',
+    'receiving_order' => '正在接单...',
+    'finding_suitable_order' => '正在寻找合适的订单...',
+    'preparing_order' => '正在准备订单...',
+    'confirming_order' => '正在确认订单...',
+    'finding_new_product' => '正在寻找新产品...',
+    
+    // Modal Content
+    'your_order' => '您的订单',
+    'product_price' => '产品价格:',
+    'profit' => '利润:',
+    'level' => '等级:',
+    'no_description' => '无描述',
+    'change_product' => '更换产品',
+    'confirm' => '确认',
+    
+    // Success Messages
+    'order_confirmed_successfully' => '订单确认成功！',
+    
+    // Error Messages
+    'error_receiving_order' => '接收订单时发生错误',
+    'error_connecting_server' => '连接服务器时发生错误',
+    'error_changing_product' => '更换产品时发生错误',
+    'security_error' => '安全错误。请刷新页面并重试。',
+    'session_expired' => '会话已过期。请重新登录。',
+    'login_required' => '您需要登录才能使用此功能。',
 ];

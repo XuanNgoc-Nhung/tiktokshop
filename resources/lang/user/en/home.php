@@ -95,4 +95,33 @@ return [
     'smart_watch' => 'Smart Watch',
     'gaming_laptop' => 'Gaming Laptop',
     'running_sneakers' => 'Running Sneakers',
+    
+    // Loading and Processing Messages
+    'loading_data' => 'Loading data...',
+    'processing' => 'Processing...',
+    'receiving_order' => 'Receiving order...',
+    'finding_suitable_order' => 'Finding suitable order...',
+    'preparing_order' => 'Preparing order...',
+    'confirming_order' => 'Confirming order...',
+    'finding_new_product' => 'Finding new product...',
+    
+    // Modal Content
+    'your_order' => 'Your Order',
+    'product_price' => 'Product Price:',
+    'profit' => 'Profit:',
+    'level' => 'Level:',
+    'no_description' => 'No description',
+    'change_product' => 'Change Product',
+    'confirm' => 'Confirm',
+    
+    // Success Messages
+    'order_confirmed_successfully' => 'Order confirmed successfully!',
+    
+    // Error Messages
+    'error_receiving_order' => 'Error occurred while receiving order',
+    'error_connecting_server' => 'Error occurred while connecting to server',
+    'error_changing_product' => 'Error occurred while changing product',
+    'security_error' => 'Security error. Please refresh the page and try again.',
+    'session_expired' => 'Session has expired. Please log in again.',
+    'login_required' => 'You need to log in to use this feature.',
 ];

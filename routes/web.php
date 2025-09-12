@@ -38,6 +38,9 @@ Route::middleware(['language.user'])->group(function () {
         Route::post('/support', [UserController::class, 'supportUpdate'])->name('account.support.update');
         Route::get('/about-us', [UserController::class, 'aboutUs'])->name('account.about-us');
     });
+    
+    // API routes for order receiving
+    Route::post('/receive-order', [UserController::class, 'receiveOrder'])->name('receive-order');
 });
 
 // Admin routes without authentication check (login, register)
@@ -122,6 +125,39 @@ Route::post('/admin/set-language', function(\Illuminate\Http\Request $request) {
         'message' => 'Invalid language'
     ]);
 })->name('admin.set-language');
+
+// Test route for receive-order API
+Route::get('/test-receive-order', function() {
+    try {
+        $randomProduct = \App\Models\SanPham::inRandomOrder()->first();
+        
+        if (!$randomProduct) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Không có sản phẩm nào trong hệ thống'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Test API thành công!',
+            'product' => [
+                'id' => $randomProduct->id,
+                'ten' => $randomProduct->ten,
+                'gia' => $randomProduct->gia,
+                'hoa_hong' => $randomProduct->hoa_hong,
+                'mo_ta' => $randomProduct->mo_ta,
+                'hinh_anh' => $randomProduct->hinh_anh,
+                'cap_do' => $randomProduct->cap_do
+            ]
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Có lỗi xảy ra: ' . $e->getMessage()
+        ], 500);
+    }
+});
 
 // Language switching routes
 Route::get('/language/{locale}', function ($locale) {
