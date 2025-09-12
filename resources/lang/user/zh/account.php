@@ -24,6 +24,24 @@ return [
 
     'password' => '密码',
     'password_desc' => '更改登录密码和交易密码',
+    
+    // Password management
+    'change_login_password' => '更改登录密码',
+    'change_transfer_password' => '更改转账密码',
+    'current_password' => '当前密码',
+    'current_login_password' => '当前登录密码',
+    'new_password' => '新密码',
+    'confirm_password' => '确认密码',
+    'verify_login_password' => '使用当前登录密码验证',
+    'password_requirements' => '密码至少需要6个字符',
+    'transfer_password_requirements' => '转账密码至少需要4个字符',
+    'password_mismatch' => '密码确认不匹配',
+    'current_password_incorrect' => '当前密码不正确',
+    'password_changed_success' => '密码更改成功',
+    'transfer_password_changed_success' => '转账密码更改成功',
+    'set_transfer_password' => '设置转账密码',
+    'transfer_password_not_set' => '未设置转账密码',
+    'transfer_password_set_success' => '转账密码设置成功',
 
     'support' => '支持',
     'support_desc' => '联系24/7客服',

@@ -24,6 +24,24 @@ return [
 
     'password' => 'Mật khẩu',
     'password_desc' => 'Đổi mật khẩu đăng nhập và mật khẩu giao dịch',
+    
+    // Password management
+    'change_login_password' => 'Đổi mật khẩu đăng nhập',
+    'change_transfer_password' => 'Đổi mật khẩu chuyển tiền',
+    'current_password' => 'Mật khẩu hiện tại',
+    'current_login_password' => 'Mật khẩu đăng nhập hiện tại',
+    'new_password' => 'Mật khẩu mới',
+    'confirm_password' => 'Xác nhận mật khẩu',
+    'verify_login_password' => 'Xác nhận bằng mật khẩu đăng nhập hiện tại',
+    'password_requirements' => 'Mật khẩu phải có ít nhất 6 ký tự',
+    'transfer_password_requirements' => 'Mật khẩu chuyển tiền phải có ít nhất 4 ký tự',
+    'password_mismatch' => 'Mật khẩu xác nhận không khớp',
+    'current_password_incorrect' => 'Mật khẩu hiện tại không đúng',
+    'password_changed_success' => 'Đổi mật khẩu thành công',
+    'transfer_password_changed_success' => 'Đổi mật khẩu chuyển tiền thành công',
+    'set_transfer_password' => 'Đặt mật khẩu chuyển tiền',
+    'transfer_password_not_set' => 'Chưa đặt mật khẩu chuyển tiền',
+    'transfer_password_set_success' => 'Đặt mật khẩu chuyển tiền thành công',
 
     'support' => 'Hỗ trợ',
     'support_desc' => 'Liên hệ CSKH 24/7',

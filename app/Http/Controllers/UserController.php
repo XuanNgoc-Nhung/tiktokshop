@@ -307,6 +307,10 @@ class UserController extends Controller
     {
         return view('user.kyc');
     }
+    public function password()
+    {
+        return view('user.password');
+    }
 
     public function kycUpdate(Request $request)
     {
@@ -401,6 +405,109 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'message' => LanguageHelper::getTranslationFromFile('account', 'update_success'),
+        ]);
+    }
+
+    public function changeLoginPassword(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getTranslationFromFile('account', 'missing_data')
+            ], 401);
+        }
+
+        $user = Auth::user();
+
+        $validator = Validator::make($request->all(), [
+            'current_password' => 'required|string',
+            'new_password' => 'required|string|min:6',
+            'confirm_password' => 'required|string|same:new_password',
+        ], [
+            'current_password.required' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'new_password.required' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'new_password.min' => LanguageHelper::getTranslationFromFile('account', 'password_requirements'),
+            'confirm_password.required' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'confirm_password.same' => LanguageHelper::getTranslationFromFile('account', 'password_mismatch'),
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        // Verify current password
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getTranslationFromFile('account', 'current_password_incorrect'),
+            ], 422);
+        }
+
+        // Update password
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => LanguageHelper::getTranslationFromFile('account', 'password_changed_success'),
+        ]);
+    }
+
+    public function changeTransferPassword(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getTranslationFromFile('account', 'missing_data')
+            ], 401);
+        }
+
+        $user = Auth::user();
+        $hasCurrentPassword = !empty($user->mat_khau_chuyen_tien);
+
+        $validator = Validator::make($request->all(), [
+            'current_login_password' => 'required|string',
+            'new_password' => 'required|string|min:4',
+            'confirm_password' => 'required|string|same:new_password',
+        ], [
+            'current_login_password.required' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'new_password.required' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'new_password.min' => LanguageHelper::getTranslationFromFile('account', 'transfer_password_requirements'),
+            'confirm_password.required' => LanguageHelper::getTranslationFromFile('account', 'please_fill_all'),
+            'confirm_password.same' => LanguageHelper::getTranslationFromFile('account', 'password_mismatch'),
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        // Verify current login password (hashed)
+        if (!Hash::check($request->current_login_password, $user->password)) {
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getTranslationFromFile('account', 'current_password_incorrect'),
+            ], 422);
+        }
+
+        // Update transfer password (not hashed)
+        $user->mat_khau_chuyen_tien = $request->new_password;
+        $user->save();
+
+        $successMessage = $hasCurrentPassword ? 
+            LanguageHelper::getTranslationFromFile('account', 'transfer_password_changed_success') :
+            LanguageHelper::getTranslationFromFile('account', 'transfer_password_set_success');
+
+        return response()->json([
+            'success' => true,
+            'message' => $successMessage,
         ]);
     }
 

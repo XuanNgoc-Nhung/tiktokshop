@@ -31,7 +31,8 @@ Route::middleware(['language.user'])->group(function () {
         Route::get('/account-history', [UserController::class, 'accountHistory'])->name('account.account-history');
         Route::get('/order-history', [UserController::class, 'orderHistory'])->name('account.order-history');
         Route::get('/password', [UserController::class, 'password'])->name('account.password');
-        Route::post('/password', [UserController::class, 'passwordUpdate'])->name('account.password.update');
+        Route::post('/password/change-login', [UserController::class, 'changeLoginPassword'])->name('account.password.change-login');
+        Route::post('/password/change-transfer', [UserController::class, 'changeTransferPassword'])->name('account.password.change-transfer');
         Route::get('/support', [UserController::class, 'support'])->name('account.support');
         Route::post('/support', [UserController::class, 'supportUpdate'])->name('account.support.update');
     });

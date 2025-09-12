@@ -24,6 +24,24 @@ return [
 
     'password' => 'পাসওয়ার্ড',
     'password_desc' => 'লগইন ও লেনদেন পাসওয়ার্ড পরিবর্তন',
+    
+    // Password management
+    'change_login_password' => 'লগইন পাসওয়ার্ড পরিবর্তন',
+    'change_transfer_password' => 'ট্রান্সফার পাসওয়ার্ড পরিবর্তন',
+    'current_password' => 'বর্তমান পাসওয়ার্ড',
+    'current_login_password' => 'বর্তমান লগইন পাসওয়ার্ড',
+    'new_password' => 'নতুন পাসওয়ার্ড',
+    'confirm_password' => 'পাসওয়ার্ড নিশ্চিত করুন',
+    'verify_login_password' => 'বর্তমান লগইন পাসওয়ার্ড দিয়ে যাচাই করুন',
+    'password_requirements' => 'পাসওয়ার্ড কমপক্ষে ৬ অক্ষর হতে হবে',
+    'transfer_password_requirements' => 'ট্রান্সফার পাসওয়ার্ড কমপক্ষে ৪ অক্ষর হতে হবে',
+    'password_mismatch' => 'পাসওয়ার্ড নিশ্চিতকরণ মিলছে না',
+    'current_password_incorrect' => 'বর্তমান পাসওয়ার্ড সঠিক নয়',
+    'password_changed_success' => 'পাসওয়ার্ড সফলভাবে পরিবর্তন হয়েছে',
+    'transfer_password_changed_success' => 'ট্রান্সফার পাসওয়ার্ড সফলভাবে পরিবর্তন হয়েছে',
+    'set_transfer_password' => 'ট্রান্সফার পাসওয়ার্ড সেট করুন',
+    'transfer_password_not_set' => 'ট্রান্সফার পাসওয়ার্ড সেট করা হয়নি',
+    'transfer_password_set_success' => 'ট্রান্সফার পাসওয়ার্ড সফলভাবে সেট হয়েছে',
 
     'support' => 'সাপোর্ট',
     'support_desc' => '২৪/৭ কাস্টমার সার্ভিসে যোগাযোগ করুন',

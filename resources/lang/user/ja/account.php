@@ -24,6 +24,24 @@ return [
 
     'password' => 'パスワード',
     'password_desc' => 'ログインと取引パスワードを変更',
+    
+    // Password management
+    'change_login_password' => 'ログインパスワードを変更',
+    'change_transfer_password' => '送金パスワードを変更',
+    'current_password' => '現在のパスワード',
+    'current_login_password' => '現在のログインパスワード',
+    'new_password' => '新しいパスワード',
+    'confirm_password' => 'パスワード確認',
+    'verify_login_password' => '現在のログインパスワードで確認',
+    'password_requirements' => 'パスワードは6文字以上である必要があります',
+    'transfer_password_requirements' => '送金パスワードは4文字以上である必要があります',
+    'password_mismatch' => 'パスワード確認が一致しません',
+    'current_password_incorrect' => '現在のパスワードが正しくありません',
+    'password_changed_success' => 'パスワードが正常に変更されました',
+    'transfer_password_changed_success' => '送金パスワードが正常に変更されました',
+    'set_transfer_password' => '送金パスワードを設定',
+    'transfer_password_not_set' => '送金パスワードが設定されていません',
+    'transfer_password_set_success' => '送金パスワードが正常に設定されました',
 
     'support' => 'サポート',
     'support_desc' => '24/7カスタマーサポートに連絡',

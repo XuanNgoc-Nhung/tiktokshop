@@ -24,6 +24,24 @@ return [
 
     'password' => 'Password',
     'password_desc' => 'Change login and transaction passwords',
+    
+    // Password management
+    'change_login_password' => 'Change login password',
+    'change_transfer_password' => 'Change transfer password',
+    'current_password' => 'Current password',
+    'current_login_password' => 'Current login password',
+    'new_password' => 'New password',
+    'confirm_password' => 'Confirm password',
+    'verify_login_password' => 'Verify with current login password',
+    'password_requirements' => 'Password must be at least 6 characters',
+    'transfer_password_requirements' => 'Transfer password must be at least 4 characters',
+    'password_mismatch' => 'Password confirmation does not match',
+    'current_password_incorrect' => 'Current password is incorrect',
+    'password_changed_success' => 'Password changed successfully',
+    'transfer_password_changed_success' => 'Transfer password changed successfully',
+    'set_transfer_password' => 'Set transfer password',
+    'transfer_password_not_set' => 'Transfer password not set',
+    'transfer_password_set_success' => 'Transfer password set successfully',
 
     'support' => 'Support',
     'support_desc' => 'Contact 24/7 customer service',
