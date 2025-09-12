@@ -26,7 +26,29 @@ return [
     'notification' => '通知',
     
     // Search
+    'search' => '検索',
     'search_placeholder' => '検索',
+    'receive_order' => '注文受付',
+    
+    // Stats Cards
+    'account_balance' => '口座残高',
+    'current_commission' => '現在のコミッション',
+    'current_level' => '現在のレベル',
+    'completed_tickets' => '完了チケット',
+    'top_agents' => 'トップエージェント',
+    'recently' => '最近',
+    
+    // Banner Content
+    'discover_amazing_products' => '素晴らしい商品を発見',
+    'find_best_deals_here' => '最高の取引を見つける',
+    'fashion_trends' => 'ファッショントレンド',
+    'latest_fashion_collection' => '最新ファッションコレクション',
+    'tech_gadgets' => 'テックガジェット',
+    'cutting_edge_technology' => '最先端技術',
+    'beauty_products' => '美容製品',
+    'enhance_your_beauty' => 'あなたの美しさを高める',
+    'lifestyle_products' => 'ライフスタイル製品',
+    'improve_your_lifestyle' => 'ライフスタイルを改善',
     
     // Feature Highlights
     'attractive_discounts' => '魅力的な割引',
@@ -44,4 +66,33 @@ return [
     'discount' => '-0.88 USD',
     'rating' => '0 | 販売数 0',
     'sold' => '販売数',
+    
+    // Search Interface
+    'search_products' => '商品を検索...',
+    'all' => 'すべて',
+    'electronics' => '電子機器',
+    'fashion' => 'ファッション',
+    'beauty' => '美容',
+    'home' => 'ホーム',
+    'price_range' => '価格範囲',
+    'sort_by' => '並び順',
+    'relevance' => '関連性',
+    'price_low_to_high' => '価格：安い順',
+    'price_high_to_low' => '価格：高い順',
+    'highest_rated' => '評価が高い順',
+    'newest' => '新着順',
+    'search_results' => '検索結果',
+    'loading' => '読み込み中',
+    'searching_products' => '商品を検索中...',
+    'no_products_found' => '商品が見つかりません',
+    'try_different_keywords' => '異なるキーワードやフィルターをお試しください',
+    'load_more' => 'さらに読み込む',
+    'new' => '新着',
+    'hot' => '人気',
+    'wireless_headphones' => 'ワイヤレスヘッドフォン',
+    'cotton_t_shirt' => 'コットンTシャツ',
+    'matte_lipstick' => 'マットリップスティック',
+    'smart_watch' => 'スマートウォッチ',
+    'gaming_laptop' => 'ゲーミングノートパソコン',
+    'running_sneakers' => 'ランニングシューズ',
 ];

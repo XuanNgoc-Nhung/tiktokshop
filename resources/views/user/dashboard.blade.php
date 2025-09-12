@@ -506,6 +506,10 @@
             this.autoPlayInterval = null;
             this.autoPlayDelay = 4000; // 4 seconds
             
+            console.log('BannerCarousel constructor called');
+            console.log('Slides found:', this.slides.length);
+            console.log('Dots found:', this.dots.length);
+            
             this.init();
         }
 
@@ -671,6 +675,8 @@
         }
 
         goToSlide(index) {
+            console.log('Going to slide:', index);
+            
             // Remove active class from current slide and dot
             this.slides[this.currentSlide].classList.remove('active');
             this.dots[this.currentSlide].classList.remove('active');
@@ -695,7 +701,9 @@
 
         startAutoPlay() {
             this.stopAutoPlay();
+            console.log('Starting autoplay with delay:', this.autoPlayDelay);
             this.autoPlayInterval = setInterval(() => {
+                console.log('Auto advancing slide');
                 this.nextSlide();
             }, this.autoPlayDelay);
         }
@@ -708,10 +716,34 @@
         }
     }
 
+    // Simple initialization function
+    function initCarousel() {
+        console.log('Initializing carousel...');
+        try {
+            new BannerCarousel();
+            console.log('Carousel initialized successfully');
+            window.carouselInitialized = true;
+        } catch (error) {
+            console.error('Error initializing carousel:', error);
+        }
+    }
+
     // Initialize carousel when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-        new BannerCarousel();
-    });
+    document.addEventListener('DOMContentLoaded', initCarousel);
+
+    // Fallback initialization if DOMContentLoaded already fired
+    if (document.readyState !== 'loading') {
+        console.log('DOM already loaded, initializing carousel immediately');
+        initCarousel();
+    }
+
+    // Final fallback after a short delay
+    setTimeout(() => {
+        if (!window.carouselInitialized) {
+            console.log('Fallback initialization after timeout');
+            initCarousel();
+        }
+    }, 1000);
 </script>
 @endsection
 

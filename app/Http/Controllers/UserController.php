@@ -251,40 +251,15 @@ class UserController extends Controller
             ->where('trang_thai', 1)
             ->sum('so_tien');
         
-        // Định nghĩa các mức hạng và số tiền cần thiết
-        $tiers = [
-            ['name' => 'PHỔ THÔNG', 'amount' => 5000000, 'display_amount' => '5.000.000 💰'],
-            ['name' => 'TIÊU THƯƠNG', 'amount' => 25000000, 'display_amount' => '25.000.000 💰'],
-            ['name' => 'THƯƠNG GIA', 'amount' => 125000000, 'display_amount' => '125.000.000 💰'],
-            ['name' => 'ĐẠI LÝ', 'amount' => 500000000, 'display_amount' => '500.000.000 💰'],
-            ['name' => 'DOANH NGHIỆP', 'amount' => 1000000000, 'display_amount' => '1.000.000.000 💰'],
-        ];
-        
-        // Tìm mức hạng hiện tại và mức tiếp theo
-        $currentTier = null;
-        $nextTier = null;
-        
-        foreach ($tiers as $index => $tier) {
-            if ($totalDeposited >= $tier['amount']) {
-                $currentTier = $tier;
-                if ($index < count($tiers) - 1) {
-                    $nextTier = $tiers[$index + 1];
-                }
-            } else {
-                if (!$currentTier) {
-                    $nextTier = $tier;
-                }
-                break;
-            }
-        }
+        // Sử dụng TierHelper để lấy thông tin tiers
+        $tierInfo = \App\Helpers\TierHelper::getCurrentAndNextTier($totalDeposited);
+        $currentTier = $tierInfo['currentTier'];
+        $nextTier = $tierInfo['nextTier'];
         
         // Tính số tiền cần nạp để nâng hạng
-        $amountNeededForNextTier = 0;
-        if ($nextTier) {
-            $amountNeededForNextTier = $nextTier['amount'] - $totalDeposited;
-        }
+        $amountNeededForNextTier = \App\Helpers\TierHelper::getAmountNeededForNextTier($totalDeposited);
         
-        return view('user.achievement', compact('totalDeposited', 'amountNeededForNextTier', 'currentTier', 'nextTier', 'tiers'));
+        return view('user.achievement', compact('totalDeposited', 'amountNeededForNextTier', 'currentTier', 'nextTier'));
     }
 
     public function personalInfo()

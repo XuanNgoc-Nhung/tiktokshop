@@ -26,7 +26,29 @@ return [
     'notification' => 'Notification',
     
     // Search
+    'search' => 'Search',
     'search_placeholder' => 'Search',
+    'receive_order' => 'Receive Order',
+    
+    // Stats Cards
+    'account_balance' => 'Account Balance',
+    'current_commission' => 'Current Commission',
+    'current_level' => 'Current Level',
+    'completed_tickets' => 'Completed Tickets',
+    'top_agents' => 'TOP AGENTS',
+    'recently' => 'RECENTLY',
+    
+    // Banner Content
+    'discover_amazing_products' => 'Discover Amazing Products',
+    'find_best_deals_here' => 'Find Best Deals Here',
+    'fashion_trends' => 'Fashion Trends',
+    'latest_fashion_collection' => 'Latest Fashion Collection',
+    'tech_gadgets' => 'Tech Gadgets',
+    'cutting_edge_technology' => 'Cutting Edge Technology',
+    'beauty_products' => 'Beauty Products',
+    'enhance_your_beauty' => 'Enhance Your Beauty',
+    'lifestyle_products' => 'Lifestyle Products',
+    'improve_your_lifestyle' => 'Improve Your Lifestyle',
     
     // Feature Highlights
     'attractive_discounts' => 'Attractive discounts',
@@ -44,4 +66,33 @@ return [
     'discount' => '-0.88 USD',
     'rating' => '0 | Sold 0',
     'sold' => 'Sold',
+    
+    // Search Interface
+    'search_products' => 'Search products...',
+    'all' => 'All',
+    'electronics' => 'Electronics',
+    'fashion' => 'Fashion',
+    'beauty' => 'Beauty',
+    'home' => 'Home',
+    'price_range' => 'Price Range',
+    'sort_by' => 'Sort By',
+    'relevance' => 'Relevance',
+    'price_low_to_high' => 'Price: Low to High',
+    'price_high_to_low' => 'Price: High to Low',
+    'highest_rated' => 'Highest Rated',
+    'newest' => 'Newest',
+    'search_results' => 'Search Results',
+    'loading' => 'Loading',
+    'searching_products' => 'Searching products...',
+    'no_products_found' => 'No products found',
+    'try_different_keywords' => 'Try different keywords or filters',
+    'load_more' => 'Load More',
+    'new' => 'New',
+    'hot' => 'Hot',
+    'wireless_headphones' => 'Wireless Headphones',
+    'cotton_t_shirt' => 'Cotton T-Shirt',
+    'matte_lipstick' => 'Matte Lipstick',
+    'smart_watch' => 'Smart Watch',
+    'gaming_laptop' => 'Gaming Laptop',
+    'running_sneakers' => 'Running Sneakers',
 ];

@@ -26,7 +26,29 @@ return [
     'notification' => 'বিজ্ঞপ্তি',
     
     // Search
+    'search' => 'অনুসন্ধান',
     'search_placeholder' => 'অনুসন্ধান',
+    'receive_order' => 'অর্ডার গ্রহণ',
+    
+    // Stats Cards
+    'account_balance' => 'অ্যাকাউন্ট ব্যালেন্স',
+    'current_commission' => 'বর্তমান কমিশন',
+    'current_level' => 'বর্তমান স্তর',
+    'completed_tickets' => 'সম্পূর্ণ টিকিট',
+    'top_agents' => 'শীর্ষ এজেন্ট',
+    'recently' => 'সম্প্রতি',
+    
+    // Banner Content
+    'discover_amazing_products' => 'আশ্চর্যজনক পণ্য আবিষ্কার করুন',
+    'find_best_deals_here' => 'এখানে সেরা ডিল খুঁজুন',
+    'fashion_trends' => 'ফ্যাশন ট্রেন্ড',
+    'latest_fashion_collection' => 'সর্বশেষ ফ্যাশন সংগ্রহ',
+    'tech_gadgets' => 'টেক গ্যাজেট',
+    'cutting_edge_technology' => 'অত্যাধুনিক প্রযুক্তি',
+    'beauty_products' => 'সৌন্দর্য পণ্য',
+    'enhance_your_beauty' => 'আপনার সৌন্দর্য বাড়ান',
+    'lifestyle_products' => 'জীবনধারা পণ্য',
+    'improve_your_lifestyle' => 'আপনার জীবনধারা উন্নত করুন',
     
     // Feature Highlights
     'attractive_discounts' => 'আকর্ষণীয় ছাড়',
@@ -44,4 +66,33 @@ return [
     'discount' => '-০.৮৮ USD',
     'rating' => '০ | বিক্রিত ০',
     'sold' => 'বিক্রিত',
+    
+    // Search Interface
+    'search_products' => 'পণ্য অনুসন্ধান...',
+    'all' => 'সব',
+    'electronics' => 'ইলেকট্রনিক্স',
+    'fashion' => 'ফ্যাশন',
+    'beauty' => 'সৌন্দর্য',
+    'home' => 'বাড়ি',
+    'price_range' => 'মূল্য পরিসর',
+    'sort_by' => 'সাজান',
+    'relevance' => 'প্রাসঙ্গিকতা',
+    'price_low_to_high' => 'মূল্য: কম থেকে বেশি',
+    'price_high_to_low' => 'মূল্য: বেশি থেকে কম',
+    'highest_rated' => 'সর্বোচ্চ রেটেড',
+    'newest' => 'নতুনতম',
+    'search_results' => 'অনুসন্ধান ফলাফল',
+    'loading' => 'লোড হচ্ছে',
+    'searching_products' => 'পণ্য অনুসন্ধান করা হচ্ছে...',
+    'no_products_found' => 'কোন পণ্য পাওয়া যায়নি',
+    'try_different_keywords' => 'বিভিন্ন কীওয়ার্ড বা ফিল্টার চেষ্টা করুন',
+    'load_more' => 'আরো লোড করুন',
+    'new' => 'নতুন',
+    'hot' => 'হট',
+    'wireless_headphones' => 'ওয়্যারলেস হেডফোন',
+    'cotton_t_shirt' => 'কটন টি-শার্ট',
+    'matte_lipstick' => 'ম্যাট লিপস্টিক',
+    'smart_watch' => 'স্মার্ট ওয়াচ',
+    'gaming_laptop' => 'গেমিং ল্যাপটপ',
+    'running_sneakers' => 'রানিং স্নিকার্স',
 ];
