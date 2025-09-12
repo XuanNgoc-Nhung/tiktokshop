@@ -78,6 +78,56 @@ return [
     'placeholder_bank' => 'ব্যাংকের নাম লিখুন',
     'placeholder_account_number' => 'অ্যাকাউন্ট নম্বর লিখুন',
     'placeholder_account_holder' => 'অ্যাকাউন্ট হোল্ডারের নাম লিখুন',
+    
+    // Support translations
+    'support' => 'সাপোর্ট',
+    'support_title' => 'গ্রাহক সাপোর্ট',
+    'support_subtitle' => 'আমরা ২৪/৭ আপনার সাপোর্টে প্রস্তুত',
+    'support_channels' => 'সাপোর্ট চ্যানেল',
+    
+    // Support channels
+    'facebook_support' => 'Facebook',
+    'facebook_desc' => 'Facebook Messenger এর মাধ্যমে যোগাযোগ',
+    'zalo_support' => 'Zalo',
+    'zalo_desc' => 'Zalo এর মাধ্যমে সরাসরি চ্যাট',
+    'telegram_support' => 'Telegram',
+    'telegram_desc' => 'Telegram গ্রুপে যোগ দিন',
+    'whatsapp_support' => 'WhatsApp',
+    'whatsapp_desc' => 'WhatsApp এর মাধ্যমে যোগাযোগ',
+    'hotline_support' => 'হটলাইন',
+    'hotline_desc' => 'সরাসরি ফোন কল',
+    'email_support' => 'ইমেইল',
+    'email_desc' => 'সাপোর্ট ইমেইল পাঠান',
+    
+    // Support status
+    'available_24_7' => '২৪/৭ উপলব্ধ',
+    'online' => 'অনলাইন',
+    'pending' => 'মুলতবি',
+    'response_time' => '২৪ ঘন্টার মধ্যে উত্তর',
+    
+    // FAQ
+    'faq_title' => 'প্রায়শই জিজ্ঞাসিত প্রশ্ন',
+    'faq_1_q' => 'কিভাবে অর্ডার করবেন?',
+    'faq_1_a' => 'আপনি পণ্য নির্বাচন করে, কার্টে যোগ করে এবং চেকআউট করে অর্ডার করতে পারেন।',
+    'faq_2_q' => 'ডেলিভারি সময় কত?',
+    'faq_2_a' => 'অবস্থানের উপর নির্ভর করে ডেলিভারি সময় ১-৩ কার্যদিবস।',
+    'faq_3_q' => 'পণ্য ফেরত দেওয়া যাবে?',
+    'faq_3_a' => 'হ্যাঁ, আপনি পণ্য পাওয়ার ৭ দিনের মধ্যে ফেরত দিতে পারেন।',
+    'faq_4_q' => 'অর্ডার ট্র্যাক কিভাবে করবেন?',
+    'faq_4_a' => 'আপনি আপনার অ্যাকাউন্টের "অর্ডার" বিভাগে অর্ডার ট্র্যাক করতে পারেন।',
+    
+    // Contact form
+    'contact_form_title' => 'সাপোর্ট অনুরোধ পাঠান',
+    'subject' => 'বিষয়',
+    'select_subject' => 'বিষয় নির্বাচন করুন',
+    'order_issue' => 'অর্ডার সমস্যা',
+    'payment_issue' => 'পেমেন্ট সমস্যা',
+    'account_issue' => 'অ্যাকাউন্ট সমস্যা',
+    'technical_issue' => 'প্রযুক্তিগত সমস্যা',
+    'other' => 'অন্যান্য',
+    'message' => 'বার্তা',
+    'message_placeholder' => 'আপনার সমস্যা বিস্তারিত বর্ণনা করুন...',
+    'send_request' => 'অনুরোধ পাঠান',
 ];
 
 

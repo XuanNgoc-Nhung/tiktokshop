@@ -28,13 +28,6 @@
         }
     </script>
     <style>
-        .account-card {
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-        }
-        .form-label { font-weight: 600; color: #111827; }
         .form-control, .form-select { border-radius: 10px; }
         .save-btn {
             background: #111827;
@@ -43,66 +36,12 @@
             padding: 10px 16px;
             border: none;
         }
-        .avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #f4d03f, #f7dc6f);
-            color: #8b4513;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            box-shadow: 0 6px 18px rgba(17, 24, 39, 0.18), 0 2px 8px rgba(244, 208, 63, 0.25), inset 0 0 0 2px rgba(255, 255, 255, 0.5);
-            overflow: hidden;
-            position: relative;
-        }
-        .avatar-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            display: block;
-        }
-        .vip-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, #fde68a, #f59e0b);
-            color: #78350f;
-            border-radius: 999px;
-            padding: 4px 10px;
-            font-size: 12px;
-            font-weight: 700;
-        }
-        .vip-badge i { color: #ca8a04; }
-        .helper { font-size: 12px; color: #6b7280; }
     </style>
 </div>
 
 <div class="container">
-    <!-- Header card with avatar -->
-    <div class="account-card p-3 mb-3">
-        <div class="d-flex align-items-center">
-            <div class="avatar me-3">
-                @if($profile->anh_chan_dung)
-                <img class="avatar-img" src="{{ $profile->anh_chan_dung ?? '' }}" alt="Avatar" class="avatar-img">
-                @else
-                {{ strtoupper(mb_substr($user->name ?? $user->phone ?? 'U', 0, 1)) }}
-                @endif
-            </div>
-            <div class="flex-grow-1">
-                <div class="fw-bold" style="font-size:16px; color:#111827;">{{ $user->name ?? 'User' }}</div>
-                <div class="text-muted" style="font-size:13px;"><i class="fas fa-phone me-1"></i>{{ $user->phone ?? '—' }}</div>
-                {{-- //tiền --}}
-                <div class="text-muted" style="font-size:13px;"><i class="fas fa-money-bill me-1"></i>{{ $profile->so_du ?? '0' }}</div>
-            </div>
-            <div class="ms-auto">
-                <span class="vip-badge"><i class="fas fa-crown"></i>VIP {{ (int)($profile->cap_do ?? 0) }}</span>
-            </div>
-        </div>
-    </div>
+    <!-- User Info -->
+    <x-user-info-card />
 
     <!-- Personal information form -->
     <div class="account-card p-3">

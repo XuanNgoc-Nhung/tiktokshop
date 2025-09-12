@@ -78,6 +78,56 @@ return [
     'placeholder_bank' => 'Enter bank name',
     'placeholder_account_number' => 'Enter account number',
     'placeholder_account_holder' => 'Enter account holder name',
+    
+    // Support translations
+    'support' => 'Support',
+    'support_title' => 'Customer Support',
+    'support_subtitle' => 'We are always ready to support you 24/7',
+    'support_channels' => 'Support Channels',
+    
+    // Support channels
+    'facebook_support' => 'Facebook',
+    'facebook_desc' => 'Contact via Facebook Messenger',
+    'zalo_support' => 'Zalo',
+    'zalo_desc' => 'Direct chat via Zalo',
+    'telegram_support' => 'Telegram',
+    'telegram_desc' => 'Join Telegram group',
+    'whatsapp_support' => 'WhatsApp',
+    'whatsapp_desc' => 'Contact via WhatsApp',
+    'hotline_support' => 'Hotline',
+    'hotline_desc' => 'Direct phone call',
+    'email_support' => 'Email',
+    'email_desc' => 'Send support email',
+    
+    // Support status
+    'available_24_7' => 'Available 24/7',
+    'online' => 'Online',
+    'pending' => 'Pending',
+    'response_time' => 'Response within 24h',
+    
+    // FAQ
+    'faq_title' => 'Frequently Asked Questions',
+    'faq_1_q' => 'How to place an order?',
+    'faq_1_a' => 'You can place an order by selecting products, adding to cart and checkout.',
+    'faq_2_q' => 'What is the delivery time?',
+    'faq_2_a' => 'Delivery time is 1-3 business days depending on location.',
+    'faq_3_q' => 'Can I return items?',
+    'faq_3_a' => 'Yes, you can return items within 7 days from receipt.',
+    'faq_4_q' => 'How to track orders?',
+    'faq_4_a' => 'You can track orders in the "Orders" section of your account.',
+    
+    // Contact form
+    'contact_form_title' => 'Send Support Request',
+    'subject' => 'Subject',
+    'select_subject' => 'Select Subject',
+    'order_issue' => 'Order Issue',
+    'payment_issue' => 'Payment Issue',
+    'account_issue' => 'Account Issue',
+    'technical_issue' => 'Technical Issue',
+    'other' => 'Other',
+    'message' => 'Message',
+    'message_placeholder' => 'Describe your issue in detail...',
+    'send_request' => 'Send Request',
 ];
 
 

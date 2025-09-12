@@ -78,6 +78,56 @@ return [
     'placeholder_bank' => '输入银行名称',
     'placeholder_account_number' => '输入账号',
     'placeholder_account_holder' => '输入账户持有人姓名',
+    
+    // Support translations
+    'support' => '支持',
+    'support_title' => '客户支持',
+    'support_subtitle' => '我们随时为您提供24/7支持',
+    'support_channels' => '支持渠道',
+    
+    // Support channels
+    'facebook_support' => 'Facebook',
+    'facebook_desc' => '通过Facebook Messenger联系',
+    'zalo_support' => 'Zalo',
+    'zalo_desc' => '通过Zalo直接聊天',
+    'telegram_support' => 'Telegram',
+    'telegram_desc' => '加入Telegram群组',
+    'whatsapp_support' => 'WhatsApp',
+    'whatsapp_desc' => '通过WhatsApp联系',
+    'hotline_support' => '热线',
+    'hotline_desc' => '直接电话联系',
+    'email_support' => '邮箱',
+    'email_desc' => '发送支持邮件',
+    
+    // Support status
+    'available_24_7' => '24/7可用',
+    'online' => '在线',
+    'pending' => '待处理',
+    'response_time' => '24小时内回复',
+    
+    // FAQ
+    'faq_title' => '常见问题',
+    'faq_1_q' => '如何下单？',
+    'faq_1_a' => '您可以选择商品，加入购物车并结账来下单。',
+    'faq_2_q' => '配送时间多长？',
+    'faq_2_a' => '配送时间为1-3个工作日，具体取决于地点。',
+    'faq_3_q' => '可以退货吗？',
+    'faq_3_a' => '可以，您可以在收货后7天内退货。',
+    'faq_4_q' => '如何跟踪订单？',
+    'faq_4_a' => '您可以在账户的"订单"部分跟踪订单。',
+    
+    // Contact form
+    'contact_form_title' => '发送支持请求',
+    'subject' => '主题',
+    'select_subject' => '选择主题',
+    'order_issue' => '订单问题',
+    'payment_issue' => '支付问题',
+    'account_issue' => '账户问题',
+    'technical_issue' => '技术问题',
+    'other' => '其他',
+    'message' => '消息',
+    'message_placeholder' => '详细描述您的问题...',
+    'send_request' => '发送请求',
 ];
 
 

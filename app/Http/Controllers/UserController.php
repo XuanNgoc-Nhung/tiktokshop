@@ -311,6 +311,39 @@ class UserController extends Controller
     {
         return view('user.password');
     }
+    public function support()
+    {
+        return view('user.support');
+    }
+    public function supportUpdate(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getTranslationFromFile('account', 'missing_data')
+            ], 401);
+        }
+
+        $request->validate([
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string|max:1000'
+        ]);
+
+        try {
+            // Here you would typically save the support request to database
+            // For now, we'll just return a success response
+            
+            return response()->json([
+                'success' => true,
+                'message' => LanguageHelper::getTranslationFromFile('account', 'send_request') . ' ' . LanguageHelper::getTranslationFromFile('account', 'success_title')
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getTranslationFromFile('account', 'error_title')
+            ], 500);
+        }
+    }
 
     public function kycUpdate(Request $request)
     {

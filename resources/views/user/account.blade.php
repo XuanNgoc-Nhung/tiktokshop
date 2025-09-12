@@ -28,86 +28,11 @@
             }
         }
     </script>
-    <style>
-        .account-card {
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-        }
-        .avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #f4d03f, #f7dc6f);
-            color: #8b4513;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            box-shadow: 0 4px 12px rgba(244, 208, 63, 0.3);
-        }
-        .menu-list .menu-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 12px;
-            border-bottom: 1px solid #f1f5f9;
-            color: #111827;
-            text-decoration: none;
-        }
-        .menu-list .menu-item:last-child {
-            border-bottom: none;
-        }
-        .menu-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            background: #fef3c7;
-            color: #8b4513;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-        }
-        .menu-text {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .menu-title { font-weight: 600; font-size: 15px; }
-        .menu-desc { font-size: 12px; color: #6b7280; }
-        .logout-btn { color: #dc2626; }
-    </style>
 </div>
 
 <div class="container">
     <!-- User Info -->
-    <div class="account-card p-3 mb-3">
-        <div class="d-flex align-items-center">
-            <div class="avatar me-3">
-                {{ strtoupper(mb_substr($user->name ?? $user->phone ?? 'U', 0, 1)) }}
-            </div>
-            <div class="flex-grow-1">
-                <div class="fw-bold" style="font-size:16px; color:#111827;">
-                    {{ $user->name ?? 'User' }}
-                </div>
-                <div class="text-muted" style="font-size:13px;">
-                    <i class="fas fa-phone me-1"></i> {{ $user->phone ?? '—' }}
-                </div>
-                @php
-                    $balance = optional($user->profile)->so_du;
-                @endphp
-                <div class="mt-1" style="font-size:13px">
-                    <i class="fas fa-money-bill me-1"></i>
-                    <span>
-                        {{ isset($balance) ? number_format((float)$balance, 0, '.', ',') : '0' }}
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
+    <x-user-info-card />
 
     <!-- Personal Menus -->
     <div class="account-card menu-list mb-3">

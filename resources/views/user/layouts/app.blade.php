@@ -715,6 +715,133 @@
             margin-bottom: 4px;
         }
 
+        /* Common Account Styles */
+        .account-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        }
+
+        .avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f4d03f, #f7dc6f);
+            color: #8b4513;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 4px 12px rgba(244, 208, 63, 0.3);
+        }
+
+        .avatar-img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            border-radius: 50%; 
+            display: block; 
+        }
+
+        .vip-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #92400e;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid #f59e0b;
+        }
+
+        .vip-badge i { 
+            color: #ca8a04; 
+        }
+
+        .menu-list .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #111827;
+            text-decoration: none;
+        }
+
+        .menu-list .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: #fef3c7;
+            color: #8b4513;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        .menu-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-title { 
+            font-weight: 600; 
+            font-size: 15px; 
+        }
+
+        .menu-desc { 
+            font-size: 12px; 
+            color: #6b7280; 
+        }
+
+        .logout-btn { 
+            color: #dc2626; 
+        }
+
+        .helper { 
+            font-size: 12px; 
+            color: #6b7280; 
+        }
+
+        .form-label { 
+            font-weight: 600; 
+            color: #111827; 
+        }
+
+        .upload-tile { 
+            border: 2px dashed #e5e7eb; 
+            border-radius: 12px; 
+            padding: 16px; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: all .2s ease; 
+            position: relative; 
+            background: #fafafa; 
+        }
+
+        .upload-tile:hover { 
+            border-color: #d1d5db; 
+            background: #f9fafb; 
+        }
+
+        .preview-wrapper { 
+            position: relative; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            background: #f3f4f6; 
+            height: 180px; 
+        }
+
         /* Responsive Design */
         @media (max-width: 414px) {
             .app-container {

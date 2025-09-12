@@ -48,4 +48,54 @@ return [
     'error' => 'Có lỗi xảy ra',
     'phone_exists' => 'Số điện thoại đã tồn tại',
     
+    // Support translations
+    'support' => 'Hỗ trợ',
+    'support_title' => 'Hỗ trợ khách hàng',
+    'support_subtitle' => 'Chúng tôi luôn sẵn sàng hỗ trợ bạn 24/7',
+    'support_channels' => 'Kênh hỗ trợ',
+    
+    // Support channels
+    'facebook_support' => 'Facebook',
+    'facebook_desc' => 'Liên hệ qua Facebook Messenger',
+    'zalo_support' => 'Zalo',
+    'zalo_desc' => 'Chat trực tiếp qua Zalo',
+    'telegram_support' => 'Telegram',
+    'telegram_desc' => 'Tham gia nhóm Telegram',
+    'whatsapp_support' => 'WhatsApp',
+    'whatsapp_desc' => 'Liên hệ qua WhatsApp',
+    'hotline_support' => 'Hotline',
+    'hotline_desc' => 'Gọi điện trực tiếp',
+    'email_support' => 'Email',
+    'email_desc' => 'Gửi email hỗ trợ',
+    
+    // Support status
+    'available_24_7' => 'Có sẵn 24/7',
+    'online' => 'Trực tuyến',
+    'pending' => 'Chờ phản hồi',
+    'response_time' => 'Phản hồi trong 24h',
+    
+    // FAQ
+    'faq_title' => 'Câu hỏi thường gặp',
+    'faq_1_q' => 'Làm thế nào để đặt hàng?',
+    'faq_1_a' => 'Bạn có thể đặt hàng bằng cách chọn sản phẩm, thêm vào giỏ hàng và thanh toán.',
+    'faq_2_q' => 'Thời gian giao hàng là bao lâu?',
+    'faq_2_a' => 'Thời gian giao hàng từ 1-3 ngày làm việc tùy thuộc vào địa điểm.',
+    'faq_3_q' => 'Có thể đổi trả hàng không?',
+    'faq_3_a' => 'Có, bạn có thể đổi trả hàng trong vòng 7 ngày kể từ ngày nhận hàng.',
+    'faq_4_q' => 'Làm sao để theo dõi đơn hàng?',
+    'faq_4_a' => 'Bạn có thể theo dõi đơn hàng trong mục "Đơn hàng" của tài khoản.',
+    
+    // Contact form
+    'contact_form_title' => 'Gửi yêu cầu hỗ trợ',
+    'subject' => 'Chủ đề',
+    'select_subject' => 'Chọn chủ đề',
+    'order_issue' => 'Vấn đề đơn hàng',
+    'payment_issue' => 'Vấn đề thanh toán',
+    'account_issue' => 'Vấn đề tài khoản',
+    'technical_issue' => 'Vấn đề kỹ thuật',
+    'other' => 'Khác',
+    'message' => 'Nội dung',
+    'message_placeholder' => 'Mô tả chi tiết vấn đề của bạn...',
+    'send_request' => 'Gửi yêu cầu',
+    
 ];
