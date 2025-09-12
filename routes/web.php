@@ -32,6 +32,7 @@ Route::middleware(['language.user'])->group(function () {
         Route::post('/kyc', [UserController::class, 'kycUpdate'])->name('account.kyc.update');
         Route::get('/account-history', [UserController::class, 'accountHistory'])->name('account.account-history');
         Route::get('/order-history', [UserController::class, 'orderHistory'])->name('account.order-history');
+        Route::get('/lich-su', [LichSuController::class, 'userLichSu'])->name('user.lich-su');
         Route::get('/password', [UserController::class, 'password'])->name('account.password');
         Route::post('/password/change-login', [UserController::class, 'changeLoginPassword'])->name('account.password.change-login');
         Route::post('/password/change-transfer', [UserController::class, 'changeTransferPassword'])->name('account.password.change-transfer');
@@ -87,6 +88,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin']], fu
     Route::put('/lich-su/{id}', [LichSuController::class, 'update'])->name('admin.lich-su.update');
     Route::delete('/lich-su/{id}', [LichSuController::class, 'destroy'])->name('admin.lich-su.destroy');
     Route::patch('/lich-su/{id}/toggle', [LichSuController::class, 'toggleStatus'])->name('admin.lich-su.toggle');
+    // order
+    Route::get('/order-management', [LichSuController::class, 'orderManagement'])->name('admin.order-management');
+    Route::get('/order', [LichSuController::class, 'index'])->name('admin.order.index');
+    Route::post('/order', [LichSuController::class, 'store'])->name('admin.order.store');
+    Route::put('/order/{id}', [LichSuController::class, 'update'])->name('admin.order.update');
+    Route::delete('/order/{id}', [LichSuController::class, 'destroy'])->name('admin.order.destroy');
+    Route::patch('/order/{id}/toggle', [LichSuController::class, 'toggleStatus'])->name('admin.order.toggle');
+    // nạp rút tiền
+    Route::get('/nạp-rut-tien', [LichSuController::class, 'nạpRutTien'])->name('admin.nạp-rut-tien');
 });
 
 // Admin routes with authentication check

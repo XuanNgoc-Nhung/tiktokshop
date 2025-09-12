@@ -852,9 +852,16 @@
                         <span class="menu-text">{{ __('admin::cms.user_management') }}</span>
                     </a>
                 </div>
-                
+
                 <div class="menu-item">
-                    <a href="#" class="menu-link" data-tooltip="{{ __('admin::cms.order_management') }}">
+                    <a href="{{ route('admin.nạp-rut-tien') }}" class="menu-link {{ request()->routeIs('admin.nạp-rut-tien') ? 'active' : '' }}" data-tooltip="{{ __('admin::cms.lich_su') }}">
+                        <i class="fas fa-history"></i>
+                        <span class="menu-text">{{ __('admin::cms.nạp_rut_tien') }}</span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
+                    <a href="{{ route('admin.order-management') }}" class="menu-link {{ request()->routeIs('admin.order-management') ? 'active' : '' }}" data-tooltip="{{ __('admin::cms.order_management') }}">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="menu-text">{{ __('admin::cms.order_management') }}</span>
                     </a>
