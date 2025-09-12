@@ -121,56 +121,8 @@ return [
     'placeholder_bank' => '銀行名を入力',
     'placeholder_account_number' => '口座番号を入力',
     'placeholder_account_holder' => '口座名義人を入力',
-    
-    // Support translations
-    'support' => 'サポート',
-    'support_title' => 'カスタマーサポート',
-    'support_subtitle' => '24時間365日いつでもサポートいたします',
-    'support_channels' => 'サポートチャネル',
-    
-    // Support channels
-    'facebook_support' => 'Facebook',
-    'facebook_desc' => 'Facebook Messengerでお問い合わせ',
-    'zalo_support' => 'Zalo',
-    'zalo_desc' => 'Zaloで直接チャット',
-    'telegram_support' => 'Telegram',
-    'telegram_desc' => 'Telegramグループに参加',
-    'whatsapp_support' => 'WhatsApp',
-    'whatsapp_desc' => 'WhatsAppでお問い合わせ',
-    'hotline_support' => 'ホットライン',
-    'hotline_desc' => '直接お電話ください',
-    'email_support' => 'メール',
-    'email_desc' => 'サポートメールを送信',
-    
-    // Support status
-    'available_24_7' => '24時間対応',
-    'online' => 'オンライン',
-    'pending' => '保留中',
-    'response_time' => '24時間以内に返信',
-    
-    // FAQ
-    'faq_title' => 'よくある質問',
-    'faq_1_q' => '注文方法は？',
-    'faq_1_a' => '商品を選択し、カートに追加してチェックアウトすることで注文できます。',
-    'faq_2_q' => '配送時間はどのくらいですか？',
-    'faq_2_a' => '配送時間は場所によって1-3営業日です。',
-    'faq_3_q' => '返品はできますか？',
-    'faq_3_a' => 'はい、商品受領から7日以内に返品できます。',
-    'faq_4_q' => '注文の追跡方法は？',
-    'faq_4_a' => 'アカウントの「注文」セクションで注文を追跡できます。',
-    
-    // Contact form
-    'contact_form_title' => 'サポートリクエストを送信',
-    'subject' => '件名',
-    'select_subject' => '件名を選択',
-    'order_issue' => '注文の問題',
-    'payment_issue' => '支払いの問題',
-    'account_issue' => 'アカウントの問題',
-    'technical_issue' => '技術的な問題',
-    'other' => 'その他',
-    'message' => 'メッセージ',
-    'message_placeholder' => '問題を詳しく説明してください...',
-    'send_request' => 'リクエストを送信',
+
+    'profit' => '利益',
 ];
 
 

@@ -171,6 +171,8 @@ return [
     'message' => 'বার্তা',
     'message_placeholder' => 'আপনার সমস্যা বিস্তারিত বর্ণনা করুন...',
     'send_request' => 'অনুরোধ পাঠান',
+
+    'profit' => 'লাভ',
 ];
 
 

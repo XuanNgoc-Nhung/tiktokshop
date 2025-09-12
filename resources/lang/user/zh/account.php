@@ -35,7 +35,7 @@ return [
     'store_reference' => '参考适合您投资资本的店铺',
     'tier_common' => '普通',
     'tier_small_merchant' => '小商户',
-    'tier_merchant' => '商户',
+    'tier_merchant' => '商人',
     'tier_agent' => '代理商',
     'tier_enterprise' => '企业',
     'profit_per_order' => '每单利润',
@@ -171,6 +171,8 @@ return [
     'message' => '消息',
     'message_placeholder' => '详细描述您的问题...',
     'send_request' => '发送请求',
+
+    'profit' => '利润',
 ];
 
 

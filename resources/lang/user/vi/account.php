@@ -168,6 +168,8 @@ return [
     'placeholder_bank' => 'Nhập tên ngân hàng',
     'placeholder_account_number' => 'Nhập số tài khoản',
     'placeholder_account_holder' => 'Nhập tên chủ tài khoản',
+
+    'profit' => 'Lợi nhuận',
 ];
 
 

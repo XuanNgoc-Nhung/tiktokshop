@@ -35,26 +35,28 @@
     <!-- card info achievement -->
     <div class="card-info-achievement">
         <div class="card-info-achievement-item">
-            <div class="achievement-stats">
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-wallet"></i>
+            <div class="achievement-stats row gx-2 gy-0 align-items-center">
+               
+                <div class="col-6">
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">{{ number_format($amountNeededForNextTier, 0, '.', '.') }} 💰</div>
+                            <div class="stat-label">{{ $__account('profit') ?? 'Lợi nhuận' }}</div> 
+                        </div>
                     </div>
-                    <div class="stat-content">
-                        <div class="stat-value">{{ number_format($totalDeposited, 0, '.', '.') }} 💰</div>
-                        <div class="stat-label">{{ $__account('current_limit') ?? 'Hiện tại' }}</div>
-                    </div>
-                </div>
-                
-                <div class="stat-divider"></div>
-                
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-value">{{ number_format($amountNeededForNextTier, 0, '.', '.') }} 💰</div>
-                        <div class="stat-label">{{ $__account('upgrade_needed') ?? 'Nâng hạng' }}</div>
+                </div> 
+                <div class="col-6">
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">{{ number_format($user->profile->so_du, 0, '.', '.') }} 💰</div>
+                            <div class="stat-label">{{ $__account('current_limit') ?? 'Hiện tại' }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,6 +81,13 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+}
+
+/* Show "Hiện tại" (first col) on the right, "Nâng hạng" (second col) on the left */
+.achievement-stats.row {
+    flex-direction: row-reverse;
+    justify-content: flex-start; /* prevent added spacing from pushing columns to next line */
+    gap: 0; /* use Bootstrap gutters instead of custom gap */
 }
 
 .stat-item {
@@ -110,6 +119,7 @@
     font-weight: 700;
     color: #2c3e50;
     margin-bottom: 0.25rem;
+    text-align: left;
 }
 
 .stat-label {
@@ -289,9 +299,14 @@
 
 /* Responsive adjustments */
 @media (max-width: 576px) {
-    .achievement-stats {
+    /* Only stack vertically when not using Bootstrap row */
+    .achievement-stats:not(.row) {
         flex-direction: column;
         gap: 0.75rem;
+    }
+    /* Keep reversed order on small screens as well */
+    .achievement-stats.row {
+        flex-direction: row-reverse;
     }
     
     .stat-divider {

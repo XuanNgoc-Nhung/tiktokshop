@@ -171,6 +171,8 @@ return [
     'message' => 'Message',
     'message_placeholder' => 'Describe your issue in detail...',
     'send_request' => 'Send Request',
+
+    'profit' => 'Profit',
 ];
 
 

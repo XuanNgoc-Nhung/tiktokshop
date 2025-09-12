@@ -269,8 +269,12 @@ class UserController extends Controller
         $currentTier = $tierInfo['currentTier'];
         $nextTier = $tierInfo['nextTier'];
         
-        // Tính số tiền cần nạp để nâng hạng
-        $amountNeededForNextTier = \App\Helpers\TierHelper::getAmountNeededForNextTier($totalDeposited);
+        // Tính số tiền cần để nâng hạng: số tiền của cấp độ kế tiếp trừ đi số dư hiện tại
+        $amountNeededForNextTier = 0;
+        if ($nextTier) {
+            $currentBalance = $profile->so_du ?? 0;
+            $amountNeededForNextTier = max(0, $nextTier['amount'] - $currentBalance);
+        }
         
         return view('user.achievement', compact('totalDeposited', 'amountNeededForNextTier', 'currentTier', 'nextTier'));
     }
@@ -709,5 +713,9 @@ class UserController extends Controller
             ->paginate(10);
 
         return view('user.account-history', compact('accountHistory'));
+    }
+    public function recharge()
+    {
+        return view('user.recharge');
     }
 }

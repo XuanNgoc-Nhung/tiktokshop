@@ -21,6 +21,7 @@ Route::middleware(['language.user'])->group(function () {
     Route::get('/search', [UserController::class, 'search'])->name('search');
     Route::get('/orders', [UserController::class, 'orders'])->name('orders');
     Route::get('/account', [UserController::class, 'account'])->name('account');
+    Route::get('/recharge', [UserController::class, 'recharge'])->name('recharge');
     Route::group(['prefix' => 'account'], function () {
         Route::get('/achievement', [UserController::class, 'achievement'])->name('account.achievement');
         Route::get('/personal-info', [UserController::class, 'personalInfo'])->name('account.personal-info');
