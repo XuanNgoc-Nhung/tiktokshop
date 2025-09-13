@@ -10,11 +10,11 @@ class TierHelper
     public static function getTiers()
     {
         return [
-            ['name' => 'PHỔ THÔNG', 'amount' => 5000000, 'display_amount' => '5.000.000 💰'],
-            ['name' => 'TIÊU THƯƠNG', 'amount' => 25000000, 'display_amount' => '25.000.000 💰'],
-            ['name' => 'THƯƠNG GIA', 'amount' => 125000000, 'display_amount' => '125.000.000 💰'],
-            ['name' => 'ĐẠI LÝ', 'amount' => 500000000, 'display_amount' => '500.000.000 💰'],
-            ['name' => 'DOANH NGHIỆP', 'amount' => 1000000000, 'display_amount' => '1.000.000.000 💰'],
+            ['name' => 'PHỔ THÔNG', 'amount' => 100, 'display_amount' => '100$'],
+            ['name' => 'TIÊU THƯƠNG', 'amount' => 200, 'display_amount' => '200$'],
+            ['name' => 'THƯƠNG GIA', 'amount' => 500, 'display_amount' => '500$'],
+            ['name' => 'ĐẠI LÝ', 'amount' => 2000, 'display_amount' => '2.000$'],
+            ['name' => 'DOANH NGHIỆP', 'amount' => 5000, 'display_amount' => '5.000$'],
         ];
     }
 
