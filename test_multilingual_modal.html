@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Multilingual Modal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .language-selector {
+            margin-bottom: 20px;
+        }
+        
+        .language-selector button {
+            margin-right: 10px;
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .language-selector button.active {
+            background: #007bff;
+            color: white;
+        }
+        
+        .test-button {
+            background: #f4d03f;
+            color: #8b4513;
+            border: 2px solid #f4d03f;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .test-button:hover {
+            background: #f7dc6f;
+        }
+        
+        /* Insufficient Balance Modal Styles */
+        .insufficient-balance-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            visibility: hidden;
+        }
+
+        .insufficient-balance-modal-overlay[style*="opacity: 1"] {
+            visibility: visible;
+        }
+
+        .insufficient-balance-modal {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .insufficient-balance-modal-overlay[style*="opacity: 1"] .insufficient-balance-modal {
+            transform: scale(1);
+        }
+
+        .insufficient-balance-modal-header {
+            padding: 30px 20px 20px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .insufficient-balance-icon {
+            font-size: 48px;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+
+        .insufficient-balance-modal-header h3 {
+            margin: 0;
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .insufficient-balance-modal-body {
+            padding: 20px;
+        }
+
+        .insufficient-balance-message {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .insufficient-balance-modal-footer {
+            padding: 0 20px 30px 20px;
+        }
+
+        .insufficient-balance-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn-cancel {
+            background: #f8f9fa;
+            color: #666;
+            border: 1px solid #dee2e6;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-cancel:hover {
+            background: #e9ecef;
+            color: #495057;
+            text-decoration: none;
+        }
+
+        .btn-recharge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-recharge:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Test Multilingual Insufficient Balance Modal</h1>
+        
+        <div class="language-selector">
+            <h3>Select Language:</h3>
+            <button onclick="setLanguage('vi')" class="active" id="btn-vi">Tiếng Việt</button>
+            <button onclick="setLanguage('en')" id="btn-en">English</button>
+            <button onclick="setLanguage('ja')" id="btn-ja">日本語</button>
+        </div>
+        
+        <div>
+            <h3>Test Modal:</h3>
+            <button class="test-button" onclick="showInsufficientBalanceModal()">
+                <i class="fas fa-exclamation-triangle me-2"></i>Show Insufficient Balance Modal
+            </button>
+        </div>
+        
+        <div>
+            <h3>Current Language:</h3>
+            <p id="current-lang">Tiếng Việt</p>
+        </div>
+    </div>
+
+    <script>
+        // Translation data for different languages
+        const translations = {
+            vi: {
+                insufficient_balance_title: 'Số dư không đủ',
+                insufficient_balance_message: 'Số dư của bạn không đủ để mua sản phẩm nào. Vui lòng nạp thêm tiền để tiếp tục.',
+                recharge_now: 'Nạp tiền ngay',
+                close: 'Đóng'
+            },
+            en: {
+                insufficient_balance_title: 'Insufficient Balance',
+                insufficient_balance_message: 'Your balance is insufficient to purchase any products. Please recharge to continue.',
+                recharge_now: 'Recharge Now',
+                close: 'Close'
+            },
+            ja: {
+                insufficient_balance_title: '残高不足',
+                insufficient_balance_message: '残高が不足しており、商品を購入できません。続行するには入金してください。',
+                recharge_now: '今すぐ入金',
+                close: '閉じる'
+            }
+        };
+
+        let currentLanguage = 'vi';
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update button states
+            document.querySelectorAll('.language-selector button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`btn-${lang}`).classList.add('active');
+            
+            // Update current language display
+            const langNames = {
+                'vi': 'Tiếng Việt',
+                'en': 'English',
+                'ja': '日本語'
+            };
+            document.getElementById('current-lang').textContent = langNames[lang];
+            
+            console.log(`Language changed to: ${lang}`);
+        }
+
+        function showInsufficientBalanceModal() {
+            console.log('💰 [BALANCE MODAL] Showing insufficient balance modal...');
+            // Remove existing modal if any
+            const existingModal = document.getElementById('insufficientBalanceModal');
+            if (existingModal) {
+                console.log('💰 [BALANCE MODAL] Removing existing modal');
+                existingModal.remove();
+            }
+            
+            // Create modal HTML with multilingual support
+            console.log('💰 [BALANCE MODAL] Creating modal HTML with multilingual support...');
+            const currentTranslations = translations[currentLanguage];
+            const modalHTML = `
+                <div class="insufficient-balance-modal-overlay" id="insufficientBalanceModal">
+                    <div class="insufficient-balance-modal">
+                        <div class="insufficient-balance-modal-header">
+                            <div class="insufficient-balance-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <h3>${currentTranslations.insufficient_balance_title}</h3>
+                        </div>
+                        <div class="insufficient-balance-modal-body">
+                            <p class="insufficient-balance-message">${currentTranslations.insufficient_balance_message}</p>
+                        </div>
+                        <div class="insufficient-balance-modal-footer">
+                            <div class="insufficient-balance-buttons">
+                                <button class="btn-cancel" onclick="closeInsufficientBalanceModal()">
+                                    <i class="fas fa-times me-2"></i>${currentTranslations.close}
+                                </button>
+                                <a href="/nap-tien" class="btn-recharge">
+                                    <i class="fas fa-plus-circle me-2"></i>${currentTranslations.recharge_now}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add modal to body
+            console.log('💰 [BALANCE MODAL] Adding modal to DOM...');
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            
+            // Show modal with animation
+            setTimeout(() => {
+                const modal = document.getElementById('insufficientBalanceModal');
+                if (modal) {
+                    console.log('💰 [BALANCE MODAL] Showing modal with animation...');
+                    modal.style.opacity = '1';
+                }
+            }, 10);
+        }
+
+        function closeInsufficientBalanceModal() {
+            console.log('💰 [BALANCE MODAL] Closing insufficient balance modal...');
+            const modal = document.getElementById('insufficientBalanceModal');
+            if (modal) {
+                console.log('💰 [BALANCE MODAL] Starting fade out animation...');
+                modal.style.opacity = '0';
+                setTimeout(() => {
+                    console.log('💰 [BALANCE MODAL] Removing modal from DOM...');
+                    modal.remove();
+                }, 300);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -109,11 +109,11 @@
             <i class="fas fa-money-bill fs-4 d-block mb-2"></i>
             <span class="small">{{ $__home('withdraw') }}</span>
         </div>
-        <div class="nav-icon text-center">
+        <div class="nav-icon text-center" onclick="window.location.href='{{ route('account.achievement') }}'">
             <i class="fas fa-hand-holding-usd fs-4 d-block mb-2"></i>
             <span class="small">{{ $__home('invest') }}</span>
         </div>
-        <div class="nav-icon text-center">
+        <div class="nav-icon text-center" onclick="window.location.href='{{ route('account.support') }}'">
             <i class="fas fa-headset fs-4 d-block mb-2"></i>
             <span class="small">{{ $__home('service') }}</span>
         </div>

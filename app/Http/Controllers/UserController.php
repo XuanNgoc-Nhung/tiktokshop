@@ -613,19 +613,36 @@ class UserController extends Controller
         }
 
         try {
-            // Lấy ngẫu nhiên 1 sản phẩm từ database
-            $randomProduct = SanPham::inRandomOrder()->first();
+            // Lấy thông tin người dùng và số dư
+            $user = Auth::user();
+            $profile = $user->profile;
+            
+            if (!$profile || !$profile->so_du) {
+                return response()->json([
+                    'success' => false,
+                    'message' => LanguageHelper::getHomeTranslation('insufficient_balance')
+                ], 400);
+            }
+            
+            $userBalance = (float) $profile->so_du;
+            
+            // Lấy ngẫu nhiên 1 sản phẩm có giá <= số dư của người dùng
+            $randomProduct = SanPham::where('gia', '<=', $userBalance)
+                ->inRandomOrder()
+                ->first();
             
             if (!$randomProduct) {
                 return response()->json([
                     'success' => false,
-                    'message' => LanguageHelper::getHomeTranslation('no_products_available')
-                ], 404);
+                    'type' => 'balance',
+                    'message' => LanguageHelper::getHomeTranslation('no_affordable_products')
+                ]);
             }
 
             // Trả về thông tin sản phẩm
             return response()->json([
                 'success' => true,
+                'type' => 'product',
                 'message' => LanguageHelper::getHomeTranslation('receive_order_success'),
                 'product' => [
                     'id' => $randomProduct->id,

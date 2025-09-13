@@ -961,6 +961,23 @@
                 }
             }, 300);
         }
+
+    // Haptic feedback simulation
+    function hapticFeedback() {
+        if ('vibrate' in navigator) {
+            navigator.vibrate(10);
+        }
+    }
+
+    // Navigation functions
+    function goBack() {
+        hapticFeedback();
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = '/';
+        }
+    }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -510,6 +510,125 @@
     visibility: hidden;
 }
 
+/* Insufficient Balance Modal Styles */
+.insufficient-balance-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    visibility: hidden;
+}
+
+.insufficient-balance-modal-overlay[style*="opacity: 1"] {
+    visibility: visible;
+}
+
+.insufficient-balance-modal {
+    background: white;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.insufficient-balance-modal-overlay[style*="opacity: 1"] .insufficient-balance-modal {
+    transform: scale(1);
+}
+
+.insufficient-balance-modal-header {
+    padding: 30px 20px 20px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.insufficient-balance-icon {
+    font-size: 48px;
+    color: #ff6b6b;
+    margin-bottom: 15px;
+}
+
+.insufficient-balance-modal-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.insufficient-balance-modal-body {
+    padding: 20px;
+}
+
+.insufficient-balance-message {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.insufficient-balance-modal-footer {
+    padding: 0 20px 30px 20px;
+}
+
+.insufficient-balance-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-cancel {
+    background: #f8f9fa;
+    color: #666;
+    border: 1px solid #dee2e6;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-cancel:hover {
+    background: #e9ecef;
+    color: #495057;
+    text-decoration: none;
+}
+
+.btn-recharge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-recharge:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    color: white;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
 .product-modal-overlay[style*="opacity: 1"] {
     visibility: visible;
 }
@@ -843,37 +962,52 @@ const translations = {
     session_expired: '{{ $__home("session_expired") }}',
     login_required: '{{ $__home("login_required") }}',
     success_title: '{{ $__home("success_title") }}',
-    error_title: '{{ $__home("error_title") }}'
+    error_title: '{{ $__home("error_title") }}',
+    // Insufficient Balance Modal translations
+    insufficient_balance_title: '{{ $__home("insufficient_balance_title") }}',
+    insufficient_balance_message: '{{ $__home("insufficient_balance_message") }}',
+    recharge_now: '{{ $__home("recharge_now") }}',
+    close: '{{ $__home("close") }}'
 };
 
 // Haptic feedback simulation
 function hapticFeedback() {
+    console.log('📳 [HAPTIC] Triggering haptic feedback...');
     if ('vibrate' in navigator) {
         navigator.vibrate(10);
+        console.log('📳 [HAPTIC] Vibration triggered');
+    } else {
+        console.log('📳 [HAPTIC] Vibration not supported on this device');
     }
 }
 
 // Banner Carousel functionality
 class BannerCarousel {
     constructor() {
+        console.log('🎠 [BANNER] Initializing banner carousel...');
         this.currentSlide = 0;
         this.slides = document.querySelectorAll('.banner-slide');
         this.dots = document.querySelectorAll('.banner-dot');
         this.autoPlayInterval = null;
         this.autoPlayDelay = 3000; // 3 seconds
         
+        console.log(`🎠 [BANNER] Found ${this.slides.length} slides and ${this.dots.length} dots`);
         this.init();
     }
 
     init() {
+        console.log('🎠 [BANNER] Setting up banner carousel events...');
         this.bindEvents();
         this.startAutoPlay();
+        console.log('🎠 [BANNER] Banner carousel initialized successfully');
     }
 
     bindEvents() {
+        console.log('🎠 [BANNER] Binding dot navigation events...');
         // Dots navigation
         this.dots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
+                console.log(`🎠 [BANNER] Dot ${index} clicked, switching to slide ${index}`);
                 hapticFeedback();
                 this.stopAutoPlay();
                 this.goToSlide(index);
@@ -881,19 +1015,29 @@ class BannerCarousel {
             });
         });
 
+        console.log('🎠 [BANNER] Adding touch/swipe support...');
         // Touch/swipe support
         this.addTouchSupport();
         
+        console.log('🎠 [BANNER] Adding mouse drag support...');
         // Mouse drag support for desktop
         this.addMouseSupport();
 
+        console.log('🎠 [BANNER] Adding hover pause functionality...');
         // Pause on hover
         const carousel = document.querySelector('.banner-carousel-container');
-        carousel.addEventListener('mouseenter', () => this.stopAutoPlay());
-        carousel.addEventListener('mouseleave', () => this.startAutoPlay());
+        carousel.addEventListener('mouseenter', () => {
+            console.log('🎠 [BANNER] Mouse entered, pausing autoplay');
+            this.stopAutoPlay();
+        });
+        carousel.addEventListener('mouseleave', () => {
+            console.log('🎠 [BANNER] Mouse left, resuming autoplay');
+            this.startAutoPlay();
+        });
     }
 
     addTouchSupport() {
+        console.log('🎠 [BANNER] Setting up touch support...');
         let startX = 0;
         let endX = 0;
         let isDragging = false;
@@ -901,6 +1045,7 @@ class BannerCarousel {
         const carousel = document.querySelector('.banner-carousel');
 
         carousel.addEventListener('touchstart', (e) => {
+            console.log('🎠 [BANNER] Touch started');
             startX = e.touches[0].clientX;
             currentX = startX;
             isDragging = true;
@@ -927,6 +1072,7 @@ class BannerCarousel {
 
         carousel.addEventListener('touchend', (e) => {
             if (!isDragging) return;
+            console.log('🎠 [BANNER] Touch ended');
             endX = e.changedTouches[0].clientX;
             isDragging = false;
             carousel.classList.remove('touching');
@@ -942,6 +1088,7 @@ class BannerCarousel {
     }
 
     addMouseSupport() {
+        console.log('🎠 [BANNER] Setting up mouse support...');
         let startX = 0;
         let endX = 0;
         let isDragging = false;
@@ -949,6 +1096,7 @@ class BannerCarousel {
         const carousel = document.querySelector('.banner-carousel');
 
         carousel.addEventListener('mousedown', (e) => {
+            console.log('🎠 [BANNER] Mouse down');
             startX = e.clientX;
             currentX = startX;
             isDragging = true;
@@ -976,6 +1124,7 @@ class BannerCarousel {
 
         carousel.addEventListener('mouseup', (e) => {
             if (!isDragging) return;
+            console.log('🎠 [BANNER] Mouse up');
             endX = e.clientX;
             isDragging = false;
             carousel.classList.remove('touching');
@@ -1004,16 +1153,20 @@ class BannerCarousel {
     handleSwipe(startX, endX) {
         const threshold = 50;
         const diff = startX - endX;
+        console.log(`🎠 [BANNER] Handling swipe: diff=${diff}, threshold=${threshold}`);
 
         if (Math.abs(diff) > threshold) {
+            console.log('🎠 [BANNER] Swipe threshold exceeded, changing slide');
             hapticFeedback();
             
             // Add swiping class for smooth transition
             this.slides[this.currentSlide].classList.add('swiping');
             
             if (diff > 0) {
+                console.log('🎠 [BANNER] Swiping to next slide');
                 this.nextSlide();
             } else {
+                console.log('🎠 [BANNER] Swiping to previous slide');
                 this.previousSlide();
             }
             
@@ -1023,10 +1176,13 @@ class BannerCarousel {
                     slide.classList.remove('swiping');
                 });
             }, 500);
+        } else {
+            console.log('🎠 [BANNER] Swipe not strong enough, ignoring');
         }
     }
 
     goToSlide(index) {
+        console.log(`🎠 [BANNER] Going to slide ${index} (from ${this.currentSlide})`);
         // Remove active class from current slide and dot
         this.slides[this.currentSlide].classList.remove('active');
         this.dots[this.currentSlide].classList.remove('active');
@@ -1037,26 +1193,32 @@ class BannerCarousel {
         // Add active class to new slide and dot
         this.slides[this.currentSlide].classList.add('active');
         this.dots[this.currentSlide].classList.add('active');
+        console.log(`🎠 [BANNER] Now on slide ${this.currentSlide}`);
     }
 
     nextSlide() {
         const nextIndex = (this.currentSlide + 1) % this.slides.length;
+        console.log(`🎠 [BANNER] Moving to next slide: ${nextIndex}`);
         this.goToSlide(nextIndex);
     }
 
     previousSlide() {
         const prevIndex = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+        console.log(`🎠 [BANNER] Moving to previous slide: ${prevIndex}`);
         this.goToSlide(prevIndex);
     }
 
     startAutoPlay() {
+        console.log('🎠 [BANNER] Starting autoplay...');
         this.stopAutoPlay();
         this.autoPlayInterval = setInterval(() => {
+            console.log('🎠 [BANNER] Autoplay tick - moving to next slide');
             this.nextSlide();
         }, this.autoPlayDelay);
     }
 
     stopAutoPlay() {
+        console.log('🎠 [BANNER] Stopping autoplay...');
         if (this.autoPlayInterval) {
             clearInterval(this.autoPlayInterval);
             this.autoPlayInterval = null;
@@ -1067,9 +1229,12 @@ class BannerCarousel {
 
 // Navigation functions
 function goBack() {
+    console.log('🔙 [NAVIGATION] Going back...');
     if (window.history.length > 1) {
+        console.log('🔙 [NAVIGATION] Using browser back button');
         window.history.back();
     } else {
+        console.log('🔙 [NAVIGATION] No history, redirecting to dashboard');
         window.location.href = '/dashboard';
     }
 }
@@ -1077,41 +1242,53 @@ function goBack() {
 
 // Loading utility functions
 function showLoading(text = translations.loading_data) {
+    console.log('⏳ [LOADING] Showing loading overlay with text:', text);
     const overlay = document.getElementById('loadingOverlay');
     const loadingText = document.getElementById('loadingText');
     loadingText.textContent = text;
     overlay.classList.add('show');
+    console.log('⏳ [LOADING] Loading overlay displayed');
 }
 
 function hideLoading() {
+    console.log('⏳ [LOADING] Hiding loading overlay...');
     const overlay = document.getElementById('loadingOverlay');
     overlay.classList.remove('show');
+    console.log('⏳ [LOADING] Loading overlay hidden');
 }
 
 function showButtonLoading(button, text = translations.processing) {
+    console.log('⏳ [BUTTON LOADING] Showing button loading state with text:', text);
     const originalText = button.innerHTML;
     button.innerHTML = `<i class="fas fa-spinner fa-spin me-2"></i>${text}`;
     button.disabled = true;
+    console.log('⏳ [BUTTON LOADING] Button loading state activated');
     return originalText;
 }
 
 function hideButtonLoading(button, originalText) {
+    console.log('⏳ [BUTTON LOADING] Hiding button loading state...');
     button.innerHTML = originalText;
     button.disabled = false;
+    console.log('⏳ [BUTTON LOADING] Button loading state deactivated');
 }
 
 async function receiveOrder() {
+    console.log('🛒 [RECEIVE ORDER] Starting receive order process...');
     // Haptic feedback
     hapticFeedback();
     
     const btn = document.getElementById('receiveOrderBtn');
     const originalText = showButtonLoading(btn, translations.receiving_order);
+    console.log('🛒 [RECEIVE ORDER] Button loading state activated');
     
     try {
         // Show loading overlay
+        console.log('🛒 [RECEIVE ORDER] Showing loading overlay...');
         showLoading(translations.finding_suitable_order);
         
         // Gọi API để nhận đơn hàng
+        console.log('🛒 [RECEIVE ORDER] Calling /receive-order API...');
         const response = await fetch('/receive-order', {
             method: 'POST',
             headers: {
@@ -1121,42 +1298,125 @@ async function receiveOrder() {
             body: JSON.stringify({})
         });
         
+        console.log(`🛒 [RECEIVE ORDER] API response status: ${response.status}`);
         const data = await response.json();
+        console.log('🛒 [RECEIVE ORDER] API response data:', data);
         
         if (data.success) {
+            console.log('🛒 [RECEIVE ORDER] Order received successfully!');
             // Hiển thị toast thông báo nhận đơn thành công
             showToast('success', translations.success_title, data.message || 'Nhận đơn hàng thành công!');
             
             // Cập nhật loading text
+            console.log('🛒 [RECEIVE ORDER] Updating loading text to preparing order...');
             showLoading(translations.preparing_order);
             
             // Loading 2 giây trước khi hiển thị modal
+            console.log('🛒 [RECEIVE ORDER] Waiting 2 seconds before showing product modal...');
             setTimeout(() => {
+                console.log('🛒 [RECEIVE ORDER] Showing product modal...');
                 hideLoading();
                 showProductModal(data.product);
                 hideButtonLoading(btn, originalText);
+                console.log('🛒 [RECEIVE ORDER] Product modal displayed, button restored');
             }, 2000);
         } else {
+            console.log('🛒 [RECEIVE ORDER] Order receive failed:', data.message);
             hideLoading();
             hideButtonLoading(btn, originalText);
-            showToast('error', translations.error_title, data.message || translations.error_receiving_order);
+            
+            // Kiểm tra nếu là lỗi số dư không đủ thì hiển thị modal
+            if (data.type === 'balance') {
+                console.log('🛒 [RECEIVE ORDER] Insufficient balance, showing balance modal');
+                showInsufficientBalanceModal();
+            } else {
+                console.log('🛒 [RECEIVE ORDER] Showing error toast');
+                showToast('error', translations.error_title, data.message || translations.error_receiving_order);
+            }
         }
     } catch (error) {
+        console.error('🛒 [RECEIVE ORDER] Error occurred:', error);
         hideLoading();
         hideButtonLoading(btn, originalText);
-        console.error('Error:', error);
         showToast('error', translations.error_title, translations.error_connecting_server);
     }
 }
 
+function showInsufficientBalanceModal() {
+    console.log('💰 [BALANCE MODAL] Showing insufficient balance modal...');
+    // Xóa modal cũ nếu có
+    const existingModal = document.getElementById('insufficientBalanceModal');
+    if (existingModal) {
+        console.log('💰 [BALANCE MODAL] Removing existing modal');
+        existingModal.remove();
+    }
+    
+    // Tạo modal HTML với đa ngôn ngữ
+    console.log('💰 [BALANCE MODAL] Creating modal HTML with multilingual support...');
+    const modalHTML = `
+        <div class="insufficient-balance-modal-overlay" id="insufficientBalanceModal">
+            <div class="insufficient-balance-modal">
+                <div class="insufficient-balance-modal-header">
+                    <div class="insufficient-balance-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>${translations.insufficient_balance_title}</h3>
+                </div>
+                <div class="insufficient-balance-modal-body">
+                    <p class="insufficient-balance-message">${translations.insufficient_balance_message}</p>
+                </div>
+                <div class="insufficient-balance-modal-footer">
+                    <div class="insufficient-balance-buttons">
+                        <button class="btn-cancel" onclick="closeInsufficientBalanceModal()">
+                            <i class="fas fa-times me-2"></i>${translations.close}
+                        </button>
+                        <a href="{{ route('nap-tien') }}" class="btn-recharge">
+                            <i class="fas fa-plus-circle me-2"></i>${translations.recharge_now}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Thêm modal vào body
+    console.log('💰 [BALANCE MODAL] Adding modal to DOM...');
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Hiển thị modal với animation
+    setTimeout(() => {
+        const modal = document.getElementById('insufficientBalanceModal');
+        if (modal) {
+            console.log('💰 [BALANCE MODAL] Showing modal with animation...');
+            modal.style.opacity = '1';
+        }
+    }, 10);
+}
+
+function closeInsufficientBalanceModal() {
+    console.log('💰 [BALANCE MODAL] Closing insufficient balance modal...');
+    const modal = document.getElementById('insufficientBalanceModal');
+    if (modal) {
+        console.log('💰 [BALANCE MODAL] Starting fade out animation...');
+        modal.style.opacity = '0';
+        setTimeout(() => {
+            console.log('💰 [BALANCE MODAL] Removing modal from DOM...');
+            modal.remove();
+        }, 300);
+    }
+}
+
 function showProductModal(product) {
+    console.log('📦 [PRODUCT MODAL] Showing product modal for product:', product);
     // Xóa modal cũ nếu có
     const existingModal = document.getElementById('productModal');
     if (existingModal) {
+        console.log('📦 [PRODUCT MODAL] Removing existing modal');
         existingModal.remove();
     }
     
     // Tạo modal HTML
+    console.log('📦 [PRODUCT MODAL] Creating product modal HTML...');
     const modalHTML = `
         <div class="product-modal-overlay" id="productModal">
             <div class="product-modal">
@@ -1182,15 +1442,11 @@ function showProductModal(product) {
                         <div class="product-details">
                             <div class="product-price">
                                 <span class="label">${translations.product_price}</span>
-                                <span class="value">${Number(product.gia).toLocaleString('vi-VN')} VNĐ</span>
+                                <span class="value">${Number(product.gia).toLocaleString('vi-VN')} $</span>
                             </div>
                             <div class="product-commission">
                                 <span class="label">${translations.profit}</span>
-                                <span class="value">${Number(product.hoa_hong).toLocaleString('vi-VN')} VNĐ</span>
-                            </div>
-                            <div class="product-level">
-                                <span class="label">${translations.level}</span>
-                                <span class="value">${product.cap_do || 'N/A'}</span>
+                                <span class="value">${Number(product.hoa_hong).toLocaleString('vi-VN')} $</span>
                             </div>
                         </div>
                     </div>
@@ -1210,55 +1466,68 @@ function showProductModal(product) {
     `;
     
     // Thêm modal vào body
+    console.log('📦 [PRODUCT MODAL] Adding modal to DOM...');
     document.body.insertAdjacentHTML('beforeend', modalHTML);
     
     // Kiểm tra modal đã được thêm chưa
     const modal = document.getElementById('productModal');
     
     if (modal) {
+        console.log('📦 [PRODUCT MODAL] Modal added successfully, starting fade in animation...');
         // Hiệu ứng fade in
         modal.style.opacity = '0';
         modal.style.display = 'flex';
         modal.style.visibility = 'hidden';
         
         setTimeout(() => {
+            console.log('📦 [PRODUCT MODAL] Showing modal with fade in effect...');
             modal.style.visibility = 'visible';
             modal.style.opacity = '1';
         }, 10);
+    } else {
+        console.error('📦 [PRODUCT MODAL] Failed to create modal element');
     }
 }
 
 function closeProductModal() {
+    console.log('📦 [PRODUCT MODAL] Closing product modal...');
     const modal = document.getElementById('productModal');
     if (modal) {
         // Haptic feedback
         hapticFeedback();
         
+        console.log('📦 [PRODUCT MODAL] Starting fade out animation...');
         modal.style.opacity = '0';
         modal.style.visibility = 'hidden';
         setTimeout(() => {
+            console.log('📦 [PRODUCT MODAL] Removing modal from DOM...');
             modal.remove();
         }, 300);
+    } else {
+        console.log('📦 [PRODUCT MODAL] Modal not found, already closed');
     }
 }
 
 
 async function changeProduct() {
+    console.log('🔄 [CHANGE PRODUCT] Starting change product process...');
     // Haptic feedback
     hapticFeedback();
     
     // Đóng modal hiện tại
+    console.log('🔄 [CHANGE PRODUCT] Closing current modal...');
     closeProductModal();
     
     // Hiển thị loading overlay toàn màn hình
+    console.log('🔄 [CHANGE PRODUCT] Showing loading overlay...');
     showLoading(translations.finding_new_product);
     
     try {
-        console.log('Đang gọi API /receive-order...');
+        console.log('🔄 [CHANGE PRODUCT] Calling /receive-order API...');
         
         // Lấy CSRF token
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-        console.log('CSRF Token:', csrfToken);
+        console.log('🔄 [CHANGE PRODUCT] CSRF Token:', csrfToken);
         if (!csrfToken) {
             throw new Error('CSRF token không tìm thấy');
         }
@@ -1275,68 +1544,91 @@ async function changeProduct() {
             credentials: 'same-origin' // Đảm bảo gửi cookies session
         });
         
-        console.log('Response status:', response.status);
-        console.log('Response ok:', response.ok);
+        console.log('🔄 [CHANGE PRODUCT] Response status:', response.status);
+        console.log('🔄 [CHANGE PRODUCT] Response ok:', response.ok);
         
         // Kiểm tra nếu response không phải JSON
         const contentType = response.headers.get('content-type');
         if (!contentType || !contentType.includes('application/json')) {
             const text = await response.text();
-            console.log('Response text:', text);
+            console.log('🔄 [CHANGE PRODUCT] Response text:', text);
             throw new Error('Server trả về response không phải JSON. Status: ' + response.status);
         }
         
         const data = await response.json();
-        console.log('Response data:', data);
+        console.log('🔄 [CHANGE PRODUCT] Response data:', data);
         
         if (data.success) {
-            console.log('API thành công, hiển thị modal với sản phẩm:', data.product);
+            console.log('🔄 [CHANGE PRODUCT] API success, showing modal with new product:', data.product);
             // Ẩn loading và hiển thị modal mới với sản phẩm mới
             hideLoading();
             showProductModal(data.product);
         } else {
-            console.log('API thất bại:', data.message);
+            console.log('🔄 [CHANGE PRODUCT] API failed:', data.message);
             // Ẩn loading và hiển thị thông báo lỗi
             hideLoading();
-            showToast('error', translations.error_title, data.message || translations.error_changing_product);
+            
+            // Kiểm tra nếu là lỗi số dư không đủ thì hiển thị modal
+            if (data.type === 'balance'||true) {
+                console.log('🔄 [CHANGE PRODUCT] Showing insufficient balance modal');
+                showInsufficientBalanceModal();
+            } else {
+                console.log('🔄 [CHANGE PRODUCT] Showing error toast');
+                showToast('error', translations.error_title, data.message || translations.error_changing_product);
+            }
         }
     } catch (error) {
-        console.error('Lỗi khi gọi API:', error);
+        console.error('🔄 [CHANGE PRODUCT] Error occurred:', error);
         // Ẩn loading và hiển thị thông báo lỗi
         hideLoading();
         
         if (error.message.includes('CSRF token')) {
+            console.log('🔄 [CHANGE PRODUCT] CSRF token error');
             showToast('error', translations.error_title, translations.security_error);
         } else if (error.message.includes('419')) {
+            console.log('🔄 [CHANGE PRODUCT] Session expired error');
             showToast('warning', translations.error_title, translations.session_expired);
         } else if (error.message.includes('401')) {
+            console.log('🔄 [CHANGE PRODUCT] Login required error');
             showToast('warning', translations.error_title, translations.login_required);
         } else {
+            console.log('🔄 [CHANGE PRODUCT] General error');
             showToast('error', translations.error_title, translations.error_connecting_server + ': ' + error.message);
         }
     }
 }
 
 async function confirmProduct() {
+    console.log('✅ [CONFIRM PRODUCT] Starting product confirmation process...');
     // Haptic feedback
     hapticFeedback();
     
     // Hiển thị loading
+    console.log('✅ [CONFIRM PRODUCT] Showing loading overlay...');
     showLoading(translations.confirming_order);
     
     try {
         // Lấy thông tin sản phẩm từ modal
+        console.log('✅ [CONFIRM PRODUCT] Extracting product information from modal...');
         const productModal = document.getElementById('productModal');
         const productId = productModal.querySelector('[data-product-id]')?.getAttribute('data-product-id');
         const productName = productModal.querySelector('[data-product-name]')?.getAttribute('data-product-name');
         const productPrice = productModal.querySelector('[data-product-price]')?.getAttribute('data-product-price');
         const productCommission = productModal.querySelector('[data-product-commission]')?.getAttribute('data-product-commission');
         
+        console.log('✅ [CONFIRM PRODUCT] Product details:', {
+            id: productId,
+            name: productName,
+            price: productPrice,
+            commission: productCommission
+        });
+        
         if (!productId || !productName || !productPrice || !productCommission) {
             throw new Error('Thông tin sản phẩm không đầy đủ');
         }
         
         // Gọi API để xác nhận đơn hàng
+        console.log('✅ [CONFIRM PRODUCT] Calling /confirm-order API...');
         const response = await fetch('/confirm-order', {
             method: 'POST',
             headers: {
@@ -1351,9 +1643,12 @@ async function confirmProduct() {
             })
         });
         
+        console.log('✅ [CONFIRM PRODUCT] API response status:', response.status);
         const data = await response.json();
+        console.log('✅ [CONFIRM PRODUCT] API response data:', data);
         
         if (data.success) {
+            console.log('✅ [CONFIRM PRODUCT] Order confirmed successfully!');
             hideLoading();
             closeProductModal();
             
@@ -1362,17 +1657,19 @@ async function confirmProduct() {
             
             // Có thể thêm logic cập nhật UI ở đây
             // Ví dụ: cập nhật số dư, thống kê, etc.
-            console.log('Đơn hàng đã được xác nhận:', data.data);
+            console.log('✅ [CONFIRM PRODUCT] Order data:', data.data);
+            console.log('✅ [CONFIRM PRODUCT] Reloading page in 1.5 seconds...');
             setTimeout(() => {
                 window.location.reload();
             }, 1500);
         } else {
+            console.log('✅ [CONFIRM PRODUCT] Order confirmation failed:', data.message);
             hideLoading();
             showToast('error', translations.error_title, data.message || 'Có lỗi xảy ra khi xác nhận đơn hàng');
         }
     } catch (error) {
+        console.error('✅ [CONFIRM PRODUCT] Error occurred:', error);
         hideLoading();
-        console.error('Error:', error);
         showToast('error', translations.error_title, 'Có lỗi xảy ra khi kết nối đến server');
     }
 }
@@ -1381,16 +1678,20 @@ async function confirmProduct() {
 // Top Agents Random Data Generator
 class TopAgentsGenerator {
     constructor() {
+        console.log('👥 [TOP AGENTS] Initializing top agents generator...');
         this.agentsList = document.getElementById('topAgentsList');
         this.updateInterval = null;
         this.currentAgents = [];
         this.fixedContainerHeightSet = false;
+        console.log('👥 [TOP AGENTS] Agents list element found:', !!this.agentsList);
         this.init();
     }
 
     init() {
+        console.log('👥 [TOP AGENTS] Starting initialization...');
         this.generateInitialAgents();
         this.startAutoUpdate();
+        console.log('👥 [TOP AGENTS] Initialization complete');
     }
 
     generateRandomPhone() {
@@ -1415,20 +1716,26 @@ class TopAgentsGenerator {
     }
 
     generateInitialAgents() {
+        console.log('👥 [TOP AGENTS] Generating initial 8 agents...');
         // Tạo 8 bản ghi ban đầu
         for (let i = 0; i < 8; i++) {
             this.currentAgents.push(this.generateSingleAgent());
         }
+        console.log('👥 [TOP AGENTS] Generated agents:', this.currentAgents.length);
+        
         // Sắp xếp theo số tiền giảm dần
+        console.log('👥 [TOP AGENTS] Sorting agents by amount...');
         this.sortAgents();
         this.renderAgents();
 
         // Khóa chiều cao container sau lần render đầu tiên để tránh nhảy layout
         if (!this.fixedContainerHeightSet && this.agentsList) {
             const measuredHeight = this.agentsList.offsetHeight;
+            console.log('👥 [TOP AGENTS] Measured container height:', measuredHeight);
             if (measuredHeight > 0) {
                 this.agentsList.style.minHeight = measuredHeight + 'px';
                 this.fixedContainerHeightSet = true;
+                console.log('👥 [TOP AGENTS] Fixed container height set to:', measuredHeight + 'px');
             }
         }
     }
@@ -1442,38 +1749,48 @@ class TopAgentsGenerator {
     }
 
     addNewAgent() {
+        console.log('👥 [TOP AGENTS] Adding new agent...');
         // Tạo bản ghi mới
         const newAgent = this.generateSingleAgent();
+        console.log('👥 [TOP AGENTS] New agent generated:', newAgent);
         
         // Thêm vào đầu danh sách (vị trí 0)
         this.currentAgents.unshift(newAgent);
+        console.log('👥 [TOP AGENTS] Agent added to list, total agents:', this.currentAgents.length);
         
         // Xóa bản ghi cuối cùng (thứ 8) nếu danh sách có hơn 8 phần tử
         if (this.currentAgents.length > 8) {
-            this.currentAgents.pop();
+            const removedAgent = this.currentAgents.pop();
+            console.log('👥 [TOP AGENTS] Removed last agent to maintain limit:', removedAgent);
         }
         
         // Render lại danh sách với hiệu ứng fade
+        console.log('👥 [TOP AGENTS] Rendering agents with animation...');
         this.renderAgentsWithAnimation();
     }
 
     renderAgentsWithAnimation() {
+        console.log('👥 [TOP AGENTS] Starting fade animation...');
         const agentsList = this.agentsList;
         
         // Thêm class fade-out
         agentsList.style.opacity = '0.7';
         agentsList.style.transform = 'translateY(10px)';
+        console.log('👥 [TOP AGENTS] Fade out applied');
         
         setTimeout(() => {
+            console.log('👥 [TOP AGENTS] Rendering agents and applying fade in...');
             this.renderAgents();
             
             // Thêm class fade-in
             agentsList.style.opacity = '1';
             agentsList.style.transform = 'translateY(0)';
+            console.log('👥 [TOP AGENTS] Fade in applied');
         }, 150);
     }
 
     renderAgents() {
+        console.log('👥 [TOP AGENTS] Rendering agents to DOM...');
         const agentsHTML = this.currentAgents.map(agent => `
             <div class="agent-item">
                 <div class="agent-profit"><i class="fas fa-user-circle me-2"></i>${agent.phone}</div>
@@ -1482,36 +1799,52 @@ class TopAgentsGenerator {
         `).join('');
         
         this.agentsList.innerHTML = agentsHTML;
+        console.log('👥 [TOP AGENTS] Agents rendered successfully, count:', this.currentAgents.length);
     }
 
     startAutoUpdate() {
+        console.log('👥 [TOP AGENTS] Starting auto-update every 1 second...');
         // Cập nhật mỗi giây
         this.updateInterval = setInterval(() => {
+            console.log('👥 [TOP AGENTS] Auto-update tick...');
             this.addNewAgent();
         }, 1000);
     }
 
     stopAutoUpdate() {
+        console.log('👥 [TOP AGENTS] Stopping auto-update...');
         if (this.updateInterval) {
             clearInterval(this.updateInterval);
             this.updateInterval = null;
+            console.log('👥 [TOP AGENTS] Auto-update stopped');
         }
     }
 }
 
 // Initialize banner carousel when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('🔍 [SEARCH] Page loaded, initializing search screen...');
+    
     // Show initial loading
+    console.log('🔍 [SEARCH] Showing initial loading overlay...');
     showLoading(translations.loading_data);
     
     // Simulate loading time for better UX
     setTimeout(() => {
+        console.log('🔍 [SEARCH] Starting component initialization...');
+        
         // Initialize components
+        console.log('🔍 [SEARCH] Initializing banner carousel...');
         window.bannerCarousel = new BannerCarousel();
+        
+        console.log('🔍 [SEARCH] Initializing top agents generator...');
         window.topAgentsGenerator = new TopAgentsGenerator();
         
         // Hide loading after components are initialized
+        console.log('🔍 [SEARCH] Components initialized, hiding loading overlay...');
         hideLoading();
+        
+        console.log('🔍 [SEARCH] Search screen fully loaded and ready!');
     }, 1500);
 });
 </script>
