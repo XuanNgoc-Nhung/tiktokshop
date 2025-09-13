@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'language.user' => \App\Http\Middleware\LanguageMiddleware::class,
             'language.admin' => \App\Http\Middleware\LanguageMiddleware::class,
             'checkAdmin' => \App\Http\Middleware\CheckAdmin::class,
+            'checkLogin' => \App\Http\Middleware\CheckLogin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

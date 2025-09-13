@@ -8,12 +8,17 @@ use App\Http\Controllers\ThongBaoController;
 use App\Http\Controllers\SlideShowController;
 use App\Http\Controllers\LichSuController;
 
+// Routes không cần đăng nhập (login, register)
 Route::middleware(['language.user'])->group(function () {
-    Route::get('/', [UserController::class, 'index']);
     Route::get('/login', [UserController::class, 'login'])->name('login');
     Route::get('/register', [UserController::class, 'register'])->name('register');
     Route::post('/register', [UserController::class, 'registerStore'])->name('register.store');
     Route::post('/login', [UserController::class, 'authenticate'])->name('login.authenticate');
+});
+
+// Routes cần đăng nhập
+Route::middleware(['language.user', 'checkLogin'])->group(function () {
+    Route::get('/', [UserController::class, 'index']);
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     //notification
