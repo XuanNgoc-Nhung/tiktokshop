@@ -94,4 +94,38 @@ return [
     
     // Navigation
     'back' => '返回',
+    
+    // Bank info messages
+    'edit_bank_info' => '编辑银行信息',
+    'no_bank_info_title' => '没有银行信息',
+    'no_bank_info_message' => '您需要在提现前更新银行信息。',
+    'update_bank_info' => '更新银行信息',
+    'bank_info_required' => '需要银行信息',
+    
+    // Toast messages
+    'toast_notification' => '通知',
+    'toast_warning' => '警告',
+    'toast_error' => '错误',
+    'toast_success' => '成功',
+    'toast_info' => '信息',
+    'toast_processing' => '处理中',
+    'toast_validation_error' => '验证错误',
+    'toast_connection_error' => '连接错误',
+    
+    // JavaScript messages
+    'js_bank_info_required' => '您需要在提现前更新银行信息。',
+    'js_password_required' => '您需要在交易前设置提现密码。',
+    'js_amount_selected' => '已选择',
+    'js_amount_valid' => '有效',
+    'js_amount_exceeds' => '金额超过最大可提现金额',
+    'js_min_amount_error' => '最小提现金额为$10',
+    'js_max_amount_error' => '金额超过最大可提现金额',
+    'js_password_required_error' => '请输入提现密码',
+    'js_processing' => '处理中...',
+    'js_processing_request' => '正在发送提现请求，请稍候...',
+    'js_form_reset' => '表单已重置',
+    'js_new_transaction' => '您可以进行新交易',
+    'js_request_error' => '处理请求时发生错误',
+    'js_connection_error' => '连接服务器时发生错误。请检查您的网络连接并重试。',
+    'js_withdrawal_amount' => '提现金额',
 ];

@@ -141,4 +141,12 @@ return [
     'failed' => '失敗',
     'time' => '時間',
     'no_data' => 'データがありません',
+    
+    // Notifications
+    'no_notifications' => '通知なし',
+    'no_notifications_desc' => '通知はまだありません',
+    
+    // UI Notes
+    'ui_only_note' => 'これは表示インターフェースのみです。保存機能は後で追加されます。',
+    'ui_only_note_short' => '表示のみ',
 ];

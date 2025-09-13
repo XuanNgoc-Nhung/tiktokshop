@@ -141,4 +141,12 @@ return [
     'failed' => 'Failed',
     'time' => 'Time',
     'no_data' => 'No data available',
+    
+    // Notifications
+    'no_notifications' => 'No notifications',
+    'no_notifications_desc' => 'You have no notifications yet',
+    
+    // UI Notes
+    'ui_only_note' => 'This is display interface only. Save functionality will be added later.',
+    'ui_only_note_short' => 'Display only',
 ];

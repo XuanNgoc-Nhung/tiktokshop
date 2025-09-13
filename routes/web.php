@@ -193,4 +193,9 @@ Route::get('/admin/language/{locale}', function ($locale) {
     return redirect()->back();
 })->name('admin.language.switch');
 
+// Demo route for multilingual notes
+Route::get('/demo-notes', function () {
+    return view('demo-multilingual-notes');
+})->name('demo.notes');
+
 

@@ -15,6 +15,7 @@ use App\Models\NhanDon;
 use App\Helpers\LanguageHelper;
 use Illuminate\Support\Facades\File;
 use App\Models\LichSu;
+use App\Models\NapRut;
 
 class UserController extends Controller
 {
@@ -745,26 +746,53 @@ class UserController extends Controller
 
     public function submitWithdraw(Request $request)
     {
+        \Log::info('=== BẮT ĐẦU XỬ LÝ RÚT TIỀN ===');
+        \Log::info('User ID: ' . Auth::id());
+        \Log::info('Request data: ' . json_encode($request->all()));
+        
         $user = Auth::user();
         $profile = $user->profile;
         
+        \Log::info('Profile data - Số dư: ' . ($profile->so_du ?? 0) . ', Hoa hồng: ' . ($profile->hoa_hong ?? 0));
+        
         // Check if user has bank info
         if (!$profile->ngan_hang || !$profile->so_tai_khoan || !$profile->chu_tai_khoan) {
-            return redirect()->back()
-                ->withErrors(['error' => 'Bạn cần cập nhật thông tin ngân hàng trước khi có thể rút tiền.'])
-                ->withInput();
+            \Log::warning('User thiếu thông tin ngân hàng', [
+                'user_id' => $user->id,
+                'ngan_hang' => $profile->ngan_hang,
+                'so_tai_khoan' => $profile->so_tai_khoan,
+                'chu_tai_khoan' => $profile->chu_tai_khoan
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Bạn cần cập nhật thông tin ngân hàng trước khi có thể rút tiền.',
+                'errors' => ['error' => 'Bạn cần cập nhật thông tin ngân hàng trước khi có thể rút tiền.']
+            ], 400);
         }
         
         // Check if user has withdrawal password
         if (!$user->mat_khau_chuyen_tien) {
-            return redirect()->back()
-                ->withErrors(['error' => LanguageHelper::getTranslationFromFile('withdraw', 'password_setup_required', 'user')])
-                ->withInput();
+            \Log::warning('User chưa thiết lập mật khẩu rút tiền', ['user_id' => $user->id]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getTranslationFromFile('withdraw', 'password_setup_required', 'user'),
+                'errors' => ['error' => LanguageHelper::getTranslationFromFile('withdraw', 'password_setup_required', 'user')]
+            ], 400);
         }
 
+        // Calculate maximum withdrawable amount (so_du + hoa_hong)
+        $maxWithdrawAmount = ($profile->so_du ?? 0) + ($profile->hoa_hong ?? 0);
+        \Log::info('Tính toán số tiền rút tối đa', [
+            'so_du' => $profile->so_du ?? 0,
+            'hoa_hong' => $profile->hoa_hong ?? 0,
+            'max_withdraw_amount' => $maxWithdrawAmount
+        ]);
+        
         // Validation rules
         $validator = Validator::make($request->all(), [
-            'amount' => 'required|numeric|min:10|max:' . ($profile->so_du ?? 0),
+            'amount' => 'required|numeric|min:10|max:' . $maxWithdrawAmount,
             'withdrawal_password' => 'required|string',
         ], [
             'amount.required' => LanguageHelper::getTranslationFromFile('withdraw', 'amount_required', 'user'),
@@ -775,75 +803,171 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            \Log::warning('Validation failed', [
+                'user_id' => $user->id,
+                'errors' => $validator->errors()->toArray(),
+                'request_data' => $request->all()
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getTranslationFromFile('withdraw', 'invalid_data', 'user'),
+                'errors' => $validator->errors()
+            ]);
         }
 
         // Check withdrawal password
-        if (!Hash::check($request->withdrawal_password, $user->mat_khau_chuyen_tien)) {
-            return redirect()->back()
-                ->withErrors(['withdrawal_password' => LanguageHelper::getTranslationFromFile('withdraw', 'password_incorrect', 'user')])
-                ->withInput();
+        if ($request->withdrawal_password !== $user->mat_khau_chuyen_tien) {
+            \Log::warning('Mật khẩu rút tiền không đúng', [
+                'user_id' => $user->id,
+                'provided_password' => $request->withdrawal_password,
+                'stored_password' => $user->mat_khau_chuyen_tien
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getTranslationFromFile('withdraw', 'password_incorrect', 'user'),
+                'errors' => ['withdrawal_password' => LanguageHelper::getTranslationFromFile('withdraw', 'password_incorrect', 'user')]
+            ]);
         }
 
-        // Check sufficient balance
+        // Check sufficient balance (hoa hong + so du)
         $amount = $request->amount;
         $totalRequired = $amount;
+        $totalAvailable = $maxWithdrawAmount; // Use the calculated max amount
         
-        if ($profile->so_du < $totalRequired) {
-            return redirect()->back()
-                ->withErrors(['amount' => LanguageHelper::getTranslationFromFile('withdraw', 'amount_insufficient', 'user')])
-                ->withInput();
+        \Log::info('Kiểm tra số dư', [
+            'amount_requested' => $amount,
+            'total_available' => $totalAvailable,
+            'sufficient_balance' => $totalAvailable >= $totalRequired
+        ]);
+        
+        if ($totalAvailable < $totalRequired) {
+            \Log::warning('Số dư không đủ', [
+                'user_id' => $user->id,
+                'amount_requested' => $amount,
+                'total_available' => $totalAvailable
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getTranslationFromFile('withdraw', 'amount_insufficient', 'user'),
+                'errors' => ['amount' => LanguageHelper::getTranslationFromFile('withdraw', 'amount_insufficient', 'user')]
+            ]);
         }
 
         try {
+            \Log::info('Bắt đầu tạo bản ghi rút tiền');
+            
             // Create withdrawal record in nap_rut table
-            $napRut = new \App\Models\NapRut();
+            $napRut = new NapRut();
             $napRut->user_id = $user->id;
-            $napRut->loai = 'rut'; // withdrawal
             $napRut->so_tien = $amount;
-            $napRut->phi_giao_dich = 0; // No fee
-            $napRut->so_tien_thuc_te = $amount;
-            $napRut->ngan_hang = $profile->ngan_hang;
-            $napRut->chu_tai_khoan = $profile->chu_tai_khoan;
-            $napRut->so_tai_khoan = $profile->so_tai_khoan;
-            $napRut->chi_nhanh = $profile->chi_nhanh ?? '';
-            $napRut->trang_thai = 'pending'; // pending, approved, rejected
             $napRut->ghi_chu = 'Yêu cầu rút tiền từ người dùng';
+            $napRut->trang_thai ='pending'; // 0 = pending
+            $napRut->loai_giao_dich = 'rut'; // withdrawal
             $napRut->save();
+            
+            \Log::info('Đã tạo bản ghi rút tiền', [
+                'nap_rut_id' => $napRut->id,
+                'user_id' => $user->id,
+                'amount' => $amount
+            ]);
 
-            // Update user balance
-            $profile->so_du -= $totalRequired;
+            // Update user balance - ưu tiên trừ từ hoa hồng trước
+            $remainingAmount = $totalRequired;
+            $deductFromHoaHong = 0;
+            $deductFromSoDu = 0;
+            
+            \Log::info('Bắt đầu cập nhật số dư', [
+                'remaining_amount' => $remainingAmount,
+                'current_hoa_hong' => $profile->hoa_hong,
+                'current_so_du' => $profile->so_du
+            ]);
+            
+            // Trừ từ hoa hồng trước
+            if ($profile->hoa_hong > 0 && $remainingAmount > 0) {
+                $deductFromHoaHong = min($profile->hoa_hong, $remainingAmount);
+                $profile->hoa_hong -= $deductFromHoaHong;
+                $remainingAmount -= $deductFromHoaHong;
+                
+                \Log::info('Đã trừ từ hoa hồng', [
+                    'deducted_from_hoa_hong' => $deductFromHoaHong,
+                    'remaining_amount' => $remainingAmount,
+                    'new_hoa_hong' => $profile->hoa_hong
+                ]);
+            }
+            
+            // Nếu còn thiếu thì trừ từ số dư
+            if ($remainingAmount > 0) {
+                $deductFromSoDu = $remainingAmount;
+                $profile->so_du -= $remainingAmount;
+                
+                \Log::info('Đã trừ từ số dư', [
+                    'deducted_from_so_du' => $deductFromSoDu,
+                    'new_so_du' => $profile->so_du
+                ]);
+            }
+            
             $profile->save();
+            
+            \Log::info('Đã cập nhật profile thành công', [
+                'final_hoa_hong' => $profile->hoa_hong,
+                'final_so_du' => $profile->so_du,
+                'total_deducted' => $deductFromHoaHong + $deductFromSoDu
+            ]);
 
             // Create transaction history
+            \Log::info('Tạo lịch sử giao dịch');
             $lichSu = new LichSu();
             $lichSu->user_id = $user->id;
-            $lichSu->loai_giao_dich = 'rut_tien';
+            $lichSu->hanh_dong = 2; // 2 = rút tiền
             $lichSu->so_tien = $amount;
-            $lichSu->phi_giao_dich = 0; // No fee
-            $lichSu->so_du_truoc = $profile->so_du + $totalRequired;
-            $lichSu->so_du_sau = $profile->so_du;
-            $lichSu->trang_thai = 'pending';
-            $lichSu->mo_ta = "Rút tiền về ngân hàng: {$profile->ngan_hang} - {$profile->so_tai_khoan}";
+            $lichSu->trang_thai = 1; // 1 = thành công
+            $lichSu->ghi_chu = "Rút: " . number_format($amount) . " $ (Từ lợi nhuận: " . number_format($deductFromHoaHong) . " $, Từ số dư: " . number_format($deductFromSoDu) . " $)";
             $lichSu->save();
+            
+            \Log::info('Đã tạo lịch sử giao dịch', [
+                'lich_su_id' => $lichSu->id,
+                'ghi_chu' => $lichSu->ghi_chu
+            ]);
 
-            // Create notification
-            $thongBao = new ThongBao();
-            $thongBao->user_id = $user->id;
-            $thongBao->tieu_de = 'Yêu cầu rút tiền đã được gửi';
-            $thongBao->noi_dung = "Yêu cầu rút tiền $" . number_format($amount, 2) . " đã được gửi thành công. Hệ thống sẽ xử lý trong 24h.";
-            $thongBao->loai = 'withdrawal';
-            $thongBao->trang_thai = 'unread';
-            $thongBao->save();
-
-            return redirect()->back()->with('success', LanguageHelper::getTranslationFromFile('withdraw', 'withdrawal_success', 'user'));
+            \Log::info('=== HOÀN THÀNH RÚT TIỀN THÀNH CÔNG ===', [
+                'user_id' => $user->id,
+                'amount' => $amount,
+                'deduct_from_hoa_hong' => $deductFromHoaHong,
+                'deduct_from_so_du' => $deductFromSoDu,
+                'new_balance' => $profile->so_du,
+                'new_hoa_hong' => $profile->hoa_hong
+            ]);
+            
+            return response()->json([
+                'success' => true,
+                'message' => LanguageHelper::getTranslationFromFile('withdraw', 'withdrawal_success', 'user'),
+                'data' => [
+                    'amount' => $amount,
+                    'deductFromHoaHong' => $deductFromHoaHong,
+                    'deductFromSoDu' => $deductFromSoDu,
+                    'newBalance' => $profile->so_du,
+                    'newHoaHong' => $profile->hoa_hong
+                ]
+            ]);
 
         } catch (\Exception $e) {
-            return redirect()->back()
-                ->withErrors(['error' => LanguageHelper::getTranslationFromFile('withdraw', 'withdrawal_failed', 'user')])
-                ->withInput();
+            \Log::error('=== LỖI KHI RÚT TIỀN ===', [
+                'user_id' => $user->id,
+                'error_message' => $e->getMessage(),
+                'error_file' => $e->getFile(),
+                'error_line' => $e->getLine(),
+                'error_trace' => $e->getTraceAsString(),
+                'request_data' => $request->all()
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => LanguageHelper::getTranslationFromFile('withdraw', 'withdrawal_failed', 'user'),
+                'errors' => ['error' => LanguageHelper::getTranslationFromFile('withdraw', 'withdrawal_failed', 'user')]
+            ], 500);
         }
     }
 }

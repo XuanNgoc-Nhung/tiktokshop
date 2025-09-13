@@ -94,4 +94,38 @@ return [
     
     // Navigation
     'back' => 'ফিরে যান',
+    
+    // Bank info messages
+    'edit_bank_info' => 'ব্যাংক তথ্য সম্পাদনা করুন',
+    'no_bank_info_title' => 'কোন ব্যাংক তথ্য নেই',
+    'no_bank_info_message' => 'টাকা উত্তোলনের আগে আপনাকে ব্যাংক তথ্য আপডেট করতে হবে।',
+    'update_bank_info' => 'ব্যাংক তথ্য আপডেট করুন',
+    'bank_info_required' => 'ব্যাংক তথ্য প্রয়োজন',
+    
+    // Toast messages
+    'toast_notification' => 'বিজ্ঞপ্তি',
+    'toast_warning' => 'সতর্কতা',
+    'toast_error' => 'ত্রুটি',
+    'toast_success' => 'সফল',
+    'toast_info' => 'তথ্য',
+    'toast_processing' => 'প্রক্রিয়াকরণ',
+    'toast_validation_error' => 'যাচাইকরণ ত্রুটি',
+    'toast_connection_error' => 'সংযোগ ত্রুটি',
+    
+    // JavaScript messages
+    'js_bank_info_required' => 'টাকা উত্তোলনের আগে আপনাকে ব্যাংক তথ্য আপডেট করতে হবে।',
+    'js_password_required' => 'লেনদেন করার আগে আপনাকে উত্তোলন পাসওয়ার্ড সেটআপ করতে হবে।',
+    'js_amount_selected' => 'নির্বাচিত',
+    'js_amount_valid' => 'বৈধ',
+    'js_amount_exceeds' => 'পরিমাণ সর্বোচ্চ উত্তোলনযোগ্য পরিমাণ ছাড়িয়ে গেছে',
+    'js_min_amount_error' => 'সর্বনিম্ন উত্তোলন পরিমাণ $10',
+    'js_max_amount_error' => 'পরিমাণ সর্বোচ্চ উত্তোলনযোগ্য পরিমাণ ছাড়িয়ে গেছে',
+    'js_password_required_error' => 'অনুগ্রহ করে উত্তোলন পাসওয়ার্ড লিখুন',
+    'js_processing' => 'প্রক্রিয়াকরণ...',
+    'js_processing_request' => 'উত্তোলন অনুরোধ পাঠানো হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...',
+    'js_form_reset' => 'ফর্ম রিসেট হয়েছে',
+    'js_new_transaction' => 'আপনি একটি নতুন লেনদেন করতে পারেন',
+    'js_request_error' => 'অনুরোধ প্রক্রিয়াকরণের সময় একটি ত্রুটি ঘটেছে',
+    'js_connection_error' => 'সার্ভারে সংযোগ করার সময় একটি ত্রুটি ঘটেছে। অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।',
+    'js_withdrawal_amount' => 'উত্তোলন পরিমাণ',
 ];

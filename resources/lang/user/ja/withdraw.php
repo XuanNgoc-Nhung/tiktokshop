@@ -94,4 +94,38 @@ return [
     
     // Navigation
     'back' => '戻る',
+    
+    // Bank info messages
+    'edit_bank_info' => '銀行情報を編集',
+    'no_bank_info_title' => '銀行情報がありません',
+    'no_bank_info_message' => '出金する前に銀行情報を更新する必要があります。',
+    'update_bank_info' => '銀行情報を更新',
+    'bank_info_required' => '銀行情報が必要です',
+    
+    // Toast messages
+    'toast_notification' => '通知',
+    'toast_warning' => '警告',
+    'toast_error' => 'エラー',
+    'toast_success' => '成功',
+    'toast_info' => '情報',
+    'toast_processing' => '処理中',
+    'toast_validation_error' => '検証エラー',
+    'toast_connection_error' => '接続エラー',
+    
+    // JavaScript messages
+    'js_bank_info_required' => '出金する前に銀行情報を更新する必要があります。',
+    'js_password_required' => '取引を行う前に出金パスワードを設定する必要があります。',
+    'js_amount_selected' => '選択済み',
+    'js_amount_valid' => '有効',
+    'js_amount_exceeds' => '金額が最大出金可能額を超えています',
+    'js_min_amount_error' => '最小出金額は$10です',
+    'js_max_amount_error' => '金額が最大出金可能額を超えています',
+    'js_password_required_error' => '出金パスワードを入力してください',
+    'js_processing' => '処理中...',
+    'js_processing_request' => '出金リクエストを送信中です。お待ちください...',
+    'js_form_reset' => 'フォームがリセットされました',
+    'js_new_transaction' => '新しい取引を行うことができます',
+    'js_request_error' => 'リクエストの処理中にエラーが発生しました',
+    'js_connection_error' => 'サーバーへの接続中にエラーが発生しました。インターネット接続を確認して再試行してください。',
+    'js_withdrawal_amount' => '出金額',
 ];

@@ -75,12 +75,12 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center text-muted py-4">{{ $__home('no_data') ?? 'Chưa có dữ liệu' }}</td>
+                                <td colspan="5" class="text-center text-muted py-4">{{ $__home('no_data') }}</td>
                             </tr>
                         @endforelse
                     @else
                         <tr>
-                            <td colspan="5" class="text-center text-muted py-4">{{ $__home('no_data') ?? 'Chưa có dữ liệu' }}</td>
+                            <td colspan="5" class="text-center text-muted py-4">{{ $__home('no_data') }}</td>
                         </tr>
                     @endisset
                 </tbody>

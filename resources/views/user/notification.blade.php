@@ -30,7 +30,7 @@ $__home = [LanguageHelper::class, 'getHomeTranslation'];
     <!-- Empty state -->
     <div id="emptyState" class="text-center text-muted py-5">
         <i class="fas fa-bell-slash" style="font-size:48px;color:#d1d1d6"></i>
-        <div class="mt-3">Chưa có thông báo</div>
+        <div class="mt-3">{{ $__home('no_notifications') }}</div>
     </div>
     @else
     <!-- FAQ-style notifications -->

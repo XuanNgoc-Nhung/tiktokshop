@@ -141,4 +141,12 @@ return [
     'failed' => 'ব্যর্থ',
     'time' => 'সময়',
     'no_data' => 'কোন ডেটা নেই',
+    
+    // Notifications
+    'no_notifications' => 'কোনো বিজ্ঞপ্তি নেই',
+    'no_notifications_desc' => 'আপনার কোনো বিজ্ঞপ্তি নেই',
+    
+    // UI Notes
+    'ui_only_note' => 'এটি শুধুমাত্র প্রদর্শন ইন্টারফেস। সংরক্ষণ কার্যকারিতা পরে যোগ করা হবে।',
+    'ui_only_note_short' => 'শুধুমাত্র প্রদর্শন',
 ];

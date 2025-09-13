@@ -94,4 +94,38 @@ return [
     
     // Navigation
     'back' => 'Quay lại',
+    
+    // Bank info messages
+    'edit_bank_info' => 'Chỉnh sửa thông tin ngân hàng',
+    'no_bank_info_title' => 'Chưa có thông tin ngân hàng',
+    'no_bank_info_message' => 'Bạn cần cập nhật thông tin ngân hàng trước khi có thể rút tiền.',
+    'update_bank_info' => 'Cập nhật thông tin ngân hàng',
+    'bank_info_required' => 'Cần cập nhật thông tin ngân hàng',
+    
+    // Toast messages
+    'toast_notification' => 'Thông báo',
+    'toast_warning' => 'Cảnh báo',
+    'toast_error' => 'Lỗi',
+    'toast_success' => 'Thành công',
+    'toast_info' => 'Thông tin',
+    'toast_processing' => 'Đang xử lý',
+    'toast_validation_error' => 'Lỗi xác thực',
+    'toast_connection_error' => 'Lỗi kết nối',
+    
+    // JavaScript messages
+    'js_bank_info_required' => 'Bạn cần cập nhật thông tin ngân hàng trước khi có thể rút tiền.',
+    'js_password_required' => 'Bạn cần thiết lập mật khẩu rút tiền trước khi có thể thực hiện giao dịch.',
+    'js_amount_selected' => 'Đã chọn',
+    'js_amount_valid' => 'Hợp lệ',
+    'js_amount_exceeds' => 'Số tiền vượt quá số tiền có thể rút',
+    'js_min_amount_error' => 'Số tiền rút tối thiểu là $10',
+    'js_max_amount_error' => 'Số tiền vượt quá số tiền có thể rút',
+    'js_password_required_error' => 'Vui lòng nhập mật khẩu rút tiền',
+    'js_processing' => 'Đang xử lý...',
+    'js_processing_request' => 'Đang gửi yêu cầu rút tiền, vui lòng chờ...',
+    'js_form_reset' => 'Form đã reset',
+    'js_new_transaction' => 'Bạn có thể thực hiện giao dịch mới',
+    'js_request_error' => 'Có lỗi xảy ra khi xử lý yêu cầu',
+    'js_connection_error' => 'Có lỗi xảy ra khi kết nối đến server. Vui lòng kiểm tra kết nối internet và thử lại.',
+    'js_withdrawal_amount' => 'Số tiền rút',
 ];

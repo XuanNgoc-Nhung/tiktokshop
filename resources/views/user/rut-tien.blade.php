@@ -5,6 +5,7 @@
     $__withdraw = fn($key) => LanguageHelper::getTranslationFromFile('withdraw', $key, 'user');
     $user = Auth::user();
     $profile = optional($user)->profile;
+    $maxWithdrawAmount = ($profile->so_du ?? 0) + ($profile->hoa_hong ?? 0);
 @endphp
 @extends('user.layouts.app')
 
@@ -32,7 +33,7 @@
     <!-- User Info Card -->
     <x-user-info-card />
     <!-- Withdrawal Form -->
-    <form id="withdrawalForm" method="POST" action="{{ route('withdraw.submit') }}">
+    <form id="withdrawalForm">
         @csrf
         
         <!-- Bank Information Section -->
@@ -50,7 +51,7 @@
                             <div class="bank-holder">{{ $profile->chu_tai_khoan }}</div>
                         </div>
                         <div class="bank-edit">
-                            <a href="{{ route('account.bank') }}" class="edit-btn" title="Chỉnh sửa thông tin ngân hàng">
+                            <a href="{{ route('account.bank') }}" class="edit-btn" title="{{ $__withdraw('edit_bank_info') }}">
                                 <i class="fas fa-edit"></i>
                             </a>
                         </div>
@@ -69,11 +70,11 @@
                         <i class="fas fa-exclamation-triangle"></i>
                     </div>
                     <div class="no-bank-text">
-                        <h4>Chưa có thông tin ngân hàng</h4>
-                        <p>Bạn cần cập nhật thông tin ngân hàng trước khi có thể rút tiền.</p>
+                        <h4>{{ $__withdraw('no_bank_info_title') }}</h4>
+                        <p>{{ $__withdraw('no_bank_info_message') }}</p>
                         <a href="{{ route('account.bank') }}" class="btn-primary">
                             <i class="fas fa-plus"></i>
-                            Cập nhật thông tin ngân hàng
+                            {{ $__withdraw('update_bank_info') }}
                         </a>
                     </div>
                 </div>
@@ -106,14 +107,14 @@
                            placeholder="{{ $__withdraw('amount_placeholder') }}"
                            value="{{ old('amount') }}"
                            min="10"
-                           max="{{ $profile->so_du ?? 0 }}"
+                           max="{{ $maxWithdrawAmount }}"
                            step="0.01"
                            required>
                 </div>
                 <div class="amount-info">
                     <div class="amount-limit">
                         <span>{{ $__withdraw('min_amount') }}: $10</span>
-                        <span>{{ $__withdraw('max_amount') }}: ${{ number_format($profile->so_du ?? 0, 0) }}</span>
+                        <span>{{ $__withdraw('max_amount') }}: ${{ number_format($maxWithdrawAmount, 0) }}</span>
                     </div>
                 </div>
                 @error('amount')
@@ -175,7 +176,7 @@
             @else
                 <button type="button" class="btn-primary" disabled>
                     <i class="fas fa-lock"></i>
-                    Cần cập nhật thông tin ngân hàng
+                    {{ $__withdraw('bank_info_required') }}
                 </button>
             @endif
         </div>
@@ -881,6 +882,8 @@
 }
 </style>
 
+<!-- Axios is already included in the layout -->
+
 <script>
 let selectedAmount = 0;
 
@@ -892,12 +895,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Only initialize if form elements exist (user has bank info and password)
     if (!amountInput || !submitBtn) {
+        // Show appropriate message if form is not available
+        const noBankInfo = document.querySelector('.no-bank-info');
+        if (noBankInfo) {
+            showToast('warning', '{{ $__withdraw('toast_notification') }}', '{{ $__withdraw('js_bank_info_required') }}');
+        }
         return;
     }
     
     // Check if password field is disabled (password not set)
     const passwordField = document.getElementById('withdrawalPassword');
     if (!passwordField || passwordField.disabled) {
+        showToast('warning', '{{ $__withdraw('toast_notification') }}', '{{ $__withdraw('js_password_required') }}');
         return;
     }
 
@@ -910,45 +919,162 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('active');
             
             // Set amount
-            const amount = parseInt(this.dataset.amount);
+            const amount = parseFloat(this.dataset.amount);
             amountInput.value = amount;
             selectedAmount = amount;
             updateCalculations();
+            
+            // Show confirmation toast
+            showToast('success', '{{ $__withdraw('js_amount_selected') }}', `{{ $__withdraw('js_withdrawal_amount') }}: $${amount.toLocaleString()}`);
         });
     });
 
     // Amount input change
     amountInput.addEventListener('input', function() {
-        selectedAmount = parseInt(this.value) || 0;
+        selectedAmount = parseFloat(this.value) || 0;
         updateCalculations();
         
         // Remove active class from quick amount buttons
         quickAmountBtns.forEach(btn => btn.classList.remove('active'));
+        
+        // Show warning if amount is too high
+        if (selectedAmount > {{ $maxWithdrawAmount }}) {
+            showToast('warning', '{{ $__withdraw('toast_warning') }}', '{{ $__withdraw('js_amount_exceeds') }}');
+        } else if (selectedAmount >= 10) {
+            // Show confirmation for valid amount
+            showToast('success', '{{ $__withdraw('js_amount_valid') }}', `{{ $__withdraw('js_withdrawal_amount') }}: $${selectedAmount.toLocaleString()}`);
+        }
     });
 
     // Update calculations
     function updateCalculations() {
         // Enable/disable submit button
-        submitBtn.disabled = selectedAmount < 10 || selectedAmount > {{ $profile->so_du ?? 0 }};
+        submitBtn.disabled = selectedAmount < 10 || selectedAmount > {{ $maxWithdrawAmount }};
     }
 
-    // Form submission
+    // Form submission with axios
     document.getElementById('withdrawalForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
         if (selectedAmount < 10) {
-            e.preventDefault();
-            showToast('error', 'Lỗi', 'Số tiền rút tối thiểu là $10');
+            showToast('error', '{{ $__withdraw('toast_error') }}', '{{ $__withdraw('js_min_amount_error') }}');
             return;
         }
         
-        if (selectedAmount > {{ $profile->so_du ?? 0 }}) {
-            e.preventDefault();
-            showToast('error', 'Lỗi', 'Số dư không đủ để thực hiện giao dịch');
+        if (selectedAmount > {{ $maxWithdrawAmount }}) {
+            showToast('error', '{{ $__withdraw('toast_error') }}', '{{ $__withdraw('js_max_amount_error') }}');
+            return;
+        }
+        
+        // Check if password is entered
+        const password = document.getElementById('withdrawalPassword').value;
+        if (!password || password.trim() === '') {
+            showToast('error', '{{ $__withdraw('toast_error') }}', '{{ $__withdraw('js_password_required_error') }}');
             return;
         }
         
         // Show loading state
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> {{ $__withdraw('js_processing') }}';
         submitBtn.disabled = true;
+        
+        // Show processing toast
+        showToast('info', '{{ $__withdraw('toast_processing') }}', '{{ $__withdraw('js_processing_request') }}');
+        
+        // Prepare form data
+        const formData = new FormData();
+        formData.append('_token', document.querySelector('input[name="_token"]').value);
+        formData.append('amount', selectedAmount);
+        formData.append('withdrawal_password', password);
+        
+        // Add bank info if available
+        const bankName = document.querySelector('input[name="bank_name"]');
+        const accountHolder = document.querySelector('input[name="account_holder"]');
+        const accountNumber = document.querySelector('input[name="account_number"]');
+        const branch = document.querySelector('input[name="branch"]');
+        
+        if (bankName) formData.append('bank_name', bankName.value);
+        if (accountHolder) formData.append('account_holder', accountHolder.value);
+        if (accountNumber) formData.append('account_number', accountNumber.value);
+        if (branch) formData.append('branch', branch.value);
+        
+        // Send axios request
+        axios.post('{{ route("withdraw.submit") }}', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(function(response) {
+            if (response.data.success) {
+                showToast('success', '{{ $__withdraw('toast_success') }}', response.data.message);
+                
+                // Update balance display if available
+                if (response.data.data) {
+                    console.log('New balance:', response.data.data.newBalance);
+                    console.log('New hoa hong:', response.data.data.newHoaHong);
+                    
+                    // Update balance display in user info card if it exists
+                    const balanceElement = document.querySelector('.balance-amount');
+                    if (balanceElement && response.data.data.newBalance !== undefined) {
+                        balanceElement.textContent = '$' + response.data.data.newBalance.toLocaleString();
+                    }
+                }
+                
+                // Reset form
+                document.getElementById('withdrawalForm').reset();
+                selectedAmount = 0;
+                quickAmountBtns.forEach(btn => btn.classList.remove('active'));
+                updateCalculations();
+                
+                // Show reset confirmation
+                showToast('info', '{{ $__withdraw('js_form_reset') }}', '{{ $__withdraw('js_new_transaction') }}');
+                
+                // Redirect after 2 seconds
+                setTimeout(() => {
+                    window.location.href = '{{ route("account.account-history") }}';
+                }, 2000);
+            } else {
+                showToast('error', '{{ $__withdraw('toast_error') }}', response.data.message);
+            }
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+            
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                
+                if (errorData.errors) {
+                    // Show validation errors - only show the first error to avoid spam
+                    const firstErrorField = Object.keys(errorData.errors)[0];
+                    const firstErrorMessage = errorData.errors[firstErrorField][0];
+                    showToast('error', '{{ $__withdraw('toast_validation_error') }}', firstErrorMessage);
+                    
+                    // Highlight the specific field with error
+                    const fieldElement = document.querySelector(`[name="${firstErrorField}"]`);
+                    if (fieldElement) {
+                        fieldElement.style.borderColor = '#dc2626';
+                        fieldElement.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.1)';
+                        
+                        // Remove error styling after 3 seconds
+                        setTimeout(() => {
+                            fieldElement.style.borderColor = '';
+                            fieldElement.style.boxShadow = '';
+                        }, 3000);
+                    }
+                } else {
+                    showToast('error', '{{ $__withdraw('toast_error') }}', errorData.message || '{{ $__withdraw('js_request_error') }}');
+                }
+            } else {
+                showToast('error', '{{ $__withdraw('toast_connection_error') }}', '{{ $__withdraw('js_connection_error') }}');
+            }
+        })
+        .finally(function() {
+            // Reset button state
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
     });
 });
 

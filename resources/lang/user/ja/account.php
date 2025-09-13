@@ -107,6 +107,7 @@ return [
     'save' => '変更を保存',
     'update' => '更新',
     'ui_only_note' => 'UIのみ。保存機能は後で追加されます。',
+    'ui_only_note_short' => '表示のみ',
     'please_fill_all' => '必須項目をすべて入力してください。',
     'update_success' => '更新に成功しました。',
     'missing_data' => 'データが不足しています',

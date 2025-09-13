@@ -94,4 +94,38 @@ return [
     
     // Navigation
     'back' => 'Back',
+    
+    // Bank info messages
+    'edit_bank_info' => 'Edit bank information',
+    'no_bank_info_title' => 'No bank information',
+    'no_bank_info_message' => 'You need to update your bank information before you can withdraw money.',
+    'update_bank_info' => 'Update bank information',
+    'bank_info_required' => 'Bank information required',
+    
+    // Toast messages
+    'toast_notification' => 'Notification',
+    'toast_warning' => 'Warning',
+    'toast_error' => 'Error',
+    'toast_success' => 'Success',
+    'toast_info' => 'Info',
+    'toast_processing' => 'Processing',
+    'toast_validation_error' => 'Validation Error',
+    'toast_connection_error' => 'Connection Error',
+    
+    // JavaScript messages
+    'js_bank_info_required' => 'You need to update your bank information before you can withdraw money.',
+    'js_password_required' => 'You need to set up your withdrawal password before you can make transactions.',
+    'js_amount_selected' => 'Selected',
+    'js_amount_valid' => 'Valid',
+    'js_amount_exceeds' => 'Amount exceeds maximum withdrawable amount',
+    'js_min_amount_error' => 'Minimum withdrawal amount is $10',
+    'js_max_amount_error' => 'Amount exceeds maximum withdrawable amount',
+    'js_password_required_error' => 'Please enter withdrawal password',
+    'js_processing' => 'Processing...',
+    'js_processing_request' => 'Sending withdrawal request, please wait...',
+    'js_form_reset' => 'Form reset',
+    'js_new_transaction' => 'You can make a new transaction',
+    'js_request_error' => 'An error occurred while processing the request',
+    'js_connection_error' => 'An error occurred while connecting to the server. Please check your internet connection and try again.',
+    'js_withdrawal_amount' => 'Withdrawal amount',
 ];

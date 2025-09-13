@@ -181,6 +181,22 @@ class LanguageHelper
     }
 
     /**
+     * Get notes translation for user
+     */
+    public static function getNotesTranslation($key, $locale = null, $replace = [])
+    {
+        return self::getTranslationFromFile('notes', $key, 'user', $locale, $replace);
+    }
+
+    /**
+     * Get notes translation for admin
+     */
+    public static function getAdminNotesTranslation($key, $locale = null, $replace = [])
+    {
+        return self::getTranslationFromFile('notes', $key, 'admin', $locale, $replace);
+    }
+
+    /**
      * Check if admin translation exists
      */
     public static function hasAdminTranslation($key, $locale = null)

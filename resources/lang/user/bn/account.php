@@ -113,6 +113,7 @@ return [
     'save' => 'পরিবর্তন সংরক্ষণ',
     'update' => 'আপডেট',
     'ui_only_note' => 'এটি শুধু UI। সংরক্ষণ ফিচার পরে যোগ হবে।',
+    'ui_only_note_short' => 'শুধুমাত্র প্রদর্শন',
     
     // Bank form
     'bank_name' => 'ব্যাংক',

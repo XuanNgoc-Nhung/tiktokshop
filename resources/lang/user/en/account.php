@@ -107,6 +107,7 @@ return [
     'save' => 'Save changes',
     'update' => 'Update',
     'ui_only_note' => 'UI only. Save functionality will be added later.',
+    'ui_only_note_short' => 'Display only',
     'please_fill_all' => 'Please fill in all required fields.',
     'update_success' => 'Updated successfully.',
     'missing_data' => 'Missing data',

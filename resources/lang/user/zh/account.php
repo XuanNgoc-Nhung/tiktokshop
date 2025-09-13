@@ -107,6 +107,7 @@ return [
     'save' => '保存更改',
     'update' => '更新',
     'ui_only_note' => '仅为界面展示。保存功能稍后添加。',
+    'ui_only_note_short' => '仅显示',
     'please_fill_all' => '请填写所有必填项。',
     'update_success' => '更新成功。',
     'missing_data' => '数据缺失',

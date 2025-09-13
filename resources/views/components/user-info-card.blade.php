@@ -24,11 +24,18 @@
             </div>
             @php
                 $balance = optional($profile)->so_du;
+                $profit = optional($profile)->hoa_hong;
             @endphp
             <div class="mt-1" style="font-size:13px">
                 <i class="fas fa-money-bill me-1"></i>
                 <span>
-                    {{ isset($balance) ? number_format((float)$balance, 0, '.', ',') : '0' }}
+                    {{ isset($balance) ? number_format((float)$balance, 0, '.', ',') : '0' }}$
+                </span>
+            </div>
+            <div class="mt-1" style="font-size:13px">
+                <i class="fas fa-chart-line me-1"></i>
+                <span>
+                    {{ isset($profit) ? number_format((float)$profit, 0, '.', ',') : '0' }}$
                 </span>
             </div>
         </div>

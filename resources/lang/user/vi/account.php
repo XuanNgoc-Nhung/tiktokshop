@@ -154,6 +154,7 @@ return [
     'save' => 'Lưu thay đổi',
     'update' => 'Cập nhật',
     'ui_only_note' => 'Đây chỉ là giao diện hiển thị. Chức năng lưu sẽ được bổ sung sau.',
+    'ui_only_note_short' => 'Chỉ hiển thị giao diện',
     'please_fill_all' => 'Vui lòng điền đầy đủ thông tin.',
     'update_success' => 'Cập nhật thành công.',
     'missing_data' => 'Thiếu dữ liệu',

@@ -141,4 +141,12 @@ return [
     'failed' => 'Thất bại',
     'time' => 'Thời gian',
     'no_data' => 'Không có dữ liệu',
+    
+    // Notifications
+    'no_notifications' => 'Chưa có thông báo',
+    'no_notifications_desc' => 'Bạn chưa có thông báo nào',
+    
+    // UI Notes
+    'ui_only_note' => 'Đây chỉ là giao diện hiển thị. Chức năng lưu sẽ được bổ sung sau.',
+    'ui_only_note_short' => 'Chỉ hiển thị giao diện',
 ];

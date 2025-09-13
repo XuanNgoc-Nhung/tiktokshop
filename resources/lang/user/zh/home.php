@@ -141,4 +141,12 @@ return [
     'failed' => '失败',
     'time' => '时间',
     'no_data' => '暂无数据',
+    
+    // Notifications
+    'no_notifications' => '暂无通知',
+    'no_notifications_desc' => '您还没有任何通知',
+    
+    // UI Notes
+    'ui_only_note' => '这仅是显示界面。保存功能将在后续添加。',
+    'ui_only_note_short' => '仅显示',
 ];
