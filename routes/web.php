@@ -22,6 +22,9 @@ Route::middleware(['language.user'])->group(function () {
     Route::get('/orders', [UserController::class, 'orders'])->name('orders');
     Route::get('/account', [UserController::class, 'account'])->name('account');
     Route::get('/recharge', [UserController::class, 'recharge'])->name('recharge');
+    Route::get('/deposit', [UserController::class, 'napTien'])->name('nap-tien');
+    Route::get('/withdraw', [UserController::class, 'rutTien'])->name('rut-tien');
+    Route::post('/withdraw', [UserController::class, 'submitWithdraw'])->name('withdraw.submit');
     Route::group(['prefix' => 'account'], function () {
         Route::get('/achievement', [UserController::class, 'achievement'])->name('account.achievement');
         Route::get('/personal-info', [UserController::class, 'personalInfo'])->name('account.personal-info');

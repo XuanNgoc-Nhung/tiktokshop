@@ -734,4 +734,116 @@ class UserController extends Controller
     {
         return view('user.recharge');
     }
+    public function napTien()
+    {
+        return view('user.nap-tien');
+    }
+    public function rutTien()
+    {
+        return view('user.rut-tien');
+    }
+
+    public function submitWithdraw(Request $request)
+    {
+        $user = Auth::user();
+        $profile = $user->profile;
+        
+        // Check if user has bank info
+        if (!$profile->ngan_hang || !$profile->so_tai_khoan || !$profile->chu_tai_khoan) {
+            return redirect()->back()
+                ->withErrors(['error' => 'Bạn cần cập nhật thông tin ngân hàng trước khi có thể rút tiền.'])
+                ->withInput();
+        }
+        
+        // Check if user has withdrawal password
+        if (!$user->mat_khau_chuyen_tien) {
+            return redirect()->back()
+                ->withErrors(['error' => LanguageHelper::getTranslationFromFile('withdraw', 'password_setup_required', 'user')])
+                ->withInput();
+        }
+
+        // Validation rules
+        $validator = Validator::make($request->all(), [
+            'amount' => 'required|numeric|min:10|max:' . ($profile->so_du ?? 0),
+            'withdrawal_password' => 'required|string',
+        ], [
+            'amount.required' => LanguageHelper::getTranslationFromFile('withdraw', 'amount_required', 'user'),
+            'amount.numeric' => LanguageHelper::getTranslationFromFile('withdraw', 'amount_numeric', 'user'),
+            'amount.min' => LanguageHelper::getTranslationFromFile('withdraw', 'amount_min', 'user'),
+            'amount.max' => LanguageHelper::getTranslationFromFile('withdraw', 'amount_max', 'user'),
+            'withdrawal_password.required' => LanguageHelper::getTranslationFromFile('withdraw', 'password_required', 'user'),
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Check withdrawal password
+        if (!Hash::check($request->withdrawal_password, $user->mat_khau_chuyen_tien)) {
+            return redirect()->back()
+                ->withErrors(['withdrawal_password' => LanguageHelper::getTranslationFromFile('withdraw', 'password_incorrect', 'user')])
+                ->withInput();
+        }
+
+        // Check sufficient balance
+        $amount = $request->amount;
+        $totalRequired = $amount;
+        
+        if ($profile->so_du < $totalRequired) {
+            return redirect()->back()
+                ->withErrors(['amount' => LanguageHelper::getTranslationFromFile('withdraw', 'amount_insufficient', 'user')])
+                ->withInput();
+        }
+
+        try {
+            // Create withdrawal record in nap_rut table
+            $napRut = new \App\Models\NapRut();
+            $napRut->user_id = $user->id;
+            $napRut->loai = 'rut'; // withdrawal
+            $napRut->so_tien = $amount;
+            $napRut->phi_giao_dich = 0; // No fee
+            $napRut->so_tien_thuc_te = $amount;
+            $napRut->ngan_hang = $profile->ngan_hang;
+            $napRut->chu_tai_khoan = $profile->chu_tai_khoan;
+            $napRut->so_tai_khoan = $profile->so_tai_khoan;
+            $napRut->chi_nhanh = $profile->chi_nhanh ?? '';
+            $napRut->trang_thai = 'pending'; // pending, approved, rejected
+            $napRut->ghi_chu = 'Yêu cầu rút tiền từ người dùng';
+            $napRut->save();
+
+            // Update user balance
+            $profile->so_du -= $totalRequired;
+            $profile->save();
+
+            // Create transaction history
+            $lichSu = new LichSu();
+            $lichSu->user_id = $user->id;
+            $lichSu->loai_giao_dich = 'rut_tien';
+            $lichSu->so_tien = $amount;
+            $lichSu->phi_giao_dich = 0; // No fee
+            $lichSu->so_du_truoc = $profile->so_du + $totalRequired;
+            $lichSu->so_du_sau = $profile->so_du;
+            $lichSu->trang_thai = 'pending';
+            $lichSu->mo_ta = "Rút tiền về ngân hàng: {$profile->ngan_hang} - {$profile->so_tai_khoan}";
+            $lichSu->save();
+
+            // Create notification
+            $thongBao = new ThongBao();
+            $thongBao->user_id = $user->id;
+            $thongBao->tieu_de = 'Yêu cầu rút tiền đã được gửi';
+            $thongBao->noi_dung = "Yêu cầu rút tiền $" . number_format($amount, 2) . " đã được gửi thành công. Hệ thống sẽ xử lý trong 24h.";
+            $thongBao->loai = 'withdrawal';
+            $thongBao->trang_thai = 'unread';
+            $thongBao->save();
+
+            return redirect()->back()->with('success', LanguageHelper::getTranslationFromFile('withdraw', 'withdrawal_success', 'user'));
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->withErrors(['error' => LanguageHelper::getTranslationFromFile('withdraw', 'withdrawal_failed', 'user')])
+                ->withInput();
+        }
+    }
 }

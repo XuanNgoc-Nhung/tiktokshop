@@ -101,11 +101,11 @@
 
     <!-- Navigation Icons -->
     <div class="d-flex justify-content-around py-3">
-        <div class="nav-icon text-center">
+        <div class="nav-icon text-center" onclick="window.location.href='{{ route('nap-tien') }}'">
             <i class="fas fa-credit-card fs-4 d-block mb-2"></i>
             <span class="small">{{ $__home('recharge') }}</span>
         </div>
-        <div class="nav-icon text-center">
+        <div class="nav-icon text-center" onclick="window.location.href='{{ route('rut-tien') }}'">
             <i class="fas fa-money-bill fs-4 d-block mb-2"></i>
             <span class="small">{{ $__home('withdraw') }}</span>
         </div>
