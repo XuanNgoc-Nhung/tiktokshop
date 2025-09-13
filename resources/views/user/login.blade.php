@@ -105,7 +105,7 @@
                 <input type="checkbox" id="remember" name="remember" class="checkbox">
                 <label for="remember" class="checkbox-label">{{ __('auth.remember_me') }}</label>
             </div>
-            <a href="#" class="forgot-password">{{ __('auth.forgot_password') }}</a>
+            {{-- <a href="#" class="forgot-password">{{ __('auth.forgot_password') }}</a> --}}
         </div>
 
         <!-- Login Button -->

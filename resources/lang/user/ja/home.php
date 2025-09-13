@@ -155,4 +155,7 @@ return [
     // UI Notes
     'ui_only_note' => 'これは表示インターフェースのみです。保存機能は後で追加されます。',
     'ui_only_note_short' => '表示のみ',
+    
+    // Product interaction
+    'product_viewed' => '商品を表示しました',
 ];

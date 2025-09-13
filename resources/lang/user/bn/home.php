@@ -149,4 +149,7 @@ return [
     // UI Notes
     'ui_only_note' => 'এটি শুধুমাত্র প্রদর্শন ইন্টারফেস। সংরক্ষণ কার্যকারিতা পরে যোগ করা হবে।',
     'ui_only_note_short' => 'শুধুমাত্র প্রদর্শন',
+    
+    // Product interaction
+    'product_viewed' => 'পণ্য দেখা হয়েছে',
 ];

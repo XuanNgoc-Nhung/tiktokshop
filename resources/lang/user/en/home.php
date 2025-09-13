@@ -155,4 +155,7 @@ return [
     // UI Notes
     'ui_only_note' => 'This is display interface only. Save functionality will be added later.',
     'ui_only_note_short' => 'Display only',
+    
+    // Product interaction
+    'product_viewed' => 'Product viewed',
 ];

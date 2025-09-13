@@ -149,4 +149,7 @@ return [
     // UI Notes
     'ui_only_note' => '这仅是显示界面。保存功能将在后续添加。',
     'ui_only_note_short' => '仅显示',
+    
+    // Product interaction
+    'product_viewed' => '产品已查看',
 ];

@@ -155,4 +155,7 @@ return [
     // UI Notes
     'ui_only_note' => 'Đây chỉ là giao diện hiển thị. Chức năng lưu sẽ được bổ sung sau.',
     'ui_only_note_short' => 'Chỉ hiển thị giao diện',
+    
+    // Product interaction
+    'product_viewed' => 'Sản phẩm đã được xem',
 ];
