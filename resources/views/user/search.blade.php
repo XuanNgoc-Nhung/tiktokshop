@@ -510,6 +510,69 @@
     visibility: hidden;
 }
 
+/* Balance Warning Styles */
+.balance-warning {
+    background: #fef3cd;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #92400e;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.balance-warning i {
+    color: #f59e0b;
+    font-size: 16px;
+}
+
+/* Deposit Button Styles */
+.btn-deposit {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+.btn-deposit:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+}
+
+.btn-deposit:active {
+    transform: translateY(0);
+}
+
+/* Disabled Confirm Button */
+.btn-confirm:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn-confirm:disabled:hover {
+    background: #9ca3af;
+    transform: none;
+    box-shadow: none;
+}
+
 /* Insufficient Balance Modal Styles */
 .insufficient-balance-modal-overlay {
     position: fixed;
@@ -635,12 +698,12 @@
 
 .product-modal {
     background: white;
-    border-radius: 16px;
-    width: 90%;
-    max-width: 500px;
-    max-height: 90vh;
+    border-radius: 12px;
+    width: 80%;
+    max-width: 80vw;
+    max-height: 85vh;
     overflow-y: auto;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
     transform: scale(0.9);
     transition: transform 0.3s ease;
 }
@@ -653,15 +716,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 20px 0 20px;
+    padding: 15px 15px 0 15px;
     border-bottom: 1px solid #eee;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .product-modal-header h3 {
     margin: 0;
     color: #8b4513;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
 }
 
@@ -687,20 +750,20 @@
 }
 
 .product-modal-body {
-    padding: 0 20px 20px 20px;
+    padding: 0 15px 15px 15px;
 }
 
 .product-image {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .product-image img {
-    width: 200px;
-    height: 200px;
+    width: 140px;
+    height: 140px;
     object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
 .product-info {
@@ -709,33 +772,33 @@
 
 .product-name {
     color: #333;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     line-height: 1.3;
 }
 
 .product-description {
     color: #666;
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 20px;
-    min-height: 40px;
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    min-height: 32px;
 }
 
 .product-details {
     background: #f8f9fa;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 20px;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 15px;
 }
 
 .product-details > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
-    padding: 8px 0;
+    margin-bottom: 8px;
+    padding: 6px 0;
 }
 
 .product-details > div:last-child {
@@ -745,13 +808,13 @@
 .product-details .label {
     color: #8b4513;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .product-details .value {
     color: #333;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .product-price .value {
@@ -767,37 +830,35 @@
 }
 
 .product-modal-footer {
-    padding: 0 20px 20px 20px;
+    padding: 0 15px 15px 15px;
     text-align: center;
 }
 
 .modal-buttons {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
 }
 
 .btn-confirm,
 .btn-change-product {
     border: none;
-    border-radius: 12px;
-    padding: 12px 8px;
-    font-size: 12px;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    flex: 1;
-    min-width: 0;
-    max-width: calc(50% - 4px);
     display: flex;
     align-items: center;
     justify-content: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 44px;
+    height: 38px;
+    min-width: 160px;
 }
 
 .btn-confirm {
@@ -888,22 +949,23 @@
 /* Responsive Design for Modal */
 @media (max-width: 768px) {
     .product-modal {
-        width: 95%;
-        margin: 20px;
+        width: 85%;
+        max-width: 85vw;
+        margin: 15px;
     }
     
     .product-image img {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
     }
     
     .product-name {
-        font-size: 18px;
+        font-size: 14px;
     }
     
     .product-details .label,
     .product-details .value {
-        font-size: 13px;
+        font-size: 11px;
     }
     
     .loading-text {
@@ -917,18 +979,16 @@
     
     .modal-buttons {
         flex-direction: row;
-        gap: 6px;
-        justify-content: space-between;
+        gap: 4px;
+        justify-content: center;
     }
     
     .btn-confirm,
     .btn-change-product {
-        flex: 1;
-        min-width: 0;
-        max-width: calc(50% - 3px);
         font-size: 11px;
-        padding: 8px 6px;
-        height: 40px;
+        padding: 8px 16px;
+        height: 36px;
+        min-width: 140px;
     }
 }
 
@@ -952,12 +1012,10 @@ const translations = {
     profit: '{{ $__home("profit") }}',
     level: '{{ $__home("level") }}',
     no_description: '{{ $__home("no_description") }}',
-    change_product: '{{ $__home("change_product") }}',
     confirm: '{{ $__home("confirm") }}',
     order_confirmed_successfully: '{{ $__home("order_confirmed_successfully") }}',
     error_receiving_order: '{{ $__home("error_receiving_order") }}',
     error_connecting_server: '{{ $__home("error_connecting_server") }}',
-    error_changing_product: '{{ $__home("error_changing_product") }}',
     security_error: '{{ $__home("security_error") }}',
     session_expired: '{{ $__home("session_expired") }}',
     login_required: '{{ $__home("login_required") }}',
@@ -967,8 +1025,14 @@ const translations = {
     insufficient_balance_title: '{{ $__home("insufficient_balance_title") }}',
     insufficient_balance_message: '{{ $__home("insufficient_balance_message") }}',
     recharge_now: '{{ $__home("recharge_now") }}',
-    close: '{{ $__home("close") }}'
+    close: '{{ $__home("close") }}',
+    // Balance check translations
+    insufficient_balance_condition: '{{ $__home("insufficient_balance_condition") }}',
+    deposit_more: '{{ $__home("deposit_more") }}'
 };
+
+// Current user balance from PHP
+const currentUserBalance = {{ $so_du ?? 0 }};
 
 // Haptic feedback simulation
 function hapticFeedback() {
@@ -1415,6 +1479,12 @@ function showProductModal(product) {
         existingModal.remove();
     }
     
+    // Kiểm tra số dư
+    const productPrice = parseFloat(product.gia);
+    const hasEnoughBalance = currentUserBalance >= productPrice;
+    
+    console.log('💰 [BALANCE CHECK] Current balance:', currentUserBalance, 'Product price:', productPrice, 'Has enough:', hasEnoughBalance);
+    
     // Tạo modal HTML
     console.log('📦 [PRODUCT MODAL] Creating product modal HTML...');
     const modalHTML = `
@@ -1449,16 +1519,25 @@ function showProductModal(product) {
                                 <span class="value">${Number(product.hoa_hong).toLocaleString('vi-VN')} $</span>
                             </div>
                         </div>
+                        ${!hasEnoughBalance ? `
+                        <div class="balance-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>${translations.insufficient_balance_condition}</span>
+                        </div>
+                        ` : ''}
                     </div>
                 </div>
                 <div class="product-modal-footer">
                     <div class="modal-buttons">
-                        <button class="btn-change-product" onclick="changeProduct()">
-                            <i class="fas fa-exchange-alt me-2"></i>${translations.change_product}
-                        </button>
+                        ${hasEnoughBalance ? `
                         <button class="btn-confirm" onclick="confirmProduct()">
                             <i class="fas fa-check me-2"></i>${translations.confirm}
                         </button>
+                        ` : `
+                        <a href="{{ route('nap-tien') }}" class="btn-deposit">
+                            <i class="fas fa-plus-circle me-2"></i>${translations.deposit_more}
+                        </a>
+                        `}
                     </div>
                 </div>
             </div>
@@ -1509,94 +1588,6 @@ function closeProductModal() {
 }
 
 
-async function changeProduct() {
-    console.log('🔄 [CHANGE PRODUCT] Starting change product process...');
-    // Haptic feedback
-    hapticFeedback();
-    
-    // Đóng modal hiện tại
-    console.log('🔄 [CHANGE PRODUCT] Closing current modal...');
-    closeProductModal();
-    
-    // Hiển thị loading overlay toàn màn hình
-    console.log('🔄 [CHANGE PRODUCT] Showing loading overlay...');
-    showLoading(translations.finding_new_product);
-    
-    try {
-        console.log('🔄 [CHANGE PRODUCT] Calling /receive-order API...');
-        
-        // Lấy CSRF token
-        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-        console.log('🔄 [CHANGE PRODUCT] CSRF Token:', csrfToken);
-        if (!csrfToken) {
-            throw new Error('CSRF token không tìm thấy');
-        }
-        
-        // Gọi API để nhận sản phẩm mới
-        const response = await fetch('/receive-order', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken,
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({}),
-            credentials: 'same-origin' // Đảm bảo gửi cookies session
-        });
-        
-        console.log('🔄 [CHANGE PRODUCT] Response status:', response.status);
-        console.log('🔄 [CHANGE PRODUCT] Response ok:', response.ok);
-        
-        // Kiểm tra nếu response không phải JSON
-        const contentType = response.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
-            const text = await response.text();
-            console.log('🔄 [CHANGE PRODUCT] Response text:', text);
-            throw new Error('Server trả về response không phải JSON. Status: ' + response.status);
-        }
-        
-        const data = await response.json();
-        console.log('🔄 [CHANGE PRODUCT] Response data:', data);
-        
-        if (data.success) {
-            console.log('🔄 [CHANGE PRODUCT] API success, showing modal with new product:', data.product);
-            // Ẩn loading và hiển thị modal mới với sản phẩm mới
-            hideLoading();
-            showProductModal(data.product);
-        } else {
-            console.log('🔄 [CHANGE PRODUCT] API failed:', data.message);
-            // Ẩn loading và hiển thị thông báo lỗi
-            hideLoading();
-            
-            // Kiểm tra nếu là lỗi số dư không đủ thì hiển thị modal
-            if (data.type === 'balance'||true) {
-                console.log('🔄 [CHANGE PRODUCT] Showing insufficient balance modal');
-                showInsufficientBalanceModal();
-            } else {
-                console.log('🔄 [CHANGE PRODUCT] Showing error toast');
-                showToast('error', translations.error_title, data.message || translations.error_changing_product);
-            }
-        }
-    } catch (error) {
-        console.error('🔄 [CHANGE PRODUCT] Error occurred:', error);
-        // Ẩn loading và hiển thị thông báo lỗi
-        hideLoading();
-        
-        if (error.message.includes('CSRF token')) {
-            console.log('🔄 [CHANGE PRODUCT] CSRF token error');
-            showToast('error', translations.error_title, translations.security_error);
-        } else if (error.message.includes('419')) {
-            console.log('🔄 [CHANGE PRODUCT] Session expired error');
-            showToast('warning', translations.error_title, translations.session_expired);
-        } else if (error.message.includes('401')) {
-            console.log('🔄 [CHANGE PRODUCT] Login required error');
-            showToast('warning', translations.error_title, translations.login_required);
-        } else {
-            console.log('🔄 [CHANGE PRODUCT] General error');
-            showToast('error', translations.error_title, translations.error_connecting_server + ': ' + error.message);
-        }
-    }
-}
 
 async function confirmProduct() {
     console.log('✅ [CONFIRM PRODUCT] Starting product confirmation process...');

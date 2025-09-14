@@ -608,7 +608,10 @@ class UserController extends Controller
 
     public function receiveOrder(Request $request)
     {
+        \Log::info('=== BẮT ĐẦU XỬ LÝ NHẬN ĐƠN HÀNG ===');
+        
         if (!Auth::check()) {
+            \Log::warning('User chưa đăng nhập');
             return response()->json([
                 'success' => false,
                 'message' => LanguageHelper::getUserTranslation('fill_all_fields')
@@ -620,7 +623,21 @@ class UserController extends Controller
             $user = Auth::user();
             $profile = $user->profile;
             
+            \Log::info('Thông tin user', [
+                'user_id' => $user->id,
+                'user_name' => $user->name,
+                'user_phone' => $user->phone,
+                'profile_exists' => $profile ? true : false,
+                'so_du' => $profile ? $profile->so_du : null,
+                'hoa_hong' => $profile ? $profile->hoa_hong : null
+            ]);
+            
             if (!$profile || !$profile->so_du) {
+                \Log::warning('User không có profile hoặc số dư', [
+                    'user_id' => $user->id,
+                    'profile_exists' => $profile ? true : false,
+                    'so_du' => $profile ? $profile->so_du : null
+                ]);
                 return response()->json([
                     'success' => false,
                     'message' => LanguageHelper::getHomeTranslation('insufficient_balance')
@@ -629,12 +646,89 @@ class UserController extends Controller
             
             $userBalance = (float) $profile->so_du;
             
-            // Lấy ngẫu nhiên 1 sản phẩm có giá <= số dư của người dùng
-            $randomProduct = SanPham::where('gia', '<=', $userBalance)
-                ->inRandomOrder()
-                ->first();
+            // Kiểm tra số lượt quay trong ngày hôm nay
+            $today = now()->startOfDay();
+            $tomorrow = now()->addDay()->startOfDay();
+            
+            $luotQuayHomNay = NhanDon::where('user_id', $user->id)
+                ->whereBetween('created_at', [$today, $tomorrow])
+                ->count();
+            
+            \Log::info('Thống kê lượt quay hôm nay', [
+                'user_id' => $user->id,
+                'today_start' => $today->format('Y-m-d H:i:s'),
+                'tomorrow_start' => $tomorrow->format('Y-m-d H:i:s'),
+                'luot_quay_hom_nay' => $luotQuayHomNay,
+                'current_time' => now()->format('Y-m-d H:i:s')
+            ]);
+            
+            // Lấy chi tiết các lượt quay hôm nay
+            $chiTietLuotQuay = NhanDon::where('user_id', $user->id)
+                ->whereBetween('created_at', [$today, $tomorrow])
+                ->orderBy('created_at', 'desc')
+                ->get(['id', 'ten_san_pham', 'gia_tri', 'hoa_hong', 'created_at']);
+            
+            \Log::info('Chi tiết các lượt quay hôm nay', [
+                'user_id' => $user->id,
+                'total_records' => $chiTietLuotQuay->count(),
+                'records' => $chiTietLuotQuay->map(function($record) {
+                    return [
+                        'id' => $record->id,
+                        'ten_san_pham' => $record->ten_san_pham,
+                        'gia_tri' => $record->gia_tri,
+                        'hoa_hong' => $record->hoa_hong,
+                        'created_at' => $record->created_at->format('Y-m-d H:i:s')
+                    ];
+                })->toArray()
+            ]);
+            
+            // Kiểm tra điều kiện đặc biệt: nếu luotQuayHomNay = luot_trung thì lấy sản phẩm theo giai_thuong_id
+            $luotTrung = $profile->luot_trung ?? 0;
+            $giaiThuongId = $profile->giai_thuong_id ?? null;
+            
+            \Log::info('Kiểm tra điều kiện đặc biệt', [
+                'luot_quay_hom_nay' => $luotQuayHomNay,
+                'luot_trung' => $luotTrung,
+                'giai_thuong_id' => $giaiThuongId,
+                'condition_met' => ($luotQuayHomNay == $luotTrung)
+            ]);
+            
+            $randomProduct = null;
+            
+            // Nếu luotQuayHomNay = luot_trung và có giai_thuong_id, lấy sản phẩm theo ID
+            if ($luotQuayHomNay == $luotTrung && $giaiThuongId) {
+                $randomProduct = SanPham::where('id', $giaiThuongId)
+                    ->first();
+                
+                \Log::info('Lấy sản phẩm theo giai_thuong_id', [
+                    'giai_thuong_id' => $giaiThuongId,
+                    'product_found' => $randomProduct ? true : false,
+                    'product_name' => $randomProduct ? $randomProduct->ten : null,
+                    'product_price' => $randomProduct ? $randomProduct->gia : null
+                ]);
+            }
+            
+            // Nếu không thỏa mãn điều kiện đặc biệt hoặc không tìm thấy sản phẩm theo giai_thuong_id
+            if (!$randomProduct) {
+                // Lấy ngẫu nhiên 1 sản phẩm có giá <= số dư của người dùng
+                $randomProduct = SanPham::where('gia', '<=', $userBalance)
+                    ->inRandomOrder()
+                    ->first();
+                
+                \Log::info('Lấy sản phẩm ngẫu nhiên', [
+                    'user_balance' => $userBalance,
+                    'product_found' => $randomProduct ? true : false,
+                    'product_id' => $randomProduct ? $randomProduct->id : null,
+                    'product_name' => $randomProduct ? $randomProduct->ten : null,
+                    'product_price' => $randomProduct ? $randomProduct->gia : null
+                ]);
+            }
             
             if (!$randomProduct) {
+                \Log::warning('Không tìm thấy sản phẩm phù hợp', [
+                    'user_id' => $user->id,
+                    'user_balance' => $userBalance
+                ]);
                 return response()->json([
                     'success' => false,
                     'type' => 'balance',
@@ -642,11 +736,29 @@ class UserController extends Controller
                 ]);
             }
 
+            \Log::info('=== HOÀN THÀNH NHẬN ĐƠN HÀNG THÀNH CÔNG ===', [
+                'user_id' => $user->id,
+                'luot_quay_hom_nay' => $luotQuayHomNay,
+                'product_id' => $randomProduct->id,
+                'product_name' => $randomProduct->ten,
+                'product_price' => $randomProduct->gia
+            ]);
+
             // Trả về thông tin sản phẩm
             return response()->json([
                 'success' => true,
                 'type' => 'product',
                 'message' => LanguageHelper::getHomeTranslation('receive_order_success'),
+                'luot_quay_hom_nay' => $luotQuayHomNay,
+                'chi_tiet_luot_quay' => $chiTietLuotQuay->map(function($record) {
+                    return [
+                        'id' => $record->id,
+                        'ten_san_pham' => $record->ten_san_pham,
+                        'gia_tri' => $record->gia_tri,
+                        'hoa_hong' => $record->hoa_hong,
+                        'created_at' => $record->created_at->format('Y-m-d H:i:s')
+                    ];
+                }),
                 'product' => [
                     'id' => $randomProduct->id,
                     'ten' => $randomProduct->ten,
@@ -659,6 +771,14 @@ class UserController extends Controller
             ]);
 
         } catch (\Exception $e) {
+            \Log::error('=== LỖI KHI NHẬN ĐƠN HÀNG ===', [
+                'user_id' => Auth::id(),
+                'error_message' => $e->getMessage(),
+                'error_file' => $e->getFile(),
+                'error_line' => $e->getLine(),
+                'error_trace' => $e->getTraceAsString()
+            ]);
+            
             return response()->json([
                 'success' => false,
                 'message' => LanguageHelper::getHomeTranslation('error_receiving_order'),
