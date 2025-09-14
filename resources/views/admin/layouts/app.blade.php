@@ -875,6 +875,12 @@
                 </div>
                 
                 <div class="menu-item">
+                    <a href="{{ route('admin.san-pham-trang-chu.index') }}" class="menu-link {{ request()->routeIs('admin.san-pham-trang-chu*') ? 'active' : '' }}" data-tooltip="{{ __('admin::cms.products_homepage') }}">
+                        <i class="fas fa-box"></i>
+                        <span class="menu-text">{{ __('admin::cms.products_homepage') }}</span>
+                    </a>
+                </div>
+                <div class="menu-item">
                     <a href="{{ route('admin.thong-bao-management') }}" class="menu-link {{ request()->routeIs('admin.thong-bao-management') ? 'active' : '' }}" data-tooltip="{{ __('admin::cms.thong_bao_management') }}">
                         <i class="fas fa-bell"></i>
                         <span class="menu-text">{{ __('admin::cms.thong_bao_management') }}</span>

@@ -16,6 +16,7 @@ use App\Helpers\LanguageHelper;
 use Illuminate\Support\Facades\File;
 use App\Models\LichSu;
 use App\Models\NapRut;
+use App\Models\SanPhamTrangChu;
 
 class UserController extends Controller
 {
@@ -211,8 +212,8 @@ class UserController extends Controller
             'email' => $user->email,
             'role' => $user->role ?? 'user'
         ];
-        
-        return view('user.dashboard', compact('userData'));
+        $sanPhamTrangChu = SanPhamTrangChu::where('trang_thai', 1)->get();
+        return view('user.dashboard', compact('userData', 'sanPhamTrangChu'));
     }
     public function notification()
     {

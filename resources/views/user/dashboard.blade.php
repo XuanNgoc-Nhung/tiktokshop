@@ -183,27 +183,30 @@
 
     <!-- Product Cards -->
     <div class="row g-3 px-3 pb-3">
-        @for ($i = 0; $i < 6; $i++)
+        @if ($sanPhamTrangChu->count() > 0)
+        @for ($i = 0; $i < $sanPhamTrangChu->count(); $i++)
         <div class="col-6">
             <div class="product-card bg-white rounded-3 shadow-sm">
-                <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                     alt="The Mong Village Resort" 
-                     class="w-100 rounded-top-3" 
-                     style="height: 100px; object-fit: cover; border: 1px solid #e9ecef;">
+                <div class="product-image-container">
+                    <img src="{{ $sanPhamTrangChu[$i]->hinh_anh }}" 
+                         alt="{{ $sanPhamTrangChu[$i]->ten_san_pham }}" 
+                         class="product-image">
+                </div>
                 <div class="p-2">
-                    <h6 class="product-title mb-1">{{ $__home('product_name') }}</h6>
+                    <h6 class="product-title mb-1">{{ $sanPhamTrangChu[$i]->ten_san_pham }}</h6>
                     <div class="d-flex align-items-center justify-content-between mb-1">
-                        <div class="product-price fw-bold">{{ $__home('price') }}</div>
-                        <div class="product-discount text-muted small">{{ $__home('discount') }}</div>
+                        <div class="product-price fw-bold">{{ $sanPhamTrangChu[$i]->gia_san_pham }}</div>
+                        <div class="product-discount text-muted small">{{ $sanPhamTrangChu[$i]->hoa_hong }}</div>
                     </div>
                     <div class="product-rating d-flex align-items-center">
                         <i class="fas fa-star text-warning me-1" style="font-size: 10px;"></i>
-                        <span class="text-muted" style="font-size: 10px;">{{ $__home('rating') }}</span>
+                        <span class="text-muted" style="font-size: 10px;">{{ $sanPhamTrangChu[$i]->sao_vote }}</span>
                     </div>
                 </div>
             </div>
         </div>
         @endfor
+        @endif
     </div>
 </div>
 
@@ -423,6 +426,28 @@
     .product-card:hover {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
         transform: translateY(-2px);
+    }
+
+    /* Product Image Container */
+    .product-image-container {
+        width: 100%;
+        height: 120px;
+        overflow: hidden;
+        position: relative;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .product-image {
+        transform: scale(1.05);
     }
 
     .product-title {

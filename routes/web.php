@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ThongBaoController;
 use App\Http\Controllers\SlideShowController;
 use App\Http\Controllers\LichSuController;
+use App\Http\Controllers\SanPhamTrangChuController;
 
 // Routes không cần đăng nhập (login, register)
 Route::middleware(['language.user'])->group(function () {
@@ -18,8 +19,7 @@ Route::middleware(['language.user'])->group(function () {
 
 // Routes cần đăng nhập
 Route::middleware(['language.user', 'checkLogin'])->group(function () {
-    Route::get('/', [UserController::class, 'index']);
-    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+    Route::get('/', [UserController::class, 'dashboard'])->name('dashboard');
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     //notification
     Route::get('/notification', [UserController::class, 'notification'])->name('notification');
@@ -109,6 +109,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin']], fu
     Route::get('/nap-rut-tien/{id}', [LichSuController::class, 'showNapRut'])->name('admin.nap-rut-tien.show');
     Route::put('/nap-rut-tien/{id}', [LichSuController::class, 'updateNapRut'])->name('admin.nap-rut-tien.update');
     Route::post('/nap-rut-tien/{id}/status', [LichSuController::class, 'updateStatus'])->name('admin.nap-rut-tien.status');
+
+    // san pham trang chu
+    // Sản phẩm trang chủ routes
+    Route::get('/san-pham-trang-chu', [SanPhamTrangChuController::class, 'index'])->name('admin.san-pham-trang-chu.index');
+    Route::get('/san-pham-trang-chu/create', [SanPhamTrangChuController::class, 'create'])->name('admin.san-pham-trang-chu.create');
+    Route::post('/san-pham-trang-chu', [SanPhamTrangChuController::class, 'store'])->name('admin.san-pham-trang-chu.store');
+    Route::get('/san-pham-trang-chu/{id}', [SanPhamTrangChuController::class, 'show'])->name('admin.san-pham-trang-chu.show');
+    Route::get('/san-pham-trang-chu/{id}/edit', [SanPhamTrangChuController::class, 'edit'])->name('admin.san-pham-trang-chu.edit');
+    Route::put('/san-pham-trang-chu/{id}', [SanPhamTrangChuController::class, 'update'])->name('admin.san-pham-trang-chu.update');
+    Route::post('/xoa-san-pham-trang-chu/{id}', [SanPhamTrangChuController::class, 'destroy'])->name('admin.xoa-san-pham-trang-chu');
+    Route::post('/san-pham-trang-chu/{id}/toggle-status', [SanPhamTrangChuController::class, 'toggleStatus'])->name('admin.san-pham-trang-chu.toggle-status');
 });
 
 // Admin routes with authentication check

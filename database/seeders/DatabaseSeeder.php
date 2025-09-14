@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             UserSeeder::class,
             SanPhamSeeder::class,
+            SanPhamTrangChuSeeder::class,
         ]);
     }
 }
