@@ -38,7 +38,7 @@ class ProductController extends Controller
             'hoa_hong' => ['nullable','numeric','min:0'],
             'mo_ta' => ['nullable','string'],
             'hinh_anh' => ['required','image','mimes:jpeg,jpg,png,gif,webp','max:5120'],
-            'cap_do' => ['required','string','max:100']
+            'cap_do' => ['required','in:0,1']
         ]);
 
         // Handle image upload if present
@@ -81,7 +81,7 @@ class ProductController extends Controller
             'hoa_hong' => ['nullable','numeric','min:0'],
             'mo_ta' => ['nullable','string'],
             'hinh_anh' => ['nullable','image','mimes:jpeg,jpg,png,gif,webp','max:5120'],
-            'cap_do' => ['required','string','max:100']
+            'cap_do' => ['required','in:0,1']
         ]);
 
         // Handle image upload if present
@@ -146,5 +146,40 @@ class ProductController extends Controller
         }
 
         return redirect()->route('admin.product-management');
+    }
+
+    public function toggleVipStatus(Request $request, $id)
+    {
+        try {
+            $sanPham = SanPham::findOrFail($id);
+            
+            $validated = $request->validate([
+                'vip_status' => ['required', 'in:0,1']
+            ]);
+
+            $sanPham->update(['cap_do' => $validated['vip_status']]);
+
+            $message = $validated['vip_status'] == 1 
+                ? __('admin::cms.product_set_as_vip_success')
+                : __('admin::cms.product_set_as_no_vip_success');
+
+            return response()->json([
+                'success' => true,
+                'message' => $message,
+                'data' => $sanPham->fresh(),
+            ]);
+
+        } catch (\Exception $e) {
+            \Log::error('Toggle VIP status error', [
+                'product_id' => $id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => __('admin::cms.error_generic'),
+            ], 500);
+        }
     }
 }

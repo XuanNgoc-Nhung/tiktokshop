@@ -211,4 +211,7 @@ return [
     'error_generic' => 'Có lỗi xảy ra',
     'add_new' => 'Thêm mới',
     'reset' => 'Đặt lại',
+    
+    // Endow
+    'endow' => 'Ưu đãi',
 ];

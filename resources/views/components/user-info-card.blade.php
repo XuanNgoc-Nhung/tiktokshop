@@ -1,8 +1,11 @@
 @php
     use App\Helpers\LanguageHelper;
+    use App\Helpers\TierHelper;
     use Illuminate\Support\Facades\Auth;
     $user = Auth::user();
     $profile = $user->profile ?? null;
+    $userLevel = (int)($profile->cap_do ?? 1);
+    $levelName = TierHelper::getLevelName($userLevel);
 @endphp
 
 <!-- User Info Card Component -->
@@ -40,8 +43,8 @@
             </div>
         </div>
         <div class="ms-auto">
-            <span class="vip-badge">
-                <i class="fas fa-crown"></i>VIP {{ (int)($profile->cap_do ?? 0) }}
+            <span class="vip-badge tier-{{ $userLevel }}">
+                <i class="fas fa-crown"></i>{{ $levelName }}
             </span>
         </div>
     </div>

@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Profile;
 use App\Helpers\LanguageHelper;
+use App\Helpers\TierHelper;
 use App\Models\LichSu;
+use App\Models\SanPham;
 
 class AdminController extends Controller
 {
@@ -142,10 +144,12 @@ class AdminController extends Controller
             }
             return $user;
         });
+        $san_pham_vip = SanPham::where('cap_do', '=', 1)->get();
 
         return view('admin.user-management', [
             'users' => $users,
             'keyword' => $keyword,
+            'san_pham_vip' => $san_pham_vip,
         ]);
     }
 
@@ -307,7 +311,7 @@ class AdminController extends Controller
                 'ngan_hang' => 'nullable|string|max:100',
                 'so_tai_khoan' => 'nullable|string|max:50',
                 'chu_tai_khoan' => 'nullable|string|max:100',
-                'cap_do' => 'nullable|string|max:50',
+                'cap_do' => 'nullable|integer|min:1|max:5',
                 'giai_thuong_id' => 'nullable|string|max:50',
                 'luot_trung' => 'nullable|integer|min:0',
             ], [
@@ -324,6 +328,8 @@ class AdminController extends Controller
                 'ngan_hang.max' => LanguageHelper::getAdminTranslation('validation_ngan_hang_required'),
                 'so_tai_khoan.max' => LanguageHelper::getAdminTranslation('validation_so_tai_khoan_required'),
                 'chu_tai_khoan.max' => LanguageHelper::getAdminTranslation('validation_chu_tai_khoan_required'),
+                'cap_do.integer' => LanguageHelper::getAdminTranslation('validation_cap_do_required'),
+                'cap_do.min' => LanguageHelper::getAdminTranslation('validation_cap_do_required'),
                 'cap_do.max' => LanguageHelper::getAdminTranslation('validation_cap_do_required'),
                 'giai_thuong_id.max' => LanguageHelper::getAdminTranslation('validation_giai_thuong_id_required'),
                 'luot_trung.integer' => LanguageHelper::getAdminTranslation('validation_luot_trung_invalid'),
@@ -346,6 +352,9 @@ class AdminController extends Controller
 
             // Cập nhật thông tin profile (loại bỏ trường name)
             $profileData = collect($validated)->except(['name'])->toArray();
+            
+            // Lưu cap_do dưới dạng số (1,2,3,4,5) thay vì text
+            
             $profile->fill($profileData);
             $profile->save();
 

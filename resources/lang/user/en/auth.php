@@ -97,4 +97,31 @@ return [
     'message_placeholder' => 'Describe your issue in detail...',
     'send_request' => 'Send Request',
     
+    // Endow
+    'endow' => 'Endow',
+    'search_products' => 'Search products...',
+    'all' => 'All',
+    'high_commission' => 'High Commission',
+    'new_products' => 'New Products',
+    'hot' => 'HOT',
+    'price' => 'Price',
+    'commission' => 'Commission',
+    'level' => 'Level',
+    'receive_order' => 'Receive Order',
+    'already_received' => 'Already Received',
+    'no_products' => 'No Products',
+    'no_products_description' => 'Currently no promotional products available',
+    'confirm_receive_order' => 'Are you sure you want to receive this order?',
+    'processing' => 'Processing',
+    'success' => 'Success',
+    'network_error' => 'Network connection error',
+    
+    // Special Product
+    'coming_soon' => 'Processing',
+    'special' => 'Special',
+    'special_product_title' => 'Special Product',
+    'special_product_description' => 'Exclusive high-value product',
+    'original_price' => 'Original Price',
+    'receive_now' => 'Receive Now',
+    
 ];

@@ -97,4 +97,31 @@ return [
     'message_placeholder' => 'আপনার সমস্যা বিস্তারিত বর্ণনা করুন...',
     'send_request' => 'অনুরোধ পাঠান',
     
+    // Endow
+    'endow' => 'উপহার',
+    'search_products' => 'পণ্য খুঁজুন...',
+    'all' => 'সব',
+    'high_commission' => 'উচ্চ কমিশন',
+    'new_products' => 'নতুন পণ্য',
+    'hot' => 'HOT',
+    'price' => 'মূল্য',
+    'commission' => 'কমিশন',
+    'level' => 'স্তর',
+    'receive_order' => 'অর্ডার গ্রহণ',
+    'already_received' => 'ইতিমধ্যে গ্রহণ',
+    'no_products' => 'কোন পণ্য নেই',
+    'no_products_description' => 'বর্তমানে কোন প্রমোশনাল পণ্য নেই',
+    'confirm_receive_order' => 'আপনি কি এই অর্ডার গ্রহণ করতে চান?',
+    'processing' => 'প্রক্রিয়াকরণ',
+    'success' => 'সফল',
+    'network_error' => 'নেটওয়ার্ক সংযোগ ত্রুটি',
+    
+    // Special Product
+    'coming_soon' => 'প্রক্রিয়াকরণ',
+    'special' => 'বিশেষ',
+    'special_product_title' => 'বিশেষ পণ্য',
+    'special_product_description' => 'এক্সক্লুসিভ উচ্চ মূল্যের পণ্য',
+    'original_price' => 'মূল মূল্য',
+    'receive_now' => 'এখনই গ্রহণ করুন',
+    
 ];

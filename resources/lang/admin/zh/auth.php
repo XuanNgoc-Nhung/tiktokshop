@@ -152,4 +152,7 @@ return [
     'error_generic' => '发生错误',
     'add_new' => '添加新',
     'reset' => '重置',
+    
+    // Endow
+    'endow' => '赠送',
 ];

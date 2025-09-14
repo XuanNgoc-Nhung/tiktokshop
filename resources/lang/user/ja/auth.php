@@ -97,4 +97,31 @@ return [
     'message_placeholder' => '問題を詳しく説明してください...',
     'send_request' => 'リクエストを送信',
     
+    // Endow
+    'endow' => '贈与',
+    'search_products' => '商品を検索...',
+    'all' => 'すべて',
+    'high_commission' => '高コミッション',
+    'new_products' => '新商品',
+    'hot' => 'HOT',
+    'price' => '価格',
+    'commission' => 'コミッション',
+    'level' => 'レベル',
+    'receive_order' => '注文受取',
+    'already_received' => '受取済み',
+    'no_products' => '商品なし',
+    'no_products_description' => '現在プロモーション商品はありません',
+    'confirm_receive_order' => 'この注文を受取ますか？',
+    'processing' => '処理中',
+    'success' => '成功',
+    'network_error' => 'ネットワーク接続エラー',
+    
+    // Special Product
+    'coming_soon' => '処理中',
+    'special' => '特別',
+    'special_product_title' => '特別商品',
+    'special_product_description' => '独占的な高価値商品',
+    'original_price' => '定価',
+    'receive_now' => '今すぐ受取',
+    
 ];

@@ -211,4 +211,7 @@ return [
     'error_generic' => 'An error occurred',
     'add_new' => 'Add New',
     'reset' => 'Reset',
+    
+    // Endow
+    'endow' => 'Endow',
 ];

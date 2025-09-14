@@ -98,4 +98,31 @@ return [
     'message_placeholder' => 'Mô tả chi tiết vấn đề của bạn...',
     'send_request' => 'Gửi yêu cầu',
     
+    // Endow
+    'endow' => 'Ưu đãi',
+    'search_products' => 'Tìm kiếm sản phẩm...',
+    'all' => 'Tất cả',
+    'high_commission' => 'Hoa hồng cao',
+    'new_products' => 'Sản phẩm mới',
+    'hot' => 'HOT',
+    'price' => 'Giá',
+    'commission' => 'Hoa hồng',
+    'level' => 'Cấp độ',
+    'receive_order' => 'Nhận đơn',
+    'already_received' => 'Đã nhận',
+    'no_products' => 'Không có sản phẩm',
+    'no_products_description' => 'Hiện tại chưa có sản phẩm khuyến mãi nào',
+    'confirm_receive_order' => 'Bạn có chắc chắn muốn nhận đơn hàng này?',
+    'processing' => 'Đang xử lý',
+    'success' => 'Thành công',
+    'network_error' => 'Lỗi kết nối mạng',
+    
+    // Special Product
+    'coming_soon' => 'Đang xử lý',
+    'special' => 'Đặc biệt',
+    'special_product_title' => 'Sản phẩm đặc biệt',
+    'special_product_description' => 'Sản phẩm độc quyền với giá trị cao',
+    'original_price' => 'Giá gốc',
+    'receive_now' => 'Nhận ngay',
+    
 ];

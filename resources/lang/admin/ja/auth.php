@@ -152,4 +152,7 @@ return [
     'error_generic' => 'エラーが発生しました',
     'add_new' => '新規追加',
     'reset' => 'リセット',
+    
+    // Endow
+    'endow' => '贈与',
 ];

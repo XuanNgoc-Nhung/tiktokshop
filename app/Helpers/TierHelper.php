@@ -19,6 +19,53 @@ class TierHelper
     }
 
     /**
+     * Lấy danh sách các cấp độ người dùng
+     */
+    public static function getUserLevels()
+    {
+        return [
+            1 => 'Phổ thông',
+            2 => 'Tiểu thương', 
+            3 => 'Thương gia',
+            4 => 'Đại Lý',
+            5 => 'Doanh nghiệp'
+        ];
+    }
+
+    /**
+     * Lấy tên cấp độ theo ID
+     */
+    public static function getLevelName($levelId)
+    {
+        $levels = self::getUserLevels();
+        return $levels[$levelId] ?? 'Không xác định';
+    }
+
+    /**
+     * Lấy ID cấp độ theo tên
+     */
+    public static function getLevelId($levelName)
+    {
+        $levels = array_flip(self::getUserLevels());
+        return $levels[$levelName] ?? null;
+    }
+
+    /**
+     * Lấy danh sách cấp độ dạng options cho select
+     */
+    public static function getLevelOptions()
+    {
+        $options = [];
+        foreach (self::getUserLevels() as $id => $name) {
+            $options[] = [
+                'value' => $id,
+                'text' => $name
+            ];
+        }
+        return $options;
+    }
+
+    /**
      * Lấy mức hạng hiện tại và mức tiếp theo dựa trên số tiền đã nạp
      */
     public static function getCurrentAndNextTier($totalDeposited)

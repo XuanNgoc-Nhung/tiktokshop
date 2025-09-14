@@ -4,6 +4,11 @@
 
 @section('breadcrumb', __('admin::cms.user_management'))
 
+@php
+use App\Helpers\TierHelper;
+$userLevels = TierHelper::getUserLevels();
+@endphp
+
 @section('content')
     <div class="card">
         <div class="card-header">
@@ -110,7 +115,7 @@
                                                 <div style="margin-bottom: 6px; padding: 6px 10px; background: var(--warning-50); border-radius: 6px; border-left: 4px solid var(--warning-color); display: flex; align-items: flex-start; gap: 8px;">
                                                     <i class="fas fa-crown" style="color: #f59e0b; flex-shrink: 0; margin-top: 2px;"></i>
                                                     <div style="flex: 1; min-width: 0;">
-                                                        <div style="font-weight: 500; color: var(--warning-color);">{{ $user->profile->cap_do }}</div>
+                                                        <div style="font-weight: 500; color: var(--warning-color);">{{ TierHelper::getLevelName($user->profile->cap_do) }}</div>
                                                     </div>
                                                 </div>
                                             @endif
@@ -500,21 +505,9 @@
                                         <label for="edit_cap_do" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.level') }}</label>
                                         <select id="edit_cap_do" name="cap_do" class="form-select form-select-sm">
                                             <option value="">{{ __('admin::cms.select_level') }}</option>
-                                            <option value="VIP 1">VIP 1</option>
-                                            <option value="VIP 2">VIP 2</option>
-                                            <option value="VIP 3">VIP 3</option>
-                                            <option value="VIP 4">VIP 4</option>
-                                            <option value="VIP 5">VIP 5</option>
-                                            <option value="VIP 6">VIP 6</option>
-                                            <option value="VIP 7">VIP 7</option>
-                                            <option value="VIP 8">VIP 8</option>
-                                            <option value="VIP 9">VIP 9</option>
-                                            <option value="VIP 10">VIP 10</option>
-                                            <option value="VIP 11">VIP 11</option>
-                                            <option value="VIP 12">VIP 12</option>
-                                            <option value="VIP 13">VIP 13</option>
-                                            <option value="VIP 14">VIP 14</option>
-                                            <option value="VIP 15">VIP 15</option>
+                                            @foreach($userLevels as $id => $name)
+                                                <option value="{{ $id }}">{{ $name }}</option>
+                                            @endforeach
                                         </select>
                                         <div class="field-error" id="error_edit_cap_do" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
@@ -522,7 +515,93 @@
                                     <!-- Prize ID -->
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
                                         <label for="edit_giai_thuong_id" class="form-label" style="color: #000000; font-weight: 600; font-size: 0.9rem;">{{ __('admin::cms.prize_id') }}</label>
-                                        <input id="edit_giai_thuong_id" name="giai_thuong_id" type="text" class="form-control form-control-sm" placeholder="{{ __('admin::cms.placeholder_prize_id') }}">
+                                        
+                                        <!-- Custom Product Selector -->
+                                        <div class="custom-product-selector" style="position: relative;">
+                                            <div class="product-selector-trigger" 
+                                                 style="display: flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid #ced4da; border-radius: 6px; background: white; cursor: pointer; min-height: 38px;"
+                                                 onclick="toggleProductSelector()">
+                                                <div id="selected-product-display" style="flex: 1; display: flex; align-items: center; gap: 8px;">
+                                                    <span id="selected-product-text" style="color: #6c757d;">{{ __('admin::cms.select_prize') }}</span>
+                                                </div>
+                                                <i class="fas fa-chevron-down" id="product-selector-arrow" style="color: #6c757d; transition: transform 0.2s;"></i>
+                                            </div>
+                                            
+                                            <div id="product-selector-dropdown" 
+                                                 style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ced4da; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; max-height: 300px; overflow-y: auto; display: none;">
+                                                
+                                                <!-- Search Box -->
+                                                <div style="padding: 12px; border-bottom: 1px solid #f1f3f4; background: #f8f9fa;">
+                                                    <div style="position: relative;">
+                                                        <input type="text" 
+                                                               id="product-search-input" 
+                                                               placeholder="{{ __('admin::cms.search_products') }}..." 
+                                                               style="width: 100%; padding: 8px 12px 8px 35px; border: 1px solid #ced4da; border-radius: 4px; font-size: 0.8rem; outline: none;"
+                                                               onkeyup="filterProducts(this.value)">
+                                                        <i class="fas fa-search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #6c757d; font-size: 0.8rem;"></i>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Products List -->
+                                                <div id="products-list">
+                                                @if(isset($san_pham_vip) && $san_pham_vip->count() > 0)
+                                                    @foreach($san_pham_vip as $product)
+                                                        <div class="product-option" 
+                                                             data-value="{{ $product->id }}"
+                                                             data-name="{{ strtolower($product->ten) }}"
+                                                             data-id="{{ $product->id }}"
+                                                             data-price="{{ $product->gia }}"
+                                                             data-commission="{{ $product->hoa_hong }}"
+                                                             style="padding: 12px; border-bottom: 1px solid #f1f3f4; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: background-color 0.2s;"
+                                                             onmouseover="this.style.backgroundColor='#f8f9fa'"
+                                                             onmouseout="this.style.backgroundColor='white'"
+                                                             onclick="selectProduct({{ $product->id }}, '{{ addslashes($product->ten) }}', '{{ $product->hinh_anh }}', '{{ $product->gia }}', '{{ $product->hoa_hong }}')">
+                                                            
+                                                            <!-- Product Image -->
+                                                            <div style="width: 50px; height: 50px; border-radius: 6px; overflow: hidden; flex-shrink: 0; background: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                                                                @php 
+                                                                    $img = $product->hinh_anh ?: 'https://via.placeholder.com/50x50?text=IMG';
+                                                                    $isUrl = filter_var($img, FILTER_VALIDATE_URL) !== false;
+                                                                    $src = $isUrl ? $img : asset($img);
+                                                                @endphp
+                                                                <img src="{{ $src }}" alt="{{ $product->ten }}" 
+                                                                     style="width: 100%; height: 100%; object-fit: cover;"
+                                                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                                                <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; background: #e9ecef;">
+                                                                    <i class="fas fa-image" style="color: #6c757d;"></i>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <!-- Product Info -->
+                                                            <div style="flex: 1; min-width: 0;">
+                                                                <div style="font-weight: 600; font-size: 0.85rem; color: #212529; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                                    {{ $product->ten }}
+                                                                </div>
+                                                                <div style="display: flex; gap: 12px; font-size: 0.75rem; color: #6c757d;">
+                                                                    <span><strong>ID:</strong> {{ $product->id }}</span>
+                                                                    <span><strong>{{ __('admin::cms.price') }}:</strong> {{ is_numeric($product->gia) ? number_format($product->gia, 0, ',', '.') . '₫' : $product->gia }}</span>
+                                                                    <span><strong>{{ __('admin::cms.commission') }}:</strong> {{ $product->hoa_hong }}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                @else
+                                                    <div style="padding: 20px; text-align: center; color: #6c757d;">
+                                                        <i class="fas fa-box-open" style="font-size: 24px; margin-bottom: 8px;"></i>
+                                                        <div>{{ __('admin::cms.no_vip_products') }}</div>
+                                                    </div>
+                                                @endif
+                                                </div>
+                                                
+                                                <!-- No Results Message -->
+                                                <div id="no-results-message" style="display: none; padding: 20px; text-align: center; color: #6c757d;">
+                                                    <i class="fas fa-search" style="font-size: 24px; margin-bottom: 8px;"></i>
+                                                    <div>{{ __('admin::cms.no_products_found') }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <input type="hidden" id="edit_giai_thuong_id" name="giai_thuong_id" value="">
                                         <div class="field-error" id="error_edit_giai_thuong_id" style="display:none; margin-top: 0.25rem; font-size: 0.75rem; color: #dc2626;"></div>
                                     </div>
                                 </div>
@@ -1306,7 +1385,7 @@
                     ngan_hang: 'Vietcombank',
                     so_tai_khoan: '1234567890',
                     chu_tai_khoan: 'Nguyễn Văn A',
-                    cap_do: 'VIP',
+                    cap_do: '3', // Thương gia
                     giai_thuong_id: '1',
                     anh_chan_dung: 'https://via.placeholder.com/200x250/4F46E5/FFFFFF?text=Portrait',
                     anh_mat_truoc: 'https://via.placeholder.com/300x200/10B981/FFFFFF?text=Front+ID',
@@ -1502,8 +1581,20 @@
         setValue('edit_ngan_hang', data.ngan_hang);
         setValue('edit_so_tai_khoan', data.so_tai_khoan);
         setValue('edit_chu_tai_khoan', data.chu_tai_khoan);
-        setValue('edit_cap_do', data.cap_do);
+        // cap_do đã là số ID, không cần chuyển đổi
+        setValue('edit_cap_do', data.cap_do || '');
         setValue('edit_giai_thuong_id', data.giai_thuong_id);
+        
+        // Load selected product display if giai_thuong_id exists
+        if (data.giai_thuong_id) {
+            loadSelectedProductDisplay(data.giai_thuong_id);
+        } else {
+            // Reset to default display
+            const selectedDisplay = document.getElementById('selected-product-display');
+            if (selectedDisplay) {
+                selectedDisplay.innerHTML = '<span id="selected-product-text" style="color: #6c757d;">{{ __('admin::cms.select_prize') }}</span>';
+            }
+        }
         setValue('edit_anh_mat_truoc', data.anh_mat_truoc);
         setValue('edit_anh_mat_sau', data.anh_mat_sau);
         setValue('edit_anh_chan_dung', data.anh_chan_dung);
@@ -1541,6 +1632,149 @@
         // Open modal
         const modal = new bootstrap.Modal(editModal);
         modal.show();
+    }
+
+    // Custom Product Selector Functions
+    function toggleProductSelector() {
+        const dropdown = document.getElementById('product-selector-dropdown');
+        const arrow = document.getElementById('product-selector-arrow');
+        
+        if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+            dropdown.style.display = 'block';
+            arrow.style.transform = 'rotate(180deg)';
+        } else {
+            dropdown.style.display = 'none';
+            arrow.style.transform = 'rotate(0deg)';
+        }
+    }
+
+    function selectProduct(id, name, image, price, commission) {
+        const selectedDisplay = document.getElementById('selected-product-display');
+        const hiddenInput = document.getElementById('edit_giai_thuong_id');
+        
+        // Check if elements exist
+        if (!selectedDisplay) {
+            console.error('selected-product-display element not found');
+            return;
+        }
+        if (!hiddenInput) {
+            console.error('edit_giai_thuong_id element not found');
+            return;
+        }
+        
+        // Update hidden input
+        hiddenInput.value = id;
+        
+        // Update display
+        selectedDisplay.innerHTML = `
+            <div style="width: 30px; height: 30px; border-radius: 4px; overflow: hidden; flex-shrink: 0; background: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                <img src="${image ? (image.startsWith('http') ? image : '${window.location.origin}/${image}') : 'https://via.placeholder.com/30x30?text=IMG'}" 
+                     alt="${name}" 
+                     style="width: 100%; height: 100%; object-fit: cover;"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; background: #e9ecef;">
+                    <i class="fas fa-image" style="color: #6c757d; font-size: 12px;"></i>
+                </div>
+            </div>
+            <div style="flex: 1; min-width: 0;">
+                <div style="font-weight: 600; font-size: 0.8rem; color: #212529; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${name}</div>
+                <div style="font-size: 0.7rem; color: #6c757d;">ID: ${id} | ${parseFloat(price).toLocaleString()}₫ | ${commission}</div>
+            </div>
+        `;
+        
+        // Close dropdown
+        toggleProductSelector();
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        const selector = document.querySelector('.custom-product-selector');
+        const dropdown = document.getElementById('product-selector-dropdown');
+        
+        if (selector && !selector.contains(event.target)) {
+            dropdown.style.display = 'none';
+            document.getElementById('product-selector-arrow').style.transform = 'rotate(0deg)';
+        }
+    });
+
+    // Load selected product display based on product ID
+    function loadSelectedProductDisplay(productId) {
+        // Find the product option with matching data-id
+        const productOption = document.querySelector(`.product-option[data-id="${productId}"]`);
+        if (productOption) {
+            // Extract product data from the option
+            const name = productOption.querySelector('div:last-child > div:first-child').textContent.trim();
+            const img = productOption.querySelector('img');
+            const imageSrc = img ? img.src : '';
+            
+            // Get price and commission from data attributes
+            const price = productOption.getAttribute('data-price') || '0';
+            const commission = productOption.getAttribute('data-commission') || '0';
+            
+            // Update display
+            selectProduct(productId, name, imageSrc, price, commission);
+        }
+    }
+
+    // Filter products based on search input
+    function filterProducts(searchTerm) {
+        const productsList = document.getElementById('products-list');
+        const noResultsMessage = document.getElementById('no-results-message');
+        const productOptions = productsList.querySelectorAll('.product-option');
+        
+        const searchLower = searchTerm.toLowerCase().trim();
+        let visibleCount = 0;
+        
+        productOptions.forEach(option => {
+            const productName = option.getAttribute('data-name') || '';
+            const productId = option.getAttribute('data-id') || '';
+            const productPrice = option.getAttribute('data-price') || '';
+            const productCommission = option.getAttribute('data-commission') || '';
+            
+            // Search in name, ID, price, and commission
+            const isMatch = productName.includes(searchLower) || 
+                           productId.includes(searchLower) || 
+                           productPrice.includes(searchLower) || 
+                           productCommission.includes(searchLower);
+            
+            if (isMatch) {
+                option.style.display = 'flex';
+                visibleCount++;
+            } else {
+                option.style.display = 'none';
+            }
+        });
+        
+        // Show/hide no results message
+        if (visibleCount === 0 && searchTerm.length > 0) {
+            noResultsMessage.style.display = 'block';
+        } else {
+            noResultsMessage.style.display = 'none';
+        }
+    }
+
+    // Clear search when opening dropdown
+    function toggleProductSelector() {
+        const dropdown = document.getElementById('product-selector-dropdown');
+        const arrow = document.getElementById('product-selector-arrow');
+        const searchInput = document.getElementById('product-search-input');
+        
+        if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+            dropdown.style.display = 'block';
+            arrow.style.transform = 'rotate(180deg)';
+            // Clear search and show all products
+            if (searchInput) {
+                searchInput.value = '';
+                filterProducts('');
+            }
+            // Focus on search input
+            setTimeout(() => {
+                if (searchInput) searchInput.focus();
+            }, 100);
+        } else {
+            dropdown.style.display = 'none';
+            arrow.style.transform = 'rotate(0deg)';
+        }
     }
 
     // Global i18n object for delete functionality
@@ -2185,5 +2419,6 @@
             initAdjustBalanceModal();
         }
     })();
+
 </script>
 @endpush

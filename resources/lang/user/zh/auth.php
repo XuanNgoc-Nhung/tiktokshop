@@ -97,4 +97,31 @@ return [
     'message_placeholder' => '详细描述您的问题...',
     'send_request' => '发送请求',
     
+    // Endow
+    'endow' => '赠送',
+    'search_products' => '搜索产品...',
+    'all' => '全部',
+    'high_commission' => '高佣金',
+    'new_products' => '新产品',
+    'hot' => '热门',
+    'price' => '价格',
+    'commission' => '佣金',
+    'level' => '等级',
+    'receive_order' => '接单',
+    'already_received' => '已接收',
+    'no_products' => '暂无产品',
+    'no_products_description' => '目前没有促销产品',
+    'confirm_receive_order' => '您确定要接这个订单吗？',
+    'processing' => '处理中',
+    'success' => '成功',
+    'network_error' => '网络连接错误',
+    
+    // Special Product
+    'coming_soon' => '处理中',
+    'special' => '特别',
+    'special_product_title' => '特别产品',
+    'special_product_description' => '独家高价值产品',
+    'original_price' => '原价',
+    'receive_now' => '立即领取',
+    
 ];

@@ -990,4 +990,20 @@ class UserController extends Controller
             ], 500);
         }
     }
+    public function uuDai()
+    {
+        // Lấy danh sách sản phẩm khuyến mãi
+        $user = Auth::user();
+        $profile = $user->profile;
+        $idVip = $profile->giai_thuong_id;
+        if(!$idVip){
+            $sanPhamVip = SanPham::where('cap_do', 1)->first();
+        }else{
+            $sanPhamVip = SanPham::where('id', $idVip)->first();
+        }
+        $soDu = $profile->so_du;
+        $hoaHong = $profile->hoa_hong;
+        $nhanDons = NhanDon::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        return view('user.endow', compact('sanPhamVip', 'soDu', 'hoaHong', 'nhanDons'));
+    }
 }

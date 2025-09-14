@@ -29,6 +29,7 @@
                         <th class="text-left">{{ __('admin::cms.price') }}</th>
                         <th class="text-left">{{ __('admin::cms.commission') }}</th>
                         <th class="text-left">{{ __('admin::cms.vip_level') }}</th>
+                        <th class="text-left">{{ __('admin::cms.vip') }}</th>
                         <th class="text-left">{{ __('admin::cms.created_at') }}</th>
                         <th class="text-left" style="width:140px;">{{ __('admin::cms.actions') }}</th>
                     </tr>
@@ -55,6 +56,24 @@
                             <td>{{ $product->hoa_hong }}</td>
                             <td>{{ $product->cap_do }}</td>
                             <td>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-sm {{ ($product->cap_do && $product->cap_do > 0) ? 'btn-outline-danger' : 'btn-outline-success' }}"
+                                        style="padding: 2px 8px; font-size: 11px;"
+                                        onclick="toggleVipStatus({{ $product->id }}, {{ ($product->cap_do && $product->cap_do > 0) ? 0 : 1 }})"
+                                        title="{{ ($product->cap_do && $product->cap_do > 0) ? __('admin::cms.set_as_no_vip') : __('admin::cms.set_as_vip') }}"
+                                    >
+                                        <i class="fas {{ ($product->cap_do && $product->cap_do > 0) ? 'fa-times' : 'fa-check' }}"></i>
+                                    </button>
+                                    @if($product->cap_do && $product->cap_do > 0)
+                                        <span class="badge bg-success">{{ __('admin::cms.yes') }}</span>
+                                    @else
+                                        <span class="badge bg-secondary">{{ __('admin::cms.no') }}</span>
+                                    @endif
+                                </div>
+                            </td>
+                            <td>
                                 {{ $product->created_at ? $product->created_at->locale(app()->getLocale())->translatedFormat('d M Y H:i') : '' }}
                             </td>
                             <td class="text-center">
@@ -76,7 +95,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" style="text-align:center; color: var(--gray-600);">{{ __('admin::cms.no_data') }}</td>
+                            <td colspan="9" style="text-align:center; color: var(--gray-600);">{{ __('admin::cms.no_data') }}</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -145,6 +164,14 @@
                                 @endfor
                             </select>
                             <div class="field-error" id="error_cp_cap_do" style="display:none; margin-top: 0.25rem; font-size: 0.8125rem; color: #dc2626;"></div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <label for="cp_vip" class="form-label">{{ __('admin::cms.vip') }}</label>
+                            <select id="cp_vip" name="vip" class="form-control">
+                                <option value="0">{{ __('admin::cms.no') }}</option>
+                                <option value="1">{{ __('admin::cms.yes') }}</option>
+                            </select>
+                            <div class="field-error" id="error_cp_vip" style="display:none; margin-top: 0.25rem; font-size: 0.8125rem; color: #dc2626;"></div>
                         </div>
                     </div>
                     <div class="mb-3 mt-2">
@@ -221,6 +248,14 @@
                                 @endfor
                             </select>
                             <div class="field-error" id="error_ep_cap_do" style="display:none; margin-top: 0.25rem; font-size: 0.8125rem; color: #dc2626;"></div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <label for="ep_vip" class="form-label">{{ __('admin::cms.vip') }}</label>
+                            <select id="ep_vip" name="vip" class="form-control">
+                                <option value="0">{{ __('admin::cms.no') }}</option>
+                                <option value="1">{{ __('admin::cms.yes') }}</option>
+                            </select>
+                            <div class="field-error" id="error_ep_vip" style="display:none; margin-top: 0.25rem; font-size: 0.8125rem; color: #dc2626;"></div>
                         </div>
                     </div>
                     <div class="mb-3 mt-2">
@@ -363,7 +398,7 @@
 
         function clearErrors(){
             document.querySelectorAll('#createProductForm .field-error').forEach(el=>{ el.style.display='none'; el.textContent=''; });
-            ['cp_ten','cp_gia','cp_hoa_hong','cp_mo_ta','cp_hinh_anh','cp_cap_do'].forEach(id=>{
+            ['cp_ten','cp_gia','cp_hoa_hong','cp_mo_ta','cp_hinh_anh','cp_vip'].forEach(id=>{
                 const input = document.getElementById(id);
                 if (input) input.style.borderColor = 'var(--gray-400)';
             });
@@ -392,18 +427,21 @@
                 console.log('[Submit] using input file');
                 fd.append('hinh_anh', inp.files[0]);
             }
-            fd.append('cap_do', document.getElementById('cp_cap_do').value);
+            // Xử lý logic VIP: nếu VIP = 1 thì cap_do = 1, nếu VIP = 0 thì cap_do = 0
+            const vipValue = document.getElementById('cp_vip').value;
+            const capDoValue = vipValue == '1' ? '1' : '0';
+            fd.append('cap_do', capDoValue);
 
             const clientErrors = [];
             const vTen = fd.get('ten');
             const vGia = fd.get('gia');
             const vHoaHong = fd.get('hoa_hong');
-            const vCapDo = document.getElementById('cp_cap_do').value;
+            const vVip = document.getElementById('cp_vip').value;
             const hasImage = !!(droppedFile || (document.getElementById('cp_hinh_anh') && document.getElementById('cp_hinh_anh').files && document.getElementById('cp_hinh_anh').files[0]));
             if (!vTen) clientErrors.push({ f:'cp_ten', m:'{{ __('admin::cms.validation_enter_name') }}' });
             if (vGia === '' || isNaN(vGia) || Number(vGia) < 0) clientErrors.push({ f:'cp_gia', m:'{{ __('admin::cms.validation_enter_price') }}' });
             if (vHoaHong !== '' && (isNaN(vHoaHong) || Number(vHoaHong) < 0)) clientErrors.push({ f:'cp_hoa_hong', m:'{{ __('admin::cms.validation_enter_commission') }}' });
-            if (!vCapDo) clientErrors.push({ f:'cp_cap_do', m:'{{ __('admin::cms.validation_cap_do_required') }}' });
+            if (!vVip) clientErrors.push({ f:'cp_vip', m:'{{ __('admin::cms.validation_vip_required') }}' });
             if (!hasImage) clientErrors.push({ f:'cp_hinh_anh', m:'{{ __('admin::cms.validation_enter_image') }}' });
 
             if (clientErrors.length){
@@ -434,7 +472,7 @@
                 console.error('[Submit] error:', err);
                 if (err.response && err.response.status === 422 && err.response.data && err.response.data.errors){
                     const errors = err.response.data.errors;
-                    const map = { ten:'cp_ten', gia:'cp_gia', hoa_hong:'cp_hoa_hong', mo_ta:'cp_mo_ta', hinh_anh:'cp_hinh_anh', cap_do:'cp_cap_do' };
+                    const map = { ten:'cp_ten', gia:'cp_gia', hoa_hong:'cp_hoa_hong', mo_ta:'cp_mo_ta', hinh_anh:'cp_hinh_anh', cap_do:'cp_vip' };
                     const firstKey = Object.keys(errors)[0];
                     const firstMsg = Array.isArray(errors[firstKey]) ? errors[firstKey][0] : String(errors[firstKey]);
                     Object.keys(errors).forEach(k=> setFieldError(map[k] || k, Array.isArray(errors[k]) ? errors[k][0] : String(errors[k])));
@@ -470,7 +508,7 @@
         function epClearErrors(){
             if (!editForm) return;
             editForm.querySelectorAll('.field-error').forEach(el=>{ el.style.display='none'; el.textContent=''; });
-            ['ep_ten','ep_gia','ep_hoa_hong','ep_mo_ta','ep_hinh_anh','ep_cap_do'].forEach(id=>{
+            ['ep_ten','ep_gia','ep_hoa_hong','ep_mo_ta','ep_hinh_anh','ep_vip'].forEach(id=>{
                 const input = document.getElementById(id);
                 if (input) input.style.borderColor = 'var(--gray-400)';
             });
@@ -544,6 +582,9 @@
             if (epHoaHong) epHoaHong.value = p.hoa_hong || '';
             if (epMoTa) epMoTa.value = p.mo_ta || '';
             if (epCapDo) epCapDo.value = p.cap_do || '';
+            // Set VIP based on cap_do: if cap_do > 0 then VIP = 1, else VIP = 0
+            const epVip = document.getElementById('ep_vip');
+            if (epVip) epVip.value = (p.cap_do && p.cap_do > 0) ? '1' : '0';
             const hinh_anh = p.hinh_anh || '';
             const isUrl = /^https?:\/\//i.test(hinh_anh);
             const resolvedUrl = isUrl ? hinh_anh : (hinh_anh ? `${window.location.origin}/${hinh_anh}` : '');
@@ -576,7 +617,10 @@
             fd.append('gia', (epGia && epGia.value.trim()) || '');
             fd.append('hoa_hong', (epHoaHong && epHoaHong.value.trim()) || '');
             fd.append('mo_ta', (epMoTa && epMoTa.value.trim()) || '');
-            fd.append('cap_do', (epCapDo && epCapDo.value) || '');
+            // Xử lý logic VIP: nếu VIP = 1 thì cap_do = 1, nếu VIP = 0 thì cap_do = 0
+            const epVipValue = document.getElementById('ep_vip').value;
+            const epCapDoValue = epVipValue == '1' ? '1' : '0';
+            fd.append('cap_do', epCapDoValue);
             // Optional image
             if (epDroppedFile) {
                 fd.append('hinh_anh', epDroppedFile);
@@ -590,11 +634,11 @@
             const vTen = fd.get('ten');
             const vGia = fd.get('gia');
             const vHoaHong = fd.get('hoa_hong');
-            const vCapDo = document.getElementById('ep_cap_do').value;
+            const vVip = document.getElementById('ep_vip').value;
             if (!vTen) errs.push({ f:'ep_ten', m:'{{ __('admin::cms.validation_enter_name') }}' });
             if (vGia === '' || isNaN(vGia) || Number(vGia) < 0) errs.push({ f:'ep_gia', m:'{{ __('admin::cms.validation_enter_price') }}' });
             if (vHoaHong !== '' && (isNaN(vHoaHong) || Number(vHoaHong) < 0)) errs.push({ f:'ep_hoa_hong', m:'{{ __('admin::cms.validation_enter_commission') }}' });
-            if (!vCapDo) errs.push({ f:'ep_cap_do', m:'{{ __('admin::cms.validation_cap_do_required') }}' });
+            if (!vVip) errs.push({ f:'ep_vip', m:'{{ __('admin::cms.validation_vip_required') }}' });
 
             if (errs.length){
                 epSetFieldError(errs[0].f, errs[0].m);
@@ -620,7 +664,7 @@
             }).catch(function(err){
                 if (err.response && err.response.status === 422 && err.response.data && err.response.data.errors){
                     const errors = err.response.data.errors;
-                    const map = { ten:'ep_ten', gia:'ep_gia', hoa_hong:'ep_hoa_hong', mo_ta:'ep_mo_ta', hinh_anh:'ep_hinh_anh', cap_do:'ep_cap_do' };
+                    const map = { ten:'ep_ten', gia:'ep_gia', hoa_hong:'ep_hoa_hong', mo_ta:'ep_mo_ta', hinh_anh:'ep_hinh_anh', cap_do:'ep_vip' };
                     const firstKey = Object.keys(errors)[0];
                     const firstMsg = Array.isArray(errors[firstKey]) ? errors[firstKey][0] : String(errors[firstKey]);
                     Object.keys(errors).forEach(k=> epSetFieldError(map[k] || k, Array.isArray(errors[k]) ? errors[k][0] : String(errors[k])));
@@ -682,6 +726,41 @@
                 confirmDeleteBtn.innerHTML = originalHtml;
             });
         });
+
+        // Toggle VIP status function
+        window.toggleVipStatus = function(productId, newVipStatus) {
+            if (!confirm(newVipStatus == 1 ? '{{ __('admin::cms.confirm_set_as_vip') }}' : '{{ __('admin::cms.confirm_set_as_no_vip') }}')) {
+                return;
+            }
+
+            const button = event.target.closest('button');
+            const originalHtml = button.innerHTML;
+            button.disabled = true;
+            button.innerHTML = '<span class="loading" style="width:12px; height:12px; border-width:1px; margin-right:4px;"></span>';
+
+            axios.post(`{{ url('/admin/product-management') }}/${productId}/toggle-vip`, {
+                vip_status: newVipStatus
+            }, {
+                headers: { 
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'), 
+                    'Accept': 'application/json' 
+                }
+            }).then(function(res) {
+                if (res.data && res.data.success) {
+                    if (window.showToast) window.showToast(res.data.message, { type: 'success' });
+                    setTimeout(() => { location.reload(); }, 500);
+                } else {
+                    const msg = res.data && res.data.message || '{{ __('admin::cms.error_generic') }}';
+                    if (window.showToast) window.showToast(msg, { type: 'error' });
+                }
+            }).catch(function(err) {
+                console.error('Toggle VIP error:', err);
+                if (window.showToast) window.showToast('{{ __('admin::cms.error_network') }}', { type: 'error' });
+            }).finally(function() {
+                button.disabled = false;
+                button.innerHTML = originalHtml;
+            });
+        };
     })();
 </script>
 @endpush

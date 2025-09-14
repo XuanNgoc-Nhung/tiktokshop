@@ -31,6 +31,7 @@ Route::middleware(['language.user', 'checkLogin'])->group(function () {
     Route::get('/deposit', [UserController::class, 'napTien'])->name('nap-tien');
     Route::get('/withdraw', [UserController::class, 'rutTien'])->name('rut-tien');
     Route::post('/withdraw', [UserController::class, 'submitWithdraw'])->name('withdraw.submit');
+    Route::get('/endow', [UserController::class, 'uuDai'])->name('endow');
     Route::group(['prefix' => 'account'], function () {
         Route::get('/achievement', [UserController::class, 'achievement'])->name('account.achievement');
         Route::get('/personal-info', [UserController::class, 'personalInfo'])->name('account.personal-info');
@@ -74,6 +75,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin']], fu
     Route::post('/product-management/store', [ProductController::class, 'storeProduct'])->name('admin.product-management.store');
     Route::put('/product-management/{id}', [ProductController::class, 'updateProduct'])->name('admin.product-management.update');
     Route::delete('/product-management/{id}', [ProductController::class, 'deleteProduct'])->name('admin.product-management.delete');
+    Route::post('/product-management/{id}/toggle-vip', [ProductController::class, 'toggleVipStatus'])->name('admin.product-management.toggle-vip');
     //reward management
     // Route::get('/reward-management', [RewardController::class, 'rewardManagement'])->name('admin.reward-management');
     // thong bao management

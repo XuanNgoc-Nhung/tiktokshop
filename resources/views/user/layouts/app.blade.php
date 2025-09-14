@@ -827,6 +827,52 @@
             color: #ca8a04; 
         }
 
+        /* Tier-specific styling */
+        .vip-badge.tier-1 {
+            background: linear-gradient(135deg, #e5e7eb, #d1d5db);
+            color: #374151;
+            border: 1px solid #9ca3af;
+        }
+        .vip-badge.tier-1 i {
+            color: #6b7280;
+        }
+
+        .vip-badge.tier-2 {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            color: #1e40af;
+            border: 1px solid #3b82f6;
+        }
+        .vip-badge.tier-2 i {
+            color: #2563eb;
+        }
+
+        .vip-badge.tier-3 {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #92400e;
+            border: 1px solid #f59e0b;
+        }
+        .vip-badge.tier-3 i {
+            color: #ca8a04;
+        }
+
+        .vip-badge.tier-4 {
+            background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+            color: #7c3aed;
+            border: 1px solid #a855f7;
+        }
+        .vip-badge.tier-4 i {
+            color: #9333ea;
+        }
+
+        .vip-badge.tier-5 {
+            background: linear-gradient(135deg, #fecaca, #fca5a5);
+            color: #dc2626;
+            border: 1px solid #ef4444;
+        }
+        .vip-badge.tier-5 i {
+            color: #dc2626;
+        }
+
         .menu-list .menu-item {
             display: flex;
             align-items: center;
@@ -1018,9 +1064,9 @@
                 <i class="fas fa-search"></i>
                 <span>{{ __('auth.search') }}</span>
             </a>
-            <a href="{{ route('orders') }}" class="nav-item {{ request()->is('orders') ? 'active' : '' }}">
-                <i class="fas fa-shopping-bag"></i>
-                <span>{{ __('auth.orders') }}</span>
+            <a href="{{ route('endow') }}" class="nav-item {{ request()->is('endow') ? 'active' : '' }}">
+                <i class="fas fa-hand-holding-usd"></i>
+                <span>{{ __('auth.endow') }}</span>
             </a>
             <a href="{{ route('account') }}" class="nav-item {{ request()->is('account') ? 'active' : '' }}">
                 <i class="fas fa-user"></i>
