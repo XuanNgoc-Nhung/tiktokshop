@@ -29,9 +29,18 @@
             background: #f8f9fa;
             min-height: 100vh;
             padding: 0;
+            margin: 0;
             overflow-x: hidden;
+            /* Đảm bảo body không ảnh hưởng đến fixed positioning */
+            position: relative;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+
+        html {
+            /* Đảm bảo html không có overflow issues */
+            overflow-x: hidden;
+            height: 100%;
         }
 
 
@@ -45,6 +54,8 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
+            /* Đảm bảo container không ảnh hưởng đến fixed bottom-nav */
+            overflow-x: hidden;
         }
 
         /* Safe Area for iPhone X+ */
@@ -676,6 +687,47 @@
             box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
         }
 
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #f4d03f, #f7dc6f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b4513;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(244, 208, 63, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            -webkit-tap-highlight-color: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(244, 208, 63, 0.4);
+        }
+
+        .back-to-top:active {
+            transform: scale(0.95);
+        }
+
         /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
@@ -691,6 +743,14 @@
             padding: 12px 0 env(safe-area-inset-bottom, 12px) 0;
             z-index: 1000;
             box-shadow: 0 -2px 8px rgba(244, 208, 63, 0.2);
+            /* Đảm bảo bottom-nav luôn cố định ở cuối màn hình */
+            position: -webkit-sticky;
+            position: sticky;
+            position: fixed;
+            /* Ngăn chặn việc trượt theo scroll */
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         .nav-item {
@@ -847,6 +907,14 @@
             height: 180px; 
         }
 
+        /* Đảm bảo bottom-nav luôn cố định trên mọi thiết bị */
+        @supports (position: fixed) {
+            .bottom-nav {
+                position: fixed !important;
+                bottom: 0 !important;
+            }
+        }
+
         /* Responsive Design */
         @media (max-width: 414px) {
             .app-container {
@@ -868,10 +936,33 @@
                 padding: 14px;
                 font-size: 16px;
             }
+
+            /* Adjust back to top button for smaller screens */
+            .back-to-top {
+                bottom: 80px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 16px;
+            }
+
+            .support-icon {
+                bottom: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+        }
+
+        /* Đảm bảo bottom-nav không bị ảnh hưởng bởi transform hoặc animation */
+        .bottom-nav {
+            transform: translateX(-50%) translateZ(0);
+            -webkit-transform: translateX(-50%) translateZ(0);
         }
         .app-container {
             font-family: 'Figtree', sans-serif;
-            background-image: url('{{ $cauHinh->hinh_nen }}');
+            background-image: url('{{ asset($cauHinh->hinh_nen) }}');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -899,6 +990,11 @@
 <body>
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" title="Lên đầu trang">
+        <i class="fas fa-chevron-up"></i>
+    </button>
     
     <div class="app-container">
         <!-- Safe Area Top -->
@@ -1008,6 +1104,45 @@
             window.location.href = '/';
         }
     }
+
+    // Back to Top functionality
+    function initBackToTop() {
+        const backToTopButton = document.getElementById('backToTop');
+        
+        // Show/hide button based on scroll position
+        function toggleBackToTop() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        }
+        
+        // Smooth scroll to top
+        function scrollToTop() {
+            hapticFeedback();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Event listeners
+        window.addEventListener('scroll', toggleBackToTop);
+        backToTopButton.addEventListener('click', scrollToTop);
+        
+        // Throttle scroll event for better performance
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            scrollTimeout = setTimeout(toggleBackToTop, 10);
+        });
+    }
+
+    // Initialize back to top when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initBackToTop);
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

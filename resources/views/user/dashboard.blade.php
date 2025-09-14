@@ -1,7 +1,7 @@
 @php
-    use App\Helpers\LanguageHelper;
-    $__ = [LanguageHelper::class, 'getUserTranslation'];
-    $__home = [LanguageHelper::class, 'getHomeTranslation'];
+use App\Helpers\LanguageHelper;
+$__ = [LanguageHelper::class, 'getUserTranslation'];
+$__home = [LanguageHelper::class, 'getHomeTranslation'];
 @endphp
 
 @extends('user.layouts.app')
@@ -22,81 +22,96 @@
     <!-- Banner Carousel -->
     <div class="banner-carousel-container mb-3 mx-3 mt-4">
         <div class="banner-carousel" id="bannerCarousel">
-            <!-- Slide 1 -->
-            <div class="banner-slide active" >
-                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                     alt="Shopping Mall" 
-                     class="banner-image">
-                <div class="banner-overlay">
-                    <div class="banner-content">
-                        <h3 class="banner-title">{{ $__home('discover_tiktok_shop') }}</h3>
-                        <p class="banner-subtitle">{{ $__home('smart_shopping_max_savings') }}</p>
+            @if ($slide->count() > 0)
+            @for ($i = 0; $i < $slide->count(); $i++)
+                <div class="banner-slide {{ $i === 0 ? 'active' : '' }}">
+                    <img src="{{ $slide[$i]->hinh_anh }}" alt="Beauty Products" class="banner-image">
+                    <div class="banner-overlay">
+                        <div class="banner-content">
+                            {{-- <h3 class="banner-title">{{ $slide[$i]->tieu_de }}</h3> --}}
+                            {{-- <p class="banner-subtitle">{{ $slide[$i]->mo_ta }}</p> --}}
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Slide 2 -->
-            <div class="banner-slide">
-                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                     alt="Fashion Store" 
-                     class="banner-image">
-                <div class="banner-overlay">
-                    <div class="banner-content">
-                        <h3 class="banner-title">{{ $__home('attractive_offers') }}</h3>
-                        <p class="banner-subtitle">{{ $__home('discount_up_to_50') }}</p>
+                @endfor
+                @else
+                <!-- Slide 1 -->
+                <div class="banner-slide active">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        alt="Shopping Mall" class="banner-image">
+                    <div class="banner-overlay">
+                        <div class="banner-content">
+                            <h3 class="banner-title">{{ $__home('discover_tiktok_shop') }}</h3>
+                            <p class="banner-subtitle">{{ $__home('smart_shopping_max_savings') }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Slide 3 -->
-            <div class="banner-slide">
-                <img src="https://images.unsplash.com/photo-1556742111-a301076d9d18?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                     alt="Tech Gadgets" 
-                     class="banner-image">
-                <div class="banner-overlay">
-                    <div class="banner-content">
-                        <h3 class="banner-title">{{ $__home('advanced_technology') }}</h3>
-                        <p class="banner-subtitle">{{ $__home('amazing_shopping_experience') }}</p>
+
+                <!-- Slide 2 -->
+                <div class="banner-slide">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        alt="Fashion Store" class="banner-image">
+                    <div class="banner-overlay">
+                        <div class="banner-content">
+                            <h3 class="banner-title">{{ $__home('attractive_offers') }}</h3>
+                            <p class="banner-subtitle">{{ $__home('discount_up_to_50') }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Slide 4 -->
-            <div class="banner-slide">
-                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                     alt="Beauty Products" 
-                     class="banner-image">
-                <div class="banner-overlay">
-                    <div class="banner-content">
-                        <h3 class="banner-title">{{ $__home('modern_fashion') }}</h3>
-                        <p class="banner-subtitle">{{ $__home('latest_trends_2024') }}</p>
+
+                <!-- Slide 3 -->
+                <div class="banner-slide">
+                    <img src="https://images.unsplash.com/photo-1556742111-a301076d9d18?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        alt="Tech Gadgets" class="banner-image">
+                    <div class="banner-overlay">
+                        <div class="banner-content">
+                            <h3 class="banner-title">{{ $__home('advanced_technology') }}</h3>
+                            <p class="banner-subtitle">{{ $__home('amazing_shopping_experience') }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Slide 5 -->
-            <div class="banner-slide">
-                <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                     alt="Lifestyle Products" 
-                     class="banner-image">
-                <div class="banner-overlay">
-                    <div class="banner-content">
-                        <h3 class="banner-title">{{ $__home('lifestyle') }}</h3>
-                        <p class="banner-subtitle">{{ $__home('elevate_your_life') }}</p>
+
+                <!-- Slide 4 -->
+                <div class="banner-slide">
+                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        alt="Beauty Products" class="banner-image">
+                    <div class="banner-overlay">
+                        <div class="banner-content">
+                            <h3 class="banner-title">{{ $__home('modern_fashion') }}</h3>
+                            <p class="banner-subtitle">{{ $__home('latest_trends_2024') }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <!-- Slide 5 -->
+                <div class="banner-slide">
+                    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                        alt="Lifestyle Products" class="banner-image">
+                    <div class="banner-overlay">
+                        <div class="banner-content">
+                            <h3 class="banner-title">{{ $__home('lifestyle') }}</h3>
+                            <p class="banner-subtitle">{{ $__home('elevate_your_life') }}</p>
+                        </div>
+                    </div>
+                </div>
+                @endif
         </div>
-        
+
         <!-- Navigation Dots -->
         <div class="banner-dots">
-            <span class="banner-dot active" data-slide="0"></span>
-            <span class="banner-dot" data-slide="1"></span>
-            <span class="banner-dot" data-slide="2"></span>
-            <span class="banner-dot" data-slide="3"></span>
-            <span class="banner-dot" data-slide="4"></span>
+            @if ($slide->count() > 0)
+                @for ($i = 0; $i < $slide->count(); $i++)
+                    <span class="banner-dot {{ $i === 0 ? 'active' : '' }}" data-slide="{{ $i }}"></span>
+                @endfor
+            @else
+                <span class="banner-dot active" data-slide="0"></span>
+                <span class="banner-dot" data-slide="1"></span>
+                <span class="banner-dot" data-slide="2"></span>
+                <span class="banner-dot" data-slide="3"></span>
+                <span class="banner-dot" data-slide="4"></span>
+            @endif
         </div>
-        
+
     </div>
 
     <!-- Navigation Icons -->
@@ -126,7 +141,8 @@
     <!-- Search Bar -->
     <div class="px-3 mb-3">
         <div class="input-group rounded-3" style="background: #fce7f3;">
-            <input type="text" class="form-control border-0 bg-transparent" placeholder="{{ $__home('search_placeholder') }}">
+            <input type="text" class="form-control border-0 bg-transparent"
+                placeholder="{{ $__home('search_placeholder') }}">
             <span class="input-group-text border-0 bg-transparent">
                 <i class="fas fa-search text-muted"></i>
             </span>
@@ -185,28 +201,28 @@
     <div class="row g-3 px-3 pb-3">
         @if ($sanPhamTrangChu->count() > 0)
         @for ($i = 0; $i < $sanPhamTrangChu->count(); $i++)
-        <div class="col-6">
-            <div class="product-card bg-white rounded-3 shadow-sm">
-                <div class="product-image-container">
-                    <img src="{{ $sanPhamTrangChu[$i]->hinh_anh }}" 
-                         alt="{{ $sanPhamTrangChu[$i]->ten_san_pham }}" 
-                         class="product-image">
-                </div>
-                <div class="p-2">
-                    <h6 class="product-title mb-1">{{ $sanPhamTrangChu[$i]->ten_san_pham }}</h6>
-                    <div class="d-flex align-items-center justify-content-between mb-1">
-                        <div class="product-price fw-bold">{{ $sanPhamTrangChu[$i]->gia_san_pham }}</div>
-                        <div class="product-discount text-muted small">{{ $sanPhamTrangChu[$i]->hoa_hong }}</div>
+            <div class="col-6">
+                <div class="product-card bg-white rounded-3 shadow-sm">
+                    <div class="product-image-container">
+                        <img src="{{ $sanPhamTrangChu[$i]->hinh_anh }}" alt="{{ $sanPhamTrangChu[$i]->ten_san_pham }}"
+                            class="product-image">
                     </div>
-                    <div class="product-rating d-flex align-items-center">
-                        <i class="fas fa-star text-warning me-1" style="font-size: 10px;"></i>
-                        <span class="text-muted" style="font-size: 10px;">{{ $sanPhamTrangChu[$i]->sao_vote }}</span>
+                    <div class="p-2">
+                        <h6 class="product-title mb-1">{{ $sanPhamTrangChu[$i]->ten_san_pham }}</h6>
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <div class="product-price fw-bold">{{ $sanPhamTrangChu[$i]->gia_san_pham }}</div>
+                            <div class="product-discount text-muted small">{{ $sanPhamTrangChu[$i]->hoa_hong }}</div>
+                        </div>
+                        <div class="product-rating d-flex align-items-center">
+                            <i class="fas fa-star text-warning me-1" style="font-size: 10px;"></i>
+                            <span class="text-muted"
+                                style="font-size: 10px;">{{ $sanPhamTrangChu[$i]->sao_vote }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        @endfor
-        @endif
+            @endfor
+            @endif
     </div>
 </div>
 
@@ -240,6 +256,11 @@
     }
 
     .banner-slide.active {
+        opacity: 1 !important;
+    }
+
+    /* Đảm bảo slide đầu tiên hiển thị ngay lập tức */
+    .banner-slide:first-child {
         opacity: 1;
     }
 
@@ -343,7 +364,7 @@
         .banner-title {
             font-size: 20px;
         }
-        
+
         .banner-subtitle {
             font-size: 14px;
         }
@@ -351,7 +372,7 @@
 
     /* Navigation Icons */
     .nav-icon {
-        color: #0d6efd;
+        color: #ffc107;
         cursor: pointer;
         transition: color 0.3s ease;
     }
@@ -455,9 +476,7 @@
         font-weight: 500;
         color: #000000;
         line-height: 1.3;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
+        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         min-height: 1em;
@@ -468,7 +487,7 @@
         color: #ff6b6b;
         font-weight: 600;
     }
-    
+
     .product-discount {
         font-size: 10px;
         color: #6b7280;
@@ -486,6 +505,7 @@
     .overflow-auto::-webkit-scrollbar {
         display: none;
     }
+
     .overflow-auto {
         scrollbar-width: none;
         -ms-overflow-style: none;
@@ -502,6 +522,7 @@
     .input-group-text {
         cursor: pointer;
     }
+
 </style>
 
 <script>
@@ -530,15 +551,23 @@
             this.dots = document.querySelectorAll('.banner-dot');
             this.autoPlayInterval = null;
             this.autoPlayDelay = 4000; // 4 seconds
-            
+
             console.log('BannerCarousel constructor called');
             console.log('Slides found:', this.slides.length);
             console.log('Dots found:', this.dots.length);
-            
+
             this.init();
         }
 
         init() {
+            // Đảm bảo slide đầu tiên được đánh dấu là active ngay lập tức
+            if (this.slides.length > 0) {
+                this.slides[0].classList.add('active');
+                if (this.dots.length > 0) {
+                    this.dots[0].classList.add('active');
+                }
+            }
+            
             this.bindEvents();
             this.startAutoPlay();
         }
@@ -556,7 +585,7 @@
 
             // Touch/swipe support
             this.addTouchSupport();
-            
+
             // Mouse drag support for desktop
             this.addMouseSupport();
 
@@ -587,7 +616,7 @@
                 currentX = e.touches[0].clientX;
                 const diff = startX - currentX;
                 const threshold = 30;
-                
+
                 if (Math.abs(diff) > threshold) {
                     const activeSlide = this.slides[this.currentSlide];
                     if (diff > 0) {
@@ -603,12 +632,12 @@
                 endX = e.changedTouches[0].clientX;
                 isDragging = false;
                 carousel.classList.remove('touching');
-                
+
                 // Remove swipe classes
                 this.slides.forEach(slide => {
                     slide.classList.remove('swipe-left', 'swipe-right', 'swiping');
                 });
-                
+
                 this.handleSwipe(startX, endX);
                 this.startAutoPlay();
             });
@@ -636,7 +665,7 @@
                 currentX = e.clientX;
                 const diff = startX - currentX;
                 const threshold = 30;
-                
+
                 if (Math.abs(diff) > threshold) {
                     const activeSlide = this.slides[this.currentSlide];
                     if (diff > 0) {
@@ -652,12 +681,12 @@
                 endX = e.clientX;
                 isDragging = false;
                 carousel.classList.remove('touching');
-                
+
                 // Remove swipe classes
                 this.slides.forEach(slide => {
                     slide.classList.remove('swipe-left', 'swipe-right', 'swiping');
                 });
-                
+
                 this.handleSwipe(startX, endX);
                 this.startAutoPlay();
             });
@@ -680,16 +709,16 @@
 
             if (Math.abs(diff) > threshold) {
                 hapticFeedback();
-                
+
                 // Add swiping class for smooth transition
                 this.slides[this.currentSlide].classList.add('swiping');
-                
+
                 if (diff > 0) {
                     this.nextSlide();
                 } else {
                     this.previousSlide();
                 }
-                
+
                 // Remove swiping class after transition
                 setTimeout(() => {
                     this.slides.forEach(slide => {
@@ -701,7 +730,7 @@
 
         goToSlide(index) {
             console.log('Going to slide:', index);
-            
+
             // Remove active class from current slide and dot
             this.slides[this.currentSlide].classList.remove('active');
             this.dots[this.currentSlide].classList.remove('active');
@@ -753,14 +782,32 @@
         }
     }
 
-    // Initialize carousel when DOM is loaded
-    document.addEventListener('DOMContentLoaded', initCarousel);
-
-    // Fallback initialization if DOMContentLoaded already fired
-    if (document.readyState !== 'loading') {
-        console.log('DOM already loaded, initializing carousel immediately');
-        initCarousel();
+    // Khởi tạo carousel ngay lập tức
+    function initCarouselImmediately() {
+        // Kiểm tra xem các element cần thiết đã có chưa
+        const slides = document.querySelectorAll('.banner-slide');
+        const dots = document.querySelectorAll('.banner-dot');
+        
+        if (slides.length > 0) {
+            console.log('Elements found, initializing carousel immediately');
+            initCarousel();
+        } else {
+            console.log('Elements not found yet, waiting...');
+            // Thử lại sau 100ms
+            setTimeout(initCarouselImmediately, 100);
+        }
     }
+
+    // Khởi tạo ngay lập tức
+    initCarouselImmediately();
+
+    // Fallback initialization khi DOM loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!window.carouselInitialized) {
+            console.log('DOM loaded, initializing carousel');
+            initCarousel();
+        }
+    });
 
     // Final fallback after a short delay
     setTimeout(() => {
@@ -768,7 +815,7 @@
             console.log('Fallback initialization after timeout');
             initCarousel();
         }
-    }, 1000);
+    }, 500);
+
 </script>
 @endsection
-

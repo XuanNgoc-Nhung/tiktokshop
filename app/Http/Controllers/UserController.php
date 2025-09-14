@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\LichSu;
 use App\Models\NapRut;
 use App\Models\SanPhamTrangChu;
+use App\Models\SlideShow;
 
 class UserController extends Controller
 {
@@ -213,7 +214,8 @@ class UserController extends Controller
             'role' => $user->role ?? 'user'
         ];
         $sanPhamTrangChu = SanPhamTrangChu::where('trang_thai', 1)->get();
-        return view('user.dashboard', compact('userData', 'sanPhamTrangChu'));
+        $slide = SlideShow::where('trang_thai', 1)->where('vi_tri', 1)->get();
+        return view('user.dashboard', compact('userData', 'sanPhamTrangChu', 'slide'));
     }
     public function notification()
     {
