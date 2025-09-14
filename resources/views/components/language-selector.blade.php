@@ -1,6 +1,6 @@
 <div class="language-selector">
     <button class="language-dropdown" onclick="toggleLanguageDropdown()">
-        <span id="current-language" style="scale: 1.5;">
+        <span id="current-language" style="scale: 2.0;">
             {!! $availableLanguages[$currentLocale]['flag'] !!}
             {{-- {{ strtoupper($currentLocale) }} --}}
         </span>
@@ -54,3 +54,20 @@ document.addEventListener('click', function(event) {
     }
 });
 </script>
+
+<style>
+.flag-icon {
+    scale: 1.5;
+    display: inline-block;
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.language-option .flag-icon {
+    flex-shrink: 0;
+}
+</style>

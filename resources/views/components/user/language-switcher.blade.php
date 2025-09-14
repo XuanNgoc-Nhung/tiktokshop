@@ -6,7 +6,6 @@
 
 <div class="language-switcher dropdown">
     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fas fa-globe me-1"></i>
         {!! $languages[$currentLocale]['flag'] ?? '🌐' !!}
         <span class="d-none d-sm-inline">{{ $languages[$currentLocale]['name'] ?? 'Language' }}</span>
     </button>

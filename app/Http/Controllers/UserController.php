@@ -365,7 +365,8 @@ class UserController extends Controller
     }
     public function support()
     {
-        return view('user.support');
+        $cauHinh = \App\Models\CauHinh::first();
+        return view('user.support', compact('cauHinh'));
     }
     public function aboutUs()
     {

@@ -149,6 +149,16 @@ return [
     'pending' => '待处理',
     'response_time' => '24小时内回复',
     
+    // Support actions
+    'open_support_channel' => '打开支持渠道',
+    'opening' => '正在打开',
+    'support_not_configured' => '支持渠道未配置',
+    'click_to_contact' => '点击联系',
+    'contact_now' => '立即联系',
+    'opened_successfully' => '已成功打开',
+    'popup_blocked' => '弹窗被阻止',
+    'popup_blocked_desc' => '请允许弹窗并重试',
+    
     // FAQ
     'faq_title' => '常见问题',
     'faq_1_q' => '如何下单？',
@@ -172,6 +182,11 @@ return [
     'message' => '消息',
     'message_placeholder' => '详细描述您的问题...',
     'send_request' => '发送请求',
+    
+    // Support actions
+    'open_support_channel' => '打开支持渠道',
+    'opening' => '正在打开',
+    'support_not_configured' => '支持渠道未配置',
 
     'profit' => '利润',
 ];

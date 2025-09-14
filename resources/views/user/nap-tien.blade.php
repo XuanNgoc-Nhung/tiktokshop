@@ -6,6 +6,9 @@
     $__deposit = fn($key) => LanguageHelper::getTranslationFromFile('deposit', $key, 'user');
     $user = Auth::user();
     $profile = optional($user)->profile;
+    
+    // Kiểm tra cấu hình có tồn tại không
+    $hasConfig = $cauHinh && ($cauHinh->vi_btc || $cauHinh->vi_eth || $cauHinh->vi_usdt);
 @endphp
 @extends('user.layouts.app')
 
@@ -30,6 +33,13 @@
     <div style="margin-bottom: 24px;">
         <h3 style="font-size: 18px; font-weight: 600; color: #111827; margin-bottom: 16px;">{{ $__deposit('payment_methods') }}</h3>
         
+        @if(!$hasConfig)
+        <div class="alert alert-warning" style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 12px; margin-bottom: 16px; color: #92400e;">
+            <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
+            <span>Hệ thống chưa được cấu hình địa chỉ ví. Vui lòng liên hệ quản trị viên.</span>
+        </div>
+        @endif
+        
         <!-- E-Wallet Method -->
         <div class="payment-method-card" id="ewallet-method" onclick="selectMethod('ewallet')">
             <div class="method-header">
@@ -47,6 +57,7 @@
             </div>
             <div class="method-details" id="ewallet-details">
                 <div class="crypto-wallets">
+                    @if($cauHinh && $cauHinh->vi_btc)
                     <!-- Bitcoin -->
                     <div class="crypto-wallet-item">
                         <div class="crypto-header">
@@ -60,13 +71,15 @@
                         </div>
                         <div class="crypto-address">
                             <div class="address-label">{{ $__deposit('bitcoin_address') }}</div>
-                            <div class="address-value">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</div>
-                            <button class="copy-btn" onclick="copyToClipboard('bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh')">
+                            <div class="address-value">{{ $cauHinh->vi_btc }}</div>
+                            <button class="copy-btn" onclick="copyToClipboard('{{ $cauHinh->vi_btc }}')">
                                 <i class="fas fa-copy"></i>
                             </button>
                         </div>
                     </div>
+                    @endif
 
+                    @if($cauHinh && $cauHinh->vi_eth)
                     <!-- Ethereum -->
                     <div class="crypto-wallet-item">
                         <div class="crypto-header">
@@ -80,13 +93,15 @@
                         </div>
                         <div class="crypto-address">
                             <div class="address-label">{{ $__deposit('ethereum_address') }}</div>
-                            <div class="address-value">0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6</div>
-                            <button class="copy-btn" onclick="copyToClipboard('0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6')">
+                            <div class="address-value">{{ $cauHinh->vi_eth }}</div>
+                            <button class="copy-btn" onclick="copyToClipboard('{{ $cauHinh->vi_eth }}')">
                                 <i class="fas fa-copy"></i>
                             </button>
                         </div>
                     </div>
+                    @endif
 
+                    @if($cauHinh && $cauHinh->vi_usdt)
                     <!-- Tether USDT -->
                     <div class="crypto-wallet-item">
                         <div class="crypto-header">
@@ -100,12 +115,13 @@
                         </div>
                         <div class="crypto-address">
                             <div class="address-label">{{ $__deposit('usdt_address') }}</div>
-                            <div class="address-value">TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE</div>
-                            <button class="copy-btn" onclick="copyToClipboard('TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE')">
+                            <div class="address-value">{{ $cauHinh->vi_usdt }}</div>
+                            <button class="copy-btn" onclick="copyToClipboard('{{ $cauHinh->vi_usdt }}')">
                                 <i class="fas fa-copy"></i>
                             </button>
                         </div>
                     </div>
+                    @endif
                 </div>
                 <div class="crypto-note">
                     <i class="fas fa-info-circle"></i>
@@ -131,6 +147,7 @@
             </div>
             <div class="method-details" id="chat-details">
                 <div class="chat-info">
+                    @if($cauHinh && $cauHinh->link_telegram)
                     <div class="chat-item">
                         <div class="chat-icon">
                             <i class="fab fa-telegram"></i>
@@ -139,10 +156,13 @@
                             <div class="chat-title">{{ $__deposit('telegram') }}</div>
                             <div class="chat-desc">{{ $__deposit('telegram_desc') }}</div>
                         </div>
-                        <a href="https://t.me/tiktokshop_support" target="_blank" class="chat-link">
+                        <a href="{{ $cauHinh->link_telegram }}" target="_blank" class="chat-link">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
+                    @endif
+                    
+                    @if($cauHinh && $cauHinh->link_facebook)
                     <div class="chat-item">
                         <div class="chat-icon">
                             <i class="fab fa-facebook-messenger"></i>
@@ -151,10 +171,13 @@
                             <div class="chat-title">{{ $__deposit('facebook_messenger') }}</div>
                             <div class="chat-desc">{{ $__deposit('facebook_messenger_desc') }}</div>
                         </div>
-                        <a href="https://m.me/tiktokshop.support" target="_blank" class="chat-link">
+                        <a href="{{ $cauHinh->link_facebook }}" target="_blank" class="chat-link">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
+                    @endif
+                    
+                    @if($cauHinh && $cauHinh->link_whatapp)
                     <div class="chat-item">
                         <div class="chat-icon">
                             <i class="fab fa-whatsapp"></i>
@@ -163,10 +186,11 @@
                             <div class="chat-title">{{ $__deposit('whatsapp') }}</div>
                             <div class="chat-desc">{{ $__deposit('whatsapp_desc') }}</div>
                         </div>
-                        <a href="https://wa.me/84901234567" target="_blank" class="chat-link">
+                        <a href="{{ $cauHinh->link_whatapp }}" target="_blank" class="chat-link">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
+                    @endif
                 </div>
                 <div class="chat-note">
                     <i class="fas fa-info-circle"></i>

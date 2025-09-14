@@ -149,6 +149,16 @@ return [
     'pending' => 'Pending',
     'response_time' => 'Response within 24h',
     
+    // Support actions
+    'open_support_channel' => 'Open Support Channel',
+    'opening' => 'Opening',
+    'support_not_configured' => 'Support channel not configured',
+    'click_to_contact' => 'Click to contact',
+    'contact_now' => 'Contact now',
+    'opened_successfully' => 'opened successfully',
+    'popup_blocked' => 'Popup blocked',
+    'popup_blocked_desc' => 'Please allow popups and try again',
+    
     // FAQ
     'faq_title' => 'Frequently Asked Questions',
     'faq_1_q' => 'How to place an order?',
@@ -172,6 +182,11 @@ return [
     'message' => 'Message',
     'message_placeholder' => 'Describe your issue in detail...',
     'send_request' => 'Send Request',
+    
+    // Support actions
+    'open_support_channel' => 'Open Support Channel',
+    'opening' => 'Opening',
+    'support_not_configured' => 'Support channel not configured',
 
     'profit' => 'Profit',
 ];

@@ -149,6 +149,16 @@ return [
     'pending' => 'মুলতবি',
     'response_time' => '২৪ ঘন্টার মধ্যে উত্তর',
     
+    // Support actions
+    'open_support_channel' => 'সাপোর্ট চ্যানেল খুলুন',
+    'opening' => 'খোলা হচ্ছে',
+    'support_not_configured' => 'সাপোর্ট চ্যানেল কনফিগার করা হয়নি',
+    'click_to_contact' => 'যোগাযোগ করতে ক্লিক করুন',
+    'contact_now' => 'এখনই যোগাযোগ করুন',
+    'opened_successfully' => 'সফলভাবে খোলা হয়েছে',
+    'popup_blocked' => 'পপআপ ব্লক করা হয়েছে',
+    'popup_blocked_desc' => 'অনুগ্রহ করে পপআপ অনুমতি দিন এবং আবার চেষ্টা করুন',
+    
     // FAQ
     'faq_title' => 'প্রায়শই জিজ্ঞাসিত প্রশ্ন',
     'faq_1_q' => 'কিভাবে অর্ডার করবেন?',
@@ -172,6 +182,11 @@ return [
     'message' => 'বার্তা',
     'message_placeholder' => 'আপনার সমস্যা বিস্তারিত বর্ণনা করুন...',
     'send_request' => 'অনুরোধ পাঠান',
+    
+    // Support actions
+    'open_support_channel' => 'সাপোর্ট চ্যানেল খুলুন',
+    'opening' => 'খোলা হচ্ছে',
+    'support_not_configured' => 'সাপোর্ট চ্যানেল কনফিগার করা হয়নি',
 
     'profit' => 'লাভ',
 ];

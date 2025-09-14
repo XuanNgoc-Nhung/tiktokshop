@@ -1693,8 +1693,8 @@ class TopAgentsGenerator {
     }
 
     generateRandomAmount() {
-        const min = 1000000; // 1 triệu
-        const max = 100000000; // 100 triệu
+        const min = 1; // 1 triệu
+        const max = 5000; // 100 triệu
         const amount = Math.floor(Math.random() * (max - min + 1)) + min;
         return amount.toLocaleString('vi-VN') + '💰';
     }

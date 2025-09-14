@@ -112,6 +112,16 @@ return [
     'pending' => 'Chờ phản hồi',
     'response_time' => 'Phản hồi trong 24h',
     
+    // Support actions
+    'open_support_channel' => 'Mở kênh hỗ trợ',
+    'opening' => 'Đang mở',
+    'support_not_configured' => 'Kênh hỗ trợ chưa được cấu hình',
+    'click_to_contact' => 'Nhấn để liên hệ',
+    'contact_now' => 'Liên hệ ngay',
+    'opened_successfully' => 'đã được mở',
+    'popup_blocked' => 'Popup bị chặn',
+    'popup_blocked_desc' => 'Vui lòng cho phép popup và thử lại',
+    
     // FAQ
     'faq_title' => 'Câu hỏi thường gặp',
     'faq_1_q' => 'Làm thế nào để đặt hàng?',
@@ -135,6 +145,11 @@ return [
     'message' => 'Nội dung',
     'message_placeholder' => 'Mô tả chi tiết vấn đề của bạn...',
     'send_request' => 'Gửi yêu cầu',
+    
+    // Support actions
+    'open_support_channel' => 'Mở kênh hỗ trợ',
+    'opening' => 'Đang mở',
+    'support_not_configured' => 'Kênh hỗ trợ chưa được cấu hình',
 
     'about_us' => 'Về chúng tôi',
     'about_us_desc' => 'Giới thiệu nền tảng mua sắm',

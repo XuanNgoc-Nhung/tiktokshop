@@ -122,6 +122,16 @@ return [
     'placeholder_bank' => '銀行名を入力',
     'placeholder_account_number' => '口座番号を入力',
     'placeholder_account_holder' => '口座名義人を入力',
+    
+    // Support actions
+    'open_support_channel' => 'サポートチャンネルを開く',
+    'opening' => '開いています',
+    'support_not_configured' => 'サポートチャンネルが設定されていません',
+    'click_to_contact' => 'クリックして連絡',
+    'contact_now' => '今すぐ連絡',
+    'opened_successfully' => '正常に開かれました',
+    'popup_blocked' => 'ポップアップがブロックされました',
+    'popup_blocked_desc' => 'ポップアップを許可して再試行してください',
 
     'profit' => '利益',
 ];
