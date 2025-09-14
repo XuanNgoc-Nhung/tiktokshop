@@ -10,29 +10,29 @@ class LanguageHelper
     public static function getAvailableLanguages()
     {
         return [
-            'vi' => [
-                'name' => 'Việt Nam',
-                'flag' => '🇻🇳',
-                'code' => 'VI'
-            ],
             'en' => [
                 'name' => 'English',
-                'flag' => '🇺🇸',
+                'flag' => '<img src="/flags/us.svg" alt="United States" class="flag-svg" style="width: 24px; height: 18px; object-fit: cover; border-radius: 3px; border: 1px solid #ddd; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">',
                 'code' => 'EN'
-            ],
-            'ja' => [
-                'name' => '日本語',
-                'flag' => '🇯🇵',
-                'code' => 'JA'
             ],
             'zh' => [
                 'name' => '中文',
-                'flag' => '🇨🇳',
+                'flag' => '<img src="/flags/cn.svg" alt="China" class="flag-svg" style="width: 24px; height: 18px; object-fit: cover; border-radius: 3px; border: 1px solid #ddd; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">',
                 'code' => 'ZH'
+            ],
+            'ja' => [
+                'name' => '日本語',
+                'flag' => '<img src="/flags/jp.svg" alt="Japan" class="flag-svg" style="width: 24px; height: 18px; object-fit: cover; border-radius: 3px; border: 1px solid #ddd; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">',
+                'code' => 'JA'
+            ],
+            'vi' => [
+                'name' => 'Việt Nam',
+                'flag' => '<img src="/flags/vn.svg" alt="Vietnam" class="flag-svg" style="width: 24px; height: 18px; object-fit: cover; border-radius: 3px; border: 1px solid #ddd; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">',
+                'code' => 'VI'
             ],
             'bn' => [
                 'name' => 'বাংলা',
-                'flag' => '🇧🇩',
+                'flag' => '<img src="/flags/bd.svg" alt="Bangladesh" class="flag-svg" style="width: 24px; height: 18px; object-fit: cover; border-radius: 3px; border: 1px solid #ddd; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">',
                 'code' => 'BN'
             ]
         ];
@@ -46,7 +46,7 @@ class LanguageHelper
         $locale = app()->getLocale();
         $languages = self::getAvailableLanguages();
         
-        return $languages[$locale] ?? $languages['vi'];
+        return $languages[$locale] ?? $languages['en'];
     }
 
     /**

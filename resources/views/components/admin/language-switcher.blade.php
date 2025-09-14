@@ -7,7 +7,7 @@
 <div class="language-switcher dropdown">
     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fas fa-globe me-1"></i>
-        {{ $languages[$currentLocale]['flag'] ?? '🌐' }}
+        {!! $languages[$currentLocale]['flag'] ?? '🌐' !!}
         {{ $languages[$currentLocale]['name'] ?? 'Language' }}
     </button>
     <ul class="dropdown-menu" aria-labelledby="languageDropdown">
@@ -15,7 +15,7 @@
             <li>
                 <a class="dropdown-item {{ $locale === $currentLocale ? 'active' : '' }}" 
                    href="{{ route('admin.language.switch', $locale) }}">
-                    {{ $language['flag'] }} {{ $language['name'] }}
+                    {!! $language['flag'] !!} {{ $language['name'] }}
                     @if($locale === $currentLocale)
                         <i class="fas fa-check ms-2"></i>
                     @endif

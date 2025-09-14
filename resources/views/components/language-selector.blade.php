@@ -1,7 +1,7 @@
 <div class="language-selector">
     <button class="language-dropdown" onclick="toggleLanguageDropdown()">
         <span id="current-language" style="scale: 1.5;">
-            {{ $availableLanguages[$currentLocale]['flag'] }}
+            {!! $availableLanguages[$currentLocale]['flag'] !!}
             {{-- {{ strtoupper($currentLocale) }} --}}
         </span>
         <i class="fas fa-chevron-down"></i>
@@ -9,7 +9,7 @@
     <div class="language-options" id="language-options">
         @foreach($availableLanguages as $locale => $language)
             <div class="language-option {{ $currentLocale == $locale ? 'active' : '' }}" onclick="selectLanguage('{{ $locale }}', '{{ $language['code'] }}')">
-                <div class="flag-icon">{{ $language['flag'] }}</div>
+                <div class="flag-icon">{!! $language['flag'] !!}</div>
                 <span>{{ $language['name'] }}</span>
             </div>
         @endforeach
