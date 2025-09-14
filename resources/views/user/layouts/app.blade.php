@@ -60,7 +60,7 @@
 
         .container {
             width: 100%;
-            background: #ffffff;
+            /* background: #ffffff; */
             padding: 20px;
             position: relative;
         }
@@ -357,8 +357,8 @@
 
         .logo-subtitle {
             font-size: 16px;
-            color: #8e8e93;
-            font-weight: 400;
+            color: #ffffff;
+            font-weight: 800;
         }
 
         .country-selector {
@@ -407,24 +407,26 @@
         .form-input {
             width: 100%;
             padding: 12px 16px;
-            border: 1px solid #d1d1d6;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 10px;
             font-size: 16px;
             transition: all 0.2s ease;
-            background: #ffffff;
-            color: #000000;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
             -webkit-appearance: none;
             appearance: none;
+            backdrop-filter: blur(10px);
         }
 
         .form-input:focus {
             outline: none;
-            border-color: #007aff;
-            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+            border-color: rgba(0, 122, 255, 0.6);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .form-input::placeholder {
-            color: #8e8e93;
+            color: rgba(255, 255, 255, 0.7);
             font-size: 16px;
         }
 
@@ -437,19 +439,22 @@
             position: absolute;
             left: 16px;
             top: 12px;
-            color: #8e8e93;
+            color: rgba(255, 170, 0, 0.8);
             font-size: 16px;
             transition: all 0.2s ease;
             pointer-events: none;
-            background: #ffffff;
+            /* background: rgba(0, 0, 0, 0.3); */
             padding: 0 4px;
+            backdrop-filter: blur(5px);
+            border-radius: 4px;
         }
 
         .floating-label .form-input:focus + .form-label,
         .floating-label .form-input:not(:placeholder-shown) + .form-label {
             top: -8px;
             font-size: 12px;
-            color: #007aff;
+            color: #4fc3f7;
+            background: rgba(0, 0, 0, 0.5);
         }
 
         .password-field {
@@ -463,14 +468,14 @@
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: #7f8c8d;
+            color: rgba(255, 255, 255, 0.8);
             cursor: pointer;
             font-size: 18px;
             transition: color 0.3s ease;
         }
 
         .password-toggle:hover {
-            color: #4ecdc4;
+            color: #4fc3f7;
         }
 
         .form-options {
@@ -502,7 +507,7 @@
 
         .checkbox-label {
             font-size: 14px;
-            color: #2c3e50;
+            color: #000000;
             cursor: pointer;
         }
 
@@ -632,7 +637,7 @@
 
         .register-link {
             text-align: center;
-            color: #7f8c8d;
+            color: #000000;
             font-size: 14px;
         }
 
@@ -864,7 +869,32 @@
                 font-size: 16px;
             }
         }
+        .app-container {
+            font-family: 'Figtree', sans-serif;
+            background-image: url('{{ $cauHinh->hinh_nen }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        
+        .app-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+        
+        .app-container > * {
+            position: relative;
+            z-index: 2;
+        }
     </style>
+
 </head>
 <body>
     <!-- Toast Container -->

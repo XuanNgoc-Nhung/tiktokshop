@@ -8,6 +8,7 @@ use App\Http\Controllers\ThongBaoController;
 use App\Http\Controllers\SlideShowController;
 use App\Http\Controllers\LichSuController;
 use App\Http\Controllers\SanPhamTrangChuController;
+use App\Http\Controllers\CauHinhController;
 
 // Routes không cần đăng nhập (login, register)
 Route::middleware(['language.user'])->group(function () {
@@ -120,6 +121,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['language.admin:admin']], fu
     Route::put('/san-pham-trang-chu/{id}', [SanPhamTrangChuController::class, 'update'])->name('admin.san-pham-trang-chu.update');
     Route::post('/xoa-san-pham-trang-chu/{id}', [SanPhamTrangChuController::class, 'destroy'])->name('admin.xoa-san-pham-trang-chu');
     Route::post('/san-pham-trang-chu/{id}/toggle-status', [SanPhamTrangChuController::class, 'toggleStatus'])->name('admin.san-pham-trang-chu.toggle-status');
+
+    // cai dat he thong
+    Route::get('/cai-dat-he-thong', [CauHinhController::class, 'index'])->name('admin.cai-dat-he-thong.index');
+    Route::post('/cai-dat-he-thong', [CauHinhController::class, 'store'])->name('admin.cai-dat-he-thong.store');
+    Route::post('/cai-dat-he-thong/save-config', [CauHinhController::class, 'saveConfig'])->name('admin.cai-dat-he-thong.save-config');
+    Route::get('/cai-dat-he-thong/{id}', [CauHinhController::class, 'show'])->name('admin.cai-dat-he-thong.show');
+    Route::get('/cai-dat-he-thong/{id}/edit', [CauHinhController::class, 'edit'])->name('admin.cai-dat-he-thong.edit');
+    Route::put('/cai-dat-he-thong/{id}', [CauHinhController::class, 'update'])->name('admin.cai-dat-he-thong.update');
+    Route::post('/xoa-cai-dat-he-thong/{id}', [CauHinhController::class, 'destroy'])->name('admin.xoa-cai-dat-he-thong');
+    Route::post('/cai-dat-he-thong/{id}/toggle-status', [CauHinhController::class, 'toggleStatus'])->name('admin.cai-dat-he-thong.toggle-status');
+    
 });
 
 // Admin routes with authentication check
@@ -213,5 +225,6 @@ Route::get('/admin/language/{locale}', function ($locale) {
 Route::get('/demo-notes', function () {
     return view('demo-multilingual-notes');
 })->name('demo.notes');
+
 
 

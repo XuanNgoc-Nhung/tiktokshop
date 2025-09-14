@@ -900,16 +900,8 @@
                         <span class="menu-text">{{ __('admin::cms.lich_su_management') }}</span>
                     </a>
                 </div>
-
                 <div class="menu-item">
-                    <a href="#" class="menu-link" data-tooltip="{{ __('admin::cms.analytics') }}">
-                        <i class="fas fa-chart-bar"></i>
-                        <span class="menu-text">{{ __('admin::cms.analytics') }}</span>
-                    </a>
-                </div>
-                
-                <div class="menu-item">
-                    <a href="#" class="menu-link" data-tooltip="{{ __('admin::cms.system_settings') }}">
+                    <a href="{{ route('admin.cai-dat-he-thong.index') }}" class="menu-link" data-tooltip="{{ __('admin::cms.system_settings') }}">
                         <i class="fas fa-cog"></i>
                         <span class="menu-text">{{ __('admin::cms.system_settings') }}</span>
                     </a>
